@@ -1,0 +1,13 @@
+<Context
+	      reloadable="false" crossContext="true">
+  <Resource name="jdbc/MySQL_bucks"
+			auth="Container"
+			type="javax.sql.DataSource" 
+			username="marketbucks"
+			password="your pass"
+			driverClassName="com.mysql.jdbc.Driver"
+			url="jdbc:mysql://your database server:3306/marketbucks" 
+			removeAbandoned="true"
+			removeAbandonedTimeout="60"
+			maxActive="6"  /> 
+</Context> 

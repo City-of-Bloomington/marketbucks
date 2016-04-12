@@ -1,0 +1,129 @@
+<%@  include file="header.jsp" %>
+<!--  
+ * @copyright Copyright (C) 2014-2016 City of Bloomington, Indiana. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author W. Sibo <sibow@bloomington.in.gov>
+ *
+ *
+	-->
+<s:form action="ebtAdd" method="post" id="form_id" onsubmit="return confirmForCancel()">
+  <s:if test="ebt.id == ''">
+		<h4>Issue Market Bucks</h4>
+  </s:if>
+  <s:else>
+		<h3>Edit Market Bucks Request</h3>
+		<s:hidden name="ebt.id" value="%{ebt.id}" />
+		<s:if test="!ebt.isCancelled()">
+			<ul>
+				<li>If the amount is changed, this may cause the removal of all of the bucks that have been added to this transaction.</li>
+				<li>if you want to "Cancel" this transaction, first you need to collect all the issued MB's from the customer. Mark them as voided. These MB's can not be issued or redeemed any more. Then click on Cancel.</li>
+			</ul>
+		</s:if>
+  </s:else>
+  <s:if test="hasActionErrors()">
+		<div class="errors">
+      <s:actionerror/>
+		</div>
+  </s:if>
+  <s:elseif test="hasActionMessages()">
+		<div class="welcome">
+      <s:actionmessage/>
+		</div>
+  </s:elseif>
+  <p>*indicates a required field</p>
+  <table border="1" width="80%">
+		<tr><td> 
+			<table width="100%">
+				<tr>
+					<td align="right" width="35%"><label>*EBT Amount:</label></td>
+					<td align="left">$<s:textfield name="ebt.amount" maxlength="4" size="4" required="true" value="%{ebt.amount}" id="div3" cssClass="need_focus" />.00 (Must be divisible by 3)</td>
+				</tr>
+				<tr>
+					<td align="right"><label>*Authorization #:</label></td>
+					<td align="left"><s:textfield name="ebt.approve" maxlength="20" size="20" required="true" value="%{ebt.approve}" /></td>
+				</tr>	  
+				<tr>
+					<td align="right"><label>*Customer Card #:</label></td>
+					<td align="left"><s:textfield name="ebt.card_last_4" maxlength="4" size="4" required="true" value="%{ebt.card_last_4}" /></td>
+				</tr>
+				<s:if test="%{ebt.isCancelled()}">
+					<tr>
+						<td align="right"><label>Status:</label></td>
+						<td align="left">Cancelled</td>
+					</tr>
+				</s:if>
+			</table></td>
+		</tr>
+		<s:if test="ebt.id == ''">
+			<tr>		
+				<td valign="top" align="right">
+					<s:submit name="action" type="button" value="Next" id="next_button" />
+				</td>
+			</tr>
+		</s:if>
+		<s:elseif test="!ebt.isCancelled()">
+			<tr>		
+				<td valign="top">	  
+					<table width="100%">
+						<tr>
+							<td align="center">
+								<s:submit name="action" type="button" id="update_button" value="Update" />
+							</td>
+							<td align="right">
+								<s:submit name="action" type="button"  id="cancel_button" value="Cancel" />
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</s:elseif>
+  </table>
+</s:form>
+<br />
+For market bucks advance search click<a href="<s:property value='#application.url'/>ebtSearch.action"> here. </a>
+<br />
+<s:if test="ebts != null && ebts.size() > 0">
+  <s:set var="ebts" value="ebts" />
+  <s:set var="ebtsTitle" value="ebtsTitle" />  
+  <%@  include file="ebts.jsp" %>	
+</s:if>
+
+<%@  include file="footer.jsp" %>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

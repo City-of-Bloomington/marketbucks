@@ -1,0 +1,231 @@
+/**
+ * @copyright Copyright (C) 2014-2016 City of Bloomington, Indiana. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author W. Sibo <sibow@bloomington.in.gov>
+ *
+ */
+package bucks;
+
+import java.util.*;
+import java.sql.*;
+import java.io.*;
+import java.text.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.naming.*;
+import javax.sql.*;
+import javax.naming.directory.*;
+import org.apache.log4j.Logger;
+
+public class Inventory implements java.io.Serializable{
+
+		static final long serialVersionUID = 27L;	
+    boolean debug = false;
+		static Logger logger = Logger.getLogger(Inventory.class);
+		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		Hashtable<String, Integer> table = new Hashtable<String, Integer>(3);
+		String message = "";
+		public Inventory(){
+		}	
+		public Inventory(boolean val){
+				debug = val;
+		}
+		void setValues(
+									 String val,
+									 String val2,
+									 String val3
+									 ){
+				// setId(val);
+				// setConf_id(val2);
+				// setBatch_size(val3);
+		}
+		/*
+			public void setId(String val){
+			if(val != null)
+			id = val;
+			}
+			public void setConf_id(String val){
+			if(val != null)
+			conf_id = val;
+			}
+			public void setStatus(String val){
+			if(val != null)
+			status = val;
+			}
+		*/
+
+		//
+
+		public String getMessage(){
+				return message;
+		}
+		/*
+			public String getConf_id(){
+			return conf_id;
+			}
+			public String getBatch_size(){
+		
+			return ""+batch_size;
+			}
+		*/
+
+
+		/*
+			public Type getType(){
+			Type type = null;
+			if(conf == null){
+			getConf();
+			}
+			if(conf != null){
+			type = conf.getType();
+			}
+			return type;
+
+			}
+		*/
+		public String toString(){
+				return " ";
+		}
+
+		String find(){
+		
+				String qq = "",qq2="",qq3="",qw="",qw2="",qw3="", qg="", msg="";
+		
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				PreparedStatement pstmt2 = null;
+				PreparedStatement pstmt3 = null;
+				ResultSet rs = null;
+				String which_date = "b.date ";
+				qq = " select t.name type,count(*) amount from buck_seq s, batches b, buck_confs c,buck_types t ";
+				qw = " where b.id=s.batch_id and b.conf_id=c.id and c.type_id=t.id and b.status='Printed' ";		
+				qq2 = " select t.name type,count(*) amount from gift_bucks eb, buck_seq s, batches b, buck_confs c,buck_types t,gifts e ";
+				qw2 = " where eb.buck_id=s.id and b.id=s.batch_id and b.conf_id=c.id and c.type_id=t.id and b.status='Printed' and e.id=eb.gift_id ";		
+				qq3 = " select t.name type,count(*) amount from ebt_bucks eb, buck_seq s, batches b, buck_confs c,buck_types t,ebts e ";
+				qw3 = " where eb.buck_id=s.id and b.id=s.batch_id and b.conf_id=c.id and c.type_id=t.id and b.status='Printed' and e.id = eb.ebt_id ";
+				qg = " group by type having amount > 0 order by type ";
+				//
+				// start of printing and issuing of printed MB and GC
+				String year = "2015-01-01"; 
+				if(!year.equals("")){
+						if(!qw.equals("")){
+								qw += " and ";				
+								qw2 += " and ";
+								qw3 += " and ";				
+						}
+						qw += which_date+" > '"+year+"'";
+						qw2 += which_date+" > '"+year+"'";
+						qw3 += which_date+" > '"+year+"'";			
+				}
+				if(!qw.equals("")){
+						qq += qw;
+						qq2 += qw2;
+						qq3 += qw3;			
+				}
+		
+				qq += qg;
+				qq2 += qg;
+				qq3 += qg;		
+
+				logger.debug(qq);
+				logger.debug(qq2);
+				logger.debug(qq3);			
+
+				try{
+						con = Helper.getConnection();
+						if(con == null){
+								msg = "Could not connect ";
+								return msg;
+						}
+						pstmt = con.prepareStatement(qq);
+						pstmt2 = con.prepareStatement(qq2);
+						pstmt3 = con.prepareStatement(qq3);
+						
+						rs = pstmt.executeQuery();
+						int val=0, old_val=0;
+						while(rs.next()){
+								String str = rs.getString(1);
+								val = rs.getInt(2);
+								table.put(str, new Integer(val));
+						}
+						rs = pstmt2.executeQuery();
+						while(rs.next()){
+								String str = rs.getString(1);
+								val = rs.getInt(2);
+								if(table.containsKey(str)){
+										old_val = table.get(str).intValue();
+										old_val = old_val - val;
+										table.put(str, new Integer(old_val));
+								}
+						}
+						//
+						rs = pstmt3.executeQuery();
+						while(rs.next()){
+								String str = rs.getString(1);
+								val = rs.getInt(2);
+								if(table.containsKey(str)){
+										old_val = table.get(str).intValue();
+										old_val = old_val - val;
+										table.put(str, new Integer(old_val));
+								}
+						}
+						//
+						// current inventory
+						//
+						List<String> list = new ArrayList<String>(table.keySet());
+						Collections.sort(list);
+						message = "Current inventory as of "+Helper.getToday()+"\n";
+						for(String key:list){
+								val = table.get(key).intValue();
+								// System.err.println("Inventory "+key+" "+val);
+								message += key+" "+val+"\n";
+						}
+				}catch(Exception e){
+						msg += e+":"+qq;
+						logger.error(msg);
+				}
+				finally{
+						Helper.databaseDisconnect(con, rs, pstmt, pstmt2, pstmt3);
+				}		
+				return msg;
+
+		}	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app>
+
+  <!-- General description of your web application -->
+	<!-- before doing any changes,
+			 1-copy this file to web.xml
+			 2-set your server url such as http://10.50.103.20/
+			 3-set your cas server that will be using for authentication
+			  such as https://mycity.mystate.gov/
+			 4-To activate the email server set the activeMail flag to true
+			  this is used to send emails once a week to certain users about
+				the current levels of marketbucks inventory.
+				For testing purpose you can turn this off. When moved to production
+				you can turn it to on.
+				
+	-->
+  <display-name>Market Bucks</display-name>
+  <description>
+  </description>
+  <context-param>
+    <param-name>url</param-name>
+    <param-value>your server url/marketbucks/</param-value>
+    <description> general servlet url
+    </description>
+  </context-param>
+  <context-param>
+    <param-name>url2</param-name>
+    <param-value>your server url/marketbucks/images/</param-value>
+    <description> general servlet url
+    </description>
+  </context-param>
+  <context-param>
+    <param-name>debug</param-name>
+    <param-value>true</param-value>
+    <description> debug flag, we set to true in develpment phase only
+    </description>
+  </context-param>
+  <context-param>
+    <param-name>activeMail</param-name>
+    <param-value>false</param-value>
+    <description> to turn email on set to true otherwise set to false
+	  </description>
+  </context-param>
+  <context-param>
+    <param-name>enableVenodorListUpdate</param-name>
+    <param-value>false</param-value>
+    <description> if you do not have a separate database for vendors, you can set this to true
+		</description>
+  </context-param>			
+  <context-param>
+    <param-name>vendorsCheckUrl</param-name>
+    <param-value>your vendors database check url</param-value>
+		<description> if you do not have a separate database for vendors, you do not need to set this
+		</description>
+  </context-param>
+  <context-param>
+    <param-name>vendorsDatabase</param-name>
+    <param-value>your vendors database name</param-value>
+		<description> if you do not have a separate database for vendors, you do not need to set this
+		</description>
+  </context-param>
+  <context-param>
+    <param-name>vendorsUser</param-name>
+    <param-value>your vendors database user</param-value>
+		<description> if you do not have a separate database for vendors, you do not need to set this
+		</description>
+  </context-param>
+  <context-param>
+    <param-name>vendorsPassword</param-name>
+    <param-value>your vendors database password</param-value>
+		<description> if you do not have a separate database for vendors, you do not need to set this
+		</description>
+  </context-param>				
+  <context-param>
+    <param-name>cas_url</param-name>
+    <param-value>your cas server/cas/logout</param-value>
+    <description> cas logout url
+    </description>
+  </context-param>
+	<servlet>
+    <servlet-name>log4j-init</servlet-name>
+       <servlet-class>bucks.Log4jInit</servlet-class>
+       <init-param>
+				 <param-name>log4j-init-file</param-name>
+				 <param-value>WEB-INF/classes/log4j.lcf</param-value>
+       </init-param>
+       <load-on-startup>1</load-on-startup>
+	</servlet>	
+  <filter>
+    <filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+	
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+	
+	<filter>
+	  <filter-name>CAS Filter</filter-name>
+	  <filter-class>edu.yale.its.tp.cas.client.filter.CASFilter</filter-class>
+	  <init-param>
+			<param-name>edu.yale.its.tp.cas.client.filter.loginUrl</param-name>
+			<param-value>your cas url/cas/login</param-value>
+	  </init-param>
+	  <init-param>
+			<param-name>edu.yale.its.tp.cas.client.filter.validateUrl</param-name>
+			<param-value>your cas url/cas/serviceValidate</param-value>
+	  </init-param>
+	  <init-param>
+			<param-name>edu.yale.its.tp.cas.client.filter.serverName</param-name>
+			<param-value>your server url</param-value>
+	  </init-param>
+	  <init-param>
+			<param-name>edu.yale.its.tp.cas.client.filter.wrapRequest</param-name>
+			<param-value>true</param-value>
+	  </init-param>
+	</filter>
+	
+	<filter-mapping>
+	  <filter-name>CAS Filter</filter-name>
+	  <url-pattern>/Login</url-pattern>
+	</filter-mapping>   
+	
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <description>
+    </description>
+    <servlet-class>bucks.Login</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ExportXml.do</servlet-name>
+    <description>
+    </description>
+    <servlet-class>bucks.ExportXml</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExportXml.do</servlet-name>
+    <url-pattern>/ExportXml.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AuditSheet.do</servlet-name>
+    <description>
+    </description>
+    <servlet-class>bucks.AuditSheet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuditSheet.do</servlet-name>
+    <url-pattern>/AuditSheet.do</url-pattern>
+  </servlet-mapping>	
+  <servlet>
+    <servlet-name>GenerateChecks.do</servlet-name>
+    <description>
+    </description>
+    <servlet-class>bucks.GenerateChecks</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GenerateChecks.do</servlet-name>
+    <url-pattern>/GenerateChecks.do</url-pattern>
+  </servlet-mapping>		
+  <servlet>
+    <servlet-name>RedeemInvoice.do</servlet-name>
+    <description>
+    </description>
+    <servlet-class>bucks.RedeemInvoice</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RedeemInvoice.do</servlet-name>
+    <url-pattern>/RedeemInvoice.do</url-pattern>
+  </servlet-mapping>	
+  <servlet>
+    <servlet-name>BarcodePdf</servlet-name>
+    <description>
+    </description>
+    <servlet-class>bucks.BarcodePdf</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BarcodePdf</servlet-name>
+    <url-pattern>/BarcodePdf</url-pattern>
+  </servlet-mapping>	
+  <servlet>
+    <servlet-name>VendorService</servlet-name>
+    <description>
+    </description>
+    <servlet-class>bucks.VendorService</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VendorService</servlet-name>
+    <url-pattern>/VendorService</url-pattern>
+  </servlet-mapping>
+	
+	<!-- quartz stuff -->
+	<context-param>
+    <param-name>quartz:shutdown-on-unload</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>quartz:wait-on-shutdown</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>quartz:start-on-load</param-name>
+    <param-value>true</param-value>
+  </context-param>
+	<listener>
+    <listener-class>
+			org.quartz.ee.servlet.QuartzInitializerListener
+	  </listener-class>
+  </listener>
+	<listener>
+	  <listener-class>
+      bucks.InventoryScheduler
+    </listener-class>
+	</listener>
+	<welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+</web-app>
