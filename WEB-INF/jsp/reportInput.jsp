@@ -24,7 +24,7 @@
 			<td>
 				<table with="100%">
 					<tr>
-						<td align="right" valign="top" rowspan="8"><label>Report type:</label></td>
+						<td align="right" valign="top" rowspan="9"><label>Report type:</label></td>
 						<td align="left"><s:checkbox name="report.distributeMB" value="report.distributeMB"  />MB Distribution</td>
 					</tr>
 					<tr>
@@ -51,7 +51,10 @@
 					</tr>
 					<tr>
 						<td align="left"><s:checkbox name="report.unissued" value="report.inventory"  />Unissued MB & GC (May get long list)</td>
-					</tr>		  		  
+					</tr>
+					<tr>
+						<td align="left"><s:checkbox name="report.issuedNotRedeemed" value="report.issuedNotRedeemed"  />MB & BC issued but not redeemed </td>
+					</tr>					
 				</table>
 			</td>
 		</tr>

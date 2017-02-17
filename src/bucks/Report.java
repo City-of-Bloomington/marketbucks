@@ -30,9 +30,10 @@ public class Report{
 				issued = false,
 				unissued = false,
 				redeem = false,
-				participate=false,
-				inventory=false,
-				redeemOld=false;
+				participate = false,
+				inventory = false,
+				redeemOld = false,
+				issuedNotRedeemed = false;
 		List<List<ReportRow>> all = new ArrayList<List<ReportRow>>();
 		Hashtable<String, ReportRow> all2 = new Hashtable<String, ReportRow>(4);
 		DecimalFormat decFormat = new DecimalFormat("###,###.##");
@@ -97,7 +98,10 @@ public class Report{
 		}
 		public void setRedeemOld(Boolean val){
 				redeemOld = val;
-		}	
+		}
+		public void setIssuedNotRedeemed(Boolean val){
+				issuedNotRedeemed = val;
+		}		
 		//
 		// getters
 		//
@@ -148,7 +152,10 @@ public class Report{
 		}
 		public boolean getRedeemOld(){
 				return redeemOld;
-		}	
+		}
+		public boolean getIssuedNotRedeemed(){
+				return issuedNotRedeemed;
+		}		
 		public String getTitle(){
 				return title;
 		}	
@@ -224,6 +231,9 @@ public class Report{
 				if(unissued){
 						msg +=  unissued();
 				}
+				if(issuedNotRedeemed){
+						msg +=  findIssuedNotRedeemed();
+				}				
 				return msg;
 		}
 		void setTitle(){
@@ -1502,7 +1512,137 @@ public class Report{
 						Helper.databaseDisconnect(con, rs, pstmt, pstmt2);
 				}		
 				return msg;
-		}	
+		}
+		/**
+		 * we want all the MB and GC that were issued but not redeemed
+		 *
+		 select count(*),b.value val from bucks b join ebt_bucks eb on b.id=eb.buck_id join ebts e on e.id=eb.ebt_id where b.voided is null and not b.id in (select rb.buck_id from redeem_bucks rb) and year(e.date_time) = 2015 group by val ";
+		 */
+		public String findIssuedNotRedeemed(){
+		
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				PreparedStatement pstmt2 = null;		
+				ResultSet rs = null;
+
+				String msg = "";
+				String which_date = "";
+				String qq = "", qw="", qg="", qq2="";
+				which_date="e.date_time ";
+				title = "Issued MB's and GC's Issued but not Redeemed ";
+				setTitle();
+				rows = new ArrayList<ReportRow>();		
+				ReportRow one = new ReportRow(debug, 2);
+				one.setRow("Title", title);
+				rows.add(one);
+				one = new ReportRow(debug, 3);
+				one.setRow("MB","Count","Total($)");
+				rows.add(one);
+				//
+				// MB
+				//
+				qq = " select count(*),b.value val from bucks b join ebt_bucks eb on b.id=eb.buck_id join ebts e on e.id=eb.ebt_id ";
+
+				//
+				// GC
+				//
+				qq2 = " select count(*),b.value val from bucks b join gift_bucks eb on b.id=eb.buck_id join gifts e on e.id=eb.gift_id ";
+				qw = " where b.voided is null and not b.id in (select rb.buck_id from redeem_bucks rb)  ";
+				qg = " group by val ";
+				if(!year.equals("")){
+						qw += " and ";
+						qw += " year("+which_date+") = ? ";
+				}
+				else {
+						if(!date_from.equals("")){
+								qw += " and ";
+								qw += which_date+" >= ? ";
+						}
+						if(!date_to.equals("")){
+								qw += " and ";
+								qw += which_date+" <= ? ";
+						}
+				}
+				if(!qw.equals("")){
+						qq += qw;
+						qq2 += qw;
+				}
+				qq += qg;
+				qq2 += qg;
+				logger.debug(qq);
+				logger.debug(qq2);
+				try{
+						con = Helper.getConnection();
+						if(con == null){
+								msg = "Could not connect ";
+								return msg;
+						}
+						pstmt = con.prepareStatement(qq);
+						qq = qq2;
+						
+						pstmt2 = con.prepareStatement(qq2);
+						int jj=1;
+						if(!year.equals("")){
+								pstmt.setString(jj, year);
+								pstmt2.setString(jj, year);
+								jj++;
+						}
+						else {
+								if(!date_from.equals("")){
+										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
+										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
+										jj++;
+								}
+								if(!date_to.equals("")){
+										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										jj++;
+								}
+						}
+						rs = pstmt.executeQuery();
+						int total = 0, count=0, sum=0, totalSum=0;
+						while(rs.next()){
+								int val = rs.getInt(2);
+								count = rs.getInt(1);
+								sum = count*val;
+								total += count;								
+								totalSum += sum;
+								one = new ReportRow(debug, 3);
+								one.setRow(""+val,
+													 ""+count,
+													 "$"+sum+".00"
+													 );
+								rows.add(one);
+						}
+						rs = pstmt2.executeQuery();
+						count = 0;sum=0;
+						while(rs.next()){
+								int val = rs.getInt(2);
+								count = rs.getInt(1);
+								total += count;
+								sum = val*count;
+								totalSum += sum;
+								one = new ReportRow(debug, 3);
+								one.setRow(""+val,
+													 ""+count,
+													 "$"+sum+".00"
+													 );
+								rows.add(one);
+						}
+						one = new ReportRow(debug, 3);
+						one.setRow("Total",""+total,"$"+totalSum+".00");
+						rows.add(one);
+						all.add(rows);
+
+				}catch(Exception e){
+						msg += e+":"+qq;
+						logger.error(msg);
+				}
+				finally{
+						Helper.databaseDisconnect(con, rs, pstmt, pstmt2);
+				}		
+				return msg;
+		}		
 }
 
 
