@@ -51,7 +51,8 @@
 		<result>/WEB-INF/jsp/batchStart.jsp</result>
 		<result name="error">/WEB-INF/jsp/batchStart.jsp</result>
 		<result name="input">/WEB-INF/jsp/batchStart.jsp</result>		
-      </action>	  
+      </action>
+			
       <action name="batchEdit" 
               class="bucks.BatchAction" 
               method="execute">
@@ -68,6 +69,13 @@
 		<result name="error">/WEB-INF/jsp/ebtAdd.jsp</result>
 		<result name="issue" type="chain">issueAdd</result>			
       </action>
+      <action name="buckInfo" 
+              class="bucks.BuckAction" 
+              method="execute">
+				<result>/WEB-INF/jsp/buckInfo.jsp</result>
+				<result name="error">/WEB-INF/jsp/buckInfo.jsp</result>
+				<result name="input">/WEB-INF/jsp/buckInfo.jsp</result>		
+      </action>			
       <action name="issueAdd" 
               class="bucks.IssueAction" 
               method="execute">
@@ -103,6 +111,7 @@
 		<result name="redeem">/WEB-INF/jsp/redeemAdd.jsp</result>		
 		<result name="error">/WEB-INF/jsp/redeemAdd.jsp</result>
       </action>
+			
       <action name="redeemEdit" 
               class="bucks.RedeemAction" 
               method="execute">
@@ -173,7 +182,14 @@
 				<result name="input">/WEB-INF/jsp/batchSearch.jsp</result>		
 				<result name="error">/WEB-INF/jsp/batchSearch.jsp</result>
 				<result name="success">/WEB-INF/jsp/batchSearch.jsp</result>
-      </action>	  
+      </action>
+      <action name="buckSearch" 
+            class="bucks.BuckSearchAction" 
+            method="execute">
+				<result name="input">/WEB-INF/jsp/buckSearch.jsp</result>		
+				<result name="error">/WEB-INF/jsp/buckSearch.jsp</result>
+				<result name="success">/WEB-INF/jsp/buckSearch.jsp</result>
+      </action>			
       <action name="ebtSearch" 
             class="bucks.EbtSearchAction" 
             method="execute">

@@ -506,6 +506,9 @@ public class Helper{
 				year = current_cal.get(Calendar.YEAR);
 				return year;
     }
+    public final static int getNextYear(){
+				return getCurrentYear()+1;
+    }		
     //
     public final static String getToday(){
 

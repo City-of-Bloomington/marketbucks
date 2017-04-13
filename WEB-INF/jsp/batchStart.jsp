@@ -32,8 +32,8 @@
   </s:if>
 </table>
 <br />
-For batch advance search click<a href="<s:property value='#application.url'/>batchSearch.action"> here. </a>
-<br />
+For MB batch search click<a href="<s:property value='#application.url'/>batchSearch.action"> here. </a> <br />
+For any (Issued/not issued) MB/GC search click<a href="<s:property value='#application.url'/>buckSearch.action"> here. </a> <br />
 <s:if test="batches != null && batches.size() > 0 ">
   <s:set var="batches" value="batches" />
   <s:set var="batchesTitle" value="batchesTitle" />  

@@ -80,8 +80,10 @@
   </table>
 </s:form>
 <br />
-For market bucks advance search click<a href="<s:property value='#application.url'/>ebtSearch.action"> here. </a>
+For issued market bucks search click<a href="<s:property value='#application.url'/>ebtSearch.action"> here. </a>
 <br />
+For any (issued /unissued) MB/GC search click<a href="<s:property value='#application.url'/>buckSearch.action"> here. </a> <br />
+
 <s:if test="ebts != null && ebts.size() > 0">
   <s:set var="ebts" value="ebts" />
   <s:set var="ebtsTitle" value="ebtsTitle" />  

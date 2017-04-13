@@ -30,6 +30,9 @@ public class Buck implements java.io.Serializable{
 		Batch batch = null;
 		BuckConf conf = null;
 		User user = null;
+		Ebt ebt = null;
+		Gift gift = null;
+		Redeem redeem = null;
 		public Buck(){
 		}	
 		public Buck(boolean val){
@@ -77,7 +80,6 @@ public class Buck implements java.io.Serializable{
 				setVoided(val7);
 				found = true;
 		}
-				 
 
 		public void setId(String val){
 				if(val != null)
@@ -231,7 +233,59 @@ public class Buck implements java.io.Serializable{
 						ret = conf.getId();
 				}
 				return ret;
-		}	
+		}
+		public String findOtherBuckInfo(){
+				String back = "";
+				if(id.equals("")) return "buck id not set";
+				EbtList ebl = new EbtList(debug);
+				ebl.setBuck_id(id);
+				back = ebl.find();
+				if(back.equals("")){
+						List<Ebt> ones = ebl.getEbts();
+						if(ones != null && ones.size() > 0){
+								ebt = ones.get(0);
+						}
+				}
+				if(ebt == null){
+						GiftList gl = new GiftList(debug);
+						gl.setBuck_id(id);
+						back += gl.find();
+						if(back.equals("")){
+								List<Gift> ones = gl.getGifts();
+								if(ones != null && ones.size() > 0){
+										gift = ones.get(0);
+								}
+						}
+				}
+				RedeemList rl = new RedeemList(debug);
+				rl.setBuck_id(id);
+				back += rl.find();
+				if(back.equals("")){
+						List<Redeem> ones = rl.getRedeems();
+						if(ones != null && ones.size() > 0){
+								redeem = ones.get(0);
+						}
+				}
+				return back;
+		}
+		public boolean hasEbt(){
+				return ebt != null;
+		}
+		public boolean hasGift(){
+				return gift != null;
+		}
+		public boolean hasRedeem(){
+				return redeem != null;
+		}
+		public Ebt getEbt(){
+				return ebt;
+		}
+		public Gift getGift(){
+				return gift;
+		}
+		public Redeem getRedeem(){
+				return redeem;
+		}
 		/**
 		 * bucks are saved in the batch class in a group
 		 */
@@ -327,7 +381,6 @@ public class Buck implements java.io.Serializable{
 				ResultSet rs = null;
 				String msg = "";
 				String qq = "update bucks set fund_type=?,expire_date=? where id=?";
-				// if(debug)
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();

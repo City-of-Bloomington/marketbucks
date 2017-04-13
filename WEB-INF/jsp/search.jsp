@@ -18,7 +18,6 @@
 					<tr><td align="right"><label>MB/GC ID:</label></td>
 						<td align="left"><s:textfield name="redeemList.buck_id" value="%{redeemList.buck_id}" size="8" /></td>
 					</tr>
-					
 					<tr>
 						<td align="right"><label>Vendor ID:</label></td>
 						<td align="left"><s:textfield name="redeemList.vendor_id" value="%{redeemList.vendor_id}" size="8" id="vendor_id" /></td>

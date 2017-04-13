@@ -6,7 +6,7 @@
  *
 	-->
 <table border="1"><caption><s:property value="bucksTitle" /></caption>
-	<s:if test="#total != null">
+	<s:if test="#total != null || #showTableHeader">
 		<tr>
 			<td align="center"><b>ID</b></td>
 			<td align="center"><b>Expire Date</b></td>
@@ -14,10 +14,12 @@
 			<td align="center"><b>Voided?</b></td>	
 			<td align="center"><b>Face Value</b></td>
 		</tr>
-		<tr>
+		<s:if test="#total">
+			<tr>
 			<td colspan="4" align="right">Total</td>
 			<td align="right">$<s:property value="#total" />.00</td>
 		</tr>
+		</s:if>
 	</s:if>
 	<s:iterator var="one" value="#bucks">
 		<tr>

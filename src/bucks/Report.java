@@ -1516,7 +1516,25 @@ public class Report{
 		/**
 		 * we want all the MB and GC that were issued but not redeemed
 		 *
+		 * the scripts below will change the expire date to 12/31/next year
+		 *
 		 select count(*),b.value val from bucks b join ebt_bucks eb on b.id=eb.buck_id join ebts e on e.id=eb.ebt_id where b.voided is null and not b.id in (select rb.buck_id from redeem_bucks rb) and year(e.date_time) = 2015 group by val ";
+
+		 select b.id,b.value val,date_format(b.expire_date,'%m/%d/%Y') from bucks b join ebt_bucks eb on b.id=eb.buck_id join ebts e on e.id=eb.ebt_id where b.voided is null and not b.id in (select rb.buck_id from redeem_bucks rb) and year(e.date_time) = 2015 
+
+		 update bucks b join ebt_bucks eb on b.id=eb.buck_id join ebts e on e.id=eb.ebt_id set b.expire_date='2016-12-31' where b.voided is null and not b.id in (select rb.buck_id from redeem_bucks rb) and year(e.date_time) = 2015
+
+		 select count(*),b.value val from bucks b join gift_bucks eb on b.id=eb.buck_id join gifts e on e.id=eb.gift_id  where b.voided is null and not b.id in (select rb.buck_id from redeem_bucks rb) and year(e.date_time) = 2015 group by val;
+
+		 update bucks b join gift_bucks eb on b.id=eb.buck_id join gifts e on e.id=eb.gift_id  set b.expire_date='2016-12-31' where b.voided is null and not b.id in (select rb.buck_id from redeem_bucks rb) and year(e.date_time) = 2015
+
+		 select count(*),b.value val from bucks b join ebt_bucks eb on b.id=eb.buck_id join ebts e on e.id=eb.ebt_id where b.voided is null and not b.id in (select rb.buck_id from redeem_bucks rb) and year(e.date_time) = 2016 group by val ;
+		 
+		 update bucks b join ebt_bucks eb on b.id=eb.buck_id join ebts e on e.id=eb.ebt_id set b.expire_date='2017-12-31' where b.voided is null and not b.id in (select rb.buck_id from redeem_bucks rb) and year(e.date_time) = 2016
+
+		 update bucks b join gift_bucks eb on b.id=eb.buck_id join gifts e on e.id=eb.gift_id  set b.expire_date='2017-12-31' where b.voided is null and not b.id in (select rb.buck_id from redeem_bucks rb) and year(e.date_time) = 2016
+
+		 
 		 */
 		public String findIssuedNotRedeemed(){
 		

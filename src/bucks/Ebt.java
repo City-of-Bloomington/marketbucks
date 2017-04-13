@@ -322,9 +322,9 @@ public class Ebt implements java.io.Serializable{
 				if(amount > paid_amount){
 						buck.setFund_type("ebt");
 						//
-						// market bucks expire on the Dec 1 of the issued year
+						// market bucks expire on the Dec 31 of the issued year
 						//
-						buck.setExpire_date("12/01/"+Helper.getCurrentYear());
+						buck.setExpire_date("12/31/"+Helper.getNextYear());
 						msg = buck.doUpdate();
 						if(msg.equals("")){
 								if(!bucks.contains(buck)){
@@ -348,7 +348,7 @@ public class Ebt implements java.io.Serializable{
 				}
 				else if(dmb_amount > donated_amount){
 						buck.setFund_type("dmb");
-						buck.setExpire_date("12/01/"+Helper.getCurrentYear());
+						buck.setExpire_date("12/31/"+Helper.getNextYear());
 						msg = buck.doUpdate();
 						if(msg.equals("")){
 								if(!bucks.contains(buck)){				

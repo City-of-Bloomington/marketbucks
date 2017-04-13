@@ -318,7 +318,8 @@ public class Gift implements java.io.Serializable{
 				//
 				// expire date on gifts is one year from issue date
 				//
-				buck.setExpire_date(Helper.getDateOneYearFromNow());
+				buck.setExpire_date("12/31/"+Helper.getNextYear());
+				// buck.setExpire_date(Helper.getDateOneYearFromNow());
 				msg = buck.doUpdate();
 				if(!msg.equals("")){
 						msg =" Could not save data "+msg;

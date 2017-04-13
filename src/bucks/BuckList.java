@@ -25,8 +25,9 @@ public class BuckList implements java.io.Serializable{
 		static Logger logger = Logger.getLogger(BuckList.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		String id="", ebt_id="", redeem_id="", export_id="", sweep_id="",
-				gift_id="", fund_type="", buck_id="",
-				which_date="b.print_date";
+				gift_id="", fund_type="", buck_id="", batch_id="", limit="",
+				which_date="b.expire_date",
+				type="";  // issued/unissued
 		boolean ebtOrGiftFlag = false;
 		String date_from="", date_to="", sortBy="b.id desc";
 		List<Buck> bucks = null;
@@ -94,8 +95,19 @@ public class BuckList implements java.io.Serializable{
 				if(val != null)
 						sortBy = val;
 		}
+		public void setBatch_id(String val){
+				if(val != null)
+						batch_id = val; 
+		}				
+		public void setType(String val){
+				if(val != null && !val.equals("-1"))
+						type = val; // issued/unissued
+		}		
 		public void setEbtOrGiftFlag(){
 				ebtOrGiftFlag = true;
+		}
+		public void setNoLimit(){
+				limit = "";
 		}
 		//
 		public String getId(){
@@ -105,6 +117,9 @@ public class BuckList implements java.io.Serializable{
 		public String getEbt_id(){
 				return ebt_id;
 		}
+		public String getBatch_id(){
+				return batch_id;
+		}		
 		public String getGift_id(){
 				return gift_id;
 		}	
@@ -121,7 +136,7 @@ public class BuckList implements java.io.Serializable{
 				return sweep_id;
 		}	
 		public String getWhich_date(){
-				return which_date;
+				return which_date; // bs.date is batch date
 		}
 		public String getDate_from(){
 				return date_from ;
@@ -131,7 +146,11 @@ public class BuckList implements java.io.Serializable{
 		}
 		public String getSortBy(){
 				return sortBy ;
-		}	
+		}
+		public String getType(){
+				if(type.equals("")) return "-1";
+				return type;
+		}
 		public List<Buck> getBucks(){
 				return bucks;
 		}
@@ -157,6 +176,10 @@ public class BuckList implements java.io.Serializable{
 								if(!qw.equals("")) qw += " and ";
 								qw += " b.fund_type = ? ";
 						}
+						if(!batch_id.equals("")){
+								if(!qw.equals("")) qw += " and ";
+								qw += " bs.id = ? ";
+						}						
 						if(!ebt_id.equals("")){
 								qf += " join ebt_bucks e ";
 								if(!qw.equals("")) qw += " and ";				
@@ -182,13 +205,22 @@ public class BuckList implements java.io.Serializable{
 								if(!qw.equals("")) qw += " and ";				
 								qw += " ss.buck_id = b.id and ss.sweep_id=? ";
 						}
-			
+						if(type.equals("unissued")){
+								if(!qw.equals("")) qw += " and ";
+								qw += " b.id not in (select buck_id from ebt_bucks union select buck_id from gift_bucks) ";
+						}
+						else if(type.equals("issued")){
+								if(!qw.equals("")) qw += " and ";
+								qw += " b.id in (select buck_id from ebt_bucks union select buck_id from gift_bucks) ";
+						}
 						if(!which_date.equals("")){
 								if(!date_from.equals("")){
-										qw += which_date+" >= ? ";					
+										if(!qw.equals("")) qw += " and ";										
+										qw += which_date+" >= ? ";
 								}
 								if(!date_to.equals("")){
-										qw += which_date+" <= ? ";					
+										if(!qw.equals("")) qw += " and ";													
+										qw += which_date+" <= ? ";
 								}
 						}
 				}
@@ -217,6 +249,9 @@ public class BuckList implements java.io.Serializable{
 								if(!fund_type.equals("")){
 										pstmt.setString(jj++, fund_type);				
 								}
+								if(!batch_id.equals("")){
+										pstmt.setString(jj++, batch_id);				
+								}								
 								if(!ebt_id.equals("")){
 										pstmt.setString(jj++, ebt_id);				
 								}
