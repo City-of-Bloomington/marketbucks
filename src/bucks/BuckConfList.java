@@ -164,6 +164,67 @@ public class BuckConfList implements java.io.Serializable{
 				}
 				return msg;			
 		}
+		//
+		String findLatest(){
+
+				String qq = "select b.id, b.value ,b.type_id,date_format(b.date,'%m/%d/%Y'),b.donor_max_value,b.user_id,b.name,year(b.date)-year(curdate()),t.name,b.gl_account ";		
+				String qf = " from buck_confs b left join buck_types t on t.id=b.type_id";
+				String qw = "";
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				String msg = "";
+				if(!type_id.equals("")){
+						if(!qw.equals("")) qw += " and ";
+						qw += " b.type_id = ? ";
+				}
+				qq += qf;
+				if(!qw.equals(""))
+						qq += " where "+qw;
+				if(!sortBy.equals("")){
+						qq += " order by b.id desc ";
+				}
+				qq += " limit 1 ";		
+				logger.debug(qq);
+				try{
+						con = Helper.getConnection();
+						if(con == null){
+								msg = "Could not connect ";
+								return msg;
+						}
+						pstmt = con.prepareStatement(qq);
+						int jj=1;
+						if(!type_id.equals("")){
+								pstmt.setString(jj++, type_id);
+						}
+						rs = pstmt.executeQuery();
+						buckConfs = new ArrayList<BuckConf>();
+						while(rs.next()){
+								BuckConf one = new BuckConf(debug,
+																						rs.getString(1),
+																						rs.getString(2),
+																						rs.getString(3),
+																						rs.getString(4),
+																						rs.getString(5),
+																						rs.getString(6),
+																						rs.getString(7),
+																						(rs.getInt(8) >= 0),
+																						rs.getString(9),
+																						rs.getString(10)
+																						);
+								buckConfs.add(one);
+						}
+				}catch(Exception e){
+						msg += e+":"+qq;
+						logger.error(msg);
+						System.err.println(msg);
+				}
+				finally{
+						Helper.databaseDisconnect(con, pstmt, rs);
+				}
+				return msg;			
+		}
+		
 }
 
 

@@ -119,8 +119,7 @@ public class Ebt implements java.io.Serializable{
 		private void getLatestConf(){
 				BuckConfList bcl = new BuckConfList(debug);
 				bcl.setType_id("1"); // MB
-				bcl.setExcludeOldYears();
-				String back = bcl.find();
+				String back = bcl.findLatest();
 				if(back.equals("")){
 						List<BuckConf> ones = bcl.getBuckConfs();
 						if(ones != null && ones.size() > 0){
