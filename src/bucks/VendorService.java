@@ -82,6 +82,7 @@ public class VendorService extends HttpServlet{
 				if(term.length() > 1){
 						vl = new VendorList(debug);
 						vl.setName(term);
+						vl.setActiveOnly();
 						String back = vl.find();
 						vendors = vl.getVendors();
 				}

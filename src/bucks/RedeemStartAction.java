@@ -87,7 +87,7 @@ public class RedeemStartAction extends TopAction{
 								}
 						}
 						else{
-								back = "This vendor is not available and can not redeem bucks";
+								back = "This vendor is not available or not active and can not redeem bucks";
 								addActionError(back);
 						}
 				}
@@ -112,6 +112,7 @@ public class RedeemStartAction extends TopAction{
 		}
 		public List<Vendor> getVendors(){
 				VendorList vl = new VendorList(debug);
+				vl.setActiveOnly();
 				String back = vl.find();
 				if(back.equals("")){
 						vendors = vl.getVendors();

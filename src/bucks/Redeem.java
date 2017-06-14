@@ -504,7 +504,7 @@ public class Redeem implements java.io.Serializable{
 				if(vendor == null){
 						getVendor();
 				}
-				return vendor != null;
+				return vendor != null && !vendor.isInActive();
 		}
 		public String doSave(){
 
