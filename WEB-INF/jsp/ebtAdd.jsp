@@ -37,7 +37,7 @@
 			<table width="100%">
 				<tr>
 					<td align="right" width="35%"><label>*EBT Amount:</label></td>
-					<td align="left">$<s:textfield name="ebt.amount" maxlength="4" size="4" required="true" value="%{ebt.amount}" id="div3" cssClass="need_focus" />.00 (Must be divisible by 3)</td>
+					<td align="left">$<s:textfield name="ebt.amount" maxlength="4" size="4" required="true" value="%{ebt.amount}" id="div3" cssClass="need_focus" />.00 (Must be divisible by $3)</td>
 				</tr>
 				<tr>
 					<td align="right"><label>*Authorization #:</label></td>
@@ -85,7 +85,7 @@ For issued market bucks search click<a href="<s:property value='#application.url
 <br />
 For any (issued /unissued) MB/GC search click<a href="<s:property value='#application.url'/>buckSearch.action"> here. </a> <br />
 
-<s:if test="ebts != null && ebts.size() > 0">
+<s:if test="hasEbts()">
   <s:set var="ebts" value="ebts" />
   <s:set var="ebtsTitle" value="ebtsTitle" />  
   <%@  include file="ebts.jsp" %>	

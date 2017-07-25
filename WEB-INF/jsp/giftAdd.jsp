@@ -38,7 +38,7 @@
 			<table width="100%">
 				<tr>
 					<td align="right" width="35%"><label>*Requested Amount:</label></td>
-					<td align="left">$<s:textfield name="gift.amount" maxlength="4" size="4" required="true" value="%{gift.amount}" id="div5" cssClass="need_focus" />.00 (Must be divisible by 5)</td>
+					<td align="left">$<s:textfield name="gift.amount" maxlength="4" size="4" required="true" value="%{gift.amount}" id="div5" cssClass="need_focus" />.00 (Must be divisible by $5)</td>
 				</tr>
 				<tr>
 					<td align="right"><label>*Payment Type:</label></td>
@@ -118,7 +118,7 @@
 </s:form>
 For gift certificates advance search click<a href="<s:property value='#application.url'/>giftSearch.action"> here. </a>
 
-<s:if test="gifts != null && gifts.size() > 0">
+<s:if test="hasGifts()">
   <s:set var="gifts" value="gifts" />
   <s:set var="giftsTitle" value="giftsTitle" />  
   <%@  include file="gifts.jsp" %>	

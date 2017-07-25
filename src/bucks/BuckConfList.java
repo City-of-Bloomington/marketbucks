@@ -198,7 +198,7 @@ public class BuckConfList implements java.io.Serializable{
 								pstmt.setString(jj++, type_id);
 						}
 						rs = pstmt.executeQuery();
-						buckConfs = new ArrayList<BuckConf>();
+						buckConfs = new ArrayList<>();
 						while(rs.next()){
 								BuckConf one = new BuckConf(debug,
 																						rs.getString(1),

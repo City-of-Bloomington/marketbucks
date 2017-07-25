@@ -24,6 +24,8 @@ public class Ebt implements java.io.Serializable{
     boolean debug = false;
 		static Logger logger = Logger.getLogger(Ebt.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		static int default_dmb_amount=18, default_buck_value=3;
+		static String default_buck_type = "1";
 		String amountStr="", id="", buck_type_id="", cancelled="";
 		int amount = 0, dmb_amount=0, donor_max=0, paid_amount=0, 
 				donated_amount=0, 
@@ -111,9 +113,12 @@ public class Ebt implements java.io.Serializable{
 				getLatestConf();
 				if(conf != null){
 						dmb_amount = conf.getDonor_max_value_int();
-						if(dmb_amount > amount){
-								dmb_amount = amount;
-						}
+				}
+				else{
+						dmb_amount = default_dmb_amount;
+				}
+				if(dmb_amount > amount){
+						dmb_amount = amount;
 				}
 		}
 		private void getLatestConf(){
@@ -287,13 +292,17 @@ public class Ebt implements java.io.Serializable{
 				}
 				if(batch != null){
 						conf = batch.getConf();
-						updateConf();
 				}
+				updateConf();
 		}
 		private void updateConf(){
 				if(conf != null){
 						buck_value = conf.getValue_int();
 						buck_type_id = conf.getType_id();
+				}
+				else{
+						buck_value = default_buck_value;
+						buck_type_id = default_buck_type;
 				}
 		}
 		public String handleAddingBuck(){

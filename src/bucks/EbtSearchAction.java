@@ -66,6 +66,11 @@ public class EbtSearchAction extends TopAction{
 		public List<Ebt> getEbts(){
 				return ebts;
 		}
+		public boolean hasEbts(){
+				
+				return ebts != null && ebts.size() > 0;
+
+		}
 		public String getBucksTitle(){
 				return bucksTitle;
 		}

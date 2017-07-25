@@ -89,7 +89,9 @@ public class EbtAction extends TopAction{
 								if(!back.equals("")){
 										addActionError(back);
 								}
-								else{				
+								else{
+										ebt = new Ebt();
+										id="";
 										addActionMessage("Cancelled Successfully");
 								}
 						}
@@ -128,6 +130,10 @@ public class EbtAction extends TopAction{
 						ebts = bl.getEbts();
 				}
 				return ebts;
+		}
+		public boolean hasEbts(){
+				getEbts();
+				return ebts != null && ebts.size() > 0;
 		}
 		public void setEbt(Ebt val){
 				if(val != null)

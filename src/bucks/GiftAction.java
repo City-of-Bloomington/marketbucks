@@ -87,6 +87,8 @@ public class GiftAction extends TopAction{
 								}
 								else{
 										addActionMessage("Cancelled Successfully");
+										gift =new Gift();
+										id="";
 								}
 						}
 				}
@@ -148,6 +150,10 @@ public class GiftAction extends TopAction{
 						gifts = bl.getGifts();
 				}
 				return gifts;
+		}
+		public boolean hasGifts(){
+				getGifts();
+				return gifts != null && gifts.size() > 0;
 		}
 		public void setGift(Gift val){
 				if(val != null)
