@@ -253,7 +253,6 @@ public class Batch implements java.io.Serializable{
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;		
-				//if(debug)
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -300,7 +299,6 @@ public class Batch implements java.io.Serializable{
 						}
 						pstmt = con.prepareStatement(qq);
 						pstmt.setString(1, conf_id);
-						// pstmt.setDate(2, new java.sql.Date(dateFormat.parse(expire_date).getTime()));
 						pstmt.setInt(2, batch_size);
 						pstmt.setString(3, status);
 						pstmt.setInt(4, start_seq);

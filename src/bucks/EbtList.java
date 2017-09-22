@@ -121,7 +121,7 @@ public class EbtList implements java.io.Serializable{
 		//
 		String find(){
 
-				String qq = "select e.id, e.amount,e.approve,e.card_last_4,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.dmb_amount,e.cancelled ";		
+				String qq = "select e.id, e.amount,e.approve,e.card_last_4,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.dmb_amount,e.cancelled,e.ebt_donor_max,e.ebt_buck_value ";		
 				String qf = " from ebts e ";
 				String qw = "";
 				Connection con = null;
@@ -217,13 +217,15 @@ public class EbtList implements java.io.Serializable{
 						while(rs.next()){
 								Ebt one = new Ebt(debug,
 																	rs.getString(1),
-																	rs.getString(2),
+																	rs.getInt(2),
 																	rs.getString(3),
 																	rs.getString(4),
 																	rs.getString(5),
 																	rs.getString(6),
-																	rs.getString(7),
-																	rs.getString(8)
+																	rs.getInt(7),
+																	rs.getString(8),
+																	rs.getInt(9),
+																	rs.getInt(10)
 																	);
 								ebts.add(one);
 						}

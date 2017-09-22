@@ -76,7 +76,7 @@ $(document).on("click","button", function (event) {
 function confirmForCancel(){
 	if(clicked_button_id == 'cancel_button'){
 		clicked_button_id = "";		
-		return confirm("Are you sure you want to cancel the transaction and void all MB/GC");
+		return confirm("Are you sure you want to cancel the transaction");
 	}
 	return true;
 }

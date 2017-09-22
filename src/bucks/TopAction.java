@@ -35,6 +35,7 @@ public abstract class TopAction extends ActionSupport implements SessionAware, S
 		static String vendorsDatabase = null;
 		static String vendorsUser = null;
 		static String vendorsPassword = null;
+		static int ebt_donor_max = 18, ebt_buck_value=3;
 		User user = null;
 	  ServletContext ctx;
 		Map<String, Object> sessionMap;
@@ -91,6 +92,14 @@ public abstract class TopAction extends ActionSupport implements SessionAware, S
 								val = ctx.getInitParameter("vendorsPassword");
 								if(val != null)
 										vendorsPassword = val;
+								val = ctx.getInitParameter("ebt_donor_max");
+								if(val != null){
+										ebt_donor_max = Integer.parseInt(val);
+								}
+								val = ctx.getInitParameter("ebt_buck_value");
+								if(val != null){
+										ebt_buck_value = Integer.parseInt(val);
+								}								
 						}
 				}catch(Exception ex){
 						System.out.println(ex);

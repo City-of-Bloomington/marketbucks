@@ -14,6 +14,8 @@
   <s:else>
 		<h3>Edit Market Bucks Request</h3>
 		<s:hidden name="ebt.id" value="%{ebt.id}" />
+		<s:hidden name="ebt.ebt_donor_max" value="%{ebt.ebt_donor_max}" />
+		<s:hidden name="ebt.ebt_buck_value" value="%{ebt.ebt_buck_value}" />
 		<s:if test="!ebt.isCancelled()">
 			<ul>
 				<li>If the amount is changed, this may cause the removal of all of the bucks that have been added to this transaction.</li>

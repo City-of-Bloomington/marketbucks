@@ -24,11 +24,11 @@
 		<tr><td> 
 			<table width="100%">
 				<tr>
-					<td align="right" width="30%"><label>Aount:</label></td>
+					<td align="right" width="30%"><label>Amount:</label></td>
 					<td align="left"><s:property value="ebt.amount" /></td>
 				</tr>
 				<tr>
-					<td align="right" width="30%"><label>DMB Aount:</label></td>
+					<td align="right" width="30%"><label>DMB Amount:</label></td>
 					<td align="left"><s:property value="ebt.dmb_amount" /></td>
 				</tr>		
 				<tr>
@@ -39,6 +39,15 @@
 					<td align="right"><label>Last 4 Digits Card #:</label></td>
 					<td align="left"><s:property value="ebt.card_last_4" /></td>
 				</tr>
+				<tr>
+					<td align="right"><label>Ebt Donor Max:</label></td>
+					<td align="left">$<s:property value="ebt.ebt_donor_max" /></td>
+				</tr>
+				<tr>
+					<td align="right"><label>Buck Value:</label></td>
+					<td align="left">$<s:property value="ebt.ebt_buck_value" /></td>
+				</tr>
+				
 			</table></td>
 		</tr>
   </table>

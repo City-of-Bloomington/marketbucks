@@ -136,6 +136,12 @@ public class Buck implements java.io.Serializable{
 		public String getFund_type(){
 				return fund_type;
 		}
+		public boolean isEbtType(){
+				return fund_type.equals("ebt");
+		}
+		public boolean isDmbType(){
+				return fund_type.equals("dmb");
+		}		
 		public String getFund_typeStr(){
 				String str = fund_type.toUpperCase();
 				return str;
@@ -154,6 +160,9 @@ public class Buck implements java.io.Serializable{
 		}
 		public boolean isVoided(){
 				return !voided.equals("");
+		}
+		public boolean isAlreadyIssued(){
+				return !fund_type.equals("") || !expire_date.equals("");
 		}
 		/**
 		 * needed when we do select

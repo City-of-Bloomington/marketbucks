@@ -46,6 +46,8 @@ public class EbtAction extends TopAction{
 				}		
 				if(action.equals("Next")){ // Save
 						ret = SUCCESS;
+						ebt.setEbt_donor_max(ebt_donor_max);
+						ebt.setEbt_buck_value(ebt_buck_value);
 						ebt.setUser_id(user.getId());
 						back = ebt.doSave();
 						if(!back.equals("")){
@@ -77,6 +79,7 @@ public class EbtAction extends TopAction{
 								addActionError(back);
 						}
 						else{
+								/*
 								List<Buck> bucks = ebt.getBucks();
 								if(bucks != null && bucks.size() > 0){
 										for(Buck one:bucks){
@@ -88,12 +91,11 @@ public class EbtAction extends TopAction{
 								}
 								if(!back.equals("")){
 										addActionError(back);
-								}
-								else{
-										ebt = new Ebt();
-										id="";
-										addActionMessage("Cancelled Successfully");
-								}
+								}								
+								*/
+								ebt = new Ebt();
+								id="";
+								addActionMessage("Cancelled Successfully");
 						}
 				}		
 				else if(action.equals("Add")){ // adding a buck

@@ -569,8 +569,9 @@ public class Gift implements java.io.Serializable{
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				String qq = "update bucks b, gift_bucks e set b.voided='y' where b.id=e.buck_id and e.gift_id=? ";
-				String qq2 = "update gifts set cancelled='y' where id=?";
+				String qq = "update bucks set fund_type=null,expire_date=null where id in (select buck_id from gift_bucks where gift_id=?) ";
+				String qq2 = "delete from gift_bucks where gift_id=? ";				
+				String qq3 = "update gifts set cancelled='y' where id=?";
 				//
 				logger.debug(qq);
 				try{
@@ -588,6 +589,11 @@ public class Gift implements java.io.Serializable{
 						pstmt = con.prepareStatement(qq);
 						pstmt.setString(1, id);
 						pstmt.executeUpdate();
+						qq = qq3;
+						logger.debug(qq);			
+						pstmt = con.prepareStatement(qq);
+						pstmt.setString(1, id);
+						pstmt.executeUpdate();						
 
 				}
 				catch(Exception ex){
