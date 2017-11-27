@@ -113,27 +113,29 @@ public class InventoryJob implements Job{
 						logger.error(back);
 				}		
 				Inventory inventory = new Inventory();
-				back = inventory.find();
+				back = inventory.checkInventory();
 				if(!back.equals("")){
 						logger.error(back);
 						return;
 				}
 				else{
-						msg = inventory.getMessage();
-						System.err.println(" from "+from);
-						System.err.println(" to "+to);
-						System.err.println(" cc "+cc);
-						System.err.println(" msg "+msg);
-						logger.error(" msg "+msg);
-						if(!from.equals("")){
-								back = sendEmail(from, to, cc, bcc, msg);
-								if(!back.equals("")){
+						if(inventory.isInventoryCritical()){
+								msg = inventory.getMessage();
+								System.err.println(" from "+from);
+								System.err.println(" to "+to);
+								System.err.println(" cc "+cc);
+								System.err.println(" msg "+msg);
+								logger.error(" msg "+msg);
+								if(!from.equals("")){
+										back = sendEmail(from, to, cc, bcc, msg);
+										if(!back.equals("")){
+												logger.error(back);
+										}
+								}
+								else{
+										back = "No users to be notified";				
 										logger.error(back);
 								}
-						}
-						else{
-								back = "No users to be notified";				
-								logger.error(back);
 						}
 				}
 		}

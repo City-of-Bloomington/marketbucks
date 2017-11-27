@@ -19,12 +19,15 @@ import org.apache.log4j.Logger;
 
 public class Inventory implements java.io.Serializable{
 
-		static final long serialVersionUID = 27L;	
+		static final long serialVersionUID = 27L;
+		static final int GCThreshold = 400; //GC should not be less than
+		static final int MBThreshold = 2000; //MB should not be less than 	
     boolean debug = false;
 		static Logger logger = Logger.getLogger(Inventory.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		Hashtable<String, Integer> table = new Hashtable<String, Integer>(3);
 		String message = "";
+		boolean isInventoryCritical = false;
 		public Inventory(){
 		}	
 		public Inventory(boolean val){
@@ -35,58 +38,18 @@ public class Inventory implements java.io.Serializable{
 									 String val2,
 									 String val3
 									 ){
-				// setId(val);
-				// setConf_id(val2);
-				// setBatch_size(val3);
 		}
-		/*
-			public void setId(String val){
-			if(val != null)
-			id = val;
-			}
-			public void setConf_id(String val){
-			if(val != null)
-			conf_id = val;
-			}
-			public void setStatus(String val){
-			if(val != null)
-			status = val;
-			}
-		*/
-
-		//
 
 		public String getMessage(){
 				return message;
 		}
-		/*
-			public String getConf_id(){
-			return conf_id;
-			}
-			public String getBatch_size(){
-		
-			return ""+batch_size;
-			}
-		*/
 
-
-		/*
-			public Type getType(){
-			Type type = null;
-			if(conf == null){
-			getConf();
-			}
-			if(conf != null){
-			type = conf.getType();
-			}
-			return type;
-
-			}
-		*/
 		public String toString(){
 				return " ";
 		}
-
+		public boolean isInventoryCritical(){
+				return isInventoryCritical;
+		}
 		String find(){
 		
 				String qq = "",qq2="",qq3="",qw="",qw2="",qw3="", qg="", msg="";
@@ -177,7 +140,6 @@ public class Inventory implements java.io.Serializable{
 						message = "Current inventory as of "+Helper.getToday()+"\n";
 						for(String key:list){
 								val = table.get(key).intValue();
-								// System.err.println("Inventory "+key+" "+val);
 								message += key+" "+val+"\n";
 						}
 				}catch(Exception e){
@@ -190,7 +152,34 @@ public class Inventory implements java.io.Serializable{
 				return msg;
 
 		}	
-
+		public String checkInventory(){
+				String msg = "";
+				msg = find();
+				if(!msg.equals("")) return msg;
+				//
+				if(table == null || table.size() == 0){
+						msg = " could not find invetory";
+						return msg;
+				}
+				List<String> list = new ArrayList<String>(table.keySet());
+				Collections.sort(list);
+				for(String key:list){
+						int val = table.get(key).intValue();
+						if(key.startsWith("GC")){
+								if(val < GCThreshold){
+										message += key+" "+val+" is below inventory threshold of "+GCThreshold+"\n";
+										isInventoryCritical = true;
+								}
+						}
+						else if(key.startsWith("MB")){
+								if(val < MBThreshold){
+										message += key+" "+val+" is below inventory threshold of "+MBThreshold+"\n";
+										isInventoryCritical = true;
+								}
+						}
+				}
+				return msg;
+		}
 }
 
 
