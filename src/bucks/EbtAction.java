@@ -31,6 +31,7 @@ public class EbtAction extends TopAction{
 		List<Ebt> ebts = null;
 		String bucksTitle = "Bucks in this Request";
 		String ebtsTitle = "Most Recent Requests";
+		int ebtTotal= 0, dmbTotal = 0;
 		public String execute(){
 				String ret = SUCCESS;
 				String back = doPrepare();
@@ -126,10 +127,12 @@ public class EbtAction extends TopAction{
 				return ebt;
 		}
 		public List<Ebt> getEbts(){
-				EbtList bl = new EbtList(debug);
-				String back = bl.find();
-				if(back.equals("") && bl.getEbts() != null){
-						ebts = bl.getEbts();
+				if(ebts == null){
+						EbtList bl = new EbtList(debug);
+						String back = bl.find();
+						if(back.equals("") && bl.getEbts() != null){
+								ebts = bl.getEbts();
+						}
 				}
 				return ebts;
 		}
@@ -158,6 +161,24 @@ public class EbtAction extends TopAction{
 				}
 				return ret;
 		}
+		public int getEbtTotal(){
+				if(hasEbts()){
+						if(ebtTotal == 0){
+								for(Ebt one:ebts){
+										if(!one.isCancelled()){
+												ebtTotal += one.getAmountInt();
+												dmbTotal += one.getDmb_amountInt();
+										}
+								}
+						}
+				}
+				return ebtTotal;
+		}
+		public int getDmbTotal(){
+				if(ebtTotal == 0)
+						getEbtTotal();
+				return dmbTotal;
+		}		
 
 }
 

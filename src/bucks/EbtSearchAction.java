@@ -24,6 +24,7 @@ public class EbtSearchAction extends TopAction{
 		EbtList ebtList = null;
 		String bucksTitle = "Bucks";
 		String ebtsTitle = "Issued MB's";
+		int ebtTotal= 0, dmbTotal = 0;
 		public String execute(){
 				String ret = SUCCESS;
 				String back = doPrepare();
@@ -65,6 +66,24 @@ public class EbtSearchAction extends TopAction{
 		}
 		public List<Ebt> getEbts(){
 				return ebts;
+		}
+		public int getEbtTotal(){
+				if(hasEbts()){
+						if(ebtTotal == 0){
+								for(Ebt one:ebts){
+										if(!one.isCancelled()){
+												ebtTotal += one.getAmountInt();
+												dmbTotal += one.getDmb_amountInt();
+										}
+								}
+						}
+				}
+				return ebtTotal;
+		}
+		public int getDmbTotal(){
+				if(ebtTotal == 0)
+						getEbtTotal();
+				return dmbTotal;
 		}
 		public boolean hasEbts(){
 				

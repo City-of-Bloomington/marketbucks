@@ -47,17 +47,23 @@
 					<td align="right">$<s:property value="ebt.donated_amount" />.00</td>
 				</tr>
 				<tr>
-					<td align="right"><lable>User:</label></td>
-						<td align="left"><s:property value="ebt.user" /></td>		  
-						<td align="right"><label>Total:</label></td>
-						<td align="right">$<s:property value="ebt.total" />.00</td>
+					<td align="right"><label>User:</label></td>
+					<td align="left"><s:property value="ebt.user" /></td>		  
+					<td align="right"><label>Total:</label></td>
+					<td align="right">$<s:property value="ebt.total" />.00</td>
 				</tr>
 				<s:if test="ebt.isCancelled()">
 					<tr>
-						<td align="right" colspan="3"><label>Status:</label></td>
-						<td align="left">Cancelled</td>
+						<td align="right"><label>Status:</label></td>
+						<td align="left" colspan="3">Cancelled</td>
 					</tr>
-				</s:if>		
+				</s:if>
+				<s:if test="ebt.isDispute_resolution()">
+					<tr>
+						<td align="right"><label>Type:</label></td>
+						<td align="left" colspan="3">Dispute resolution ebt</td>
+					</tr>
+				</s:if>				
 				<s:elseif test="ebt.hasBalance()">
 					<tr bgcolor="red">
 						<td align="right" colspan="3"><label>Balance:</label></td>
@@ -66,7 +72,7 @@
 				</s:elseif>
 			</table>
 		</td></tr>
-		<s:if test="!ebt.isCancelled()">
+		<s:if test="!ebt.isCancelled() && !ebt.isDispute_resolution()">
 			<s:if test="ebt.needMoreIssue()">
 				<tr>
 					<td align="center"><label>*Scan/Enter new Market Buck:</label>

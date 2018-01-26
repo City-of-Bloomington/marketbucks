@@ -289,9 +289,7 @@ public class Resolution implements java.io.Serializable{
 				reason = dispute.getReason();
 				getConf();
 				if(reason.equals("Expired")){
-						if(expire_date.equals("")){
-								return "Expire date is required";
-						}
+						expire_date = "12/31/"+Helper.getCurrentYear();
 						return changeExpireDate();
 				}
 				if(reason.startsWith("Not")){ // Not Exist, Not Issued
@@ -309,16 +307,20 @@ public class Resolution implements java.io.Serializable{
 								value = conf.getValue();
 						}
 						if(type_id.equals("1")){
+								approve = "dis_res";
+								card_last_4="1234";
+								/*
 								if(approve.equals("")){
 										return "Authorization # is required for MB";
 								}
 								if(card_last_4.equals("")){
 										return "Card last 4 digits is required for MB";
 								}
+								*/
 						}
 						else if(!type_id.equals("")){ // 2, 3
 								if(pay_type.equals("")){
-										return "Pay type is required for GC";
+										pay_type="Dispute Resolution";
 								}
 						}
 						if(reason.equals("Not Exist")){
@@ -407,31 +409,39 @@ public class Resolution implements java.io.Serializable{
 				msg += handleNotIssued();
 				return msg;
 		}
+		//
+		// we issue a new Ebt or Gift
+		// we mark with dispute_resolution flag to distinguish
+		//
 		private String handleNotIssued(){
 				String msg = "";
 				if(type_id.equals("1")){ // MB
 						Ebt ebt = new Ebt(debug);
-						ebt.setApprove(approve);
-						ebt.setCard_last_4(card_last_4);
+						approve = "dis_res";
+						ebt.setApprove(approve); // dispute resolution flag
+						card_last_4="1234";
+						ebt.setCard_last_4(card_last_4); // dummy card
 						ebt.setAmount(value);
 						ebt.setUser_id(user_id);
 						ebt.setBuck_id(buck_id);
+						ebt.setDispute_resolution("y");
 						msg = ebt.doSave();
 						msg += ebt.addNewBuckToEbt();
 						getBuck();
 						if(buck != null){
-								buck.setFund_type("dmb"); // since we do not know
+								buck.setFund_type("ebt"); 
 								buck.setExpire_date("12/01/"+Helper.getCurrentYear());
 								msg += buck.doUpdate();
 						}
 				}
 				else{ // GC
 						Gift gift = new Gift(debug);
-						gift.setPay_type(pay_type);
+						gift.setPay_type(pay_type); // Dispute Resolution
 						gift.setCheck_no(check_no);
 						gift.setAmount(value);
 						gift.setUser_id(user_id);
 						gift.setBuck_id(buck_id);
+						gift.setDispute_resolution("y");
 						msg = gift.doSave();			
 						msg += gift.addNewBuckToGift();
 				}

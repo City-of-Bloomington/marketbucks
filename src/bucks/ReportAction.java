@@ -45,12 +45,12 @@ public class ReportAction extends TopAction{
 		}
 		public List<String> getYears(){
 				if(years == null){
+						int start_year = 2014;
 						int yy = Helper.getCurrentYear();
-						years = new ArrayList<String>(11);
+						years = new ArrayList<String>(yy-start_year+1);
 						years.add("");
-						for(int i=0;i<3;i++){
-								int y2 = yy - i;
-								years.add(""+y2);
+						for(int i=yy;i >= start_year;i--){
+								years.add(""+i);
 						}
 				}
 				return years;

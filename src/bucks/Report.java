@@ -260,12 +260,13 @@ public class Report{
 				PreparedStatement pstmt = null;
 				PreparedStatement pstmt2 = null;
 				PreparedStatement pstmt3 = null;
-				PreparedStatement pstmt4 = null;		
+				PreparedStatement pstmt4 = null;
+				PreparedStatement pstmt5 = null, pstmt6=null;				
 				ResultSet rs = null;
 
 				String msg = "";
 				String which_date = "";
-				String qq = "", qq2="", qq3="", qq4="", qw="", qg="";
+				String qq = "", qq2="", qq3="", qq4="", qq5="",qq6="", qw="", qg="";
 				which_date="e.date_time ";
 				title = "MB Distribution ";
 				setTitle();
@@ -283,7 +284,7 @@ public class Report{
 		
 				qg = " group by type having amount > 0 ";
 				qq2 = " select count(*) from ebts e where e.cancelled is null ";
-		
+				qq5 = " select count(*) from ebts e where e.dispute_resolution is not null ";		
 				if(!year.equals("")){
 						qw += " and ";
 						qw += " year("+which_date+") = ? ";
@@ -301,19 +302,26 @@ public class Report{
 				if(!qw.equals("")){
 						qq += qw;
 						qq2 += qw;
+						qq5 += qw;
 				}
 				qq3 = qq;
 				qq4 = qq2;
+				qq6 = qq5;
 				qq3 += " and ";
 				qq4 += " and ";
+				qq6 += " and ";
 				qq3 += " dayofweek("+which_date+") = 7 "; //(sunday=1) saturday=7
-				qq4 += " dayofweek("+which_date+") = 7 "; 
+				qq4 += " dayofweek("+which_date+") = 7 ";
+				qq6 += " dayofweek("+which_date+") = 7 ";
+				
 				qq += qg;
 				qq3 += qg;
 				logger.debug(qq);
 				logger.debug(qq2);
 				logger.debug(qq3);
-				logger.debug(qq4);		
+				logger.debug(qq4);
+				logger.debug(qq5);
+				logger.debug(qq6);				
 				try{
 						con = Helper.getConnection();
 						if(con == null){
@@ -323,13 +331,17 @@ public class Report{
 						pstmt = con.prepareStatement(qq);
 						pstmt2 = con.prepareStatement(qq2);
 						pstmt3 = con.prepareStatement(qq3);
-						pstmt4 = con.prepareStatement(qq4);			
+						pstmt4 = con.prepareStatement(qq4);
+						pstmt5 = con.prepareStatement(qq5);
+						pstmt6 = con.prepareStatement(qq6);						
 						int jj=1;
 						if(!year.equals("")){
 								pstmt.setString(jj, year);
 								pstmt2.setString(jj, year);
 								pstmt3.setString(jj, year);
-								pstmt4.setString(jj, year);				
+								pstmt4.setString(jj, year);
+								pstmt5.setString(jj, year);
+								pstmt6.setString(jj, year);								
 								jj++;
 						}
 						else {
@@ -337,19 +349,24 @@ public class Report{
 										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
 										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
 										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
-										pstmt4.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));					
+										pstmt4.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
+										pstmt5.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
+										pstmt6.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));										
 										jj++;
 								}
+								
 								if(!date_to.equals("")){
 										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
 										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
 										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
 										pstmt4.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt5.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt6.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));										
 										jj++;
 								}
 						}
 						rs = pstmt.executeQuery();
-						int total = 0, count=0;
+						int total = 0, count=0, totalAll=0, countAll=0;
 						while(rs.next()){
 								String str = rs.getString(1);
 								if(str == null) str = "Unknown";
@@ -362,6 +379,7 @@ public class Report{
 						}
 						one = new ReportRow(debug, 2);			
 						one.setRow("Total","$"+total+".00");
+						totalAll = total;
 						rows.add(one);
 						if(total > 0){
 								count = total/3;
@@ -376,6 +394,7 @@ public class Report{
 						one = new ReportRow(debug, 2);			
 						one.setRow("Transactions",""+count);
 						rows.add(one);
+						countAll = count; // trans
 						if(total > 0 && count > 0){
 								double average = (total +0.0)/count;
 								one = new ReportRow(debug, 2);
@@ -384,6 +403,29 @@ public class Report{
 								rows.add(one);					
 						}
 						all.add(rows);
+						count = 0;
+						rs = pstmt5.executeQuery();						
+						if(rs.next()){
+								count = rs.getInt(1);
+						}
+						if(count > 0){
+								one = new ReportRow(debug, 2);			
+								one.setRow("Dispute Resolution Trans",""+count);
+								rows.add(one);
+								total = count*3;
+								totalAll =totalAll - total;
+								one = new ReportRow(debug, 2);								
+								one.setRow("Adjusted Total","$"+totalAll+".00");
+								countAll = countAll - count;
+								rows.add(one);
+								if(countAll > 0){
+										double average = (totalAll +0.0)/countAll;
+										one = new ReportRow(debug, 2);
+										one.setRow("Adjusted Transaction Average",				
+															 currencyFormatter.format(average));
+										rows.add(one);
+								}
+						}
 						title = "Saturdays MB Distribution ";
 						setTitle();
 						rows = new ArrayList<ReportRow>();		
@@ -407,6 +449,7 @@ public class Report{
 						one = new ReportRow(debug, 2);			
 						one.setRow("Total","$"+total+".00");
 						rows.add(one);
+						totalAll = total;
 						if(total > 0){
 								count = total/3;
 								one = new ReportRow(debug, 2);			
@@ -419,6 +462,7 @@ public class Report{
 						}
 						one = new ReportRow(debug, 2);			
 						one.setRow("Transactions",""+count);
+						countAll = count;
 						rows.add(one);
 						if(total > 0 && count > 0){
 								double average = (total +0.0)/count;
@@ -426,7 +470,30 @@ public class Report{
 								one.setRow("Transaction Average",				
 													 currencyFormatter.format(average));
 								rows.add(one);					
-						}			
+						}
+						count = 0;
+						rs = pstmt6.executeQuery();						
+						if(rs.next()){
+								count = rs.getInt(1);
+						}
+						if(count > 0){
+								one = new ReportRow(debug, 2);			
+								one.setRow("Dispute Resolution Trans",""+count);
+								rows.add(one);
+								total = count*3;
+								totalAll =totalAll - total;
+								one = new ReportRow(debug, 2);								
+								one.setRow("Adjusted Total","$"+totalAll+".00");
+								countAll = countAll - count;
+								rows.add(one);
+								if(countAll > 0){
+										double average = (totalAll +0.0)/countAll;
+										one = new ReportRow(debug, 2);
+										one.setRow("Adjusted Transaction Average",				
+															 currencyFormatter.format(average));
+										rows.add(one);
+								}								
+						}
 						all.add(rows);
 			
 				}catch(Exception e){
@@ -434,7 +501,7 @@ public class Report{
 						logger.error(msg);
 				}
 				finally{
-						Helper.databaseDisconnect(con, rs, pstmt, pstmt2, pstmt3, pstmt4);
+						Helper.databaseDisconnect(con, rs, pstmt, pstmt2, pstmt3, pstmt4, pstmt5, pstmt6);
 				}		
 				return msg;
 		}
@@ -444,11 +511,13 @@ public class Report{
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				PreparedStatement pstmt2 = null;
-				PreparedStatement pstmt3 = null;		
+				PreparedStatement pstmt3 = null;
+				PreparedStatement pstmt4 = null;
+				PreparedStatement pstmt5 = null;
 				ResultSet rs = null;
 
 				String msg = "";
-				String qq = "", qw="", qw3="", qg="", qq2="", qq3="";
+				String qq = "", qw="", qw3="", qg="", qg4="", qq2="", qq3="", qq4="";
 				String which_date = "g.date_time ";			  
 				title = "GC Distribution ";
 				setTitle();
@@ -459,32 +528,40 @@ public class Report{
 				one = new ReportRow(debug, 2);
 				one.setRow("Payment Type","Amount");
 				rows.add(one);
+				/*
+					select count(*) ttl, g.pay_type type,sum(g.amount) amount from gifts g where year(g.date_time) = 2017 group by type having amount > 0 
 
+				 */
 				qq = " select g.pay_type type,sum(g.amount) amount from gifts g ";
 				qg = " group by type having amount > 0 ";
 				qw = " where g.cancelled is null ";
-				qq2 = " select count(*) from gifts g ";
+				qq2 = " select count(*) from gifts g "; // trans
 				qq3 = " select count(*) from gifts g, gift_bucks gb ";
 				qw3 = " where g.id=gb.gift_id and g.cancelled is null ";
+				qq4 = " select count(*),amount from gifts g where g.dispute_resolution is not null ";
+				qg4 = " group by amount having amount > 0 ";
 				//
 				if(!year.equals("")){
 						qw += " and ";
 						qw3 += " and ";
 						qw += " year("+which_date+") = ? ";
-						qw3 += " year("+which_date+") = ? ";			
+						qw3 += " year("+which_date+") = ? ";
+						qq4 += " and year("+which_date+") = ? ";
 				}
 				else {
 						if(!date_from.equals("")){
 								qw += " and ";
 								qw3 += " and ";					
 								qw += which_date+" >= ? ";
-								qw3 += which_date+" >= ? ";				
+								qw3 += which_date+" >= ? ";
+								qq4 += " and "+which_date+" >= ? ";
 						}
 						if(!date_to.equals("")){
 								qw += " and ";
 								qw3 += " and ";
 								qw += which_date+" <= ? ";
-								qw3 += which_date+" <= ? ";				
+								qw3 += which_date+" <= ? ";
+								qq4 += " and "+which_date+" <= ? ";
 						}
 				}
 				if(!qw.equals("")){
@@ -492,6 +569,7 @@ public class Report{
 						qq2 += qw;
 						qq3 += qw3;
 				}
+				qq4 += qg4;
 				qq += qg;
 				logger.debug(qq);
 				logger.debug(qq2);		
@@ -506,28 +584,33 @@ public class Report{
 						pstmt2 = con.prepareStatement(qq2);
 						qq = qq3;
 						pstmt3 = con.prepareStatement(qq3);
+						pstmt4 = con.prepareStatement(qq4);						
 						int jj=1;
 						if(!year.equals("")){
 								pstmt.setString(jj, year);
 								pstmt2.setString(jj, year);
-								pstmt3.setString(jj, year);				
+								pstmt3.setString(jj, year);
+								pstmt4.setString(jj, year);
 								jj++;
 						}
 						else {
 								if(!date_from.equals("")){
 										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
 										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
-										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));					
+										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
+										pstmt4.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));										
 										jj++;
 								}
 								if(!date_to.equals("")){
 										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
 										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));					
+										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt4.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));										
 										jj++;
 								}
 						}
 						int total = 0, count = 0;
+						int totalAll = 0, countAll = 0;
 						rs = pstmt.executeQuery();
 						while(rs.next()){
 								String str = rs.getString(1);
@@ -541,6 +624,7 @@ public class Report{
 						}
 						one = new ReportRow(debug, 2);
 						one.setRow("Total","$"+total+".00");
+						totalAll = total;
 						rows.add(one);			
 						rs = pstmt3.executeQuery();
 						if(rs.next()){
@@ -557,6 +641,7 @@ public class Report{
 						}
 						one = new ReportRow(debug, 2);
 						one.setRow("Transactions",""+count);
+						countAll = count;
 						rows.add(one);
 						if(total > 0 && count > 0){
 								double average = (total +0.0)/count;
@@ -564,14 +649,40 @@ public class Report{
 								one.setRow("Transaction Average",				
 													 currencyFormatter.format(average));
 								rows.add(one);					
-						}			
+						}
+						count = 0; total = 0;
+						int val = 0;
+						rs = pstmt4.executeQuery();
+						while(rs.next()){
+								count = rs.getInt(1);
+								val = rs.getInt(2);
+								total += val*count;
+						}
+						if(count > 0){
+								one = new ReportRow(debug, 2);
+								one.setRow("Dispute Resolution Trans",""+count);
+								rows.add(one);
+								totalAll = totalAll - total;
+								one = new ReportRow(debug, 2);								
+								one.setRow("Adjusted Total","$"+totalAll+".00");
+								countAll = countAll - count;
+								rows.add(one);
+								if(countAll > 0){
+										double average = (totalAll +0.0)/countAll;
+										one = new ReportRow(debug, 2);
+										one.setRow("Adjusted Transaction Average",				
+															 currencyFormatter.format(average));
+										rows.add(one);
+								}		
+								
+						}
 						all.add(rows);
 				}catch(Exception e){
 						msg += e+":"+qq;
 						logger.error(msg);
 				}
 				finally{
-						Helper.databaseDisconnect(con, rs, pstmt, pstmt2, pstmt3);
+						Helper.databaseDisconnect(con, rs, pstmt, pstmt2, pstmt3, pstmt4);
 				}		
 				return msg;
 		}
@@ -897,12 +1008,10 @@ public class Report{
 				qq = " select e.card_last_4 card, b.fund_type type, sum(b.value) amount from bucks b left join ebt_bucks eb on b.id=eb.buck_id left join ebts e on e.id=eb.ebt_id ";
 				qg = " group by card, type having amount > 0 ";
 				qq2 = " select count(*) from ebts e ";
+				qw = " where e.dispute_resolution is null and e.cancelled is null ";
 				if(!year.equals("")){
 						if(!qw.equals("")){
 								qw += " and ";
-						}
-						else{
-								qw  = " where ";
 						}
 						qw += " year("+which_date+") = ? ";
 				}

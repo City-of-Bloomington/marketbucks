@@ -28,23 +28,21 @@
   <s:hidden name="resolution.dispute_id" value="%{resolution.dispute_id}" />
   <p>To resolve this case, you need to set the fields below based on the dispute reason as suggested below:</p>
   <s:if test="resolution.dispute.reason == 'Expired'">
-		<p>Since the reason for this dispute is Expired Date, you need to change the expire date for the configuration related to this MB/GC by filling the 'Expire Date' field below:</p>
+		<p>Since the reason for this dispute is Expired Date, the new expire date wil be reset to 12/31/ of this year</p>
   </s:if>
   <s:elseif test="resolution.dispute.reason == 'Not Exist'">
 		<ul>
 			<li>If the cause of dispute is a typo, just enter the new MB/GC id in the "New MB/GC id" and ignore all the other fields then click on "Update"</li> 
 			<li>Else, select one of the 'Configuration' options that match the certificate. </li>
 			<li>Set the value. </li>
-			<li>If this is a MB then enter the 'Authorization #' and 'Customer Card #'.</li>
-			<li>If this is a GC then set  'Pay Type' and 'Check #' (if any).</li>
 		</ul>
   </s:elseif>
   <s:elseif test="resolution.dispute.reason == 'Not Issued'">
 		<s:if test="resolution.buck.buck_type_id == 1">
-			<li>This is a MB, enter the 'Authorization #' and 'Customer Card'.</li>
+			<li>This is a MB, the 'Authorization #' and 'Customer Card' will be set to a default values.</li>
 		</s:if>
 		<s:else>
-			<li>This is a GC then set 'Pay Type' and 'Check #' (if any).</li>
+			<li>This is a GC then 'Pay Type' will be set to 'Dispute Resolution'.</li>
 		</s:else>
 	</ul>
   </s:elseif>
@@ -107,8 +105,8 @@
 						<td colspan="2">1 - If you think this MB/GC is valid and we need to add it to the system, then pick the value (3, 5 or 20) and expire date from the list below, then go to point 2 (for MB) or 3 (for GC) below to be able to issue it</td>
 					</tr>
 					<tr>
-						<td align="right" valign="top" width="35%"><label>Value/Expire Date:</label></td>
-						<td align="left"><s:select name="resolution.conf_id" value="%{resolution.conf_id}" required="true" list="confs" listKey="id" listValue="info" headerKey="-1" headerValue="" /></td>
+						<td align="right" valign="top" width="35%"><label>Value:</label></td>
+						<td align="left"><s:select name="resolution.conf_id" value="%{resolution.conf_id}" list="confs" listKey="id" listValue="info" headerKey="-1" headerValue="" /></td>
 					</tr>
 		  </table>
 			</td>
@@ -117,15 +115,7 @@
 			<td>	  
 				<table width="100%">
 					<tr>
-						<td colspan="2">2 - If this is a MB, we need the authorization # and customer card # to be able to issue it</td>
-					</tr>
-					<tr>
-						<td align="right" valign="top" width="35%"><label>Authorization #:</label></td>
-						<td align="left"><s:textfield name="resolution.approve" value="%{resolution.approve}" size="10" /></td>
-					</tr>
-					<tr>
-						<td align="right" valign="top"><label>Customer Card #:</label></td>
-						<td align="left"><s:textfield name="resolution.card_last_4" value="%{resolution.card_last_4}" size="4" /></td>
+						<td colspan="2">2 - If this is a MB, the authorization # and customer card # will be set to default values </td>
 					</tr>
 		  </table>
 			</td>
@@ -134,15 +124,11 @@
 			<td>	  
 				<table width="100%">					
 					<tr>
-						<td colspan="2">3 - If this is a GC, we need the payment type and check # to be able to issue it</td>
+						<td colspan="2">3 - If this is a GC, the payment type will default to 'Dispute Resolution'</td>
 					</tr>			
 					<tr>
 						<td align="right" valign="top" width="35%"><label>Payment Type:</label></td>
-						<td align="left"><s:radio name="resolution.pay_type" value="%{resolution.pay_type}"  list="{'Unknown','Cash','Check','Money Order','Credit Card','Honorary'}"/></td>
-					</tr>
-					<tr>
-						<td align="right" valign="top"><label>Check #:</label></td>
-						<td align="left"><s:textfield name="resolution.check_no" value="%{resolution.check_no}" size="10" /></td>
+						<td align="left">Dispute Resolution</td>
 					</tr>
 				</table>
 			</td>
@@ -154,29 +140,13 @@
 					<table width="100%">	  	  		
 						<s:if test="%{resolution.buck.buck_type_id == 1}">
 							<tr>
-								<td colspan="2">For MB, we need the authorization # and customer card # to be able to issue it</td>
-							</tr>
-							<tr>
-								<td align="right" valign="top" width="35%"><label>Authorization #:</label></td>
-								<td align="left"><s:textfield name="resolution.approve" value="%{resolution.approve}" size="10" /></td>
-							</tr>
-							<tr>
-								<td align="right" valign="top"><label>Customer Card #:</label></td>
-								<td align="left"><s:textfield name="resolution.card_last_4" value="%{resolution.card_last_4}" size="4" /></td>
+								<td colspan="2">For MB, the authorization # and customer card # will be set to default values</td>
 							</tr>
 						</s:if>
 						<s:else>
 							<tr>
-								<td colspan="2">For GC, we need the payment type and check # (if any) to issue.</td>
+								<td colspan="2">For GC, the payment type will be set to 'Dispute Resolution' and check number will be ignored.</td>
 							</tr>			
-							<tr>
-								<td align="right" valign="top"><label>Payment Type:</label></td>
-								<td align="left"><s:radio name="resolution.pay_type" value="%{resolution.pay_type}"  list="{'Unknown','Cash','Check','Money Order','Credit Card','Honorary'}"/></td>
-							</tr>
-							<tr>
-								<td align="right" valign="top"><label>Check #:</label></td>
-								<td align="left"><s:textfield name="resolution.check_no" value="%{resolution.check_no}" size="10" /></td>
-							</tr>
 						</s:else>
 					</table>
 				</td>

@@ -26,10 +26,10 @@
 				<table with="100%">
 					<tr>
 						<td align="right" valign="top" rowspan="9"><label>Report type:</label></td>
-						<td align="left"><s:checkbox name="report.distributeMB" value="report.distributeMB"  />MB Distribution</td>
+						<td align="left"><s:checkbox name="report.distributeMB" value="report.distributeMB"  />MB Distribution (including dispute resol. trans. if any)</td>
 					</tr>
 					<tr>
-						<td align="left"><s:checkbox name="report.distributeGC" value="report.distributeGC"  />GC Distribution</td>
+						<td align="left"><s:checkbox name="report.distributeGC" value="report.distributeGC"  />GC Distribution (including dispute resol. trans. if any)</td>
 					</tr>
 					<tr>
 						<td align="left"><s:checkbox name="report.redeem" value="report.redeem"  />Redemptions</td>

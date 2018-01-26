@@ -49,12 +49,18 @@
 					<td align="right"><label>*Customer Card #:</label></td>
 					<td align="left"><s:textfield name="ebt.card_last_4" maxlength="4" size="4" required="true" value="%{ebt.card_last_4}" /></td>
 				</tr>
-				<s:if test="%{ebt.isCancelled()}">
+				<s:if test="ebt.isCancelled()">
 					<tr>
 						<td align="right"><label>Status:</label></td>
 						<td align="left">Cancelled</td>
 					</tr>
 				</s:if>
+				<s:if test="ebt.isDispute_resolution()">
+					<tr>
+						<td align="right"><label>Type:</label></td>
+						<td align="left">Dispute Resolution</td>
+					</tr>
+				</s:if>				
 			</table></td>
 		</tr>
 		<s:if test="ebt.id == ''">
@@ -64,7 +70,7 @@
 				</td>
 			</tr>
 		</s:if>
-		<s:elseif test="!ebt.isCancelled()">
+		<s:elseif test="!ebt.isCancelled() && !ebt.isDispute_resolution()">
 			<tr>		
 				<td valign="top">	  
 					<table width="100%">

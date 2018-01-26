@@ -24,10 +24,11 @@ public class GiftList implements java.io.Serializable{
     boolean debug = false;
 		static Logger logger = Logger.getLogger(GiftList.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
-		String id="", which_date="g.date_time", limit= " limit 30 ";
+		String id="", which_date="g.date_time", limit= " limit 50 ";
 
 		String date_from="", date_to="", sortBy="g.id DESC ";
-		String buck_id="", pay_type="", amount="", check_no="", cancelled="";
+		String buck_id="", pay_type="", amount="", check_no="", cancelled="",
+				dispute_resolution="";
 		List<Gift> gifts = null;
 	
 		public GiftList(){
@@ -66,6 +67,10 @@ public class GiftList implements java.io.Serializable{
 		public void setCancelled(String val){
 				if(val != null && !val.equals("-1"))
 						cancelled = val;
+		}
+		public void setDispute_resolution(String val){
+				if(val != null && !val.equals("-1"))
+						dispute_resolution = val;
 		}		
 		public void setPay_type(String val){
 				if(val != null && !val.equals("All"))
@@ -118,14 +123,20 @@ public class GiftList implements java.io.Serializable{
 						return "-1";
 				}
 				return cancelled ;
-		}	
+		}
+		public String getDispute_resolution(){
+				if(dispute_resolution.equals("")){
+						return "-1";
+				}
+				return dispute_resolution ;
+		}		
 		public List<Gift> getGifts(){
 				return gifts;
 		}
 		//
 		String find(){
 
-				String qq = "select g.id, g.amount,g.pay_type,g.check_no,g.user_id,date_format(g.date_time,'%m/%d/%Y %H:%i'),g.cancelled ";		
+				String qq = "select g.id, g.amount,g.pay_type,g.check_no,g.user_id,date_format(g.date_time,'%m/%d/%Y %H:%i'),g.cancelled,g.dispute_resolution ";		
 				String qf = " from gifts g ";
 				String qw = "";
 				Connection con = null;
@@ -144,12 +155,20 @@ public class GiftList implements java.io.Serializable{
 						}
 						if(cancelled.equals("y")){
 								if(!qw.equals("")) qw += " and ";					
-								qw += " g.cancelled = 'y' ";
+								qw += " g.cancelled is not null ";
 						}
 						else if(cancelled.equals("n")){
 								if(!qw.equals("")) qw += " and ";					
 								qw += " g.cancelled is null ";
-						}			
+						}
+						if(dispute_resolution.equals("y")){
+								if(!qw.equals("")) qw += " and ";					
+								qw += " g.dispute_resolution is not null ";
+						}
+						else if(dispute_resolution.equals("n")){
+								if(!qw.equals("")) qw += " and ";					
+								qw += " g.dispute_resolution is null ";
+						}						
 						if(!check_no.equals("")){
 								if(!qw.equals("")) qw += " and ";
 								qw += " g.check_no = ? ";
@@ -225,7 +244,8 @@ public class GiftList implements java.io.Serializable{
 																		rs.getString(4),
 																		rs.getString(5),
 																		rs.getString(6),
-																		rs.getString(7)
+																		rs.getString(7),
+																		rs.getString(8)
 																		);
 								gifts.add(one);
 						}

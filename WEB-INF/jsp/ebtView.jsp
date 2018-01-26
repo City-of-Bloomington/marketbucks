@@ -24,7 +24,7 @@
 		<tr><td> 
 			<table width="100%">
 				<tr>
-					<td align="right" width="30%"><label>Amount:</label></td>
+					<td align="right" width="30%"><label>EBT Amount:</label></td>
 					<td align="left"><s:property value="ebt.amount" /></td>
 				</tr>
 				<tr>
@@ -47,7 +47,8 @@
 					<td align="right"><label>Buck Value:</label></td>
 					<td align="left">$<s:property value="ebt.ebt_buck_value" /></td>
 				</tr>
-				
+				<s:if test="ebt.isCancelled()"><tr><td align="right">Status:</td><td align="left">Cancelled</td></tr></s:if>
+				<s:if test="ebt.isDispute_resolution()"><tr><td align="right">Type:</td><td align="left">Dispute Resolution</td></tr></s:if>				
 			</table></td>
 		</tr>
   </table>

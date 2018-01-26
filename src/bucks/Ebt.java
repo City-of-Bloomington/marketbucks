@@ -27,7 +27,8 @@ public class Ebt implements java.io.Serializable{
 		static int default_dmb_amount=18, default_buck_value=3;
 		static String default_buck_type = "1";
 		int ebt_donor_max=18, ebt_buck_value=3;
-		String amountStr="", id="", buck_type_id="1", cancelled="";
+		String amountStr="0", id="", buck_type_id="1", cancelled="",
+				dispute_resolution="";
 		int amount = 0, dmb_amount=0, donor_max=0, paid_amount=0, 
 				donated_amount=0, 
 				total=0;
@@ -58,7 +59,8 @@ public class Ebt implements java.io.Serializable{
 							 int val7,
 							 String val8,
 							 int val9,
-							 int val10
+							 int val10,
+							 String val11
 							 ){
 				setValues( val,
 									 val2,
@@ -69,7 +71,8 @@ public class Ebt implements java.io.Serializable{
 									 val7,
 									 val8,
 									 val9,
-									 val10
+									 val10,
+									 val11
 									 );
 				debug = deb;
 		
@@ -84,7 +87,8 @@ public class Ebt implements java.io.Serializable{
 									 int val7,
 									 String val8,
 									 int val9,
-									 int val10
+									 int val10,
+									 String val11
 									 ){
 				setId(val);
 				setAmountInt(val2);
@@ -96,9 +100,12 @@ public class Ebt implements java.io.Serializable{
 				setCancelled(val8);
 				setEbt_donor_max(val9);
 				setEbt_buck_value(val10);
+				setDispute_resolution(val11);
 				getBucks();
-				if((bucks == null || bucks.size() == 0) && amount > 0){
-						needMoreIssue = true;
+				if(!isCancelled() && !isDispute_resolution()){
+						if((bucks == null || bucks.size() == 0) && amount > 0){
+								needMoreIssue = true;
+						}
 				}
 				getBucksTotal();
 		}
@@ -132,11 +139,13 @@ public class Ebt implements java.io.Serializable{
 				}
 		}
 		void setDmb_amount(){
-				dmb_amount = ebt_donor_max; 
-				if(dmb_amount > amount){
-						dmb_amount = amount;
+				if(!isDispute_resolution()){
+						dmb_amount = ebt_donor_max; 
+						if(dmb_amount > amount){
+								dmb_amount = amount;
+						}
+						buck_type_id = default_buck_type;
 				}
-				buck_type_id = default_buck_type;
 		}
 		public void setDmb_amount(String val){
 				if(val != null && !val.equals("")){
@@ -179,7 +188,11 @@ public class Ebt implements java.io.Serializable{
 		public void setCancelled(String val){
 				if(val != null)
 						cancelled = val;
-		}	
+		}
+		public void setDispute_resolution(String val){
+				if(val != null)
+						dispute_resolution = val;
+		}
 		//
 		public String getId(){
 				return id;
@@ -187,9 +200,15 @@ public class Ebt implements java.io.Serializable{
 		public String getAmount(){
 				return amountStr;
 		}
+		public int getAmountInt(){
+				return amount;
+		}
 		public String getDmb_amount(){
 				return ""+dmb_amount;
-		}	
+		}
+		public int getDmb_amountInt(){
+				return dmb_amount;
+		}
 		public String getApprove(){
 				return approve;
 		}
@@ -222,6 +241,13 @@ public class Ebt implements java.io.Serializable{
 		public String getCancelled(){
 		
 				return cancelled;
+		}
+		public String getDispute_resolution(){
+		
+				return dispute_resolution;
+		}
+		public boolean isDispute_resolution(){
+				return dispute_resolution != null && !dispute_resolution.equals("");
 		}
 		public boolean isCancelled(){
 				return !cancelled.equals("");
@@ -481,8 +507,7 @@ public class Ebt implements java.io.Serializable{
 						return msg;
 				}
 				date_time = Helper.getToday();
-				// String qq = "insert into ebts values(0,?,?,?,?,now(),?,null)";// cancelled = null
-				String qq = "insert into ebts values(0,?,?,?,?,now(),?,null,?,?)";// cancelled = null				
+				String qq = "insert into ebts values(0,?,?,?,?,now(),?,null,?,?,?)";// cancelled = null				
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -524,7 +549,7 @@ public class Ebt implements java.io.Serializable{
 				}
 				setDmb_amount();				
 				date_time = Helper.getToday();
-				String qq = "update ebts set amount=?,approve=?,card_last_4=?,user_id=?,dmb_amount=? where id=?";
+				String qq = "update ebts set amount=?,approve=?,card_last_4=?,user_id=?,dmb_amount=?,dispute_resolution=? where id=?";
 				//	if(debug)
 				logger.debug(qq);
 				try{
@@ -574,6 +599,10 @@ public class Ebt implements java.io.Serializable{
 								pstmt.setInt(c++, ebt_donor_max);
 								pstmt.setInt(c++, ebt_buck_value);
 						}
+						if(!dispute_resolution.equals(""))
+								pstmt.setString(c++, "y");
+						else
+								pstmt.setNull(c++, Types.CHAR);						
 				}
 				catch(Exception ex){
 						msg += ex;
@@ -585,7 +614,7 @@ public class Ebt implements java.io.Serializable{
 		//
 		String doSelect(){
 
-				String qq = "select e.id, e.amount ,e.approve,e.card_last_4,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.dmb_amount,e.cancelled,e.ebt_donor_max,e.ebt_buck_value from ebts e where e.id=? ";
+				String qq = "select e.id, e.amount ,e.approve,e.card_last_4,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.dmb_amount,e.cancelled,e.ebt_donor_max,e.ebt_buck_value,e.dispute_resolution from ebts e where e.id=? ";
 				
 				Connection con = null;
 				PreparedStatement pstmt = null;
@@ -612,7 +641,8 @@ public class Ebt implements java.io.Serializable{
 													rs.getInt(7),
 													rs.getString(8),
 													rs.getInt(9),
-													rs.getInt(10)
+													rs.getInt(10),
+													rs.getString(11)
 													);
 						}
 				}catch(Exception e){

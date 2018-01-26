@@ -27,7 +27,7 @@ public class EbtList implements java.io.Serializable{
 		String id="", which_date="e.date_time", limit=" limit 30" ;
 		String card_last_4="", approve="", amount="", buck_id="";
 		String date_from="", date_to="", sortBy="e.id DESC ";
-		String cancelled = ""; // for all
+		String cancelled = "", dispute_resolution=""; // for all
 		List<Ebt> ebts = null;
 	
 		public EbtList(){
@@ -75,6 +75,10 @@ public class EbtList implements java.io.Serializable{
 				if(val != null &&  !val.equals("-1"))
 						sortBy = val;
 		}
+		public void setDispute_resolution(String val){
+				if(val != null &&  !val.equals("-1"))
+						dispute_resolution = val;
+		}
 		public void setNoLimit(){
 				limit = "";
 		}
@@ -114,14 +118,20 @@ public class EbtList implements java.io.Serializable{
 						return "-1";
 				}
 				return cancelled;
-		}	
+		}
+		public String getDispute_resolution(){
+				if(dispute_resolution.equals("")){
+						return "-1";
+				}
+				return dispute_resolution;
+		}		
 		public List<Ebt> getEbts(){
 				return ebts;
 		}
 		//
 		String find(){
 
-				String qq = "select e.id, e.amount,e.approve,e.card_last_4,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.dmb_amount,e.cancelled,e.ebt_donor_max,e.ebt_buck_value ";		
+				String qq = "select e.id, e.amount,e.approve,e.card_last_4,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.dmb_amount,e.cancelled,e.ebt_donor_max,e.ebt_buck_value,e.dispute_resolution ";		
 				String qf = " from ebts e ";
 				String qw = "";
 				Connection con = null;
@@ -140,12 +150,20 @@ public class EbtList implements java.io.Serializable{
 						}
 						if(cancelled.equals("y")){
 								if(!qw.equals("")) qw += " and ";					
-								qw += " e.cancelled = 'y' ";
+								qw += " e.cancelled is not null ";
 						}
 						else if(cancelled.equals("n")){
 								if(!qw.equals("")) qw += " and ";					
 								qw += " e.cancelled is null ";
 						}
+						if(dispute_resolution.equals("y")){
+								if(!qw.equals("")) qw += " and ";					
+								qw += " e.dispute_resolution is not null ";
+						}
+						else if(dispute_resolution.equals("n")){
+								if(!qw.equals("")) qw += " and ";					
+								qw += " e.dispute_resolution is null ";
+						}						
 						if(!card_last_4.equals("")){
 								if(!qw.equals("")) qw += " and ";				
 								qw += " e.card_last_4 = ? ";
@@ -225,7 +243,8 @@ public class EbtList implements java.io.Serializable{
 																	rs.getInt(7),
 																	rs.getString(8),
 																	rs.getInt(9),
-																	rs.getInt(10)
+																	rs.getInt(10),
+																	rs.getString(11)
 																	);
 								ebts.add(one);
 						}

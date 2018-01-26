@@ -72,10 +72,6 @@
 					<td align="left"><s:property value="dispute.reason" /></td>
 				</tr>
 				<tr>
-					<td align="right" valign="top"><label>Suggestions:</label></td>
-					<td align="left"><s:property value="dispute.suggestions" /></td>
-				</tr>		
-				<tr>
 					<td align="right" valign="top"><label>User:</label></td>
 					<td align="left"><s:property value="dispute.user" /></td>
 				</tr>

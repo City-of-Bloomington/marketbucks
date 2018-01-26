@@ -38,13 +38,17 @@
 						<td align="left"><s:textfield name="ebtList.approve" value="%{ebtList.approve}" size="10" /> </td>
 					</tr>
 					<tr>
-						<td align="right"><label>Amount ($):</label></td>
+						<td align="right"><label>EBT Amount ($):</label></td>
 						<td align="left"><s:textfield name="ebtList.amount" value="%{ebtList.amount}" size="4" maxlength="4" /> </td>
 					</tr>
 					<tr>
 						<td align="right"><label>Status:</label></td>
 						<td align="left"><s:radio name="ebtList.cancelled" value="%{ebtList.cancelled}" list="#{'-1':'All','n':'Active','y':'Cancelled'}" /> </td>
-					</tr>		  
+					</tr>
+					<tr>
+						<td align="right"><label>Dispute Resolution?</label></td>
+						<td align="left"><s:radio name="ebtList.dispute_resolution" value="%{ebtList.dispute_resolution}" list="#{'-1':'All','n':'No','y':'Yes'}" /> </td>
+					</tr>					
 					<tr>
 						<td align="right"><label>Date:</label></td>
 						<td align="left"><label> From</label><s:textfield name="ebtList.date_from" value="%{ebtList.date_from}" size="10" maxlength="10" cssClass="date" /><label> To </label><s:textfield name="ebtList.date_to" value="%{ebtList.date_to}" size="10" maxlength="10" cssClass="date" /></td>

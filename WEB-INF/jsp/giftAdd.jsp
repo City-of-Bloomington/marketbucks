@@ -53,7 +53,13 @@
 						<td align="right"><label>Status:</label></td>
 						<td align="left">Cancelled</td>
 					</tr>
-				</s:if>		
+				</s:if>
+				<s:if test="ebt.isDispute_resolution()">
+					<tr>
+						<td align="right">Type:</td><
+						td align="left">Dispute Resolution</td>
+					</tr>
+				</s:if>						
 			</table></td>
 		</tr>
 		<tr>
@@ -62,7 +68,7 @@
 					<s:submit name="action" type="button" id="next_button" value="Next" />
 				</td>
 			</s:if>
-			<s:elseif test="!gift.isCancelled()">
+			<s:elseif test="!gift.isCancelled() && !gift.isDispute_resolution()">
 				<td>		
 					<table width="100%">
 						<tr>

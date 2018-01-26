@@ -44,7 +44,11 @@
 					<tr>
 						<td align="right"><label>Status:</label></td>
 						<td align="left"><s:radio name="giftList.cancelled" value="%{giftList.cancelled}" list="#{'-1':'All','n':'Active','y':'Cancelled'}" /> </td>
-					</tr>		  		  
+					</tr>
+					<tr>
+						<td align="right"><label>Dispute Resolution?</label></td>
+						<td align="left"><s:radio name="giftList.dispute_resolution" value="%{giftList.dispute_resolution}" list="#{'-1':'All','y':'Yes','n':'No'}" /> </td>
+					</tr>							
 					<tr>
 						<td align="right"><label>Date:</label></td>
 						<td align="left"><label> From</label><s:textfield name="giftList.date_from" value="%{giftList.date_from}" size="10" maxlength="10" cssClass="date" /><label> To </label><s:textfield name="giftList.date_to" value="%{giftList.date_to}" size="10" maxlength="10" cssClass="date" /></td>

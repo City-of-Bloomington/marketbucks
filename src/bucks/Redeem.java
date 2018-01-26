@@ -354,7 +354,7 @@ public class Redeem implements java.io.Serializable{
 						// msg += " Could not retreive Buck info "+msg;
 						if(!dispute.isInDispute()){
 								dispute.setReason("Not Exist");
-								dispute.setSuggestions("Add this MB or GC by using Generate & Print. No need for printing");				
+								// dispute.setSuggestions("Add this MB or GC by using Generate & Print. No need for printing");				
 								dispute.setStatus("Waiting");
 								String back = dispute.doSave();
 								msg = " This buck is not in the system. This buck is added to the dispute list.";
@@ -376,7 +376,7 @@ public class Redeem implements java.io.Serializable{
 								if(!dispute.isInDispute()){
 										
 										dispute.setReason("Expired");
-										dispute.setSuggestions("Change the expire date in the configuration ID "+buck.getConf_id());
+										// dispute.setSuggestions("Change the expire date in the configuration ID "+buck.getConf_id());
 										dispute.setStatus("Waiting");
 										String back = dispute.doSave();
 										msg = " This buck is expired since "+buck.getDays_to_expire()+" days. This buck is added to the dispute list.";
@@ -391,7 +391,7 @@ public class Redeem implements java.io.Serializable{
 						if(!dispute.isInDispute()){
 
 								dispute.setReason("Voided");
-								dispute.setSuggestions("Voided can not be redeemed "+buck.getConf_id());
+								// dispute.setSuggestions("Voided can not be redeemed "+buck.getConf_id());
 								dispute.setStatus("Rejected");
 								String back = dispute.doSave();
 								msg = " This MB/GC is voided and can not be redeemed ";
@@ -405,7 +405,7 @@ public class Redeem implements java.io.Serializable{
 				if(!buck.exists()){
 						if(!dispute.isInDispute()){
 								dispute.setReason("Not Exist");
-								dispute.setSuggestions("This MB or GC need to be generate and then issue it.");				
+								// dispute.setSuggestions("This MB or GC need to be generate and then issue it.");				
 								dispute.setStatus("Waiting");
 								String back = dispute.doSave();
 								msg = " This buck is not in the system. This buck is added to the dispute list.";
@@ -431,7 +431,7 @@ public class Redeem implements java.io.Serializable{
 				if(!exist){
 						if(!dispute.isInDispute()){
 								dispute.setReason("Not Issued");
-								dispute.setSuggestions("Need to issue this MB or GC");
+								// dispute.setSuggestions("Need to issue this MB or GC");
 								dispute.setStatus("Waiting");
 								String back = dispute.doSave();			
 								msg = "This buck or GC is not issued yet and cannot be redeemed. This Buck is added to the dispute list ";
@@ -443,18 +443,20 @@ public class Redeem implements java.io.Serializable{
 						}
 				}
 				if(buck.isRedeemed()){
-						if(!dispute.isInDispute()){
-								dispute.setReason("Redeemed");
-								dispute.setSuggestions("No suggestion, is already redeemed");
+						msg = "This buck or GC is already redeemed. ";
+						return msg;
+						/* // we do not do anything for already redeemed bucks
+							if(!dispute.isInDispute()){
+							dispute.setReason("Redeemed");
+							dispute.setSuggestions("No suggestion, is already redeemed");
 								dispute.setStatus("Rejected");
-								String back = dispute.doSave();			
-								msg = "This buck or GC is already redeemed. This Buck is added to the dispute list ";
-								return msg;
-						}
+								String back = dispute.doSave();
+								}
 						else{
-								msg = "This buck or GC is already redeemed. This Buck is still in the dispute list ";
-								return msg;
+						msg = "This buck or GC is already redeemed. ";
+						return msg;
 						}
+						*/
 				}
 				if(vendor == null){
 						getVendor();

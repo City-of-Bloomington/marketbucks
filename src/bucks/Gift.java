@@ -24,7 +24,7 @@ public class Gift implements java.io.Serializable{
     boolean debug = false;
 		static Logger logger = Logger.getLogger(Gift.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		String amountStr="", id="", buck_type_id="", cancelled="";
+		String amountStr="", id="", buck_type_id="", cancelled="", dispute_resolution="";
 		int amount = 0, total=0;
 		String check_no ="", // RecTrac
 				user_id="", date_time="";
@@ -54,7 +54,8 @@ public class Gift implements java.io.Serializable{
 								String val4,
 								String val5,
 								String val6,
-								String val7
+								String val7,
+								String val8
 								){
 				setValues( val,
 									 val2,
@@ -62,7 +63,8 @@ public class Gift implements java.io.Serializable{
 									 val4,
 									 val5,
 									 val6,
-									 val7
+									 val7,
+									 val8
 									 );
 				debug = deb;
 		
@@ -74,7 +76,8 @@ public class Gift implements java.io.Serializable{
 									 String val4,
 									 String val5,
 									 String val6,
-									 String val7
+									 String val7,
+									 String val8
 									 ){
 				setId(val);
 				setAmount(val2);
@@ -83,6 +86,7 @@ public class Gift implements java.io.Serializable{
 				setUser_id(val5);
 				setDate_time(val6);
 				setCancelled(val7);
+				setDispute_resolution(val8);
 				getBucks();
 				if((bucks == null || bucks.size() == 0) && amount > 0){
 						needMoreIssue = true;
@@ -136,6 +140,11 @@ public class Gift implements java.io.Serializable{
 						cancelled = val;
 				}
 		}
+		public void setDispute_resolution(String val){
+				if(val != null){
+						dispute_resolution = val;
+				}
+		}		
 		public void setCancel_buck_id(String[] vals){
 				if(vals != null){
 						cancel_buck_id = vals;
@@ -172,10 +181,16 @@ public class Gift implements java.io.Serializable{
 		
 				return cancelled;
 		}
+		public String getDispute_resolution(){
+				return dispute_resolution;
+		}
 		public boolean isCancelled(){
 				boolean ret = !cancelled.equals("");
 				return ret;
 		}
+		public boolean isDispute_resolution(){
+				return !dispute_resolution.equals("");
+		}		
 		//
 		public User getUser(){
 				if(!user_id.equals("") && user == null){
@@ -381,7 +396,7 @@ public class Gift implements java.io.Serializable{
 						return msg;
 				}
 				date_time = Helper.getToday();
-				String qq = "insert into gifts values(0,?,?,?,?,now(),null)";
+				String qq = "insert into gifts values(0,?,?,?,?,now(),null,?)";
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -421,7 +436,7 @@ public class Gift implements java.io.Serializable{
 						return msg;
 				}		
 				date_time = Helper.getToday();
-				String qq = "update gifts set amount=?,pay_type=?,check_no=?,user_id=? where id=?";
+				String qq = "update gifts set amount=?,pay_type=?,check_no=?,user_id=?,dispute_resolution=? where id=?";
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -431,7 +446,7 @@ public class Gift implements java.io.Serializable{
 						}
 						pstmt = con.prepareStatement(qq);
 						fillData(pstmt, 1);
-						pstmt.setString(5, id);
+						pstmt.setString(6, id);
 						pstmt.executeUpdate();
 				}
 				catch(Exception ex){
@@ -463,7 +478,10 @@ public class Gift implements java.io.Serializable{
 								pstmt.setString(c++, user_id);
 						else
 								pstmt.setNull(c++, Types.VARCHAR);
-
+						if(!dispute_resolution.equals(""))
+								pstmt.setString(c++, "y");
+						else
+								pstmt.setNull(c++, Types.CHAR);
 				}
 				catch(Exception ex){
 						msg += ex;
@@ -475,7 +493,7 @@ public class Gift implements java.io.Serializable{
 		//
 		String doSelect(){
 		
-				String qq = "select e.id, e.amount ,e.pay_type,e.check_no,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.cancelled from gifts e where e.id=? ";
+				String qq = "select e.id, e.amount ,e.pay_type,e.check_no,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.cancelled,e.dispute_resolution from gifts e where e.id=? ";
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
@@ -497,7 +515,8 @@ public class Gift implements java.io.Serializable{
 													rs.getString(4),
 													rs.getString(5),
 													rs.getString(6),
-													rs.getString(7)
+													rs.getString(7),
+													rs.getString(8)
 													);
 						}
 				}catch(Exception e){
