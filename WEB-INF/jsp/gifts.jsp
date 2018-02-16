@@ -8,7 +8,7 @@
 <table border="1"><caption><s:property value="#giftsTitle" /></caption>
 	<tr>
 		<td align="center"><b>ID</b></td>
-		<td align="center"><b>Amount</b></td>
+		<td align="center"><b>Requested Amount</b></td>
 		<td align="center"><b>Payment Type</b></td>
 		<td align="center"><b>Check #/RecTrac</b></td>  
 		<td align="center"><b>User</b></td>

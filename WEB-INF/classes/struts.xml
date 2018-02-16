@@ -210,6 +210,7 @@
 				<result name="input">/WEB-INF/jsp/reportInput.jsp</result>		
 				<result name="error">/WEB-INF/jsp/reportInput.jsp</result>
 				<result name="success">/WEB-INF/jsp/reportResult.jsp</result>
+				<result name="csv">/WEB-INF/jsp/reportCsv.jsp</result>				
       </action>
       <action name="vendor" 
             class="bucks.VendorAction" 

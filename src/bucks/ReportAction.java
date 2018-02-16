@@ -20,6 +20,7 @@ public class ReportAction extends TopAction{
    
 		static Logger logger = Logger.getLogger(ReportAction.class);
 		Report report = null;
+		String format = "";
 		List<String> years = null;
 		public String execute(){
 				String ret = INPUT;            // default
@@ -29,6 +30,11 @@ public class ReportAction extends TopAction{
 						if(!back.equals("")){
 								addActionError(back);
 								ret = INPUT;
+						}
+						else{
+								if(!format.equals("")){
+										ret = "csv";
+								}
 						}
 				}
 				return ret;
@@ -42,6 +48,13 @@ public class ReportAction extends TopAction{
 		public void setReport(Report val){
 				if(val != null)
 						report = val;
+		}
+		public void setFormat(boolean val){
+				if(val)
+						format = "csv";
+		}
+		public boolean getFormat(){
+				return !format.equals("");
 		}
 		public List<String> getYears(){
 				if(years == null){

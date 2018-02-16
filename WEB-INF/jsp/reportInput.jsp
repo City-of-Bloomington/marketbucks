@@ -74,11 +74,15 @@
 						<td align="right"><label>Date, from:</label></td>
 						<td align="left"><s:textfield name="report.date_from" maxlength="10" size="10" value="%{report.date_from}" cssClass="date" /><label> To </label><s:textfield name="report.date_to" maxlength="10" size="10" value="%{report.date_to}" cssClass="date" /></td>
 					</tr>
+					<tr>
+						<td align="right"><label>Output:</label></td>
+						<td align="left"><s:checkbox name="format" value="format"  />CSV format file</td>
+					</tr>
 				</table>
 			</td>
 		</tr>	
 		<tr>
-			<td colspan="2" valign="top" align="right">
+			<td colspan="2" align="center">
 				<s:submit name="action" type="button" value="Submit" />
 			</td>
 		</tr>

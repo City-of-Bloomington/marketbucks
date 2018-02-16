@@ -5,11 +5,12 @@
  *
  *
 	-->
+<p>Note: that the totals are requested totals only.</p>
 <table border="1"><caption><s:property value="#ebtsTitle" /></caption>
 	<tr>
 		<td align="center"><b>ID</b></td>
-		<td align="center"><b>EBT Amount</b></td>
-		<td align="center"><b>DMB Amount</b></td>  
+		<td align="center"><b>Reguested EBT Amount</b></td>
+		<td align="center"><b>Available DMB Amount</b></td>  
 		<td align="center"><b>Authorization #</b></td>
 		<td align="center"><b>Card #</b></td>  
 		<td align="center"><b>User</b></td>
@@ -35,7 +36,7 @@
 		</tr>
 	</s:iterator>
 	<tr>
-		<td>Total</td>
+		<td>Total Requests</td>
 		<td align="right">$<s:property value="ebtTotal" />.00</td>
 		<td align="right">$<s:property value="dmbTotal" />.00</td>
 		<td colspan="8">&nbsp;</td>
