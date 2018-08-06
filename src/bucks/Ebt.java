@@ -178,7 +178,12 @@ public class Ebt implements java.io.Serializable{
 		}
 		public void setBuck_id(String val){
 				if(val != null && !val.equals("")){
-						buck_id = val;
+						if(val.matches("[0-9]+")){
+								buck_id = val;
+						}
+						else{
+								buck_id=val.substring(0, val.length()-1);
+						}
 				}
 		}
 		public void setBuck_type_id(String val){

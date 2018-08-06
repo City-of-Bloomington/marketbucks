@@ -126,9 +126,14 @@ public class Gift implements java.io.Serializable{
 						user_id = val;
 		}
 		public void setBuck_id(String val){
-				if(val != null){
-						buck_id = val;
-				}
+				if(val != null && !val.equals("")){
+						if(val.matches("[0-9]+")){
+								buck_id = val;
+						}
+						else{
+								buck_id=val.substring(0, val.length()-1);
+						}
+				}						
 		}
 	
 		public void setBuck_type_id(String val){
