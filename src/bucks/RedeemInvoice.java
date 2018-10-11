@@ -327,7 +327,7 @@ public class RedeemInvoice extends HttpServlet{
 						//
 						// 3rd row
 						phrase = new Phrase();
-						ch = new Chunk("$5 Gift Cerificates",fnt);
+						ch = new Chunk("$5 Gift Certificates",fnt);
 						phrase.add(ch);
 						cell = new PdfPCell(phrase);
 						table.addCell(cell);
