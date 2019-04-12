@@ -14,25 +14,26 @@
   <s:head />
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
   <link rel="SHORTCUT ICON" href="https://apps.bloomington.in.gov/favicon.ico" />
-  <link rel="stylesheet" href="<s:property value='#application.url' />js/jquery-ui2.css" type="text/css" media="all" />
-  <link rel="stylesheet" href="<s:property value='#application.url' />js/jquery.ui.theme.css" type="text/css" media="all" />
-  <link rel="stylesheet" href="<s:property value='#application.url' />css/open-sans/open-sans.css" type="text/css" />
-  <link rel="stylesheet" href="<s:property value='#application.url' />css/screen.css" type="text/css" />
-
+	<link rel="stylesheet" href="./js/jquery-ui.min-1.12.1.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="./js/jquery-ui.theme-1.12.1.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="./css/open-sans/open-sans.css" type="text/css" />
+  <link rel="stylesheet" href="//bloomington.in.gov/static/fn1-releases/dev/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="//bloomington.in.gov/static/fn1-releases/dev/css/kirkwood.css" type="text/css" />
+  <link rel="stylesheet" href="./js/ol.css" type="text/css" />
   <title>Market Bucks</title>
   <script type="text/javascript">
     var APPLICATION_URL = '<s:property value='#application.url' />';
   </script>
 </head>
-<body>
-  <header>
-    <div class="container">
-      <div class="site-title">
+<body class="fn1-body">
+	<header class="fn1-siteHeader">
+    <div class="fn1-siteHeader-container">
+      <div class="fn1-site-title">		
         <h1 id="application_name"><a href="<s:property value='#application.url'/>">Market Bucks</a></h1>
-        <div class="site-location" id="location_name"><a href="<s:property value='#application.url'/>">City of Bloomington, IN</a></div>
+				 <div class="fn1-site-location" id="location_name"><a href="<s:property value='#application.url'/>">City of Bloomington, IN</a></div>
       </div>
       <s:if test="#session != null && #session.user != null">
-        <div class="site-utilityBar">
+				<div class="fn1-site-utilityBar">				
           <nav id="user_menu">
             <div class="menuLauncher"><s:property value='#session.user.fullName' /></div>
             <div class="menuLinks closed">
@@ -50,24 +51,24 @@
                 <a href="<s:property value='#application.url'/>exportStart.action">Exports</a>
 								<a href="<s:property value='#application.url'/>vendor.action">Vendors</a>
 								<a href="<s:property value='#application.url'/>report.action">Reports</a>
-				
+								<a href="<s:property value='#application.url'/>user.action">Users</a>				
               </s:if>
             </div>
           </nav>
         </div>
-	  </s:if>
-	</div>
-	
-	<div class="nav1">
-      <nav class="container">
-        <a href="<s:property value='#application.url'/>ebtAdd.action">Issue MB</a>
-        <a href="<s:property value='#application.url'/>giftAdd.action">Issue GC</a>
-        <a href="<s:property value='#application.url'/>redeemStart.action">Redemptions</a>
-        <a href="<s:property value='#application.url'/>disputeSearch.action">Disputes</a>
-        <a href="<s:property value='#application.url'/>buckSearch.action">Search</a>				
-        <a href="<s:property value='#application.url'/>help.action">User Guide</a>
-      </nav>
-    </div>
-  </header>
+			</s:if>
+		</div>
+		<div class="fn1-nav1">
+      <nav class="fn1-nav1-container">		
+				<a href="<s:property value='#application.url'/>ebtAdd.action">Issue MB</a>
+				<a href="<s:property value='#application.url'/>giftAdd.action">Issue GC</a>
+				<a href="<s:property value='#application.url'/>rxAdd.action">Issue Rx</a>				
+				<a href="<s:property value='#application.url'/>redeemStart.action">Redemptions</a>
+				<a href="<s:property value='#application.url'/>disputeSearch.action">Disputes</a>
+				<a href="<s:property value='#application.url'/>buckSearch.action">Search</a>				
+				<a href="<s:property value='#application.url'/>help.action">User Guide</a>
+			</nav>
+		</div>
+	</header>
   <main>
-    <div class="container">
+		<div class="fn1-main-container">

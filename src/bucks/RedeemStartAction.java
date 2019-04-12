@@ -104,6 +104,7 @@ public class RedeemStartAction extends TopAction{
 		}
 		public List<Redeem> getRedeems(){
 				RedeemList bl = new RedeemList(debug);
+				bl.setLimit("50");
 				String back = bl.find();
 				if(back.equals("") && bl.getRedeems() != null){
 						redeems = bl.getRedeems();

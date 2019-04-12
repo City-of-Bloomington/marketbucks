@@ -276,9 +276,9 @@ public class BuckConf implements java.io.Serializable{
 						else
 								pstmt.setString(6, gl_account);			
 						pstmt.executeUpdate();
-						// if(debug){
+						Helper.databaseDisconnect(pstmt, rs);
+						//
 						logger.debug(qq);
-						//}
 						pstmt = con.prepareStatement(qs);
 						rs = pstmt.executeQuery();
 						if(rs.next()){

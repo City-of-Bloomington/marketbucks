@@ -145,6 +145,7 @@ public class Ebt implements java.io.Serializable{
 								dmb_amount = amount;
 						}
 						buck_type_id = default_buck_type;
+						checkFrequentEbtToday();
 				}
 		}
 		public void setDmb_amount(String val){
@@ -203,6 +204,8 @@ public class Ebt implements java.io.Serializable{
 				return id;
 		}
 		public String getAmount(){
+				if(id.equals(""))
+						return "";
 				return amountStr;
 		}
 		public int getAmountInt(){
@@ -305,6 +308,10 @@ public class Ebt implements java.io.Serializable{
 				int balance = (amount+dmb_amount) - paid_amount - donated_amount;
 				return balance > 0;
 		}
+		public boolean hasBucks(){
+				getBucks();
+				return bucks != null && bucks.size() > 0;
+		}		
 		//	
 		public boolean needMoreIssue(){
 				return (amount + dmb_amount)  >  total;
@@ -322,12 +329,8 @@ public class Ebt implements java.io.Serializable{
 				if(!msg.equals("")){
 						return msg;
 				}
-				if(buck.isAlreadyIssued()){
-						msg = " This buck is alrady issued";
-						return msg;
-				}
-				if(thisBuckIsInGifts()){
-						msg =" This buck is already used in GC ";
+				if(isAlreadyIssued()){
+						msg =" This buck is already issued ";
 						return msg;
 				}
 				//
@@ -365,7 +368,6 @@ public class Ebt implements java.io.Serializable{
 										added = true;
 										msg = addNewBuckToEbt();
 										if(!msg.equals("")){
-												bucks.remove(0);
 												msg = "Error: The buck is already in the system";
 										}
 										else{
@@ -387,24 +389,27 @@ public class Ebt implements java.io.Serializable{
 				return msg;
 		}
 		/**
-		 * check if this buck was used in the gift bucks list
+		 * check if this buck was already issued
 		 */
-		private boolean thisBuckIsInGifts(){
+		private boolean isAlreadyIssued(){
 				boolean ret = false;
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
 				String msg = "";
-				String qq = " select count(*) from gift_bucks where buck_id=? ";
+				String qq = " select sum(total) from                                               (select count(*) total from ebt_bucks where buck_id=?                           union select count(*) total from rx_bucks where buck_id=?                       union select count(*) total from gift_bucks where buck_id=? )tt ";
 				//
 				logger.debug(qq);
+				con = Helper.getConnection();
+				if(con == null){
+						return ret;
+				}
+				
 				try{
-						con = Helper.getConnection();
-						if(con == null){
-								return ret;
-						}
 						pstmt = con.prepareStatement(qq);
 						pstmt.setString(1, buck_id);
+						pstmt.setString(2, buck_id);
+						pstmt.setString(3, buck_id);
 						rs = pstmt.executeQuery();
 						if(rs.next()){
 								if(rs.getInt(1) > 0) ret = true;
@@ -420,23 +425,53 @@ public class Ebt implements java.io.Serializable{
 				return ret;
 		
 		}
-		/*
-		//
-		// using java 8 streams
-		// not needed
-		int findPaidCountSoFar(){
-				if(bucks != null){
-						return (int) bucks.stream().filter(Buck::isEbtType).count();
+		/**
+		 * TODO continue from here
+		 * each customer can have max of 18 DMB per day
+		 * if a trans has been processed before we need to find the amount
+		 * of dmb and if 18 or more, no more dmb will be given and the
+		 * dmb_amount will be set to 0, if less than 18 was issued we
+		 * process with the difference.
+		 */
+		void checkFrequentEbtToday(){
+				String back =  "";
+				int dmb_amount_received = 0;
+				if(card_last_4.equals("")){
+						back = " card last 4 digits are not provided ";
+						logger.error(back);
+						return ;
 				}
-				return 0;
-		}
-		int findDonorCountSoFar(){
-				if(bucks != null){
-						return (int) bucks.stream().filter(Buck::isDmbType).count();
+				EbtList el = new EbtList(debug);
+				el.setCard_last_4(card_last_4);
+				el.setTodayDate();
+				if(!id.equals("")){
+						el.excludeId(id);
 				}
-				return 0;
+				back = el.find();
+				if(back.equals("")){
+						List<Ebt> ones = el.getEbts();
+						if(ones != null){
+								for(Ebt one:ones){
+										dmb_amount_received += one.getDmb_amountInt();
+								}
+						}
+				}
+				else{
+						logger.error(back);
+				}
+				if(dmb_amount_received > 0){
+						if(dmb_amount_received < ebt_donor_max){
+								dmb_amount = ebt_donor_max - dmb_amount_received;
+								if(dmb_amount > amount){
+										dmb_amount = amount;
+								}
+						}
+						else{
+								dmb_amount = 0;
+						}
+				}
+				return ;
 		}
-		*/
 		String addNewBuckToEbt(){
 				String msg="";
 				if(buck_id.equals("") || id.equals("")){
@@ -477,16 +512,6 @@ public class Ebt implements java.io.Serializable{
 						String back = bl.find();
 						if(back.equals("")){
 								bucks = bl.getBucks();
-								/*
-								if(conf == null){
-										if(bucks.size() > 0){
-												Buck one = bucks.get(0);
-												conf = one.getConf();
-												buck_value = conf.getValue_int();
-												buck_type_id = conf.getType_id();
-										}
-								}
-								*/
 						}
 						else{
 								logger.error(back);
@@ -523,9 +548,10 @@ public class Ebt implements java.io.Serializable{
 						pstmt = con.prepareStatement(qq);
 						fillData(pstmt, 1);
 						pstmt.executeUpdate();
+						Helper.databaseDisconnect(pstmt, rs);
+						//
 						qq = "select LAST_INSERT_ID() ";
 						logger.debug(qq);
-						//}
 						pstmt = con.prepareStatement(qq);
 						rs = pstmt.executeQuery();
 						if(rs.next()){

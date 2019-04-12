@@ -27,7 +27,7 @@ public class DisputeList implements java.io.Serializable{
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		String id="", which_date="r.date_time", redeem_id="", status="", reason="";
 
-		String date_from="", date_to="", sortBy="r.id DESC", buck_id="";
+		String date_from="", date_to="", sortBy="r.id DESC", buck_id="", limit="";
 		boolean unresolved = false; // all
 		List<Dispute> disputes = null;
 	
@@ -113,6 +113,11 @@ public class DisputeList implements java.io.Serializable{
 		public List<Dispute> getDisputes(){
 				return disputes;
 		}
+		public void setLimit(String val){
+				if(val != null)
+						limit = val;
+
+		}		
 		//
 		String find(){
 
@@ -165,6 +170,9 @@ public class DisputeList implements java.io.Serializable{
 				if(!sortBy.equals("")){
 						qq += " order by "+sortBy;
 				}
+				if(!limit.equals("")){
+						qq += " limit "+limit;
+				}								
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();

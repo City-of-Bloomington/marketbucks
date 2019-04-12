@@ -22,12 +22,16 @@ public class VendorList{
 				vendorsUser=null,
 				vendorsPassword=null;
 		List<Vendor> vendors = null;
-		String name = "", active="";
+		String name = "", active="", vendor_num="";
     public VendorList(){
     }		
     public VendorList(boolean deb){
 				debug = deb;
     }
+    public VendorList(boolean deb, String val){
+				debug = deb;
+				setVendorNum(val);
+    }		
     public VendorList(boolean deb,
 											String val,
 											String val2,
@@ -55,6 +59,10 @@ public class VendorList{
 				if(val != null)
 						name = val;
     }
+    public void setVendorNum(String val){
+				if(val != null)
+						vendor_num = val;
+    }		
     public void setActiveOnly(){
 				active = "y";
     }	
@@ -63,14 +71,18 @@ public class VendorList{
 		}
 		String find(){
 				String msg = "";
-				String qq = " select id,lname,fname,active,payType from vendors ";
+				String qq = " select id,vendor_num,lname,fname,business_name,payType,active from vendors ";
 				String qw = "";
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
 				if(!name.equals("")){
-						qw = " lname like ? or fname like ? ";
+						qw = " lname like ? or fname like ? or business_name like ? ";
 				}
+				if(!vendor_num.equals("")){
+						if(!qw.equals("")) qw += " and ";						
+						qw = " vendor_num = ? ";
+				}				
 				if(!active.equals("")){
 						if(!qw.equals("")) qw += " and ";
 						qw += " active is not null ";
@@ -80,20 +92,25 @@ public class VendorList{
 						qq += " where "+qw;
 				}
 				qq += qo;
-				// System.err.println(qq);
+				System.err.println(qq);
 
 				logger.debug(qq);
+				con = Helper.getConnection();
+				if(con == null){
+						msg = "Could not connect ";
+						return msg;
+				}
 				try{
 						vendors = new ArrayList<Vendor>();
-						con = Helper.getConnection();
-						if(con == null){
-								msg = "Could not connect ";
-								return msg;
-						}
 						pstmt = con.prepareStatement(qq);
+						int jj=1;
 						if(!name.equals("")){
-								pstmt.setString(1, "%"+name+"%");
-								pstmt.setString(2, "%"+name+"%");				
+								pstmt.setString(jj++, "%"+name+"%");
+								pstmt.setString(jj++, "%"+name+"%");
+								pstmt.setString(jj++, "%"+name+"%");								
+						}
+						if(!vendor_num.equals("")){
+								pstmt.setString(jj++, vendor_num);
 						}
 						rs = pstmt.executeQuery();	
 						while(rs.next()){
@@ -102,7 +119,9 @@ public class VendorList{
 																				rs.getString(2),
 																				rs.getString(3),
 																				rs.getString(4),
-																				rs.getString(5));
+																				rs.getString(5),
+																				rs.getString(6),
+																				rs.getString(7));
 								vendors.add(one);
 						}
 				}catch(Exception e){
@@ -156,9 +175,7 @@ public class VendorList{
 																				rs.getString(1),
 																				rs.getString(2),
 																				rs.getString(3),
-																				"y",
-																				pay
-																				);
+																				pay);
 								vendors.add(one);
 						}
 				}

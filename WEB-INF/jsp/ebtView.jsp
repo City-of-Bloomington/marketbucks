@@ -9,7 +9,7 @@
 	-->
 <s:form action="ebtView" method="post" id="form_id" >
   <s:hidden name="ebt.id" value="%{ebt.id}" />
-  <h3>View Ebt Bucks</h3>
+  <h3>View Ebt </h3>
   <s:if test="hasActionErrors()">
 		<div class="errors">
       <s:actionerror/>

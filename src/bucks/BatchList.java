@@ -26,7 +26,7 @@ public class BatchList implements java.io.Serializable{
 		String id="", status="", which_date="b.date", type_id="", seq_id="", conf_id="";
 
 		String date_from="", date_to="", sortBy="b.id DESC";
-		String limit = " limit 30 ";
+		String limit = " 30 ";
 	
 		List<Batch> batches = null;
 	
@@ -65,6 +65,11 @@ public class BatchList implements java.io.Serializable{
 		}
 		public void setNoLimit(){
 				limit = "";
+		}
+		public void setLimit(String val){
+				if(val != null)
+						limit = val;
+
 		}
 		public void setType_id(String val){
 				if(val != null && !val.equals("-1"))
@@ -151,7 +156,9 @@ public class BatchList implements java.io.Serializable{
 				if(!sortBy.equals("")){
 						qq += " order by "+sortBy;
 				}
-				qq += limit;		
+				if(!limit.equals("")){
+						qq += " limit "+limit;
+				}				
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();

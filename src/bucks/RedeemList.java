@@ -27,7 +27,7 @@ public class RedeemList implements java.io.Serializable{
 		String id="", which_date="r.date_time", vendor_id="", status="", payType="";
 
 		String date_from="", date_to="", sortBy="r.id DESC", export_id="",
-				export="", buck_id="";
+				export="", buck_id="", limit="";
 		boolean not_exported = false, exported=false;
 		List<Redeem> redeems = null;
 	
@@ -131,6 +131,10 @@ public class RedeemList implements java.io.Serializable{
 		public List<Redeem> getRedeems(){
 				return redeems;
 		}
+		public void setLimit(String val){
+				if(val != null)
+						limit = val;
+		}
 		//
 		String find(){
 
@@ -192,6 +196,9 @@ public class RedeemList implements java.io.Serializable{
 						qq += " where "+qw;
 				if(!sortBy.equals("")){
 						qq += " order by "+sortBy;
+				}
+				if(!limit.equals("")){
+						qq += " limit "+limit;
 				}
 				// qq += " limit 10 ";		
 				logger.debug(qq);

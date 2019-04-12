@@ -24,7 +24,7 @@ public class GiftList implements java.io.Serializable{
     boolean debug = false;
 		static Logger logger = Logger.getLogger(GiftList.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
-		String id="", which_date="g.date_time", limit= " limit 50 ";
+		String id="", which_date="g.date_time", limit= " 50 ";
 
 		String date_from="", date_to="", sortBy="g.id DESC ";
 		String buck_id="", pay_type="", amount="", check_no="", cancelled="",
@@ -198,7 +198,9 @@ public class GiftList implements java.io.Serializable{
 				if(!sortBy.equals("")){
 						qq += " order by "+sortBy;
 				}
-				qq += limit;		
+				if(!limit.equals("")){
+						qq += " limit "+limit;
+				}								
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();

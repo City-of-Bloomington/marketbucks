@@ -28,7 +28,7 @@
 				<tr>
 					<td align="right"><label>*Vendor number:</label></td>
 					<td>
-						<s:textfield name="redeem.vendor_id" id="vendor_id" value="%{redeem.vendor_id}" />
+						<s:textfield name="redeem.vendorNum" id="vendor_id" value="%{redeem.vendorNum}" />
 					</td>
 				</tr>
 				<tr>

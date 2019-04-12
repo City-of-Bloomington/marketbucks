@@ -305,10 +305,32 @@ public class Helper{
 		/**
      * Disconnect the database and related statements and result sets
      * 
-     * @param con
      * @param stmt
      * @param rs
      */
+    public final static void databaseDisconnect(
+																								Statement stmt,
+																								ResultSet rs) {
+				try {
+						if(rs != null) rs.close();
+						rs = null;
+						if(stmt != null) stmt.close();
+						stmt = null;
+				}
+				catch (Exception e) {
+						e.printStackTrace();
+				}
+				finally{
+						if (rs != null) {
+								try { rs.close(); } catch (SQLException e) { ; }
+								rs = null;
+						}
+						if (stmt != null) {
+								try { stmt.close(); } catch (SQLException e) { ; }
+								stmt = null;
+						}
+				}
+    }
     public final static void databaseDisconnect(Connection con,
 																								Statement stmt,
 																								ResultSet rs) {
@@ -341,7 +363,7 @@ public class Helper{
 								con = null;
 						}
 				}
-    }
+    }		
     public final static void databaseDisconnect(Connection con,
 																								Statement stmt,
 																								Statement stmt2,

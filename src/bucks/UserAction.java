@@ -15,14 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;  
 import org.apache.log4j.Logger;
 
-public class VendorAction extends TopAction{
+public class UserAction extends TopAction{
 
 		static final long serialVersionUID = 150L;	
     static boolean debug = false;
-		static Logger logger = Logger.getLogger(VendorAction.class);
-		Vendor vendor = null;
-		List<Vendor> vendors = null;
-		String vendorsTitle = "Current Vendors";
+		static Logger logger = Logger.getLogger(UserAction.class);
+		User person = null;
+		List<User> users = null;
+		String usersTitle = "Current Users";
 		public String execute(){
 				String ret = SUCCESS;
 				String back = doPrepare();
@@ -37,17 +37,17 @@ public class VendorAction extends TopAction{
 						}				
 				}
 				if(action.equals("Save")){
-						back = vendor.doSave();
+						back = person.doSave();
 						if(!back.equals("")){
 								addActionError(back);
 						}
 						else{
-								id = vendor.getId();
+								id = person.getId();
 								addActionMessage("Saved Successfully");
 						}
 				}
 				else if(action.equals("Update")){
-						back = vendor.doUpdate();
+						back = person.doUpdate();
 						if(!back.equals("")){
 								addActionError(back);
 						}
@@ -56,39 +56,43 @@ public class VendorAction extends TopAction{
 						}
 				}
 				if(!id.equals("")){
-						vendor = new Vendor(debug, id);
-						back = vendor.doSelect();
+						person = new User(debug);
+						person.setId(id);
+						back = person.doSelect();
 						if(!back.equals("")){
 								addActionError(back);
 						}
 				}
 				return ret;
 		}
-
-		public List<Vendor> getVendors(){
-				if(vendors == null){
-					 VendorList tl = new VendorList(debug);
+		public boolean hasUsers(){
+				getUsers();
+				return users != null && users.size() > 0;
+		}
+		public List<User> getUsers(){
+				if(users == null){
+					 UserList tl = new UserList(debug);
 						String back = tl.find();
 						if(back.equals("")){
-								vendors = tl.getVendors();
+								users = tl.getUsers();
 						}
 				}
-				return vendors;
+				return users;
 		}
-		public void setVendor(Vendor val){
+		public void setPerson(User val){
 				if(val != null)
-						vendor = val;
+						person = val;
 		}
-		public Vendor getVendor(){
-				if(vendor == null){
-						vendor = new Vendor();
+		public User getPerson(){
+				if(person == null){
+						person = new User();
 				}
-				return vendor;
+				return person;
 		}
 		@Override
 		public String getId(){
-				if(id.equals("") && vendor != null){
-						id = vendor.getId();
+				if(id.equals("") && person != null){
+						id = person.getId();
 				}
 				return id;
 		}		
@@ -96,19 +100,10 @@ public class VendorAction extends TopAction{
 				String ret = SUCCESS;
 				return ret;
 		}
-		public String getVendorsTitle(){
-				return vendorsTitle;
+		public String getUsersTitle(){
+				return usersTitle;
 		}
-		/**
-		 * this is needed for systems that will not provide vendor separate database
-		 * this will allow to Add/Edit vendors through the interface
-		 * we are using the flag 'enableVendorListUpdate' to tell us that we
-		 * have an external database for vendors (when true). If false, that mean
-		 * we have to add vendors through the interface
-		 */
-		public boolean canEdit(){
-				return !enableVendorsAutoUpdate;
-		}
+
 		
 }
 

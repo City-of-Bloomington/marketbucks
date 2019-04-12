@@ -457,7 +457,7 @@ public class Buck implements java.io.Serializable{
 		// update the fund_type only
 		//
 		String doSelect(){
-				// need fix
+				// 
 				String qq = "select b.id, b.value,b.fund_type,c.type_id,date_format(b.expire_date,'%m/%d/%Y'),if(b.expire_date is not null, datediff(b.expire_date, now()), null),b.voided from bucks b join buck_seq s on s.id=b.id join batches bs on bs.id=s.batch_id join buck_confs c on bs.conf_id=c.id where b.id=? ";
 				Connection con = null;
 				PreparedStatement pstmt = null;

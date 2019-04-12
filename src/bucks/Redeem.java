@@ -25,7 +25,7 @@ public class Redeem implements java.io.Serializable{
 		static Logger logger = Logger.getLogger(Redeem.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		String id=""; 
-		String vendor_id ="", user_id="",date_time="", notes="";
+		String vendor_id="", vendor_num ="", user_id="",date_time="", notes="";
 		String buck_id="", status="Open";
 		//
 		// we use this flag to know if we need to check for
@@ -108,6 +108,10 @@ public class Redeem implements java.io.Serializable{
 				if(val != null)
 						vendor_id = val;
 		}
+	public void setVendorNum(String val){
+				if(val != null)
+						vendor_num = val;
+		}		
 	
 		public void setDate_time(String val){
 				if(val != null)
@@ -203,6 +207,28 @@ public class Redeem implements java.io.Serializable{
 				}
 				return vendor;
 		}
+		public String findVendor(){
+				String back = "";
+				System.err.println(" vendor #"+vendor_num);
+				if(!vendor_num.equals("")){
+						VendorList vl = new VendorList(debug, vendor_num);
+						vl.setActiveOnly();
+						back = vl.find();
+						System.err.println(" back "+back);
+						if(back.equals("")){
+								List<Vendor> ones = vl.getVendors();
+								if(ones != null && ones.size() == 1){
+										vendor = ones.get(0);
+										vendor_id = vendor.getId();
+								}
+								else if(ones.size() > 1){
+										back = "Multiple vendors have the same vendor number "+vendor_num;
+								}
+						}
+				}
+				return back;
+		}		
+		
 		public User getUser(){
 				if(!user_id.equals("") && user == null){
 						User one = new User(debug, null, user_id);
@@ -510,7 +536,7 @@ public class Redeem implements java.io.Serializable{
 		}
 		public boolean isVendorAvailable(){
 				if(vendor == null){
-						getVendor();
+						findVendor();
 				}
 				return vendor != null && !vendor.isInActive();
 		}
@@ -542,6 +568,8 @@ public class Redeem implements java.io.Serializable{
 						pstmt.setString(1, vendor_id);
 						pstmt.setString(2, user_id);
 						pstmt.executeUpdate();
+						Helper.databaseDisconnect(pstmt, rs);
+						//
 						qq = "select LAST_INSERT_ID() ";
 						logger.debug(qq);
 						pstmt = con.prepareStatement(qq);

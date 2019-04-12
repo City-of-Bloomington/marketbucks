@@ -260,10 +260,10 @@ public class Dispute implements java.io.Serializable{
 						else
 								pstmt.setNull(6, Types.VARCHAR);				
 						pstmt.executeUpdate();
+						Helper.databaseDisconnect(pstmt, rs);
+						//
 						qq = "select LAST_INSERT_ID() ";
-						// if(debug){
 						logger.debug(qq);
-						// }
 						pstmt = con.prepareStatement(qq);
 						rs = pstmt.executeQuery();
 						if(rs.next()){

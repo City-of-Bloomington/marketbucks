@@ -227,10 +227,10 @@ public class Export implements java.io.Serializable{
 						pstmt = con.prepareStatement(qq);
 						fillData(pstmt, 1);
 						pstmt.executeUpdate();
+						Helper.databaseDisconnect(pstmt, rs);
+						//
 						qq = "select LAST_INSERT_ID() ";
-						// if(debug){
 						logger.debug(qq);
-						// }
 						pstmt = con.prepareStatement(qq);
 						rs = pstmt.executeQuery();
 						if(rs.next()){

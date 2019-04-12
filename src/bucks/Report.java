@@ -987,11 +987,11 @@ public class Report{
 		
 				Connection con = null;
 				PreparedStatement pstmt = null;
-				PreparedStatement pstmt2 = null;		
+				PreparedStatement pstmt2 = null, pstmt3=null;		
 				ResultSet rs = null;
 				String msg = "";
 				String which_date = "";
-				String qq = "", qw="", qg="", qq2="";
+				String qq = "", qw="", qg="", qq2="", qq3="",qg3="";
 				which_date="e.date_time ";
 				title = "Households Participated in MB ";
 				setTitle();
@@ -1009,6 +1009,10 @@ public class Report{
 				qg = " group by card, type having amount > 0 ";
 				qq2 = " select count(*) from ebts e ";
 				qw = " where e.dispute_resolution is null and e.cancelled is null ";
+				//
+				qq3 = " select e.card_last_4 card, count(*), sum(b.value) amount from bucks b left join ebt_bucks eb on b.id=eb.buck_id left join ebts e on e.id=eb.ebt_id ";
+				qg3 = " group by card having amount > 0 ";
+				
 				if(!year.equals("")){
 						if(!qw.equals("")){
 								qw += " and ";
@@ -1038,11 +1042,14 @@ public class Report{
 				if(!qw.equals("")){
 						qq += qw;
 						qq2 += qw;
+						qq3 += qw;
 				}
 				qq += qg;
+				qq3 += qg3;
 				// System.err.println(qq);
 				logger.debug(qq);
 				logger.debug(qq2);
+				logger.debug(qq3);
 				try{
 						con = Helper.getConnection();
 						if(con == null){
@@ -1052,20 +1059,24 @@ public class Report{
 						pstmt = con.prepareStatement(qq);
 						qq = qq2;
 						pstmt2 = con.prepareStatement(qq2);
+						pstmt3 = con.prepareStatement(qq3);						
 						int jj=1;
 						if(!year.equals("")){
 								pstmt.setString(jj, year);
-								pstmt2.setString(jj, year);				
+								pstmt2.setString(jj, year);
+								pstmt3.setString(jj, year);
 						}
 						else {
 								if(!date_from.equals("")){
 										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
 										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));
+										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_from).getTime()));										
 										jj++;
 								}
 								if(!date_to.equals("")){
 										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
 										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));										
 										jj++;
 								}
 						}
@@ -1143,12 +1154,36 @@ public class Report{
 						}
 						all.add(rows2);
 						all.add(rows);
+						//
+						total = 0;
+						title = "Households Transcations ";
+						setTitle();
+						List<ReportRow> rows3 = new ArrayList<ReportRow>();
+						one = new ReportRow(debug, 2);
+						one.setRow("Title", title);
+						rows3.add(one);
+						one = new ReportRow(debug, 2);
+						one.setRow("Household Card #", "Count");
+						rows3.add(one);
+						rs = pstmt3.executeQuery();
+						while(rs.next()){
+								String str = rs.getString(1);
+								int cnt = rs.getInt(2);
+								total += cnt;
+								one = new ReportRow(debug, 2);
+								one.setRow(str, ""+cnt);
+								rows3.add(one);
+						}
+						one = new ReportRow(debug, 2);
+						one.setRow("Total",""+total);
+						rows3.add(one);
+						all.add(rows3);						
 				}catch(Exception e){
 						msg += e+":"+qq;
 						logger.error(msg);
 				}
 				finally{
-						Helper.databaseDisconnect(con, pstmt, pstmt2, rs);
+						Helper.databaseDisconnect(con, rs, pstmt, pstmt2, pstmt3);
 				}		
 				return msg;
 		}

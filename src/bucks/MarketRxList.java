@@ -12,55 +12,40 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
 import org.apache.log4j.Logger;
 
-public class EbtList implements java.io.Serializable{
+public class MarketRxList implements java.io.Serializable{
 
-		static final long serialVersionUID = 33L;	
+		static final long serialVersionUID = 35L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(EbtList.class);
+		static Logger logger = Logger.getLogger(MarketRxList.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
-		String id="", which_date="e.date_time", limit="30" ;
-		String card_last_4="", approve="", amount="", buck_id="";
-		String date_from="", date_to="", sortBy="e.id DESC ";
-		String cancelled = "", dispute_resolution=""; // for all
-		String exclude_id = "";
-		boolean today_date = false;
-		List<Ebt> ebts = null;
+		String id="", which_date="r.date_time", limit= " 30 ";
+
+		String date_from="", date_to="", sortBy="r.id DESC ";
+		String buck_id="",voucher_num="", cancelled="",
+				dispute_resolution="", amount="";
+		List<MarketRx> marketRxes = null;
 	
-		public EbtList(){
+		public MarketRxList(){
 		}	
-		public EbtList(boolean val){
+		public MarketRxList(boolean val){
 				debug = val;
 		}
 		public void setId(String val){
 				if(val != null)
 						id = val;
 		}
-		public void setBuck_id(String val){
-				if(val != null)
-						buck_id = val;
-		}	
-		public void setCard_last_4(String val){
-				if(val != null)
-						card_last_4 = val;
-		}
-		public void setApprove(String val){
-				if(val != null)
-						approve = val;
-		}	
 		public void setAmount(String val){
 				if(val != null)
 						amount = val;
 		}
-		public void setCancelled(String val){
-				if(val != null && !val.equals("-1"))
-						cancelled = val;
-		}	
+		public void setBuck_id(String val){
+				if(val != null)
+						buck_id = val;
+		}
 		public void setWhich_date(String val){
 				if(val != null)
 						which_date = val;
@@ -73,37 +58,40 @@ public class EbtList implements java.io.Serializable{
 				if(val != null)
 						date_to = val;
 		}
-		public void excludeId(String val){
-				if(val != null)
-						exclude_id = val;
-		}		
-		public void setSortBy(String val){
-				if(val != null &&  !val.equals("-1"))
-						sortBy = val;
+		public void setCancelled(String val){
+				if(val != null && !val.equals("-1"))
+						cancelled = val;
 		}
 		public void setDispute_resolution(String val){
-				if(val != null &&  !val.equals("-1"))
+				if(val != null && !val.equals("-1"))
 						dispute_resolution = val;
-		}
+		}		
+		public void setVoucherNum(String val){
+				if(val != null)
+						voucher_num = val;
+		}	
 		public void setNoLimit(){
 				limit = "";
 		}
+		public void setLimit(String val){
+				if(val != null)
+						limit = val;
+		}
+		public void setSortBy(String val){
+				if(val != null && !val.equals("-1"))
+						sortBy = val;
+		}
+	
 		//
 		public String getId(){
 				return id;
 		}
 		public String getBuck_id(){
 				return buck_id;
-		}	
-		public String getCard_last_4(){
-				return card_last_4;
-		}
-		public String getApprove(){
-				return approve;
 		}
 		public String getAmount(){
 				return amount;
-		}	
+		}
 		public String getWhich_date(){
 				return which_date;
 		}
@@ -113,6 +101,7 @@ public class EbtList implements java.io.Serializable{
 		public String getDate_to(){
 				return date_to ;
 		}
+
 		public String getSortBy(){
 				if(sortBy.equals("")){
 						return "-1";
@@ -123,29 +112,21 @@ public class EbtList implements java.io.Serializable{
 				if(cancelled.equals("")){
 						return "-1";
 				}
-				return cancelled;
+				return cancelled ;
 		}
 		public String getDispute_resolution(){
 				if(dispute_resolution.equals("")){
 						return "-1";
 				}
-				return dispute_resolution;
-		}
-		public void setTodayDate(){
-				today_date = true;
-		}
-		public List<Ebt> getEbts(){
-				return ebts;
-		}
-		public void setLimit(String val){
-				if(val != null)
-						limit = val;
+				return dispute_resolution ;
+		}		
+		public List<MarketRx> getMarketRxes(){
+				return marketRxes;
 		}
 		//
-		String find(){
-
-				String qq = "select e.id, e.amount,e.approve,e.card_last_4,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.dmb_amount,e.cancelled,e.ebt_donor_max,e.ebt_buck_value,e.dispute_resolution ";		
-				String qf = " from ebts e ";
+		public String find(){
+				String qq = "select r.id, r.voucher_num, r.amount,r.user_id,date_format(r.date_time,'%m/%d/%Y %H:%i'),r.cancelled,r.dispute_resolution ";		
+				String qf = " from market_rx r ";
 				String qw = "";
 				Connection con = null;
 				PreparedStatement pstmt = null;
@@ -153,52 +134,39 @@ public class EbtList implements java.io.Serializable{
 				String msg = "";
 				if(!id.equals("")){
 						if(!qw.equals("")) qw += " and ";
-						qw += " e.id = ? ";
+						qw += " r.id = ? ";
 				}
 				else {
 						if(!buck_id.equals("")){
-								qf += " left join ebt_bucks eb on eb.ebt_id=e.id ";
+								qf += " left join rx_bucks gb on gb.rx_id=r.id ";
 								if(!qw.equals("")) qw += " and ";				
-								qw += " eb.buck_id = ? ";				
+								qw += " gb.buck_id = ? ";				
 						}
 						if(cancelled.equals("y")){
 								if(!qw.equals("")) qw += " and ";					
-								qw += " e.cancelled is not null ";
+								qw += " r.cancelled is not null ";
 						}
 						else if(cancelled.equals("n")){
 								if(!qw.equals("")) qw += " and ";					
-								qw += " e.cancelled is null ";
+								qw += " r.cancelled is null ";
 						}
 						if(dispute_resolution.equals("y")){
 								if(!qw.equals("")) qw += " and ";					
-								qw += " e.dispute_resolution is not null ";
+								qw += " r.dispute_resolution is not null ";
 						}
 						else if(dispute_resolution.equals("n")){
 								if(!qw.equals("")) qw += " and ";					
-								qw += " e.dispute_resolution is null ";
+								qw += " r.dispute_resolution is null ";
 						}						
-						if(!card_last_4.equals("")){
-								if(!qw.equals("")) qw += " and ";				
-								qw += " e.card_last_4 = ? ";
-						}
-						if(!approve.equals("")){
-								if(!qw.equals("")) qw += " and ";
-								qw += " e.approve = ? ";
-						}
 						if(!amount.equals("")){
 								if(!qw.equals("")) qw += " and ";
-								qw += " e.amount = ? ";
+								qw += " r.amount = ? ";
 						}
-						if(!exclude_id.equals("")){
+						if(!voucher_num.equals("")){
 								if(!qw.equals("")) qw += " and ";
-								qw += " e.id <> ? ";
-						}						
-						if(today_date){
-								// add today date 
-								if(!qw.equals("")) qw += " and ";
-								qw += " date(e.date_time) = curdate() ";								
-						}
-						else if(!which_date.equals("")){
+								qw += " r.voucher_num = ? ";
+						}			
+						if(!which_date.equals("")){
 								if(!date_from.equals("")){
 										if(!qw.equals("")) qw += " and ";
 										qw += which_date+" >= ? ";					
@@ -218,14 +186,13 @@ public class EbtList implements java.io.Serializable{
 				if(!limit.equals("")){
 						qq += " limit "+limit;
 				}
-				//
 				logger.debug(qq);
+				con = Helper.getConnection();
+				if(con == null){
+						msg = "Could not connect ";
+						return msg;
+				}
 				try{
-						con = Helper.getConnection();
-						if(con == null){
-								msg = "Could not connect ";
-								return msg;
-						}
 						pstmt = con.prepareStatement(qq);
 						int jj=1;
 
@@ -236,19 +203,13 @@ public class EbtList implements java.io.Serializable{
 								if(!buck_id.equals("")){
 										pstmt.setString(jj++,buck_id);
 								}				
-								if(!card_last_4.equals("")){
-										pstmt.setString(jj++,card_last_4);				
-								}
-								if(!approve.equals("")){
-										pstmt.setString(jj++,approve);					
-								}
 								if(!amount.equals("")){
 										pstmt.setString(jj++,amount);
 								}
-								if(!exclude_id.equals("")){
-										pstmt.setString(jj++, exclude_id);
-								}								
-								if(!today_date && !which_date.equals("")){
+								if(!voucher_num.equals("")){
+										pstmt.setString(jj++,voucher_num);
+								}				
+								if(!which_date.equals("")){
 										if(!date_from.equals("")){
 												pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_from).getTime()));
 										}
@@ -257,23 +218,19 @@ public class EbtList implements java.io.Serializable{
 										}
 								}
 						}
-						ebts = new ArrayList<Ebt>();			
+						marketRxes = new ArrayList<MarketRx>();			
 						rs = pstmt.executeQuery();
 						while(rs.next()){
-								Ebt one = new Ebt(debug,
-																	rs.getString(1),
-																	rs.getInt(2),
-																	rs.getString(3),
-																	rs.getString(4),
-																	rs.getString(5),
-																	rs.getString(6),
-																	rs.getInt(7),
-																	rs.getString(8),
-																	rs.getInt(9),
-																	rs.getInt(10),
-																	rs.getString(11)
-																	);
-								ebts.add(one);
+								MarketRx one = new MarketRx(debug,
+																		rs.getString(1),
+																		rs.getString(2),
+																		rs.getString(3),
+																		rs.getString(4),
+																		rs.getString(5),
+																		rs.getString(6),
+																		rs.getString(7)
+																		);
+								marketRxes.add(one);
 						}
 				}catch(Exception e){
 						msg += e+": "+qq;

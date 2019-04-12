@@ -14,9 +14,6 @@ class Inserts{
     //
     // Person title
     final static String nameTitleArr[] ={"","Mr.","Mrs.","Ms."}; 
-    // torts, work_comp, safety
-    final static String statusArr[] ={"New","Pending","Closed","Filed Suit"}; 
-    final static String searchStatusArr[] ={"","New","Pending","Closed","Filed Suit"}; 
     //
     // xhtmlHeaderInc
     final static String xhtmlHeaderInc = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+

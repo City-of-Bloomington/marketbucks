@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 
 public class User implements java.io.Serializable{
 
-    String username="", fullName="", dept="", role="", id="";
+    String username="", fullName="", dept="", role="", id="", inactive="";
     boolean debug = false, userExists = false;
 		static final long serialVersionUID = 130L;		
 		static Logger logger = Logger.getLogger(User.class);
@@ -36,17 +36,21 @@ public class User implements java.io.Serializable{
 				setId(val2);
     }
 		public User(boolean deb, String val, String val2,
-								String val3, String val4){
-				setValues(val, val2, val3, val4);
+								String val3, String val4, boolean val5){
+				debug = deb;
+				setValues(val, val2, val3, val4, val5);
 		}
 		void setValues(String val,
 									 String val2,
 									 String val3,
-									 String val4){
+									 String val4,
+									 boolean val5
+									 ){
 				setId(val);
 				setUsername(val2);
 				setFullName(val3);
 				setRole(val4);
+				setInactive(val5);
 				userExists = true;
 		}
     //
@@ -63,9 +67,17 @@ public class User implements java.io.Serializable{
 		public boolean isAdmin(){
 				return hasRole("Admin");
     }
+		
 		public boolean hasUsername(){
 				return !username.equals("");
 		}
+		public boolean isActive(){
+				return inactive.equals("");
+    }
+		public boolean getInactive(){
+				return !inactive.equals("");
+		}
+				
 		public void setDebug(){
 				debug = true;
 		}
@@ -87,6 +99,17 @@ public class User implements java.io.Serializable{
     public String getRole(){
 				return role;
     }
+		public String getRoleText(){
+				String ret = "None";
+				if(role.equals("Edit"))
+						ret = "Edit Only";
+				else if(role.equals("Edit:Delete"))
+						ret = "Edit and Delete";
+				else if(role.indexOf("Admin") > -1){
+						ret = "All";
+				}
+				return ret;
+		}
     //
     // setters
     //
@@ -111,6 +134,10 @@ public class User implements java.io.Serializable{
 				if(val != null)
 						dept = val;
     }
+    public void setInactive (boolean val){
+				if(val)
+						inactive = "y";
+    }		
 		public boolean userExists(){
 				return userExists;
 		}
@@ -139,7 +166,90 @@ public class User implements java.io.Serializable{
 				}
 				final User other = (User) obj;
 				return this.id.equals(other.id);
-		}	
+		}
+		String doSave(){
+				String msg="";
+				PreparedStatement pstmt = null;
+				Connection con = null;
+				ResultSet rs = null;		
+				String qq = "insert into users values(0,?,?,?,null)";
+				logger.debug(qq);
+				con = Helper.getConnection();
+				if(con == null){
+						msg += " could not connect to database";
+						System.err.println(msg);
+						return msg;
+				}		
+				try{
+						pstmt = con.prepareStatement(qq);
+						pstmt.setString(1, username);
+						pstmt.setString(2, fullName);
+						if(role.equals(""))
+								role="Edit:Delete";
+						pstmt.setString(3, role);
+						pstmt.executeUpdate();
+						Helper.databaseDisconnect(pstmt, rs);
+						//
+						qq = "select LAST_INSERT_ID() ";
+						logger.debug(qq);
+						pstmt = con.prepareStatement(qq);
+						rs = pstmt.executeQuery();
+						if(rs.next()){
+								id = rs.getString(1);
+						}			
+						
+				}
+				catch(Exception ex){
+						msg += " "+ex;
+						logger.error(ex+":"+qq);
+				}
+				finally{
+						Helper.databaseDisconnect(con, pstmt, rs);
+				}
+				return msg;
+
+		}
+		String doUpdate(){
+				String msg="";
+				PreparedStatement pstmt = null;
+				Connection con = null;
+				ResultSet rs = null;		
+				String qq = "update users set userid=?,fullname=?,role=?,inactive=? where id=? ";
+				logger.debug(qq);
+				con = Helper.getConnection();
+				if(con == null){
+						msg += " could not connect to database";
+						System.err.println(msg);
+						return msg;
+				}		
+				try{
+						pstmt = con.prepareStatement(qq);
+						pstmt.setString(1, username);
+						pstmt.setString(2, fullName);
+						if(role.equals(""))
+								pstmt.setNull(3, Types.INTEGER);
+						else
+								pstmt.setString(3, role);
+						if(inactive.equals("")){
+								pstmt.setNull(4, Types.CHAR);
+						}
+						else{
+								pstmt.setString(4, "y");
+						}
+						pstmt.setString(5, id);
+						pstmt.executeUpdate();
+				}
+				catch(Exception ex){
+						msg += " "+ex;
+						logger.error(ex+":"+qq);
+				}
+				finally{
+						Helper.databaseDisconnect(con, pstmt, rs);
+				}
+				return msg;
+
+		}		
+		
 		public String doSelect(){
 				String msg="";
 				PreparedStatement pstmt = null;
@@ -178,7 +288,10 @@ public class User implements java.io.Serializable{
 										fullName = str;
 								str = rs.getString(4);
 								if(str != null)
-										role = str;				
+										role = str;
+								str = rs.getString(5);
+								if(str != null && !str.equals(""))
+										inactive = "y";								
 								userExists = true;
 						}
 				}
@@ -191,5 +304,6 @@ public class User implements java.io.Serializable{
 				}
 				return msg;
 		}
-	
+
+		
 }

@@ -69,6 +69,13 @@
 		<result name="error">/WEB-INF/jsp/ebtAdd.jsp</result>
 		<result name="issue" type="chain">issueAdd</result>			
       </action>
+      <action name="rxAdd" 
+              class="bucks.MarketRxAction" 
+              method="execute">
+				<result>/WEB-INF/jsp/rxAdd.jsp</result>
+				<result name="error">/WEB-INF/jsp/rxAdd.jsp</result>
+				<result name="issue">/WEB-INF/jsp/rxAddMore.jsp</result>			
+      </action>
       <action name="buckInfo" 
               class="bucks.BuckAction" 
               method="execute">
@@ -189,14 +196,22 @@
 				<result name="input">/WEB-INF/jsp/buckSearch.jsp</result>		
 				<result name="error">/WEB-INF/jsp/buckSearch.jsp</result>
 				<result name="success">/WEB-INF/jsp/buckSearch.jsp</result>
-      </action>			
+      </action>
       <action name="ebtSearch" 
             class="bucks.EbtSearchAction" 
             method="execute">
 				<result name="input">/WEB-INF/jsp/ebtSearch.jsp</result>		
 				<result name="error">/WEB-INF/jsp/ebtSearch.jsp</result>
 				<result name="success">/WEB-INF/jsp/ebtSearch.jsp</result>
+      </action>			
+      <action name="rxSearch" 
+            class="bucks.RxSearchAction" 
+            method="execute">
+				<result name="input">/WEB-INF/jsp/rxSearch.jsp</result>		
+				<result name="error">/WEB-INF/jsp/rxSearch.jsp</result>
+				<result name="success">/WEB-INF/jsp/rxSearch.jsp</result>
       </action>
+			
       <action name="giftSearch" 
 							class="bucks.GiftSearchAction" 
 							method="execute">
@@ -218,7 +233,14 @@
 				<result name="input">/WEB-INF/jsp/vendor.jsp</result>		
 				<result name="error">/WEB-INF/jsp/vendor.jsp</result>
 				<result name="success">/WEB-INF/jsp/vendor.jsp</result>
-      </action>			
+      </action>
+      <action name="user" 
+            class="bucks.UserAction" 
+            method="execute">
+				<result name="input">/WEB-INF/jsp/user.jsp</result>		
+				<result name="error">/WEB-INF/jsp/user.jsp</result>
+				<result name="success">/WEB-INF/jsp/user.jsp</result>
+      </action>						
       <action name="mailNotification" 
             class="bucks.InventoryAction" 
             method="execute">

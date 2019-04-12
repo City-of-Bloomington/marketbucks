@@ -27,32 +27,39 @@
 			</div>
 		</s:elseif>
 		<p>
-			* The ID number is the same ID number on the vendor issued card. <br />
+			* The Vendor number is the same ID number on the vendor issued card. <br />
 			This is needed when scaning vendor card to redeem MB or GC.<br />
 			** indicates a required field <br />
 		</p>
 		<table border="1" width="80%">
 			<tr><td> 
 				<table width="100%">
-					<tr>
-						<td align="right" width="35%"><label>ID #:</label></td>
-						<td align="left">
-							<s:if test="vendor.id == ''">
-								<s:textfield name="vendor.id" maxlength="10" size="10" value="%{vendor.id}" />
-							</s:if>
-							<s:else>
+					<s:if test="vendor.id != ''">
+						<tr>							
+							<td align="right" width="35%"><label>ID #:</label></td>
+							<td align="left">
 								<s:property value="%{vendor.id}" />
-							</s:else>
-							* </td>
-					</tr>						
+							</td>
+						</tr>							 
+					</s:if>
 					<tr>
-						<td align="right" width="35%"><label>Last Name/Business:</label></td>
-						<td align="left"><s:textfield name="vendor.lname" maxlength="50" size="50" required="true" value="%{vendor.lname}" /> ** </td>
+						<td align="right" width="35%"><label>Vendor Number:</label></td>
+						<td align="left">
+								<s:textfield name="vendor.vendorNum" maxlength="10" size="10" value="%{vendor.vendorNum}" required="true" /> *
+						</td>
+					</tr>
+					<tr>
+						<td align="right" width="35%"><label>Last Name:</label></td>
+						<td align="left"><s:textfield name="vendor.lname" maxlength="30" size="50" required="true" value="%{vendor.lname}" />(Business) ** </td>
 					</tr>
 					<tr>
 						<td align="right" width="35%"><label>First Name:</label></td>
 						<td align="left"><s:textfield name="vendor.fname" maxlength="30" size="30" value="%{vendor.fname}" /></td>
-					</tr>				
+					</tr>
+					<tr>
+						<td align="right" width="35%"><label>Related Business:</label></td>
+						<td align="left"><s:textfield name="vendor.businessName" maxlength="50" size="30" value="%{vendor.businessName}" /></td>
+					</tr>					
 					<tr>
 						<td align="right"><label>Active:</label></td>
 						<td align="left"><s:radio name="vendor.active" value="%{vendor.active}" list="#{'y':'Active','-1':'Inactive'}"/>				
@@ -91,9 +98,6 @@
 <s:if test="vendors != null && vendors.size() > 0">
   <s:set var="vendors" value="vendors" />
   <s:set var="vendorsTitle" value="vendorsTitle" />
-	<s:if test="canEdit()">
-		<s:set var="canEdit" value="'true'" />
-	</s:if>
   <%@  include file="vendors.jsp" %>	
 </s:if>
 

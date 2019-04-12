@@ -77,6 +77,7 @@ public class VendorService extends HttpServlet{
 								// System.err.println(name+" "+value);
 						}
 				}
+				System.err.println(" term "+term);
 				VendorList vl = null;
 				List<Vendor> vendors = null;
 				if(term.length() > 1){
@@ -98,12 +99,12 @@ public class VendorService extends HttpServlet{
 		 *
 		 * json format as an array
 		 [
-		 {"value":"Walid Sibo",
-		 "id":"sibow",
+		 {"value":"John Doe",
+		 "id":1,
 		 "dept":"ITS"
 		 },
-		 {"value":"schertza",
-		 "id":"Alan Schertz",
+		 {"value":"John Test",
+		 "id":2,
 		 "dept":"ITS"
 		 }
 	   ]
@@ -114,11 +115,11 @@ public class VendorService extends HttpServlet{
 				if(ones.size() > 0){
 						for(Vendor one:ones){
 								if(!json.equals("")) json += ",";
-								json += "{\"id\":\""+one.getId()+"\",\"value\":\""+one.getFullName()+"\"}";
+								json += "{\"id\":\""+one.getVendorNum()+"\",\"value\":\""+one.getFullName()+"\"}";
 						}
 				}
 				json = "["+json+"]";
-				// System.err.println("json "+json);
+				System.err.println("json "+json);
 				return json;
 		}
 

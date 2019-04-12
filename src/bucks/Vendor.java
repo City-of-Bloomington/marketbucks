@@ -12,7 +12,9 @@ import org.apache.log4j.Logger;
 
 public class Vendor implements java.io.Serializable{
 
-    String lname="", fname="", id="", fullName="", active="y",
+    String lname="", fname="", vendor_num="",
+				id="", business_name="",
+				fullName="", active="y",
 				payType="MB:GC";//MB:GC, GC // Farmer Market:MB, GC, A Fair of Arts: GC
     boolean debug = false;
 		static final long serialVersionUID = 132L;		
@@ -29,18 +31,27 @@ public class Vendor implements java.io.Serializable{
     }
     public Vendor(boolean deb, String val, String val2, String val3, String val4){
 				debug = deb;
-				setId(val);
+				setVendorNum(val);
 				setLname(val2);
 				setFname(val3);
 				setPayType(val4);
     }	
-    public Vendor(boolean deb, String val, String val2, String val3, String val4, String val5){
+    public Vendor(boolean deb,
+									String val,
+									String val2,
+									String val3,
+									String val4,
+									String val5,
+									String val6,
+									String val7){
 				debug = deb;
 				setId(val);
-				setLname(val2);
-				setFname(val3);
-				setActive(val4);
-				setPayType(val5);
+				setVendorNum(val2);
+				setLname(val3);
+				setFname(val4);
+				setBusinessName(val5);
+				setPayType(val6);				
+				setActive(val7);
 		
     }
 
@@ -53,13 +64,19 @@ public class Vendor implements java.io.Serializable{
     //
     public String getId(){
 				return id;
-    }	
+    }
+    public String getVendorNum(){
+				return vendor_num;
+    }		
     public String getLname(){
 				return lname;
     }
     public String getFname(){
 				return fname;
     }
+    public String getBusinessName(){
+				return business_name;
+    }		
     public String getPayType(){
 				if(payType.equals("")){
 						return "-1";
@@ -127,7 +144,11 @@ public class Vendor implements java.io.Serializable{
     public void setId(String val){
 				if(val != null)
 						id = val;
-    }	
+    }
+    public void setVendorNum(String val){
+				if(val != null)
+						vendor_num = val;
+    }		
     public void setLname (String val){
 				if(val != null)
 						lname = val;
@@ -136,6 +157,10 @@ public class Vendor implements java.io.Serializable{
 				if(val != null)
 						fname = val;
     }
+    public void setBusinessName (String val){
+				if(val != null)
+						business_name = val;
+    }		
     public void setPayType (String val){
 				if(val != null && !val.equals("-1")){
 						payType = val;
@@ -196,7 +221,7 @@ public class Vendor implements java.io.Serializable{
 				PreparedStatement pstmt = null;
 				Connection con = null;
 				ResultSet rs = null;		
-				String qq = "select id,lname,fname,active,payType from vendors where id = ?";
+				String qq = "select id,vendor_num,lname,fname,business_name,payType,active from vendors where id = ?";
 				logger.debug(qq);
 				con = Helper.getConnection();
 				if(con == null){
@@ -209,10 +234,13 @@ public class Vendor implements java.io.Serializable{
 						pstmt.setString(1, id);				
 						rs = pstmt.executeQuery();
 						if(rs.next()){
-								setLname(rs.getString(2));
-								setFname(rs.getString(3));
-								setActive(rs.getString(4));
-								setPayType(rs.getString(5)); // till we receive the update
+								setVendorNum(rs.getString(2));
+								setLname(rs.getString(3));
+								setFname(rs.getString(4));
+								setBusinessName(rs.getString(5));
+								setPayType(rs.getString(6)); // till we receive the update
+								setActive(rs.getString(7));
+
 						}
 						else{
 								msg = "Not found";
@@ -232,7 +260,7 @@ public class Vendor implements java.io.Serializable{
 				PreparedStatement pstmt = null;
 				Connection con = null;
 				ResultSet rs = null;		
-				String qq = "insert into vendors values(?,?,?,?,?)";
+				String qq = "insert into vendors values(0,?,?,?,?,?,'y')";
 				logger.debug(qq);
 				con = Helper.getConnection();
 				if(con == null){
@@ -242,16 +270,27 @@ public class Vendor implements java.io.Serializable{
 				}		
 				try{
 						pstmt = con.prepareStatement(qq);
-						pstmt.setString(1, id);
+						pstmt.setString(1, vendor_num);
 						pstmt.setString(2, lname);
+						business_name = lname;
 						if(!fname.equals("")){
 								pstmt.setString(3, fname);
 						}
 						else
 								pstmt.setNull(3, Types.VARCHAR);
-						pstmt.setString(4, "y");
+						pstmt.setString(4, business_name);
 						pstmt.setString(5, payType);
 						pstmt.executeUpdate();
+						Helper.databaseDisconnect(pstmt, rs);
+						//
+						qq = "select LAST_INSERT_ID() ";
+						logger.debug(qq);
+						pstmt = con.prepareStatement(qq);
+						rs = pstmt.executeQuery();
+						if(rs.next()){
+								id = rs.getString(1);
+						}			
+						
 				}
 				catch(Exception ex){
 						msg += " "+ex;
@@ -268,7 +307,7 @@ public class Vendor implements java.io.Serializable{
 				PreparedStatement pstmt = null;
 				Connection con = null;
 				ResultSet rs = null;		
-				String qq = "update vendors set lname=?,fname=?,active=?,payType=? where id=?";
+				String qq = "update vendors set vendor_num=?,lname=?,fname=?,business_name=?, payType=?,active=? where id=?";
 				logger.debug(qq);
 				con = Helper.getConnection();
 				if(con == null){
@@ -278,21 +317,27 @@ public class Vendor implements java.io.Serializable{
 				}		
 				try{
 						pstmt = con.prepareStatement(qq);
-						pstmt.setString(1, lname);
+						pstmt.setString(1, vendor_num);
+						pstmt.setString(2, lname);
 						if(!fname.equals("")){
-								pstmt.setString(2, fname);
+								pstmt.setString(3, fname);
 						}
 						else
-								pstmt.setNull(2, Types.VARCHAR);
-						if(!active.equals(""))
-								pstmt.setString(3, "y");
-						else
-								pstmt.setNull(3, Types.CHAR);
+								pstmt.setNull(3, Types.VARCHAR);
+						if(business_name.equals("")){
+								business_name = lname;
+						}
+						pstmt.setString(4, business_name);
 						if(payType.equals(""))
-								pstmt.setNull(4, Types.VARCHAR);
+								pstmt.setNull(5, Types.VARCHAR);
 						else
-								pstmt.setString(4, payType);
-						pstmt.setString(5, id);
+								pstmt.setString(5, payType);
+						
+						if(!active.equals(""))
+								pstmt.setString(6, "y");
+						else
+								pstmt.setNull(6, Types.CHAR);
+						pstmt.setString(7, id);
 						
 						pstmt.executeUpdate();
 				}

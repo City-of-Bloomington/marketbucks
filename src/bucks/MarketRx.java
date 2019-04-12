@@ -17,18 +17,22 @@ import javax.sql.*;
 import javax.naming.directory.*;
 import org.apache.log4j.Logger;
 
-public class Gift implements java.io.Serializable{
+public class MarketRx implements java.io.Serializable{
 
 		static final long serialVersionUID = 13L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(Gift.class);
+		static Logger logger = Logger.getLogger(MarketRx.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		String amountStr="", id="", buck_type_id="", cancelled="", dispute_resolution="";
-		int amount = 0, total=0;
-		String check_no ="", // RecTrac
+		String amountStr="", id="",
+				buck_type_id="1", // always MB of $3
+				cancelled="", 
+				dispute_resolution="";
+		int voucher_num = 0;
+		int default_amount = 9;//9 for testing 30 default and max of $30 for now
+		int amount = 0, total=0; 
+		String 
 				user_id="", date_time="";
-		String pay_type = "Cash"; // check/money order, Credit Card, Honorary
 		String buck_id = ""; // adding one buck at a time
 		boolean needMoreIssue = false;
 		BuckConf conf = null;
@@ -37,25 +41,24 @@ public class Gift implements java.io.Serializable{
 		Type buck_type = null;
 		List<Buck> bucks = null;
 		User user = null;
-		String[] cancel_buck_id = null; // bucks that need to be voided
-		public Gift(){
+		String[] cancel_buck_id = null; // bucks that need to be cancelled
+		public MarketRx(){
 		}	
-		public Gift(boolean val){
+		public MarketRx(boolean val){
 				debug = val;
 		}
-		public Gift(boolean val, String val2){
+		public MarketRx(boolean val, String val2){
 				debug = val;
 				setId(val2);
 		}	
-		public Gift(boolean deb,
+		public MarketRx(boolean deb,
 								String val,
 								String val2,
 								String val3,
 								String val4,
 								String val5,
 								String val6,
-								String val7,
-								String val8
+								String val7
 								){
 				setValues( val,
 									 val2,
@@ -63,8 +66,7 @@ public class Gift implements java.io.Serializable{
 									 val4,
 									 val5,
 									 val6,
-									 val7,
-									 val8
+									 val7
 									 );
 				debug = deb;
 		
@@ -76,17 +78,15 @@ public class Gift implements java.io.Serializable{
 									 String val4,
 									 String val5,
 									 String val6,
-									 String val7,
-									 String val8
+									 String val7
 									 ){
 				setId(val);
-				setAmount(val2);
-				setPay_type(val3);
-				setCheck_no(val4);
-				setUser_id(val5);
-				setDate_time(val6);
-				setCancelled(val7);
-				setDispute_resolution(val8);
+				setVoucherNum(val2);
+				setAmount(val3);
+				setUser_id(val4);
+				setDate_time(val5);
+				setCancelled(val6);
+				setDispute_resolution(val7);
 				getBucks();
 				if((bucks == null || bucks.size() == 0) && amount > 0){
 						needMoreIssue = true;
@@ -104,28 +104,33 @@ public class Gift implements java.io.Serializable{
 						amountStr = val;
 						try{
 								amount = Integer.parseInt(val);
+								if(amount > default_amount){
+										amount = default_amount;
+								}
 						}catch(Exception ex){
 								System.err.println(ex);
 						}
 				}
 		}
-		public void setPay_type(String val){
-				if(val != null)
-						pay_type = val;
-		}	
-		public void setCheck_no(String val){
-				if(val != null)
-						check_no = val;
-		}
 		public void setDate_time(String val){
 				if(val != null)
 						date_time = val;
-		}	
+		}
+		public void setVoucherNum(String val){
+				if(val != null){
+						try{
+								voucher_num = Integer.parseInt(val);
+						}catch(Exception ex){
+
+						}
+				}
+		}		
 		public void setUser_id(String val){
 				if(val != null)
 						user_id = val;
 		}
 		public void setBuck_id(String val){
+				System.err.println(" buck id "+val);
 				if(val != null && !val.equals("")){
 						if(val.matches("[0-9]+")){
 								buck_id = val;
@@ -160,16 +165,14 @@ public class Gift implements java.io.Serializable{
 				return id;
 		}
 		public String getAmount(){
+				if(id.equals("")){
+						return ""+default_amount;
+				}
 				return amountStr;
 		}
-		public String getPay_type(){
-				return pay_type;
+		public int getAmountInt(){
+				return amount;
 		}
-		public String getCheck_no(){
-		
-				return check_no;
-		}
-
 		public String getDate_time(){
 		
 				return date_time;
@@ -178,6 +181,12 @@ public class Gift implements java.io.Serializable{
 		
 				return user_id;
 		}
+		public String getVoucherNum(){
+				if(id.equals("")){
+						return "";
+				}
+				return ""+voucher_num;
+		}		
 		public String getBuck_type_id(){
 		
 				return buck_type_id;
@@ -219,7 +228,7 @@ public class Gift implements java.io.Serializable{
 		}
 	
 		public String toString(){
-				return "$"+amountStr+" "+pay_type+" "+check_no+" "+date_time;
+				return voucher_num+" $"+amountStr+" "+date_time;
 		}
 		public String getTotal(){
 				return ""+amount;
@@ -245,12 +254,46 @@ public class Gift implements java.io.Serializable{
 		public boolean hasBalance(){
 				return amount > total;
 		}
+		public boolean hasBucks(){
+				getBucks();
+				return bucks != null && bucks.size() > 0;
+		}
 		//	
 		public boolean needMoreIssue(){
 				//
 				return needMoreIssue;
 		}
 		//
+		/**
+ 104336 | 20
+|  141778 |
+|  141779 |
+|  141781 |
+|  141782 |
+|  141783 |
+|  141784 |
+|  141785 |
+|  141786 |
+|  141787 |
+|  141788 |
+|  141789 |
+|  141814 |
+|  141815 |
+|  141816 |
+|  141820 |
+|  141821 |
+|  141829 |
+|  141830 |
+
+
+delete from ebt_bucks where buck_id=141778;
+update bucks set fund_type=null where id=141778;
+
+delete from rx_bucks where id in (141778,141779,141781);
+update bucks set expire_date=null, fund_type=null where id in (141778,141779,141781);
+
+
+		 */
 		public String handleAddingBuck(){
 
 				String msg = "";
@@ -264,20 +307,18 @@ public class Gift implements java.io.Serializable{
 				if(!msg.equals("")){
 						return msg;
 				}
-				if(buck.getBuck_type_id().equals("1")){
-						msg = "Market bucks can not be used as GC ";
+				if(!buck.getBuck_type_id().equals("1")){
+						msg = "Only MB's are allowed ";
 						return msg;
 				}
 				getBucksTotal(); 
 				if(total < amount){
-						if(isAlreadyIssued()){
-								msg = "Error: this buck is already already issued";
-						}
-						else if(!bucks.contains(buck)){
+						if(!isAlreadyIssued() && !bucks.contains(buck)){
 								int excess = (total + buck.getValue_int()) - amount;
 								if(excess <= 0){
-										msg = addNewBuckToGift(buck);
+										msg = addNewBuck(buck);
 										if(!msg.equals("")){
+												bucks.remove(0);
 												msg = "Error: The buck is already in the system";
 										}
 										else{
@@ -286,7 +327,7 @@ public class Gift implements java.io.Serializable{
 										}
 								}
 								else{
-										msg = " GC value exceeds requested amount by $"+excess;
+										msg = " Rx value exceeds requested amount by $"+excess;
 								}
 						}
 						return msg;
@@ -328,15 +369,15 @@ public class Gift implements java.io.Serializable{
 				finally{
 						Helper.databaseDisconnect(con, pstmt, rs);
 				}
-				return ret;
-		
+				return ret;		
 		}
-		String addNewBuckToGift(Buck buck){
+		String addNewBuck(Buck buck){
 				String msg="";
 				//
 				// expire date on gifts is one year from issue date
 				//
 				buck.setExpire_date("12/31/"+Helper.getNextYear());
+				buck.setFund_type("rx");
 				msg = buck.doUpdate();
 				if(!msg.equals("")){
 						msg =" Could not save data "+msg;
@@ -345,14 +386,14 @@ public class Gift implements java.io.Serializable{
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				String qq = "insert into gift_bucks values(?,?)";
+				String qq = "insert into rx_bucks values(?,?)";
 				logger.debug(qq);
+				con = Helper.getConnection();
+				if(con == null){
+						msg = "Could not connect ";
+						return msg;
+				}
 				try{
-						con = Helper.getConnection();
-						if(con == null){
-								msg = "Could not connect ";
-								return msg;
-						}
 						pstmt = con.prepareStatement(qq);
 						pstmt.setString(1, id);
 						pstmt.setString(2, buck_id);
@@ -370,7 +411,8 @@ public class Gift implements java.io.Serializable{
 		}
 		public List<Buck> getBucks(){
 				if(!id.equals("") && bucks == null){
-						BuckList bl = new BuckList(debug, null, id, null, null, null); // gift.id
+						BuckList bl = new BuckList(debug);
+						bl.setRx_id(id);
 						String back = bl.find();
 						if(back.equals("")){
 								bucks = bl.getBucks();
@@ -393,12 +435,12 @@ public class Gift implements java.io.Serializable{
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
 				String msg = "";
-				if(amount % 5 > 0){
-						msg = "Requested amount is not divisible by 5";
+				if(amount % 3 > 0){
+						msg = "Requested amount is not multiple of 3";
 						return msg;
 				}
 				date_time = Helper.getToday();
-				String qq = "insert into gifts values(0,?,?,?,?,now(),null,?)";
+				String qq = "insert into market_rx values(0,?,?,?,now(),null,null)";
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -435,12 +477,16 @@ public class Gift implements java.io.Serializable{
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
 				String msg = "";
-				if(amount % 5 > 0){
-						msg = "Requested amount is not divisible by 5";
+				if(voucher_num  == 0){
+						msg = "invalid voucher number ";
+						return msg;
+				}
+				if(amount % 3 > 0){
+						msg = "Requested amount is not multiple of 3";
 						return msg;
 				}		
 				date_time = Helper.getToday();
-				String qq = "update gifts set amount=?,pay_type=?,check_no=?,user_id=?,dispute_resolution=? where id=?";
+				String qq = "update market_rx set voucher_num=?,amount=?,user_id=?,dispute_resolution=? where id=?";
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -450,7 +496,7 @@ public class Gift implements java.io.Serializable{
 						}
 						pstmt = con.prepareStatement(qq);
 						fillData(pstmt, 1);
-						pstmt.setString(6, id);
+						pstmt.setString(5, id);
 						pstmt.executeUpdate();
 				}
 				catch(Exception ex){
@@ -469,23 +515,18 @@ public class Gift implements java.io.Serializable{
 				String msg="";
 				try{
 						// all these are required
+						pstmt.setString(c++, ""+voucher_num);
 						pstmt.setString(c++, amountStr);
-						if(!pay_type.equals(""))
-								pstmt.setString(c++, pay_type);
-						else
-								pstmt.setNull(c++, Types.VARCHAR);
-						if(!check_no.equals(""))
-								pstmt.setString(c++, check_no);
-						else
-								pstmt.setNull(c++, Types.VARCHAR);
 						if(!user_id.equals(""))
 								pstmt.setString(c++, user_id);
 						else
 								pstmt.setNull(c++, Types.VARCHAR);
-						if(!dispute_resolution.equals(""))
-								pstmt.setString(c++, "y");
-						else
-								pstmt.setNull(c++, Types.CHAR);
+						if(!id.equals("")){
+								if(!dispute_resolution.equals(""))
+										pstmt.setString(c++, "y");
+								else
+										pstmt.setNull(c++, Types.CHAR);
+						}
 				}
 				catch(Exception ex){
 						msg += ex;
@@ -497,7 +538,7 @@ public class Gift implements java.io.Serializable{
 		//
 		String doSelect(){
 		
-				String qq = "select e.id, e.amount ,e.pay_type,e.check_no,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.cancelled,e.dispute_resolution from gifts e where e.id=? ";
+				String qq = "select e.id, e.voucher_num,e.amount ,user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.cancelled,e.dispute_resolution from market_rx e where e.id=? ";
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
@@ -519,8 +560,7 @@ public class Gift implements java.io.Serializable{
 													rs.getString(4),
 													rs.getString(5),
 													rs.getString(6),
-													rs.getString(7),
-													rs.getString(8)
+													rs.getString(7)
 													);
 						}
 				}catch(Exception e){
@@ -543,17 +583,17 @@ public class Gift implements java.io.Serializable{
 						return msg;
 				}
 				//
-				// the amount is greater then
+				// the amount is greater than
 				// we need to delete the bucks from this trans
 				//
 				if(id.equals("")){
-						msg = "No gift id entered";
+						msg = "No id entered";
 						return msg;
 				}
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				String qq = "delete from gift_bucks where gift_id=?";
+				String qq = "delete from rx_bucks where buck_id=?";
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -586,15 +626,15 @@ public class Gift implements java.io.Serializable{
 						return msg;
 				}
 				if(isAnyRedeemed()){
-						msg = "Some of the GC are already redeemed, therefore this transaction can not be cancelled ";
+						msg = "Some of the MB are already redeemed, therefore this transaction can not be cancelled ";
 						return msg;
 				}
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				String qq = "update bucks set fund_type=null,expire_date=null where id in (select buck_id from gift_bucks where gift_id=?) ";
-				String qq2 = "delete from gift_bucks where gift_id=? ";				
-				String qq3 = "update gifts set cancelled='y' where id=?";
+				String qq = "update bucks set fund_type=null,expire_date=null where id in (select buck_id from rx_bucks where rx_id=?) ";
+				String qq2 = "delete from rx_bucks where rx_id=? ";				
+				String qq3 = "update market_rx set cancelled='y' where id=?";
 				//
 				logger.debug(qq);
 				try{
@@ -631,7 +671,7 @@ public class Gift implements java.io.Serializable{
 		}		   
 
 		/**
-		 * in case we want to cancel/void some GC's
+		 * in case we want to cancel/void some Rx's
 		 */
 		String doCancelSelected(){
 				String msg = "";		
@@ -640,8 +680,7 @@ public class Gift implements java.io.Serializable{
 						return msg;
 				}
 				Connection con = null;
-				PreparedStatement pstmt = null;
-				PreparedStatement pstmt2 = null;		
+				PreparedStatement pstmt = null, pstmt2=null,pstmt3=null;
 				ResultSet rs = null;
 				if(cancel_buck_id == null){
 						return msg;
@@ -649,19 +688,21 @@ public class Gift implements java.io.Serializable{
 				// make sure this GC is not redeemed
 				//
 				String qq = "select count(*) from redeem_bucks r where r.buck_id=? "; 
-				String qq2 = "update bucks b, gift_bucks gb set b.expire_date = null where b.id=gb.buck_id and b.id=? and gb.gift_id=?";
+				String qq2 = "update bucks b, rx_bucks r set b.expire_date=null, b.fund_type=null where b.id=r.buck_id and b.id=? and r.rx_id=?";
+				String qq3 = "delete from rx_bucks where buck_id=? and rx_id=? ";
 				//
 				logger.debug(qq);
-
+				con = Helper.getConnection();
+				if(con == null){
+						msg = "Could not connect ";
+						return msg;
+				}
 				try{
-						con = Helper.getConnection();
-						if(con == null){
-								msg = "Could not connect ";
-								return msg;
-						}
 						pstmt = con.prepareStatement(qq);
-						pstmt2 = con.prepareStatement(qq2);			
-						for(String str:cancel_buck_id){
+						pstmt2 = con.prepareStatement(qq2);
+						pstmt3 = con.prepareStatement(qq3);						
+						//
+						for(String str: cancel_buck_id){
 								pstmt.setString(1, str);
 								rs = pstmt.executeQuery();
 								int cnt = 0;
@@ -675,16 +716,20 @@ public class Gift implements java.io.Serializable{
 										pstmt2.setString(1, str);
 										pstmt2.setString(2, id);
 										pstmt2.executeUpdate();
+										//
+										pstmt3.setString(1, str);
+										pstmt3.setString(2, id);
+										pstmt3.executeUpdate();
+										//
 								}
 						}
-						
 				}
 				catch(Exception ex){
 						msg += ex+":"+qq;
 						logger.error(msg);
 				}
 				finally{
-						Helper.databaseDisconnect(con, rs, pstmt, pstmt2);
+						Helper.databaseDisconnect(con, rs, pstmt, pstmt2, pstmt3);
 				}
 				return msg;				
 
@@ -696,7 +741,7 @@ public class Gift implements java.io.Serializable{
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				String qq = "select count(*) from gift_bucks g,redeem_bucks r where r.buck_id=g.buck_id and g.gift_id=? ";
+				String qq = "select count(*) from rx_bucks g,redeem_bucks r where r.buck_id=g.buck_id and g.rx_id=? ";
 				//
 				logger.debug(qq);
 				try{

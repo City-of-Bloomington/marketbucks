@@ -34,7 +34,7 @@ public class UserList{
 		}
 		String find(){
 				String msg = "";
-				String qq = " select id,userid,fullname,role from users ";
+				String qq = " select id,userid,fullname,role,inactive from users ";
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
@@ -62,7 +62,8 @@ public class UserList{
 																		rs.getString(1),
 																		rs.getString(2),
 																		rs.getString(3),
-																		rs.getString(4)
+																		rs.getString(4),
+																		rs.getString(5) != null
 																		);
 								users.add(one);
 						}

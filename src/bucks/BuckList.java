@@ -26,7 +26,7 @@ public class BuckList implements java.io.Serializable{
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		String id="", ebt_id="", redeem_id="", export_id="", sweep_id="",
 				gift_id="", fund_type="", buck_id="", batch_id="", limit="",
-				which_date="b.expire_date",
+				which_date="b.expire_date", rx_id="",
 				type="";  // issued/unissued
 		boolean ebtOrGiftFlag = false;
 		String date_from="", date_to="", sortBy="b.id desc";
@@ -59,6 +59,10 @@ public class BuckList implements java.io.Serializable{
 				if(val != null)
 						ebt_id = val;
 		}
+		public void setRx_id(String val){
+				if(val != null)
+						rx_id = val;
+		}		
 		public void setGift_id(String val){
 				if(val != null)
 						gift_id = val;
@@ -117,6 +121,9 @@ public class BuckList implements java.io.Serializable{
 		public String getEbt_id(){
 				return ebt_id;
 		}
+		public String getRx_id(){
+				return rx_id;
+		}		
 		public String getBatch_id(){
 				return batch_id;
 		}		
@@ -185,6 +192,11 @@ public class BuckList implements java.io.Serializable{
 								if(!qw.equals("")) qw += " and ";				
 								qw += " e.buck_id = b.id and e.ebt_id=? ";
 						}
+						if(!rx_id.equals("")){
+								qf += " join rx_bucks r ";
+								if(!qw.equals("")) qw += " and ";				
+								qw += " r.buck_id = b.id and r.rx_id=? ";
+						}						
 						if(!gift_id.equals("")){
 								qf += " join gift_bucks g ";
 								if(!qw.equals("")) qw += " and ";				
@@ -230,10 +242,10 @@ public class BuckList implements java.io.Serializable{
 				if(!sortBy.equals("")){
 						qq += " order by "+sortBy;
 				}
-				// qq += " limit 30 ";		
-				// if(debug)
+				if(!limit.equals("")){
+						qq += " limit "+limit;
+				}
 				logger.debug(qq);
-				// System.err.println(qq);
 				try{
 						con = Helper.getConnection();
 						if(con == null){
@@ -255,6 +267,9 @@ public class BuckList implements java.io.Serializable{
 								if(!ebt_id.equals("")){
 										pstmt.setString(jj++, ebt_id);				
 								}
+								if(!rx_id.equals("")){
+										pstmt.setString(jj++, rx_id);				
+								}								
 								if(!gift_id.equals("")){
 										pstmt.setString(jj++, gift_id);				
 								}				
