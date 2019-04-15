@@ -12,19 +12,18 @@ import java.io.*;
 import javax.sql.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
-import javax.naming.directory.*;
 import java.util.ArrayList;
 import java.util.List;
- 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class VendorService extends HttpServlet{
 
     String url="";
     boolean debug = false, production = false;
 		static final long serialVersionUID = 180L;	
-		static Logger logger = Logger.getLogger(VendorService.class);
+		static Logger logger = LogManager.getLogger(VendorService.class);
     /**
      * Generates the Group form and processes view, add, update and delete
      * operations.

@@ -11,14 +11,14 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
-
+import org.apache.struts2.ServletActionContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DisputeAction extends TopAction{
 
 		static final long serialVersionUID = 28L;	
-		static Logger logger = Logger.getLogger(DisputeAction.class);
+		static Logger logger = LogManager.getLogger(DisputeAction.class);
 		//
 		Dispute dispute = null;
 		List<Dispute> disputes = null;

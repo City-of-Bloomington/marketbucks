@@ -11,13 +11,14 @@ import java.text.*;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BatchStartAction extends TopAction{
 
 		static final long serialVersionUID = 22L;	
-		static Logger logger = Logger.getLogger(BatchStartAction.class);
+		static Logger logger = LogManager.getLogger(BatchStartAction.class);
 		BuckConf buckConf = null;
 		List<BuckConf> buckConfs = null; // most recent confs
 		private List<Type> buck_types = null;

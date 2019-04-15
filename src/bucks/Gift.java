@@ -12,17 +12,16 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Gift implements java.io.Serializable{
 
 		static final long serialVersionUID = 13L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(Gift.class);
+		static Logger logger = LogManager.getLogger(Gift.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		String amountStr="", id="", buck_type_id="", cancelled="", dispute_resolution="";
 		int amount = 0, total=0;
@@ -368,6 +367,48 @@ public class Gift implements java.io.Serializable{
 				return msg;	
 
 		}
+		String addNewBuckToGift(){
+				String msg="";
+				//
+				// expire date on gifts is one year from issue date
+				//
+				buck = new Buck(debug, buck_id);
+				msg = buck.doSelect();
+				if(!msg.equals("")){
+						return msg;
+				}
+				buck.setExpire_date("12/31/"+Helper.getNextYear());
+				msg = buck.doUpdate();
+				if(!msg.equals("")){
+						msg =" Could not save data "+msg;
+						return msg;
+				}
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				String qq = "insert into gift_bucks values(?,?)";
+				logger.debug(qq);
+				try{
+						con = Helper.getConnection();
+						if(con == null){
+								msg = "Could not connect ";
+								return msg;
+						}
+						pstmt = con.prepareStatement(qq);
+						pstmt.setString(1, id);
+						pstmt.setString(2, buck_id);
+						pstmt.executeUpdate();
+				}
+				catch(Exception ex){
+						msg += ex+":"+qq;
+						logger.error(msg);
+				}
+				finally{
+						Helper.databaseDisconnect(con, pstmt, rs);
+				}
+				return msg;	
+
+		}		
 		public List<Buck> getBucks(){
 				if(!id.equals("") && bucks == null){
 						BuckList bl = new BuckList(debug, null, id, null, null, null); // gift.id

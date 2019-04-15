@@ -12,17 +12,16 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BuckList implements java.io.Serializable{
 
 		static final long serialVersionUID = 30L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(BuckList.class);
+		static Logger logger = LogManager.getLogger(BuckList.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		String id="", ebt_id="", redeem_id="", export_id="", sweep_id="",
 				gift_id="", fund_type="", buck_id="", batch_id="", limit="",

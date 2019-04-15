@@ -11,17 +11,16 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class Batch implements java.io.Serializable{
 
 		static final long serialVersionUID = 19L;	
     boolean debug = false;
-		static Logger logger = Logger.getLogger(Batch.class);
+		static Logger logger = LogManager.getLogger(Batch.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		int batch_size = 0, last_seq_printed = 0, pages = 0;
 		String id="", status="Waiting", date="", user_id="",

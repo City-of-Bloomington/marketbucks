@@ -12,17 +12,16 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class EbtList implements java.io.Serializable{
 
 		static final long serialVersionUID = 33L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(EbtList.class);
+		static Logger logger = LogManager.getLogger(EbtList.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		String id="", which_date="e.date_time", limit="30" ;
 		String card_last_4="", approve="", amount="", buck_id="";

@@ -12,17 +12,16 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Dispute implements java.io.Serializable{
 
 		static final long serialVersionUID = 17L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(Dispute.class);
+		static Logger logger = LogManager.getLogger(Dispute.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		String id="", suggestions="", notes=""; 
 		String redeem_id ="", buck_id="", user_id="",date_time="", status="Waiting", reason="";

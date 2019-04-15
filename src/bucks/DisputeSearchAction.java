@@ -18,13 +18,14 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;  
 import org.apache.struts2.dispatcher.SessionMap;  
 import org.apache.struts2.interceptor.SessionAware;  
-import org.apache.struts2.util.ServletContextAware;  
-import org.apache.log4j.Logger;
+import org.apache.struts2.util.ServletContextAware;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DisputeSearchAction extends TopAction{
 
 		static final long serialVersionUID = 29L;	
-		static Logger logger = Logger.getLogger(DisputeSearchAction.class);
+		static Logger logger = LogManager.getLogger(DisputeSearchAction.class);
 		//
 		DisputeList disputeList = null;
 		List<Dispute> disputes = null;

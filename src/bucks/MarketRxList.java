@@ -13,14 +13,15 @@ import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.sql.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MarketRxList implements java.io.Serializable{
 
 		static final long serialVersionUID = 35L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(MarketRxList.class);
+		static Logger logger = LogManager.getLogger(MarketRxList.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		String id="", which_date="r.date_time", limit= " 30 ";
 
@@ -125,7 +126,7 @@ public class MarketRxList implements java.io.Serializable{
 		}
 		//
 		public String find(){
-				String qq = "select r.id, r.voucher_num, r.amount,r.user_id,date_format(r.date_time,'%m/%d/%Y %H:%i'),r.cancelled,r.dispute_resolution ";		
+				String qq = "select r.id, r.voucher_num, r.amount,r.rx_max_amount,r.user_id,date_format(r.date_time,'%m/%d/%Y %H:%i'),r.cancelled,r.dispute_resolution ";		
 				String qf = " from market_rx r ";
 				String qw = "";
 				Connection con = null;
@@ -222,13 +223,14 @@ public class MarketRxList implements java.io.Serializable{
 						rs = pstmt.executeQuery();
 						while(rs.next()){
 								MarketRx one = new MarketRx(debug,
-																		rs.getString(1),
-																		rs.getString(2),
-																		rs.getString(3),
-																		rs.getString(4),
-																		rs.getString(5),
-																		rs.getString(6),
-																		rs.getString(7)
+																						rs.getString(1),
+																						rs.getString(2),
+																						rs.getString(3),
+																						rs.getString(4),
+																						rs.getString(5),
+																						rs.getString(6),
+																						rs.getString(7),
+																						rs.getString(8)
 																		);
 								marketRxes.add(one);
 						}

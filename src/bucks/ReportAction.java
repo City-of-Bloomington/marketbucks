@@ -12,16 +12,19 @@ import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import org.apache.struts2.ServletActionContext;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class ReportAction extends TopAction{
 
 		static final long serialVersionUID = 80L;	
    
-		static Logger logger = Logger.getLogger(ReportAction.class);
+		static Logger logger = LogManager.getLogger(ReportAction.class);
 		Report report = null;
 		String format = "";
 		List<String> years = null;
+		List<Vendor> vendors = null;
 		public String execute(){
 				String ret = INPUT;            // default
 				if(action.equals("Submit")){
@@ -68,7 +71,14 @@ public class ReportAction extends TopAction{
 				}
 				return years;
 		}
-
+		public List<Vendor> getVendors(){
+				VendorList vl = new VendorList(debug);
+				String back = vl.find();
+				if(back.equals("")){
+						vendors = vl.getVendors();
+				}
+				return vendors;
+		}
 }
 
 

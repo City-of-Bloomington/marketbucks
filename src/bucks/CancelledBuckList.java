@@ -12,17 +12,16 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CancelledBuckList implements java.io.Serializable{
 
 		static final long serialVersionUID = 33L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(CancelledBuckList.class);
+		static Logger logger = LogManager.getLogger(CancelledBuckList.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		String id="", user_id="", limit=" limit 30",
 				which_date="b.date_time";

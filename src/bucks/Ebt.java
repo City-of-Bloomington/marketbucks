@@ -12,17 +12,16 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Ebt implements java.io.Serializable{
 
 		static final long serialVersionUID = 11L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(Ebt.class);
+		static Logger logger = LogManager.getLogger(Ebt.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		static int default_dmb_amount=18, default_buck_value=3;
 		static String default_buck_type = "1";
@@ -591,7 +590,7 @@ public class Ebt implements java.io.Serializable{
 						}
 						pstmt = con.prepareStatement(qq);
 						fillData(pstmt, 1);
-						pstmt.setString(6, id);
+						pstmt.setString(7, id);
 						pstmt.executeUpdate();
 				}
 				catch(Exception ex){

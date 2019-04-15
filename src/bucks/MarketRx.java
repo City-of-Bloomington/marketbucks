@@ -12,24 +12,24 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class MarketRx implements java.io.Serializable{
 
 		static final long serialVersionUID = 13L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(MarketRx.class);
+		static Logger logger = LogManager.getLogger(MarketRx.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		String amountStr="", id="",
 				buck_type_id="1", // always MB of $3
 				cancelled="", 
 				dispute_resolution="";
 		int voucher_num = 0;
-		int default_amount = 9;//9 for testing 30 default and max of $30 for now
+		int rx_max_amount = 30;
 		int amount = 0, total=0; 
 		String 
 				user_id="", date_time="";
@@ -52,13 +52,14 @@ public class MarketRx implements java.io.Serializable{
 				setId(val2);
 		}	
 		public MarketRx(boolean deb,
-								String val,
-								String val2,
-								String val3,
-								String val4,
-								String val5,
-								String val6,
-								String val7
+										String val,
+										String val2,
+										String val3,
+										String val4,
+										String val5,
+										String val6,
+										String val7,
+										String val8
 								){
 				setValues( val,
 									 val2,
@@ -66,7 +67,8 @@ public class MarketRx implements java.io.Serializable{
 									 val4,
 									 val5,
 									 val6,
-									 val7
+									 val7,
+									 val8
 									 );
 				debug = deb;
 		
@@ -78,15 +80,17 @@ public class MarketRx implements java.io.Serializable{
 									 String val4,
 									 String val5,
 									 String val6,
-									 String val7
+									 String val7,
+									 String val8
 									 ){
 				setId(val);
 				setVoucherNum(val2);
 				setAmount(val3);
-				setUser_id(val4);
-				setDate_time(val5);
-				setCancelled(val6);
-				setDispute_resolution(val7);
+				setRx_max_amount(val4);
+				setUser_id(val5);
+				setDate_time(val6);
+				setCancelled(val7);
+				setDispute_resolution(val8);
 				getBucks();
 				if((bucks == null || bucks.size() == 0) && amount > 0){
 						needMoreIssue = true;
@@ -104,8 +108,8 @@ public class MarketRx implements java.io.Serializable{
 						amountStr = val;
 						try{
 								amount = Integer.parseInt(val);
-								if(amount > default_amount){
-										amount = default_amount;
+								if(amount > rx_max_amount){
+										amount = rx_max_amount;
 								}
 						}catch(Exception ex){
 								System.err.println(ex);
@@ -166,10 +170,23 @@ public class MarketRx implements java.io.Serializable{
 		}
 		public String getAmount(){
 				if(id.equals("")){
-						return ""+default_amount;
+						return ""+rx_max_amount;
 				}
 				return amountStr;
 		}
+		public void setRx_max_amount(int val){
+				if(val > 0)
+						rx_max_amount = val;
+		}
+		public void setRx_max_amount(String val){
+				if(val != null){
+						try{
+								rx_max_amount = Integer.parseInt(val);
+						}catch(Exception ex){
+
+						}								
+				}
+		}		
 		public int getAmountInt(){
 				return amount;
 		}
@@ -265,32 +282,13 @@ public class MarketRx implements java.io.Serializable{
 		}
 		//
 		/**
- 104336 | 20
-|  141778 |
-|  141779 |
-|  141781 |
-|  141782 |
-|  141783 |
-|  141784 |
-|  141785 |
-|  141786 |
-|  141787 |
-|  141788 |
-|  141789 |
-|  141814 |
-|  141815 |
-|  141816 |
-|  141820 |
-|  141821 |
-|  141829 |
-|  141830 |
+
+delete from ebt_bucks where buck_id in (141778,141779,141781,141782,141783,141784);
 
 
-delete from ebt_bucks where buck_id=141778;
-update bucks set fund_type=null where id=141778;
+delete from rx_bucks where buck_id in (141778,141779,141781);
 
-delete from rx_bucks where id in (141778,141779,141781);
-update bucks set expire_date=null, fund_type=null where id in (141778,141779,141781);
+update bucks set expire_date=null, fund_type=null where id in (141778,141779,141781,141782,141783,141784);
 
 
 		 */
@@ -440,7 +438,7 @@ update bucks set expire_date=null, fund_type=null where id in (141778,141779,141
 						return msg;
 				}
 				date_time = Helper.getToday();
-				String qq = "insert into market_rx values(0,?,?,?,now(),null,null)";
+				String qq = "insert into market_rx values(0,?,?,?,?,now(),null,null)";
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -486,7 +484,7 @@ update bucks set expire_date=null, fund_type=null where id in (141778,141779,141
 						return msg;
 				}		
 				date_time = Helper.getToday();
-				String qq = "update market_rx set voucher_num=?,amount=?,user_id=?,dispute_resolution=? where id=?";
+				String qq = "update market_rx set voucher_num=?,amount=?,rx_max_amount=?,user_id=?,dispute_resolution=? where id=?";
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -496,7 +494,7 @@ update bucks set expire_date=null, fund_type=null where id in (141778,141779,141
 						}
 						pstmt = con.prepareStatement(qq);
 						fillData(pstmt, 1);
-						pstmt.setString(5, id);
+						pstmt.setString(6, id);
 						pstmt.executeUpdate();
 				}
 				catch(Exception ex){
@@ -517,6 +515,7 @@ update bucks set expire_date=null, fund_type=null where id in (141778,141779,141
 						// all these are required
 						pstmt.setString(c++, ""+voucher_num);
 						pstmt.setString(c++, amountStr);
+						pstmt.setInt(c++, rx_max_amount);
 						if(!user_id.equals(""))
 								pstmt.setString(c++, user_id);
 						else
@@ -538,7 +537,7 @@ update bucks set expire_date=null, fund_type=null where id in (141778,141779,141
 		//
 		String doSelect(){
 		
-				String qq = "select e.id, e.voucher_num,e.amount ,user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.cancelled,e.dispute_resolution from market_rx e where e.id=? ";
+				String qq = "select r.id, r.voucher_num,r.amount ,r.rx_max_amount,r.user_id,date_format(r.date_time,'%m/%d/%Y %H:%i'),r.cancelled,r.dispute_resolution from market_rx r where r.id=? ";
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
@@ -560,7 +559,8 @@ update bucks set expire_date=null, fund_type=null where id in (141778,141779,141
 													rs.getString(4),
 													rs.getString(5),
 													rs.getString(6),
-													rs.getString(7)
+													rs.getString(7),
+													rs.getString(8)
 													);
 						}
 				}catch(Exception e){

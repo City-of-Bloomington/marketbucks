@@ -12,13 +12,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BatchSearchAction extends TopAction{
 
 		static final long serialVersionUID = 227L;	
-		static Logger logger = Logger.getLogger(BatchSearchAction.class);
+		static Logger logger = LogManager.getLogger(BatchSearchAction.class);
 		//
 		List<Batch> batches = null;
 		BatchList batchList = null;

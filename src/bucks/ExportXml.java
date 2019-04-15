@@ -34,9 +34,8 @@ import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.lowagie.text.Image;
-
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ExportXml extends HttpServlet{
 
@@ -44,7 +43,7 @@ public class ExportXml extends HttpServlet{
     String url="";
     boolean debug = false;
 		static final long serialVersionUID = 64L;	
-		static Logger logger = Logger.getLogger(ExportXml.class);
+		static Logger logger = LogManager.getLogger(ExportXml.class);
 
     public void doGet(HttpServletRequest req, 
 											HttpServletResponse res) 

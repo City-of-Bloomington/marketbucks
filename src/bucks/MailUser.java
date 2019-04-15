@@ -6,9 +6,8 @@
  */
 package bucks;
 import java.sql.*;
-import javax.naming.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class MailUser extends User implements java.io.Serializable{
@@ -16,7 +15,7 @@ public class MailUser extends User implements java.io.Serializable{
     String super_user="";
  
 		static final long serialVersionUID = 133L;		
-		static Logger logger = Logger.getLogger(MailUser.class);
+		static Logger logger = LogManager.getLogger(MailUser.class);
 
     public MailUser(){
 				super();
@@ -30,10 +29,15 @@ public class MailUser extends User implements java.io.Serializable{
     public MailUser(boolean deb, String val, String val2){
 				super(deb, val, val2);
     }
-		public MailUser(boolean deb, String val, String val2,
-										String val3, String val4, String val5){
-				super(deb, val, val2, val3, val4);
-				setSuper_user(val5);
+		public MailUser(boolean deb,
+										String val,
+										String val2,
+										String val3,
+										String val4,
+										boolean val5,
+										String val6){
+				super(deb, val, val2, val3, val4, val5);
+				setSuper_user(val6);
 		}
     //
 		public boolean isSuper_user(){
@@ -83,7 +87,7 @@ public class MailUser extends User implements java.io.Serializable{
 				PreparedStatement pstmt = null;
 				Connection con = null;
 				ResultSet rs = null;		
-				String qq = "select u.id,u.userid,u.fullname,u.role,m.super_user from users u,mail_notifications m where u.id=m.id and ";
+				String qq = "select u.id,u.userid,u.fullname,u.role,u.inactive,m.super_user from users u,mail_notifications m where u.id=m.id and ";
 				if(!username.equals("")){
 						qq += " userid = ?";
 				}
@@ -107,8 +111,9 @@ public class MailUser extends User implements java.io.Serializable{
 								setValues(rs.getString(1),
 													rs.getString(2),
 													rs.getString(3),
-													rs.getString(4));
-								setSuper_user(rs.getString(5));				
+													rs.getString(4),
+													rs.getString(5) != null);
+								setSuper_user(rs.getString(6));				
 						}
 				}
 				catch(Exception ex){

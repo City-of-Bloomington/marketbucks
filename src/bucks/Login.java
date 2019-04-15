@@ -11,22 +11,21 @@ import java.sql.*;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
-import javax.naming.directory.*;
 import javax.sql.*;
 import java.net.URL;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class Login extends HttpServlet{
 
     //
-		String cookieName = ""; // "cas_session";
-		String cookieValue = ""; // ".bloomington.in.gov";
+		String cookieName = ""; 
+		String cookieValue = ""; 
     String url="";
     boolean debug = false;
 		static final long serialVersionUID = 60L;	
-		static Logger logger = Logger.getLogger(Login.class);
+		static Logger logger = LogManager.getLogger(Login.class);
     /**
      * Generates the login form for all users.
      *
@@ -54,7 +53,6 @@ public class Login extends HttpServlet{
 				}
 				HttpSession session = null;
 				String userid = req.getRemoteUser();
-				// System.err.println(" userid "+userid);
 				if(userid != null){
 						session = req.getSession(true);			
 						User user = getUser(userid);

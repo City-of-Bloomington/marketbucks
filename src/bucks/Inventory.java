@@ -12,10 +12,9 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Inventory implements java.io.Serializable{
 
@@ -23,7 +22,7 @@ public class Inventory implements java.io.Serializable{
 		static final int GCThreshold = 400; //GC should not be less than
 		static final int MBThreshold = 2000; //MB should not be less than 	
     boolean debug = false;
-		static Logger logger = Logger.getLogger(Inventory.class);
+		static Logger logger = LogManager.getLogger(Inventory.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		Hashtable<String, Integer> table = new Hashtable<String, Integer>(3);
 		String message = "";

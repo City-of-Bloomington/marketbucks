@@ -35,8 +35,8 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.Image;
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class RedeemInvoice extends HttpServlet{
@@ -47,7 +47,7 @@ public class RedeemInvoice extends HttpServlet{
 		static final long serialVersionUID = 63L;
 		static final String fontName ="Times-Roman";
 		static final String fontName2 ="Verdana";		
-		static Logger logger = Logger.getLogger(RedeemInvoice.class);
+		static Logger logger = LogManager.getLogger(RedeemInvoice.class);
 
     public void doGet(HttpServletRequest req, 
 											HttpServletResponse res) 

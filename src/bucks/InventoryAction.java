@@ -13,13 +13,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;  
 import javax.servlet.http.HttpServletResponse;  
 import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class InventoryAction extends TopAction{
 
 		static final long serialVersionUID = 2223L;	
-		static Logger logger = Logger.getLogger(InventoryAction.class);
+		static Logger logger = LogManager.getLogger(InventoryAction.class);
 		//
 		// we need the latest buckConf to get the
 		// buck face value and expire date for the season

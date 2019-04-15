@@ -6,9 +6,8 @@
  */
 package bucks;
 import java.sql.*;
-import javax.naming.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Vendor implements java.io.Serializable{
 
@@ -18,7 +17,7 @@ public class Vendor implements java.io.Serializable{
 				payType="MB:GC";//MB:GC, GC // Farmer Market:MB, GC, A Fair of Arts: GC
     boolean debug = false;
 		static final long serialVersionUID = 132L;		
-		static Logger logger = Logger.getLogger(Vendor.class);
+		static Logger logger = LogManager.getLogger(Vendor.class);
     String errors = "";
     public Vendor(){
     }		

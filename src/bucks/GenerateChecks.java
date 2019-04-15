@@ -43,7 +43,8 @@ import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.Image;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class GenerateChecks extends HttpServlet{
@@ -53,7 +54,7 @@ public class GenerateChecks extends HttpServlet{
 		static Font fnts=null,fnt10=null,fnt=null,fntb=null, fnt2=null, fntb2=null;
 		static final long serialVersionUID = 63L;
 		static final String fontName ="Verdana";	
-		static Logger logger = Logger.getLogger(GenerateChecks.class);
+		static Logger logger = LogManager.getLogger(GenerateChecks.class);
 
     public void doGet(HttpServletRequest req, 
 											HttpServletResponse res) 

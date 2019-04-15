@@ -8,15 +8,15 @@ package bucks;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.naming.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class VendorList{
 
     boolean debug = false;
 		static final long serialVersionUID = 123L;		
-		static Logger logger = Logger.getLogger(VendorList.class);
+		static Logger logger = LogManager.getLogger(VendorList.class);
 		static String vendorsCheckUrl=null,
 				vendorsDatabase=null,
 				vendorsUser=null,

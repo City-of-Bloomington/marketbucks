@@ -8,15 +8,14 @@ package bucks;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.naming.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MailUserList{
 
     boolean debug = false;
 		static final long serialVersionUID = 1123L;		
-		static Logger logger = Logger.getLogger(MailUserList.class);
+		static Logger logger = LogManager.getLogger(MailUserList.class);
 		List<MailUser> mailUsers = null;
 		List<User> users = null;
 		String[] add_user_id=null;
@@ -53,7 +52,7 @@ public class MailUserList{
 		}
 		String find(){
 				String msg = "";
-				String qq = " select u.id,u.userid,u.fullname,u.role,m.super_user from users u, mail_notifications m where u.id=m.id ";
+				String qq = " select u.id,u.userid,u.fullname,u.role,u.inactive,m.super_user from users u, mail_notifications m where u.id=m.id ";
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
@@ -77,13 +76,15 @@ public class MailUserList{
 																						rs.getString(2),
 																						rs.getString(3),
 																						rs.getString(4),
-																						rs.getString(5)
+																						rs.getString(5) != null,
+																						rs.getString(6)
 																						);
 								User two = new User(debug,
 																		rs.getString(1),
 																		rs.getString(2),
 																		rs.getString(3),
-																		rs.getString(4));
+																		rs.getString(4),
+																		rs.getString(5) != null);
 								mailUsers.add(one);
 								users.add(two);
 						}

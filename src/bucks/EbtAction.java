@@ -18,14 +18,15 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;  
 import org.apache.struts2.dispatcher.SessionMap;  
 import org.apache.struts2.interceptor.SessionAware;  
-import org.apache.struts2.util.ServletContextAware;  
-import org.apache.log4j.Logger;
+import org.apache.struts2.util.ServletContextAware;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class EbtAction extends TopAction{
 
 		static final long serialVersionUID = 25L;	
-		static Logger logger = Logger.getLogger(EbtAction.class);
+		static Logger logger = LogManager.getLogger(EbtAction.class);
 		//
 		Ebt ebt = null;
 		List<Ebt> ebts = null;
@@ -45,7 +46,7 @@ public class EbtAction extends TopAction{
 								System.err.println(ex);
 						}			
 				}		
-				if(action.equals("Next")){ // Save
+				if(action.equals("Next")){ // Save new ebt
 						ret = SUCCESS;
 						ebt.setEbt_donor_max(ebt_donor_max);
 						ebt.setEbt_buck_value(ebt_buck_value);
@@ -80,20 +81,6 @@ public class EbtAction extends TopAction{
 								addActionError(back);
 						}
 						else{
-								/*
-								List<Buck> bucks = ebt.getBucks();
-								if(bucks != null && bucks.size() > 0){
-										for(Buck one:bucks){
-												if(one.isVoided()){
-														CancelledBuck two = new CancelledBuck(debug, one.getId(),user.getId());
-														back += two.doSave();
-												}
-										}
-								}
-								if(!back.equals("")){
-										addActionError(back);
-								}								
-								*/
 								ebt = new Ebt();
 								id="";
 								addActionMessage("Cancelled Successfully");

@@ -14,14 +14,15 @@ import javax.servlet.http.*;
 import javax.naming.*;
 import javax.sql.*;
 import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class Buck implements java.io.Serializable{
 
 		static final long serialVersionUID = 10L;	
     boolean debug = false, found = false;
-		static Logger logger = Logger.getLogger(Buck.class);
+		static Logger logger = LogManager.getLogger(Buck.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		String value="", id="", fund_type="", buck_type_id="", voided="";
 		int days_to_expire = 0; // number of days before expire, - is expired 

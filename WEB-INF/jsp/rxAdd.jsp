@@ -14,11 +14,12 @@
   <s:else>
 		<h3>Edit Rx Transaction</h3>
 		<s:hidden name="rx.id" value="%{rx.id}" />
+		<s:hidden name="rx.rx_max_amount" value="%{rx.rx_max_amount}" />		
 		<s:if test="!rx.isCancelled()">
 			<ul>
 				<li>If the amount is changed, this may cause the removal of all of the bucks that have been added to this transaction.</li>
 				<li>if you want to "Cancel" this transaction, first you need to collect all the issued MB's from the customer. These MB's will be retruned to the pool. Then click on Cancel.</li>
-				<li>If you want to Cancel/Void certain MB's only. Check the corresponding checkbox(es) and then click on "Void Selected MB's".</li>
+				<li>If you want to Cancel certain MB's only. Check the corresponding checkbox(es) and then click on "Cancel Selected MB's".</li>
 			</ul>
 		</s:if>	
   </s:else>
@@ -36,13 +37,14 @@
   <table border="1" width="90%">
 		<tr><td> 
 			<table width="100%">
+				<tr><td colspan="2">Note: Rx Amount is predetermined amount, no change is needed </td></tr>
 				<tr>
-					<td align="right" width="35%"><label>*Requested Amount:</label></td>
+					<td align="right" width="35%"><label>Rx Amount:</label></td>
 					<td align="left">$<s:textfield name="rx.amount" maxlength="4" size="4" required="true" value="%{rx.amount}" id="div5" cssClass="need_focus" />.00 (Must be multiple of $3)</td>
 				</tr>
 				<tr>
 					<td align="right"><label>Voucher #:</label></td>
-					<td align="left"><s:textfield name="rx.voucherNum" maxlength="10" size="10" value="%{rx.voucherNum}" /></td>
+					<td align="left"><s:textfield name="rx.voucherNum" maxlength="10" size="10" value="%{rx.voucherNum}" required="true" /> *</td>
 				</tr>
 				<s:if test="rx.isCancelled()">
 					<tr>

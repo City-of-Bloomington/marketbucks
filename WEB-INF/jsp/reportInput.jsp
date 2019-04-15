@@ -32,7 +32,9 @@
 						<td align="left"><s:checkbox name="report.distributeGC" value="report.distributeGC"  />GC Distribution (including dispute resol. trans. if any)</td>
 					</tr>
 					<tr>
-						<td align="left"><s:checkbox name="report.redeem" value="report.redeem"  />Redemptions</td>
+						<td align="left"><s:checkbox name="report.redeem" value="report.redeem"  />Redemptions, Vendor
+							<s:select name="report.vendor_id" value="%{report.vendor_id}" list="vendors" listKey="id" listValue="fullName" headerKey="-1" headerValue="All" /> (optional)
+						</td>
 					</tr>
 					<tr>
 						<td align="left">

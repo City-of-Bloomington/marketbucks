@@ -12,14 +12,15 @@ import java.text.*;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class GiftSearchAction extends TopAction{
 
 		static final long serialVersionUID = 247L;	
-		static Logger logger = Logger.getLogger(GiftSearchAction.class);
+		static Logger logger = LogManager.getLogger(GiftSearchAction.class);
 		//
 		List<Gift> gifts = null;
 		GiftList giftList = null;

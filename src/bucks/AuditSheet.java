@@ -34,9 +34,8 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.Image;
-
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AuditSheet extends HttpServlet{
 
@@ -47,7 +46,7 @@ public class AuditSheet extends HttpServlet{
 		static final String fontName2 ="Times-Roman";
 		static final String fontName ="Verdana";	
 		static NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();	
-		static Logger logger = Logger.getLogger(AuditSheet.class);
+		static Logger logger = LogManager.getLogger(AuditSheet.class);
 
     public void doGet(HttpServletRequest req, 
 											HttpServletResponse res) 

@@ -20,22 +20,21 @@ import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.ParameterAware;
 import org.apache.struts2.util.ServletContextAware;  
-
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public abstract class TopAction extends ActionSupport implements SessionAware, ServletContextAware{
 
 		static final long serialVersionUID = 80L;	
 		boolean debug = false;
 		String action="", url="", id="";
-		static Logger logger = Logger.getLogger(TopAction.class);
+		static Logger logger = LogManager.getLogger(TopAction.class);
 		static boolean enableVendorsAutoUpdate = false; 
 		static String vendorsCheckUrl = null;
 		static String vendorsDatabase = null;
 		static String vendorsUser = null;
 		static String vendorsPassword = null;
-		static int ebt_donor_max = 18, ebt_buck_value=3;
+		static int ebt_donor_max = 18, ebt_buck_value=3, rx_max_amount=30;
 		User user = null;
 	  ServletContext ctx;
 		Map<String, Object> sessionMap;
@@ -99,6 +98,10 @@ public abstract class TopAction extends ActionSupport implements SessionAware, S
 								val = ctx.getInitParameter("ebt_buck_value");
 								if(val != null){
 										ebt_buck_value = Integer.parseInt(val);
+								}
+								val = ctx.getInitParameter("rx_max_amount");
+								if(val != null){
+										rx_max_amount = Integer.parseInt(val);
 								}								
 						}
 				}catch(Exception ex){

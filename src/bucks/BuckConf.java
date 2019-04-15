@@ -12,13 +12,14 @@ import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.sql.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BuckConf implements java.io.Serializable{
 
 		static final long serialVersionUID = 25L;	
     boolean debug = false;
-		static Logger logger = Logger.getLogger(BuckConf.class);
+		static Logger logger = LogManager.getLogger(BuckConf.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		String 
 				value="3", type_id="",

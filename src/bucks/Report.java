@@ -11,18 +11,20 @@ import java.sql.*;
 import java.io.*;
 import java.text.*;
 import javax.sql.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class Report{
 	
-		static Logger logger = Logger.getLogger(Report.class);
+		static Logger logger = LogManager.getLogger(Report.class);
 		static final long serialVersionUID = 70L;
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		NumberFormat currencyFormatter = 
         NumberFormat.getCurrencyInstance();	
 		String year = "",date_from="",date_to="", type="issueMB";
 		String title = "", which_date="",by="", day="", prev_year="", next_year="";
+		String vendor_id="";
 		boolean debug = false;
 		boolean
 				distributeMB=true,
@@ -58,7 +60,17 @@ public class Report{
 		public void setNext_year(String val){
 				if(val != null && !val.equals("-1"))
 						next_year = val;
-		}	
+		}
+		public void setVendor_id(String val){
+				if(val != null && !val.equals("-1"))
+						vendor_id = val;
+		}
+		public String getVendor_id(){
+				if(vendor_id.equals("")){
+						return "-1";
+				}
+				return vendor_id;
+		}
 		public void setDay(String val){
 				if(val != null && !val.equals(""))
 						day = val;
@@ -699,18 +711,15 @@ public class Report{
 				String qq = "", qw="", qg="", qq2="", qq3="";
 				which_date="r.date_time ";
 				//
-				qq = " select concat_ws(' ',v.lname,v.fname) name, sum(b.value) amount from bucks b left join redeem_bucks rb on b.id=rb.buck_id left join redeems r on r.id=rb.redeem_id left join vendors v on v.id=r.vendor_id ";
+				qq = " select concat_ws(' ',v.lname,v.fname) name, sum(b.value) amount from bucks b join redeem_bucks rb on b.id=rb.buck_id join redeems r on r.id=rb.redeem_id join vendors v on v.id=r.vendor_id ";
 				qg = " group by name having amount > 0 ";
 				qq2 = " select count(*) from redeems r ";
 
-				qq3 = " select b.value name, count(*) amount from bucks b left join redeem_bucks rb on b.id=rb.buck_id left join redeems r on r.id=rb.redeem_id ";
+				qq3 = " select b.value name, count(*) amount from bucks b join redeem_bucks rb on b.id=rb.buck_id join redeems r on r.id=rb.redeem_id ";
 		
 				if(!year.equals("")){
 						if(!qw.equals("")){
 								qw += " and ";
-						}
-						else{
-								qw  = " where ";
 						}
 						qw += " year("+which_date+") = ? ";
 				}
@@ -719,25 +728,25 @@ public class Report{
 								if(!qw.equals("")){
 										qw += " and ";
 								}
-								else{
-										qw = " where ";
-								}
 								qw += which_date+" >= ? ";
 						}
 						if(!date_to.equals("")){
 								if(!qw.equals("")){
 										qw += " and ";
 								}
-								else{
-										qw = " where ";
-								}
 								qw += which_date+" <= ? ";
 						}
 				}
+				if(!vendor_id.equals("")){
+						if(!qw.equals("")){
+								qw += " and ";
+						}
+						qw += "r.vendor_id=? ";
+				}
 				if(!qw.equals("")){
-						qq += qw;
-						qq2 += qw;
-						qq3 += qw;
+						qq += " where "+qw;
+						qq2 += " where "+qw;
+						qq3 += " where "+qw;
 				}
 				qq += qg;
 				qq3 += qg;
@@ -776,7 +785,12 @@ public class Report{
 										jj++;
 								}
 						}
-
+						if(!vendor_id.equals("")){
+								pstmt.setString(jj, vendor_id);
+								pstmt2.setString(jj, vendor_id);
+								pstmt3.setString(jj, vendor_id);				
+								jj++;
+						}
 						title = "Redemptions classified by type ";
 						setTitle();
 						rows = new ArrayList<ReportRow>();

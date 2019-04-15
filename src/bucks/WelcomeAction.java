@@ -8,11 +8,12 @@ package bucks;
 import java.util.*; 
 import javax.servlet.ServletContext;
 import org.apache.struts2.ServletActionContext;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class WelcomeAction extends TopAction {
     private static final long serialVersionUID = 190L;
-		static Logger logger = Logger.getLogger(WelcomeAction.class);
+		static Logger logger = LogManager.getLogger(WelcomeAction.class);
 		//
     @Override
 		public String execute(){

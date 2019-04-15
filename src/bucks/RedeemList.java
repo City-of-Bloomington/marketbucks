@@ -12,17 +12,16 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class RedeemList implements java.io.Serializable{
 
 		static final long serialVersionUID = 35L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(RedeemList.class);
+		static Logger logger = LogManager.getLogger(RedeemList.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		String id="", which_date="r.date_time", vendor_id="", status="", payType="";
 

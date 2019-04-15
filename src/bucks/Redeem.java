@@ -12,17 +12,16 @@ import java.io.*;
 import java.text.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.naming.*;
 import javax.sql.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Redeem implements java.io.Serializable{
 
 		static final long serialVersionUID = 13L;	
    
     boolean debug = false;
-		static Logger logger = Logger.getLogger(Redeem.class);
+		static Logger logger = LogManager.getLogger(Redeem.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		String id=""; 
 		String vendor_id="", vendor_num ="", user_id="",date_time="", notes="";
@@ -209,12 +208,10 @@ public class Redeem implements java.io.Serializable{
 		}
 		public String findVendor(){
 				String back = "";
-				System.err.println(" vendor #"+vendor_num);
 				if(!vendor_num.equals("")){
 						VendorList vl = new VendorList(debug, vendor_num);
 						vl.setActiveOnly();
 						back = vl.find();
-						System.err.println(" back "+back);
 						if(back.equals("")){
 								List<Vendor> ones = vl.getVendors();
 								if(ones != null && ones.size() == 1){
@@ -596,7 +593,6 @@ public class Redeem implements java.io.Serializable{
 				date_time = Helper.getToday();
 
 				String qq = "update redeems set status = 'Completed' where id=?";
-				// System.err.println("Do finalize "+qq);
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();

@@ -12,13 +12,15 @@ import java.text.*;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class RedeemStartAction extends TopAction{
 
 		static final long serialVersionUID = 27L;	
-		static Logger logger = Logger.getLogger(RedeemStartAction.class);
+		static Logger logger = LogManager.getLogger(RedeemStartAction.class);
 		//
 		// Note: This flag is intended for other organization that need to
 		// use this app but do not have similar New World database

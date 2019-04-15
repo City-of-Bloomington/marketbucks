@@ -17,13 +17,13 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.JobDataMap;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class InventoryJob implements Job{
 
     boolean debug = true;
-		Logger logger = Logger.getLogger(InventoryJob.class);
+		Logger logger = LogManager.getLogger(InventoryJob.class);
 		long serialVersionUID = 2227L;
 		String emailStr = "@bloomington.in.gov";
 		JobDataMap dataMap = null;

@@ -19,16 +19,16 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class InventoryScheduler implements ServletContextListener{
 
 		static boolean debug = false;
-		static Logger logger = Logger.getLogger(InventoryScheduler.class);
+		static Logger logger = LogManager.getLogger(InventoryScheduler.class);
 		static final long serialVersionUID = 2237L;
 		static final String emailStr = "@bloomington.in.gov";
 		int month = 5, day = 6, year=2015; // Start of a Wednesday

@@ -6,9 +6,8 @@
  */
 package bucks;
 import java.sql.*;
-import javax.naming.*;
-import javax.naming.directory.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 /**
  * User class
  *
@@ -19,7 +18,7 @@ public class User implements java.io.Serializable{
     String username="", fullName="", dept="", role="", id="", inactive="";
     boolean debug = false, userExists = false;
 		static final long serialVersionUID = 130L;		
-		static Logger logger = Logger.getLogger(User.class);
+		static Logger logger = LogManager.getLogger(User.class);
     String errors = "";
     public User(){
     }		

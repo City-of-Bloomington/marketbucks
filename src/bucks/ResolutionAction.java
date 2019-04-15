@@ -12,14 +12,16 @@ import java.text.*;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class ResolutionAction extends TopAction{
 
 		static final long serialVersionUID = 227L;	
 		String dispute_id="";
-		static Logger logger = Logger.getLogger(ResolutionAction.class);
+		static Logger logger = LogManager.getLogger(ResolutionAction.class);
 		//
 		List<Resolution> resolutions = null;
 		Resolution resolution = null;

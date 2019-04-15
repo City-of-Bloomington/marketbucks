@@ -12,7 +12,8 @@ import javax.sql.*;
 import javax.naming.*;
 import javax.naming.directory.*;
 import java.security.MessageDigest;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Helper{
 
@@ -20,7 +21,7 @@ public class Helper{
     //
     // Non static variables
     //
-		static Logger logger = Logger.getLogger(Helper.class);
+		static Logger logger = LogManager.getLogger(Helper.class);
 
     //
     // basic constructor

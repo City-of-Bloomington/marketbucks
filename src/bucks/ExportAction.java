@@ -12,13 +12,14 @@ import java.text.*;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.ServletActionContext;  
-import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ExportAction extends TopAction{
 
 		static final long serialVersionUID = 28L;	
-		static Logger logger = Logger.getLogger(ExportAction.class);
+		static Logger logger = LogManager.getLogger(ExportAction.class);
 		//
 		Export export = null;
 		List<Redeem> redeems = null;
