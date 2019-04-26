@@ -23,22 +23,22 @@
   <p>*indicate a required field </p>
   <table border="1" width="90%">
 		<tr><td> 
-			<table width="100%" border="1"><caption>Transaction ID:<s:property value="rx.id" /></caption>
+			<table width="100%" border="1"><caption>Transaction ID:<s:property value="%{rx.id}" /></caption>
 				<tr>
 					<td align="right"><label>Amount:</label></td>
-					<td align="right">$<s:property value="rx.amount" />.00</td>
+					<td align="right">$<s:property value="%{rx.amount}" />.00</td>
 				</tr>
 				<tr>
 					<td align="right"><label>Date & Time:</label></td>
-					<td align="left"><s:property value="rx.date_time" /></td>		  
+					<td align="left"><s:property value="%{rx.date_time}" /></td>		  
 				</tr>
 				<tr>
 					<td align="right"><label>User:</label></td>
-					<td align="left"><s:property value="rx.user" /></td>
+					<td align="left"><s:property value="%{rx.user}" /></td>
 				</tr>
 				<tr>
 					<td align="right"><label>Total:</label></td>
-					<td align="right">$<s:property value="rx.total" />.00</td>
+					<td align="right">$<s:property value="%{rx.total}" />.00</td>
 				</tr>
 				<s:if test="rx.isCancelled()">
 					<tr>
@@ -55,7 +55,7 @@
 				<s:elseif test="rx.hasBalance()">
 					<tr bgcolor="red">
 						<td align="right" colspan="3"><label>Balance:</label></td>
-						<td align="right">$<s:property value="rx.balance" />.00</td>
+						<td align="right">$<s:property value="%{rx.balance}" />.00</td>
 					</tr>
 				</s:elseif>
 			</table>

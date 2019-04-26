@@ -328,7 +328,12 @@ public class BuckList implements java.io.Serializable{
 						"join buck_seq s on s.id=b.id "+
 						"join batches bs on bs.id=s.batch_id "+
 						"join buck_confs c on bs.conf_id=c.id "+
-						"join gift_bucks gb on gb.buck_id=b.id ";		
+						"join gift_bucks gb on gb.buck_id=b.id ";
+				String qf3 = "from bucks b "+
+						"join buck_seq s on s.id=b.id "+
+						"join batches bs on bs.id=s.batch_id "+
+						"join buck_confs c on bs.conf_id=c.id "+
+						"join rx_bucks rx on rx.buck_id=b.id ";				
 				String qw = "", qq="";
 				Connection con = null;
 				PreparedStatement pstmt = null;
@@ -344,7 +349,11 @@ public class BuckList implements java.io.Serializable{
 				qq += " union ";
 				qq += qq1 + qf2;
 				if(!qw.equals(""))
-						qq += " where "+qw;		
+						qq += " where "+qw;
+				qq += " union ";				
+				qq += qq1 + qf3;
+				if(!qw.equals(""))
+						qq += " where "+qw;						
 		
 				// if(debug)
 				logger.debug(qq);
@@ -359,9 +368,9 @@ public class BuckList implements java.io.Serializable{
 						int jj=1;
 						if(!id.equals("")){
 								pstmt.setString(jj++,id);
-								pstmt.setString(jj++,id);				
+								pstmt.setString(jj++,id);
+								pstmt.setString(jj++,id);								
 						}
-			
 						rs = pstmt.executeQuery();
 						bucks = new ArrayList<Buck>();
 						while(rs.next()){

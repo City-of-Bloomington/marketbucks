@@ -473,19 +473,8 @@ public class Redeem implements java.io.Serializable{
 				}
 				if(buck.isRedeemed()){
 						msg = "This buck or GC is already redeemed. ";
+						// we do not do anything for already redeemed bucks						
 						return msg;
-						/* // we do not do anything for already redeemed bucks
-							if(!dispute.isInDispute()){
-							dispute.setReason("Redeemed");
-							dispute.setSuggestions("No suggestion, is already redeemed");
-								dispute.setStatus("Rejected");
-								String back = dispute.doSave();
-								}
-						else{
-						msg = "This buck or GC is already redeemed. ";
-						return msg;
-						}
-						*/
 				}
 				if(vendor == null){
 						getVendor();

@@ -155,7 +155,8 @@ public class MarketRxAction extends TopAction{
 		public MarketRx getRx(){ // starting a new rx
 				if(rx == null){
 						rx = new MarketRx(debug);
-						rx.setRx_max_amount(rx_max_amount);
+						if(id.equals(""))
+								rx.setRx_max_amount(rx_max_amount);
 						rx.setId(id);
 				}		
 				return rx;

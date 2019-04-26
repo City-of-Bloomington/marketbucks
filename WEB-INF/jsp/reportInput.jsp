@@ -25,39 +25,45 @@
 			<td>
 				<table with="100%">
 					<tr>
-						<td align="right" valign="top" rowspan="9"><label>Report type:</label></td>
-						<td align="left"><s:checkbox name="report.distributeMB" value="report.distributeMB"  />MB Distribution (including dispute resol. trans. if any)</td>
+						<td><label>Report type:</label></td>
 					</tr>
 					<tr>
-						<td align="left"><s:checkbox name="report.distributeGC" value="report.distributeGC"  />GC Distribution (including dispute resol. trans. if any)</td>
+						<td align="left"><s:checkbox name="report.distributeMB" value="%{report.distributeMB}"  />Ebt MB Distribution (including dispute resol. trans. if any)</td>
 					</tr>
 					<tr>
-						<td align="left"><s:checkbox name="report.redeem" value="report.redeem"  />Redemptions, Vendor
-							<s:select name="report.vendor_id" value="%{report.vendor_id}" list="vendors" listKey="id" listValue="fullName" headerKey="-1" headerValue="All" /> (optional)
-						</td>
+						<td align="left"><s:checkbox name="report.distributeGC" value="%{report.distributeGC}"  />GC Distribution (including dispute resol. trans. if any)</td>
+					</tr>
+					<tr>
+						<td align="left"><s:checkbox name="report.distributeRX" value="%{report.distributeRX}"  />MarketRX Distribution (including dispute resol. trans. if any)</td>
+					</tr>					
+					<tr>
+						<td align="left"><s:checkbox name="report.redeem" value="%{report.redeem}"  />Redemptions - Vendors
+							<s:select name="report.vendor_id" value="%{report.vendor_id}" list="vendors" listKey="id" listValue="fullName" headerKey="-1" headerValue="All" /> (optional)</td>
 					</tr>
 					<tr>
 						<td align="left">
-							<s:checkbox name="report.redeemOld" value="report.redeemOld"  />Stats of MB/GC issued in
+							<s:checkbox name="report.redeemOld" value="%{report.redeemOld}"  />Stats of MB/GC issued in
 							<s:select name="report.prev_year" value="%{report.prev_year}" list="years" /> and redeemed in
-							<s:select name="report.next_year" value="%{report.next_year}" list="years" /> 			  
-						</td>
-					</tr>		  
+							<s:select name="report.next_year" value="%{report.next_year}" list="years" /></td>
+					</tr>
 					<tr>
-						<td align="left"><s:checkbox name="report.participate" value="report.participate"  />Household participation stats</td>
+						<td align="left"><s:checkbox name="report.redeemRX" value="%{report.redeemRX}"  />Redemptions - Vouchers</td>
+					</tr>					
+					<tr>
+						<td align="left"><s:checkbox name="report.participate" value="%{report.participate}"  />Household participation stats</td>
 					</tr>
 					<tr>
 						<td align="left"><s:checkbox name="report.inventory" value="report.inventory"  />MB & GC current inventory stats (No need to set dates for this option)</td>
 					</tr>
 					<tr>
-						<td align="left"><s:checkbox name="report.issued" value="report.inventory"  />Issued MB & GC</td>
-					</tr>
-					<tr>
-						<td align="left"><s:checkbox name="report.unissued" value="report.inventory"  />Unissued MB & GC (May get long list)</td>
-					</tr>
-					<tr>
-						<td align="left"><s:checkbox name="report.issuedNotRedeemed" value="report.issuedNotRedeemed"  />MB & BC issued but not redeemed </td>
+						<td align="left"><s:checkbox name="report.issued" value="%{report.issued}"  />Issued MB & GC (May get long list)</td>
 					</tr>					
+					<tr>
+						<td align="left"><s:checkbox name="report.unissued" value="%{report.unissued}"  />Unissued MB & GC (May get long list)</td>
+					</tr>
+					<tr>
+						<td align="left"><s:checkbox name="report.issuedNotRedeemed" value="%{report.issuedNotRedeemed}"  />MB & BC issued but not redeemed </td>
+					</tr>
 				</table>
 			</td>
 		</tr>

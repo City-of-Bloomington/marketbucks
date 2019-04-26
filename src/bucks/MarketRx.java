@@ -29,7 +29,7 @@ public class MarketRx implements java.io.Serializable{
 				cancelled="", 
 				dispute_resolution="";
 		int voucher_num = 0;
-		int rx_max_amount = 30;
+		int rx_max_amount = 15;
 		int amount = 0, total=0; 
 		String 
 				user_id="", date_time="";
@@ -174,12 +174,12 @@ public class MarketRx implements java.io.Serializable{
 				}
 				return amountStr;
 		}
-		public void setRx_max_amount(int val){
-				if(val > 0)
+		public void setRx_max_amount(Integer val){
+				if(val != null && val > 0)
 						rx_max_amount = val;
 		}
 		public void setRx_max_amount(String val){
-				if(val != null){
+				if(val != null && !val.equals("")){
 						try{
 								rx_max_amount = Integer.parseInt(val);
 						}catch(Exception ex){
