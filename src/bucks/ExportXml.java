@@ -120,7 +120,7 @@ public class ExportXml extends HttpServlet{
     }
 		String writeRedeem(Redeem redeem){
 				Vendor vendor = redeem.getVendor();
-				List<Buck> mb_bucks = redeem.getBk_bucks();
+				List<Buck> mb_bucks = redeem.getBk_bucks(); // ebt and rx
 				List<Buck> gc5_bucks = redeem.getGc5_bucks();
 				List<Buck> gc20_bucks = redeem.getGc20_bucks();
 				List<Buck> gc_bucks = redeem.getGc_bucks();
@@ -148,7 +148,7 @@ public class ExportXml extends HttpServlet{
 				if(total > 0){
 						str = "<accountsPayableInvoice number=\""+redeem.getId()+"\" date=\"\" description=\""+desc+"\" amount=\""+total+"\" freightAmount=\"\" stateSalesTaxAmount=\"\" countySalesTaxAmount=\"\" citySalesTaxAmount=\"\" discountAmount=\"\" checkNumber=\"\" checkSortCode=\"\" confirmingEFT=\"false\" confirmingEFTGLDate=\"\">\n";
 			
-						str += "<payee payeeName=\"\" payeeIDNumber=\""+vendor.getId()+"\" payeeIDNumberType=\"1\" />\n";
+						str += "<payee payeeName=\"\" payeeIDNumber=\""+vendor.getVendorNum()+"\" payeeIDNumberType=\"1\" />\n";
 						str += "<remittanceAddress addressLine1=\"\" addressLine2=\"\" addressLine3=\"\" city=\"\" state=\"\" zip=\"\" vendorContactID=\"0\" />\n";
 				}
 				str += "<items>\n";

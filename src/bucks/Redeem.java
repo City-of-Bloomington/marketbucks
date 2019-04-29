@@ -328,7 +328,7 @@ public class Redeem implements java.io.Serializable{
 				return gc_bucks;
 		}	
 		private void classifyBucks(){
-				bk_bucks = new ArrayList<Buck>();
+				bk_bucks = new ArrayList<Buck>(); // ebt and rx
 				gc5_bucks = new ArrayList<Buck>();
 				gc20_bucks = new ArrayList<Buck>();
 				gc_bucks = new ArrayList<Buck>();
