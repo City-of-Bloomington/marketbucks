@@ -187,10 +187,10 @@ public class Vendor implements java.io.Serializable{
     }
 		@Override
 		public int hashCode() {
-				int hash = 3, id_int = 0;
-				if(!id.equals("")){
+				int hash = 3, id_int = 0; 
+				if(!vendor_num.equals("")){
 						try{
-								id_int = Integer.parseInt(id);
+								id_int = Integer.parseInt(vendor_num);
 						}catch(Exception ex){}
 				}
 				hash = 53 * hash + id_int;
