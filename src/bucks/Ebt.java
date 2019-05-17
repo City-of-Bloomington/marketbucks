@@ -442,6 +442,7 @@ public class Ebt implements java.io.Serializable{
 				}
 				EbtList el = new EbtList(debug);
 				el.setCard_last_4(card_last_4);
+				el.setCancelled("n"); // ignore cancelled 
 				el.setTodayDate();
 				if(!id.equals("")){
 						el.excludeId(id);
