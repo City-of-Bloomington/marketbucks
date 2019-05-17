@@ -198,7 +198,7 @@ public class RedeemInvoice extends HttpServlet{
 						phrase = new Phrase();
 						ch = new Chunk(" Vendor Number: ",fntb);
 						phrase.add(ch);
-						ch = new Chunk(vendor.getId(), fnt);
+						ch = new Chunk(vendor.getVendorNum(), fnt);
 						phrase.add(ch);			
 						cell = new PdfPCell(phrase);
 						cell.setHorizontalAlignment(Element.ALIGN_LEFT);

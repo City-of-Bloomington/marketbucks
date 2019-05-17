@@ -31,7 +31,7 @@
 			This is needed when scaning vendor card to redeem MB or GC.<br />
 			** indicates a required field <br />
 		</p>
-		<table border="1" width="80%">
+		<table border="1" width="90%">
 			<tr><td> 
 				<table width="100%">
 					<s:if test="vendor.id != ''">
@@ -50,7 +50,7 @@
 					</tr>
 					<tr>
 						<td align="right" width="35%"><label>Last Name:</label></td>
-						<td align="left"><s:textfield name="vendor.lname" maxlength="30" size="50" required="true" value="%{vendor.lname}" />(Business) ** </td>
+						<td align="left"><s:textfield name="vendor.lname" maxlength="50" size="40" required="true" value="%{vendor.lname}" />(Business) ** </td>
 					</tr>
 					<tr>
 						<td align="right" width="35%"><label>First Name:</label></td>
@@ -86,6 +86,8 @@
 								<td align="center">
 									<s:submit name="action" type="button" id="update_button" value="Update" />
 								</td>
+								<td align="right">
+									<a href="<s:property value='#application.url' />vendor.action"> New Vendor</a></td>
 							</tr>
 						</table>
 					</td>

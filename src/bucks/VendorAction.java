@@ -56,7 +56,7 @@ public class VendorAction extends TopAction{
 								addActionMessage("Updated Successfully");
 						}
 				}
-				if(!id.equals("")){
+				else if(!id.equals("")){
 						vendor = new Vendor(debug, id);
 						back = vendor.doSelect();
 						if(!back.equals("")){
@@ -80,6 +80,10 @@ public class VendorAction extends TopAction{
 				if(val != null)
 						vendor = val;
 		}
+		public void setId(String val){
+				if(val != null)
+						id = val;
+		}		
 		public Vendor getVendor(){
 				if(vendor == null){
 						vendor = new Vendor();
@@ -108,7 +112,9 @@ public class VendorAction extends TopAction{
 		 * we have to add vendors through the interface
 		 */
 		public boolean canEdit(){
-				return !enableVendorsAutoUpdate;
+				return true;
+				// disable this for now
+				// return !enableVendorsAutoUpdate;
 		}
 		
 }

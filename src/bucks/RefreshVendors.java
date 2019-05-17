@@ -55,7 +55,8 @@ public class RefreshVendors implements java.io.Serializable{
 				if(msg.equals("")){
 						if(newVendors != null && newVendors.size() > 0){
 								if(oldVendors == null || oldVendors.size() == 0){
-										// we all new vendors, so we do insert
+										// they are all new vendors, so we do insert
+										// needed only for the first time
 										for(Vendor one:newVendors){
 												msg += one.doSave();
 										}

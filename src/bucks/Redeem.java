@@ -61,7 +61,8 @@ public class Redeem implements java.io.Serializable{
 									String val6,
 									String val7,
 									String val8,
-									String val9
+									String val9,
+									String val10
 									){
 				setValues( val,
 									 val2,
@@ -71,7 +72,8 @@ public class Redeem implements java.io.Serializable{
 									 val6,
 									 val7,
 									 val8,
-									 val9
+									 val9,
+									 val10
 									 );
 				debug = deb;
 		
@@ -85,14 +87,15 @@ public class Redeem implements java.io.Serializable{
 									 String val6,
 									 String val7,
 									 String val8,
-									 String val9
+									 String val9,
+									 String val10
 									 ){
 				setId(val);
 				setDate_time(val2);
 				setVendor_id(val3);
 				setUser_id(val4);
 				if(!vendor_id.equals("")){
-						vendor = new Vendor(debug, vendor_id, val5, val6, val7);
+						vendor = new Vendor(debug, vendor_id, val10, val5, val6, val7);
 				}
 				setStatus(val8);
 				setNotes(val9);
@@ -214,12 +217,9 @@ public class Redeem implements java.io.Serializable{
 						back = vl.find();
 						if(back.equals("")){
 								List<Vendor> ones = vl.getVendors();
-								if(ones != null && ones.size() == 1){
+								if(ones != null && ones.size() > 0){
 										vendor = ones.get(0);
 										vendor_id = vendor.getId();
-								}
-								else if(ones.size() > 1){
-										back = "Multiple vendors have the same vendor number "+vendor_num;
 								}
 						}
 				}
@@ -666,7 +666,7 @@ public class Redeem implements java.io.Serializable{
 		//
 		String doSelect(){
 		
-				String qq = "select r.id, date_format(r.date_time,'%m/%d/%Y %H:%i'),r.vendor_id,r.user_id,v.lname,v.fname,v.payType,r.status,r.notes from redeems r left join vendors v on v.id=r.vendor_id where r.id=? ";
+				String qq = "select r.id, date_format(r.date_time,'%m/%d/%Y %H:%i'),r.vendor_id,r.user_id,v.lname,v.fname,v.payType,r.status,r.notes,v.vendor_num from redeems r join vendors v on v.id=r.vendor_id where r.id=? ";
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
@@ -690,7 +690,8 @@ public class Redeem implements java.io.Serializable{
 													rs.getString(6),
 													rs.getString(7),
 													rs.getString(8),
-													rs.getString(9)
+													rs.getString(9),
+													rs.getString(10)
 													);
 						}
 				}catch(Exception e){

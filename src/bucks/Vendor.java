@@ -28,12 +28,32 @@ public class Vendor implements java.io.Serializable{
 				debug = deb;
 				setId(val);
     }
-    public Vendor(boolean deb, String val, String val2, String val3, String val4){
+		// for new vendor
+    public Vendor(boolean deb,
+									String val,
+									String val2,
+									String val3,
+									String val4){
 				debug = deb;
-				setVendorNum(val);
+				setVendorNum(val);				
 				setLname(val2);
 				setFname(val3);
 				setPayType(val4);
+
+    }			
+    public Vendor(boolean deb,
+									String val,
+									String val2,
+									String val3,
+									String val4,
+									String val5){
+				debug = deb;
+				setId(val);
+				setVendorNum(val2);				
+				setLname(val3);
+				setFname(val4);
+				setPayType(val5);
+
     }	
     public Vendor(boolean deb,
 									String val,
@@ -380,6 +400,14 @@ public class Vendor implements java.io.Serializable{
 				return msg;
 
 		}	
-	
-	
+		/*	
+				find the vendors with the same vendor_num
+
+				select count(*) cnt,business_name, vendor_num from vendors group by vendor_num having cnt > 1 order by lname;
+
+				select * from redeems where vendor_id= the dup num
+				change to old vendor_id
+				delete the dup
+
+		*/
 }

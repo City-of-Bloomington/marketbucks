@@ -176,7 +176,9 @@ public class VendorList{
 																				rs.getString(2),
 																				rs.getString(3),
 																				pay);
-								vendors.add(one);
+								if(!vendors.contains(one)){
+										vendors.add(one);
+								}
 						}
 				}
 				catch(Exception ex){

@@ -137,8 +137,8 @@ public class RedeemList implements java.io.Serializable{
 		//
 		String find(){
 
-				String qq = "select r.id, date_format(r.date_time,'%m/%d/%Y %H:%i'),r.vendor_id,r.user_id,v.lname,v.fname,v.payType,r.status,r.notes  ";		
-				String qf = " from redeems r left join vendors v on v.id=r.vendor_id ";
+				String qq = "select r.id, date_format(r.date_time,'%m/%d/%Y %H:%i'),r.vendor_id,r.user_id,v.lname,v.fname,v.payType,r.status,r.notes,v.vendor_num  ";		
+				String qf = " from redeems r join vendors v on v.id=r.vendor_id ";
 				String qw = "";
 				Connection con = null;
 				PreparedStatement pstmt = null;
@@ -250,7 +250,8 @@ public class RedeemList implements java.io.Serializable{
 																				rs.getString(6),
 																				rs.getString(7),
 																				rs.getString(8),
-																				rs.getString(9)
+																				rs.getString(9),
+																				rs.getString(10)
 																				);
 								redeems.add(one);
 						}
