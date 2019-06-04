@@ -69,11 +69,14 @@ public class RefreshVendors implements java.io.Serializable{
 										}
 										// now we try to update the old ones to see if they
 										// are still active
+										/**
+											 // disabled for now
 										for(Vendor one:oldVendors){
 												if(!newVendors.contains(one)){
 														msg += one.setAsInactive();
 												}
 										}
+										*/
 								}
 						}			
 				}
