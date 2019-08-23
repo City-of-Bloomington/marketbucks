@@ -145,15 +145,9 @@ public class Vendor implements java.io.Serializable{
 				return active.equals("");
 		}		
 		public String getActive(){
-				if(active.equals("")){
-						return "-1";
-				}
-				return active;
+				return "y";
 		}
 		public String getActiveStr(){
-				if(active.equals("")){
-						return "No";
-				}
 				return "Yes";
 		}
 		
@@ -189,18 +183,18 @@ public class Vendor implements java.io.Serializable{
 				}
     }	
     public void setActive (String val){
-				if(val == null || val.equals("-1"))
-						active = "";
-				else
-						active = "y";
+				active = "y";
     }
+		/*
     public void setInActive (boolean val){
 				if(val)
 						active = "";
-    }			
+    }
     public void setInActive (){
-				active = "";
-    }	
+				// active = "";
+    }			
+		*/
+
 	
     public String toString(){
 				return getFullName();
@@ -326,7 +320,7 @@ public class Vendor implements java.io.Serializable{
 				PreparedStatement pstmt = null;
 				Connection con = null;
 				ResultSet rs = null;		
-				String qq = "update vendors set vendor_num=?,lname=?,fname=?,business_name=?, payType=?,active=? where id=?";
+				String qq = "update vendors set vendor_num=?,lname=?,fname=?,business_name=?, payType=?,active='y' where id=?";
 				logger.debug(qq);
 				con = Helper.getConnection();
 				if(con == null){
@@ -351,12 +345,14 @@ public class Vendor implements java.io.Serializable{
 								pstmt.setNull(5, Types.VARCHAR);
 						else
 								pstmt.setString(5, payType);
-						
+
+						/*
 						if(!active.equals(""))
 								pstmt.setString(6, "y");
 						else
 								pstmt.setNull(6, Types.CHAR);
-						pstmt.setString(7, id);
+						*/
+						pstmt.setString(6, id);
 						
 						pstmt.executeUpdate();
 				}
