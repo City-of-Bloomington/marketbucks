@@ -30,15 +30,15 @@
     <div class="fn1-siteHeader-container">
       <div class="fn1-site-title">		
         <h1 id="application_name"><a href="<s:property value='#application.url'/>">Market Bucks</a></h1>
-				 <div class="fn1-site-location" id="location_name"><a href="<s:property value='#application.url'/>">City of Bloomington, IN</a></div>
+	<div class="fn1-site-location" id="location_name"><a href="<s:property value='#application.url'/>">City of Bloomington, IN</a></div>
       </div>
       <s:if test="#session != null && #session.user != null">
-				<div class="fn1-site-utilityBar">				
+	      <div class="fn1-site-utilityBar">				
           <nav id="user_menu">
-            <div class="menuLauncher"><s:property value='#session.user.fullName' /></div>
-            <div class="menuLinks closed">
-              <a href="<s:property value='#application.url'/>logout.action">Logout</a>
-            </div>
+		  <div class="menuLauncher"><s:property value='#session.user.fullName' /></div>
+		  <div class="menuLinks closed">
+			  <a href="<s:property value='#application.url'/>logout.action">Logout</a>
+		  </div>
           </nav>
           <nav id="admin_menu">
             <div class="menuLauncher">Admin</div>
@@ -46,12 +46,12 @@
               <s:if test="#session.user.isAdmin()">
                 <a href="<s:property value='#application.url'/>buckConf.action">Configuration</a>
                 <a href="<s:property value='#application.url'/>batchStart.action">Generate & Print</a>
-								<a href="<s:property value='#application.url'/>cancelledSearch.action">Voided MB/GC</a>
-								<a href="<s:property value='#application.url'/>mailNotification.action">Inventory Mail Notifications</a>				
+		<a href="<s:property value='#application.url'/>cancelledSearch.action">Voided MB/GC</a>
+		<a href="<s:property value='#application.url'/>mailNotification.action">Inventory Mail Notifications</a>				
                 <a href="<s:property value='#application.url'/>exportStart.action">Exports</a>
-								<a href="<s:property value='#application.url'/>vendor.action">Vendors</a>
-								<a href="<s:property value='#application.url'/>report.action">Reports</a>
-								<a href="<s:property value='#application.url'/>user.action">Users</a>				
+		<a href="<s:property value='#application.url'/>vendor.action">Vendors</a>
+		<a href="<s:property value='#application.url'/>report.action">Reports</a>
+		<a href="<s:property value='#application.url'/>user.action">Users</a>				
               </s:if>
             </div>
           </nav>
@@ -60,15 +60,16 @@
 		</div>
 		<div class="fn1-nav1">
       <nav class="fn1-nav1-container">		
-				<a href="<s:property value='#application.url'/>ebtAdd.action">Issue MB</a>
-				<a href="<s:property value='#application.url'/>giftAdd.action">Issue GC</a>
-				<a href="<s:property value='#application.url'/>rxAdd.action">Issue Rx</a>				
-				<a href="<s:property value='#application.url'/>redeemStart.action">Redemptions</a>
-				<a href="<s:property value='#application.url'/>disputeSearch.action">Disputes</a>
-				<a href="<s:property value='#application.url'/>buckSearch.action">Search</a>				
-				<a href="<s:property value='#application.url'/>help.action">User Guide</a>
-			</nav>
+	      <a href="<s:property value='#application.url'/>ebtAdd.action">Issue MB</a>
+	      <a href="<s:property value='#application.url'/>giftAdd.action">Issue GC</a>
+	      <a href="<s:property value='#application.url'/>rxAdd.action">Issue Rx</a>
+	      <a href="<s:property value='#application.url'/>snap.action">Snap Purchase</a>	      
+	      <a href="<s:property value='#application.url'/>redeemStart.action">Redemptions</a>
+	      <a href="<s:property value='#application.url'/>disputeSearch.action">Disputes</a>
+	      <a href="<s:property value='#application.url'/>buckSearch.action">Search</a>				
+	      <a href="<s:property value='#application.url'/>help.action">User Guide</a>
+      </nav>
 		</div>
 	</header>
   <main>
-		<div class="fn1-main-container">
+	  <div class="fn1-main-container">

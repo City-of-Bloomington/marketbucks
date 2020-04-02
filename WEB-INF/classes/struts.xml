@@ -14,8 +14,8 @@
 
 		<!-- this is a global action that makes sure user is logged in -->
 		
-	 <global-results>
-       <result name="login" type="redirect">welcome.action</result>
+		<global-results>
+		  <result name="login" type="redirect">welcome.action</result>
 	 </global-results>
 
 	 <action name="home">
@@ -45,6 +45,7 @@
 		<result name="input">/WEB-INF/jsp/buckConf.jsp</result>
 		<result name="error">/WEB-INF/jsp/buckConf.jsp</result>		
       </action>
+      
       <action name="batchStart" 
               class="bucks.BatchStartAction" 
               method="execute">
@@ -69,6 +70,13 @@
 		<result name="error">/WEB-INF/jsp/ebtAdd.jsp</result>
 		<result name="issue" type="chain">issueAdd</result>			
       </action>
+      <action name="snap" 
+              class="bucks.SnapAction" 
+              method="execute">
+		<result>/WEB-INF/jsp/snap.jsp</result>
+		<result name="error">/WEB-INF/jsp/snap.jsp</result>
+		<result name="input">/WEB-INF/jsp/snap.jsp</result>
+      </action>      
       <action name="rxAdd" 
               class="bucks.MarketRxAction" 
               method="execute">
@@ -197,6 +205,13 @@
 				<result name="error">/WEB-INF/jsp/buckSearch.jsp</result>
 				<result name="success">/WEB-INF/jsp/buckSearch.jsp</result>
       </action>
+      <action name="snapSearch" 
+            class="bucks.SnapSearchAction" 
+            method="execute">
+				<result name="input">/WEB-INF/jsp/snapSearch.jsp</result>		
+				<result name="error">/WEB-INF/jsp/snapSearch.jsp</result>
+				<result name="success">/WEB-INF/jsp/snapSearch.jsp</result>
+      </action>      
       <action name="ebtSearch" 
             class="bucks.EbtSearchAction" 
             method="execute">
