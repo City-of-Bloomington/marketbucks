@@ -73,23 +73,31 @@
       <action name="snap" 
               class="bucks.SnapAction" 
               method="execute">
-		<result>/WEB-INF/jsp/snap.jsp</result>
-		<result name="error">/WEB-INF/jsp/snap.jsp</result>
-		<result name="input">/WEB-INF/jsp/snap.jsp</result>
+	<result>/WEB-INF/jsp/snap.jsp</result>
+	<result name="error">/WEB-INF/jsp/snap.jsp</result>
+	<result name="input">/WEB-INF/jsp/snap.jsp</result>
+	<result name="snapStart">/WEB-INF/jsp/snap.jsp</result>
+      </action>
+      <action name="snapStart" 
+              class="bucks.SnapAction" 
+              method="execute">
+	<result>/WEB-INF/jsp/snapStart.jsp</result>
+	<result name="snapStart">/WEB-INF/jsp/snapStart.jsp</result>
+	<result name="error">/WEB-INF/jsp/snapStart.jsp</result>
       </action>      
       <action name="rxAdd" 
               class="bucks.MarketRxAction" 
               method="execute">
-				<result>/WEB-INF/jsp/rxAdd.jsp</result>
-				<result name="error">/WEB-INF/jsp/rxAdd.jsp</result>
-				<result name="issue">/WEB-INF/jsp/rxAddMore.jsp</result>			
+	<result>/WEB-INF/jsp/rxAdd.jsp</result>
+	<result name="error">/WEB-INF/jsp/rxAdd.jsp</result>
+	<result name="issue">/WEB-INF/jsp/rxAddMore.jsp</result>			
       </action>
       <action name="buckInfo" 
               class="bucks.BuckAction" 
               method="execute">
-				<result>/WEB-INF/jsp/buckInfo.jsp</result>
-				<result name="error">/WEB-INF/jsp/buckInfo.jsp</result>
-				<result name="input">/WEB-INF/jsp/buckInfo.jsp</result>		
+	<result>/WEB-INF/jsp/buckInfo.jsp</result>
+	<result name="error">/WEB-INF/jsp/buckInfo.jsp</result>
+	<result name="input">/WEB-INF/jsp/buckInfo.jsp</result>		
       </action>			
       <action name="issueAdd" 
               class="bucks.IssueAction" 

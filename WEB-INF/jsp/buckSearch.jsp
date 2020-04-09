@@ -53,11 +53,13 @@
 <s:else>
 	<b>Other search options </b>
 	<ul>
+		<li><a href="<s:property value='#application.url'/>snapSearch.action"> Online Purchase Search </a></li>
 		<li><a href="<s:property value='#application.url'/>batchSearch.action"> MB batch search </a> </li>		
 		<li><a href="<s:property value='#application.url'/>ebtSearch.action"> Issued market bucks search </a></li>
 		<li><a href="<s:property value='#application.url'/>giftSearch.action">Gift certificate search. </a></li>
 		<li><a href="<s:property value='#application.url'/>rxSearch.action">Market Rx search. </a></li>		
 		<li><a href="<s:property value='#application.url'/>redeemSearch.action"> Redemption Search </a></li>
+		
 	</ul>
 </s:else>
 <%@  include file="footer.jsp" %>

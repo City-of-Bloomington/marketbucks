@@ -63,7 +63,7 @@
 	      <a href="<s:property value='#application.url'/>ebtAdd.action">Issue MB</a>
 	      <a href="<s:property value='#application.url'/>giftAdd.action">Issue GC</a>
 	      <a href="<s:property value='#application.url'/>rxAdd.action">Issue Rx</a>
-	      <a href="<s:property value='#application.url'/>snap.action">Snap Purchase</a>	      
+	      <a href="<s:property value='#application.url'/>snapStart.action">Online Purchase</a>	      
 	      <a href="<s:property value='#application.url'/>redeemStart.action">Redemptions</a>
 	      <a href="<s:property value='#application.url'/>disputeSearch.action">Disputes</a>
 	      <a href="<s:property value='#application.url'/>buckSearch.action">Search</a>				

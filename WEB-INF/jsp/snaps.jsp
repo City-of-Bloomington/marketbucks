@@ -8,12 +8,12 @@
 <table border="1"><caption><s:property value="#snapsTitle" /></caption>
 	<tr>
 		<td align="center"><b>ID</b></td>
-		<td align="center"><b>Purchase Snap Amount</b></td>
+		<td align="center"><b>Purchase Amount</b></td>
 		<td align="center"><b>Ebt Amount</b></td>
-		<td align="center"><b>DMB Amount</b></td>
+		<td align="center"><b>Dbl Amount</b></td>
 		<td align="center"><b>Donor Max</b></td>		
+		<td align="center"><b>Card #</b></td>
 		<td align="center"><b>Authorization #</b></td>
-		<td align="center"><b>Card #</b></td>  
 		<td align="center"><b>User</b></td>
 		<td align="center"><b>Date & Time</b></td>
 		<td align="center"><b>Cancelled?</b></td>
@@ -24,9 +24,9 @@
 			<td align="right">$<s:property value="snapAmount" /></td>
 			<td align="right">$<s:property value="ebtAmount" /></td>			
 			<td align="right">$<s:property value="dblAmount" /></td>
-			<td><s:property value="dblMax" /></td>			
-			<td><s:property value="authorization" /></td>
+			<td><s:property value="dblMax" /></td>
 			<td><s:property value="cardNumber" /></td>
+			<td><s:property value="authorization" /></td>
 			<td><s:property value="user" /></td>
 			<td><s:property value="date" /></td>
 

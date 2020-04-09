@@ -9,10 +9,10 @@
 	-->
 <s:form action="snap" method="post" id="form_id" onsubmit="return confirmForCancel()">
   <s:if test="snap.id == ''">
-	  <h4>New Snap Purchase</h4>
+	  <h4>New Online Purchase</h4>
   </s:if>
   <s:else>
-	  <h3>Edit Snap Purchase</h3>
+	  <h3>Edit Online Purchase</h3>
 	  <s:hidden name="snap.id" value="%{snap.id}" />
 	  <s:hidden name="snap.dblMax" value="%{snap.dblMax}" />
   </s:else>
@@ -31,32 +31,31 @@
 	  <tr><td> 
 		  <table width="100%">
 			  <tr>
-				  <td align="right" width="35%"><label>*Snap Purchase Amount:</label></td>
+				  <td align="right" width="35%"><label>*Online Purchase Amount:</label></td>
 				  <td align="left">$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" />(xx.xx format only)</td>
 			  </tr>
+			  <tr>
+				  <td align="right"><label>*Customer Card #:</label></td>
+				  <td align="left"><s:textfield name="snap.cardNumber" maxlength="4" size="4" required="true" value="%{snap.cardNumber}" /></td>
+			  </tr>			  
 			  <tr>
 				  <td align="right"><label>*Authorization #:</label></td>
 				  <td align="left"><s:textfield name="snap.authorization" maxlength="10" size="10" required="true" value="%{snap.authorization}" /></td>
 			  </tr>	  
+
 			  <tr>
-				  <td align="right"><label>*Customer Card #:</label></td>
-				  <td align="left"><s:textfield name="snap.cardNumber" maxlength="4" size="4" required="true" value="%{snap.cardNumber}" /></td>
+				  <td align="right"><label>Ebt Amount:</label></td>
+				  <td align="left">$<s:property value="snap.ebtAmount" /></td>
 			  </tr>
-			  <s:if test="snap.id != ''">
+			  <tr>
+				  <td align="right"><label>Dbl Amount:</label></td>
+				  <td align="left">$<s:property value="snap.dblAmount" /></td>
+			  </tr>				  
+			  <s:if test="snap.isCancelled()">
 				  <tr>
-					  <td align="right"><label>Ebt Amount:</label></td>
-					  <td align="left"><s:property value="snap.ebtAmount" /></td>
+					  <td align="right"><label>Status:</label></td>
+					  <td align="left">Cancelled</td>
 				  </tr>
-				  <tr>
-					  <td align="right"><label>Dbl Amount:</label></td>
-					  <td align="left"><s:property value="snap.dblAmount" /></td>
-				  </tr>				  
-				  <s:if test="snap.isCancelled()">
-					  <tr>
-						  <td align="right"><label>Status:</label></td>
-						  <td align="left">Cancelled</td>
-					  </tr>
-				  </s:if>
 			  </s:if>
 		  </table></td>
 		</tr>
@@ -86,19 +85,7 @@
   </table>
 </s:form>
 <br />
-For snap purchase search click<a href="<s:property value='#application.url'/>snapSearch.action"> here. </a>
-<br />
 
-<s:if test="snap.id == ''">
-	<s:if test="hasSnaps()">
-		<s:set var="snaps" value="snaps" />
-		<s:set var="snapsTitle" value="snapsTitle" />
-		<s:set var="snapTotal" value="snapTotal" />
-		<s:set var="ebtTotal" value="ebtTotal" />
-		<s:set var="dblTotal" value="dblTotal" />
-		<%@  include file="snaps.jsp" %>	
-	</s:if>
-</s:if>
 <%@  include file="footer.jsp" %>	
 
 

@@ -8,7 +8,7 @@ package bucks;
 
 import java.util.*;
 import java.io.*;
-import java.text.*;
+import java.text.DecimalFormat;
 import com.opensymphony.xwork2.ModelDriven;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -27,10 +27,11 @@ public class SnapAction extends TopAction{
 
     static final long serialVersionUID = 25L;	
     static Logger logger = LogManager.getLogger(SnapAction.class);
+    static DecimalFormat dblf = new DecimalFormat("0.00");
     //
     Snap snap = null;
     List<Snap> snaps = null;
-    String snapsTitle = "Most Recent Requests";
+    String snapsTitle = "Most Recent Purchases";
     double snapTotal= 0, dblTotal = 0, ebtTotal=0;
     public String execute(){
 	String ret = SUCCESS;
@@ -44,7 +45,15 @@ public class SnapAction extends TopAction{
 	    }catch(Exception ex){
 		System.err.println(ex);
 	    }			
-	}		
+	}
+	System.err.println(" action "+action);
+	if(action.equals("Next")){
+	    ret = SUCCESS;
+	    back = snap.doSplitSnapAmount();
+	    if(!back.equals("")){
+		addActionError(back);
+	    }
+	}	
 	if(action.equals("Save")){ 
 	    ret = SUCCESS;
 	    snap.setUser_id(user.getId());
@@ -80,9 +89,17 @@ public class SnapAction extends TopAction{
 		id="";
 		addActionMessage("Cancelled Successfully");
 	    }
-	}		
-	else if(!id.equals("")){
+	}
+	else if(action.startsWith("snapStart")){
+	    getSnap();
+	    ret = "snapStart";
+	}	
+	else if(!id.isEmpty()){
 	    ret = populate();
+	}
+	else{ // start snap entry total amount
+	    getSnap();
+	    ret = "snapStart";
 	}
 	return ret;
     }
@@ -125,7 +142,7 @@ public class SnapAction extends TopAction{
 	}
 	return ret;
     }
-    public double getSnapTotal(){
+    public String getSnapTotal(){
 	if(hasSnaps()){
 	    if(snapTotal == 0){
 		for(Snap one:snaps){
@@ -137,17 +154,17 @@ public class SnapAction extends TopAction{
 		}
 	    }
 	}
-	return snapTotal;
+	return dblf.format(snapTotal);
     }
-    public double getDblTotal(){
+    public String getDblTotal(){
 	if(snapTotal == 0)
 	    getSnapTotal();
-	return dblTotal;
+	return dblf.format(dblTotal);
     }
-    public double getEbtTotal(){
+    public String getEbtTotal(){
 	if(snapTotal == 0)
 	    getSnapTotal();
-	return ebtTotal;
+	return dblf.format(ebtTotal);
     }	    
 
 }

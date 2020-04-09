@@ -7,7 +7,7 @@
  *
  *
 	-->
-<h3>Search Snap Purchases</h3>
+<h3>Search Online Purchases</h3>
 <s:if test="hasActionErrors()">
   <div class="errors">
     <s:actionerror/>
@@ -21,7 +21,7 @@
 <s:form action="snapSearch" method="post">
 	<fieldset> 	
 		<table width="100%"><caption>
-			<tr><td align="right"><label>Snap ID:</label></td>
+			<tr><td align="right"><label>Purchase ID:</label></td>
 				<td align="left"><s:textfield name="snapList.id" value="%{snapList.id}" size="8" /></td>
 			</tr>
 			<tr>
@@ -33,7 +33,7 @@
 				<td align="left"><s:textfield name="snapList.authorization" value="%{snapList.authorization}" size="10" /> </td>
 			</tr>
 			<tr>
-				<td align="right"><label>SNAP Amount ($):</label></td>
+				<td align="right"><label>Purchase Amount ($):</label></td>
 				<td align="left"><s:textfield name="snapList.amount" value="%{snapList.amount}" size="4" maxlength="4" /> </td>
 			</tr>
 			<tr>

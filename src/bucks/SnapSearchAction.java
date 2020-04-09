@@ -20,6 +20,7 @@ public class SnapSearchAction extends TopAction{
 
     static final long serialVersionUID = 237L;	
     static Logger logger = LogManager.getLogger(SnapSearchAction.class);
+    static DecimalFormat dblf = new DecimalFormat("0.00");
     //
     List<Snap> snaps = null;
     SnapList snapList = null;
@@ -79,7 +80,7 @@ public class SnapSearchAction extends TopAction{
     public String getSnapsTitle(){
 	return snapsTitle;
     }
-    public double getSnapTotal(){
+    public String getSnapTotal(){
 	if(hasSnaps()){
 	    if(snapTotal == 0){
 		for(Snap one:snaps){
@@ -91,17 +92,17 @@ public class SnapSearchAction extends TopAction{
 		}
 	    }
 	}
-	return snapTotal;
+	return dblf.format(snapTotal);
     }
-    public double getDblTotal(){
+    public String getDblTotal(){
 	if(snapTotal == 0)
 	    getSnapTotal();
-	return dblTotal;
+	return dblf.format(dblTotal);
     }
-    public double getEbtTotal(){
+    public String getEbtTotal(){
 	if(snapTotal == 0)
 	    getSnapTotal();
-	return ebtTotal;
+	return dblf.format(ebtTotal);
     }	    
 
     public String populate(){

@@ -8,7 +8,8 @@ package bucks;
 import java.util.*;
 import java.sql.*;
 import java.io.*;
-import java.text.*;
+import java.text.SimpleDateFormat;
+import java.text.DecimalFormat;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.sql.*;
@@ -22,6 +23,7 @@ public class Snap implements java.io.Serializable{
     boolean debug = false;
     static Logger logger = LogManager.getLogger(Snap.class);
     static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    static DecimalFormat dblf = new DecimalFormat("0.00");
     final static double dbl_max_default = 18.0;
     String id="", date="", user_id="", card_number="", authorization="";
     double dbl_amount=0, ebt_amount=0, snap_amount=0, dbl_max = 18.0;
@@ -153,19 +155,26 @@ public class Snap implements java.io.Serializable{
 	return authorization;
     }
     public String getSnapAmount(){
-	return ""+snap_amount;
+	if(snap_amount > 0)
+	    return ""+dblf.format(snap_amount);
+	else
+	    return "";
     }
     public double getSnapAmountDbl(){
 	return snap_amount;
     }
     public String getEbtAmount(){
-	return ""+ebt_amount;
+	if(ebt_amount > 0)
+	    return ""+dblf.format(ebt_amount);
+	return "";
     }
     public double getEbtAmountDbl(){
 	return ebt_amount;
     }    
     public String getDblAmount(){
-	return ""+dbl_amount;
+	if(dbl_amount > 0)
+	    return ""+dblf.format(dbl_amount);
+	return "";
     }
     public double getDblAmountDbl(){
 	return dbl_amount;
@@ -194,19 +203,24 @@ public class Snap implements java.io.Serializable{
     public String toString(){
 	return id+" "+card_number+" "+authorization;
     }
-    void doSplitSnapAmount(){
+    public String doSplitSnapAmount(){
+	String msg = "";
 	if(dbl_max <= 0){
 	    dbl_max = dbl_max_default;
 	}
-	if(snap_amount > 0){
+	if(snap_amount <= 0.0){
+	    msg = "Invalid amount "+snap_amount;
+	}
+	else{
 	    if(snap_amount > 2 * dbl_max){ 
 		dbl_amount = dbl_max;
 	    }
 	    else{
-		dbl_amount = snap_amount / 2;
+		dbl_amount = (Math.round(100*snap_amount/2.))/100.;
 	    }
 	    ebt_amount = snap_amount - dbl_amount;	    
 	}
+	return msg;
     }
     private String checkEntries(){
 	String msg = "";

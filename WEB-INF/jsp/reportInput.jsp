@@ -8,7 +8,7 @@
  *
 	-->
 <s:form action="report" method="post">    
-  <h3> Marketbucks' Reports</h3>
+  <h3> Marketbuck Reports</h3>
   <s:if test="hasActionErrors()">
 		<div class="errors">
       <s:actionerror/>
@@ -53,7 +53,7 @@
 					  <td align="left"><s:checkbox name="report.participate" value="%{report.participate}"  />Household participations</td>
 				  </tr>
 				  <tr>
-					  <td align="left"><s:checkbox name="report.participateSnap" value="%{report.participateSnap}"  />Snap Household participations</td>
+					  <td align="left"><s:checkbox name="report.participateSnap" value="%{report.participateSnap}"  />Online Purchase Stats</td>
 				  </tr>				  
 				  <tr>
 					  <td align="left"><s:checkbox name="report.inventory" value="report.inventory"  />MB & GC current inventory stats (No need to set dates for this option)</td>
