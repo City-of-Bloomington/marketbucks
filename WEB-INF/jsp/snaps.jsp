@@ -5,7 +5,8 @@
  *
  *
 	-->
-<table border="1"><caption><s:property value="#snapsTitle" /></caption>
+<table border="1">
+	<caption><s:property value="#snapsTitle" /></caption>
 	<tr>
 		<td align="center"><b>ID</b></td>
 		<td align="center"><b>Purchase Amount</b></td>
@@ -13,18 +14,18 @@
 		<td align="center"><b>Dbl Amount</b></td>
 		<td align="center"><b>Donor Max</b></td>		
 		<td align="center"><b>Card #</b></td>
-		<td align="center"><b>Authorization #</b></td>
+		<td align="center"><b>Authorization</b></td>
 		<td align="center"><b>User</b></td>
 		<td align="center"><b>Date & Time</b></td>
 		<td align="center"><b>Cancelled?</b></td>
 	</tr>
 	<s:iterator var="one" value="#snaps">
 		<tr>
-			<td><a href="<s:property value='#application.url' />snap.action?id=<s:property value='id' />">View <s:property value="id" /></a></td>
+			<td><a href="<s:property value='#application.url' />snap.action?id=<s:property value='id' />">Edit <s:property value="id" /></a></td>
 			<td align="right">$<s:property value="snapAmount" /></td>
 			<td align="right">$<s:property value="ebtAmount" /></td>			
 			<td align="right">$<s:property value="dblAmount" /></td>
-			<td><s:property value="dblMax" /></td>
+			<td align="right">$<s:property value="dblMax" /></td>
 			<td><s:property value="cardNumber" /></td>
 			<td><s:property value="authorization" /></td>
 			<td><s:property value="user" /></td>

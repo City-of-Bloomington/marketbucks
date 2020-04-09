@@ -13,6 +13,9 @@
   </s:if>
   <s:else>
 	  <h3>Edit Online Purchase</h3>
+	  <p>Note: if you make a mistake you can Update the record or Cancel.
+		  If Cancelled the record will not be deleted but marked as
+		  Cancelled (Inactive)</p>
 	  <s:hidden name="snap.id" value="%{snap.id}" />
 	  <s:hidden name="snap.dblMax" value="%{snap.dblMax}" />
   </s:else>
@@ -27,62 +30,56 @@
 	  </div>
   </s:elseif>
   <p>*indicates a required field</p>
-  <table border="1" width="80%">
-	  <tr><td> 
-		  <table width="100%">
-			  <tr>
-				  <td align="right" width="35%"><label>*Online Purchase Amount:</label></td>
-				  <td align="left">$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" />(xx.xx format only)</td>
-			  </tr>
-			  <tr>
-				  <td align="right"><label>*Customer Card #:</label></td>
-				  <td align="left"><s:textfield name="snap.cardNumber" maxlength="4" size="4" required="true" value="%{snap.cardNumber}" /></td>
-			  </tr>			  
-			  <tr>
-				  <td align="right"><label>*Authorization #:</label></td>
-				  <td align="left"><s:textfield name="snap.authorization" maxlength="10" size="10" required="true" value="%{snap.authorization}" /></td>
-			  </tr>	  
+  <fieldset>
+	  <dl>
+		  <dt><label>*Purchase Amount: </label></dt>
+		  <dd>$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" />(xx.xx format only)</dd>
+	  </dl>
+	  <dl>
+		  <dt><label>*Customer Card #: </label></dt>
+		  <dd><s:textfield name="snap.cardNumber" maxlength="4" size="4" required="true" value="%{snap.cardNumber}" /></dd>
+	  </dl>			  
+	  <dl>
+		  <dt><label>*Authorization #: </label></dt>
+		  <dd><s:textfield name="snap.authorization" maxlength="10" size="10" required="true" value="%{snap.authorization}" /></dd>
+	  </dl>  
 
-			  <tr>
-				  <td align="right"><label>Ebt Amount:</label></td>
-				  <td align="left">$<s:property value="snap.ebtAmount" /></td>
-			  </tr>
-			  <tr>
-				  <td align="right"><label>Dbl Amount:</label></td>
-				  <td align="left">$<s:property value="snap.dblAmount" /></td>
-			  </tr>				  
-			  <s:if test="snap.isCancelled()">
-				  <tr>
-					  <td align="right"><label>Status:</label></td>
-					  <td align="left">Cancelled</td>
-				  </tr>
-			  </s:if>
-		  </table></td>
-		</tr>
-		<s:if test="snap.id == ''">
-			<tr>		
-				<td valign="top" align="right">
-					<s:submit name="action" type="button" value="Save" />
-				</td>
-			</tr>
-		</s:if>
-		<s:elseif test="!snap.isCancelled()">
-			<tr>		
-				<td valign="top">	  
-					<table width="100%">
-						<tr>
-							<td align="center">
-								<s:submit name="action" type="button" id="update_button" value="Update" />
-							</td>
-							<td align="right">
-								<s:submit name="action" type="button"  id="cancel_button" value="Cancel" />
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</s:elseif>
-  </table>
+	  <dl>
+		  <dt><label>Ebt Amount: </label></dt>
+		  <dd>$<s:property value="snap.ebtAmount" /></dd>
+	  </dl>
+	  <dl>
+		  <dt><label>Dbl Amount: </label></dt>
+		  <dd>$<s:property value="snap.dblAmount" /></dd>
+	  </dl>				  
+	  <s:if test="snap.isCancelled()">
+		  <dl>
+			  <dt><label>Status: </label></dt>
+			  <dd>Cancelled</dd>
+		  </dl>
+	  </s:if>
+	  <s:if test="snap.hasUser()">
+		  <dl>
+			  <dt><label>User: </label></dt>
+			  <dd><s:property value="snap.user" /></dd>
+		  </dl>
+	  </s:if>			  
+	  <s:if test="snap.id == ''">
+		  <dl>		
+			  <dd>
+				  <s:submit name="action" type="button" value="Save" />
+			  </dd>
+		  </dl>
+	  </s:if>
+	  <s:elseif test="!snap.isCancelled()">
+		  <dl>		
+			  <dd>
+				  <s:submit name="action" type="button" id="update_button" value="Update" /> &nbsp;
+				  <s:submit name="action" type="button"  id="cancel_button" value="Cancel" />
+			  </dd>
+		  </dl> 
+	  </s:elseif>
+  </fielset>
 </s:form>
 <br />
 

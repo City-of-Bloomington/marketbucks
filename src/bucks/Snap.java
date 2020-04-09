@@ -180,7 +180,7 @@ public class Snap implements java.io.Serializable{
 	return dbl_amount;
     }    
     public String getDblMax(){
-	return ""+dbl_max;
+	return ""+dblf.format(dbl_max);
     }    
     
     public String getUser_id(){
@@ -188,7 +188,11 @@ public class Snap implements java.io.Serializable{
     }
     public String getCancelled(){
 	return cancelled;
-    }    
+    }
+    public boolean hasUser(){
+	getUser();
+	return user != null;
+    }
     public User getUser(){
 	if(!user_id.equals("") && user == null){
 	    User one = new User(debug, null, user_id);
@@ -343,7 +347,7 @@ public class Snap implements java.io.Serializable{
 	ResultSet rs = null;
 	String msg = "";
 	date = Helper.getToday();
-	String qq = "update snap_purchases set cancelled=? where id=? ";
+	String qq = "update snap_purchases set cancelled=?,user_id=? where id=? ";
 	logger.debug(qq);
 	try{
 	    con = Helper.getConnection();
@@ -353,7 +357,8 @@ public class Snap implements java.io.Serializable{
 	    }
 	    pstmt = con.prepareStatement(qq);
 	    pstmt.setString(1, "y");
-	    pstmt.setString(2, id);
+	    pstmt.setString(2, user_id);
+	    pstmt.setString(3, id);
 	    pstmt.executeUpdate();
 	}
 	catch(Exception ex){
@@ -363,6 +368,7 @@ public class Snap implements java.io.Serializable{
 	finally{
 	    Helper.databaseDisconnect(con, rs, pstmt);
 	}
+	msg = doSelect();
 	return msg;
     }        
     String doSelect(){

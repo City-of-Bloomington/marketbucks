@@ -20,25 +20,20 @@
 	  </div>
   </s:elseif>
   <p>*indicates a required field</p>
-  <table border="1" width="80%">
-	  <tr><td> 
-		  <table width="100%">
-			  <tr>
-				  <td align="right" width="35%"><label>*Purchase Amount:</label></td>
-				  <td align="left">$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" />(xx.xx format only)</td>
-			  </tr>
-			  <tr>
-				  <td>&nbsp;</td>		
-				  <td align="right">
-					  <s:submit name="action" type="button" value="Next" />
-				  </td>
-			  </tr>
-		  </table>
-	  </td></tr>
-  </table>
+  <fieldset>
+	  <dl>
+		  <dt><label>*Purchase Amount:</label></dt>
+		  <dd>$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" />(xx.xx format only)</dd>
+	  </dl>
+	  <dl>
+		  <dd>
+			  <s:submit name="action" type="button" value="Next" />
+		  </dd>
+	  </dl>
+  </fieldset>
 </s:form>
 <br />
-For snap purchase search click<a href="<s:property value='#application.url'/>snapSearch.action"> here. </a>
+For online purchase search click<a href="<s:property value='#application.url'/>snapSearch.action"> here. </a>
 <br />
 <s:if test="hasSnaps()">
 	<s:set var="snaps" value="snaps" />

@@ -23,9 +23,13 @@
        <result>/Login</result>
      </action>
 	 <action name="help">
-       <interceptor-ref name="defaultStack"></interceptor-ref>
-       <result>/WEB-INF/jsp/help.jsp</result>
-     </action>
+	   <interceptor-ref name="defaultStack"></interceptor-ref>
+	   <result>/WEB-INF/jsp/help.jsp</result>
+	 </action>
+	 <action name="otherMenu">
+	   <interceptor-ref name="defaultStack"></interceptor-ref>
+	   <result>/WEB-INF/jsp/otherMenu.jsp</result>
+	 </action>	 
 	 <action name="training">
        <interceptor-ref name="defaultStack"></interceptor-ref>
        <result>/WEB-INF/jsp/training.jsp</result>

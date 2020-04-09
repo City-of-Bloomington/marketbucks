@@ -34,42 +34,38 @@
       </div>
       <s:if test="#session != null && #session.user != null">
 	      <div class="fn1-site-utilityBar">				
-          <nav id="user_menu">
-		  <div class="menuLauncher"><s:property value='#session.user.fullName' /></div>
-		  <div class="menuLinks closed">
-			  <a href="<s:property value='#application.url'/>logout.action">Logout</a>
-		  </div>
-          </nav>
-          <nav id="admin_menu">
-            <div class="menuLauncher">Admin</div>
-            <div class="menuLinks closed">
-              <s:if test="#session.user.isAdmin()">
-                <a href="<s:property value='#application.url'/>buckConf.action">Configuration</a>
-                <a href="<s:property value='#application.url'/>batchStart.action">Generate & Print</a>
-		<a href="<s:property value='#application.url'/>cancelledSearch.action">Voided MB/GC</a>
-		<a href="<s:property value='#application.url'/>mailNotification.action">Inventory Mail Notifications</a>				
-                <a href="<s:property value='#application.url'/>exportStart.action">Exports</a>
-		<a href="<s:property value='#application.url'/>vendor.action">Vendors</a>
-		<a href="<s:property value='#application.url'/>report.action">Reports</a>
-		<a href="<s:property value='#application.url'/>user.action">Users</a>				
-              </s:if>
-            </div>
-          </nav>
-        </div>
-			</s:if>
-		</div>
-		<div class="fn1-nav1">
+		      <nav id="user_menu">
+			      <div class="menuLauncher"><s:property value='#session.user.fullName' /></div>
+			      <div class="menuLinks closed">
+				      <a href="<s:property value='#application.url'/>logout.action">Logout</a>
+			      </div>
+		      </nav>
+		      <nav id="admin_menu">
+			      <div class="menuLauncher">Admin</div>
+			      <div class="menuLinks closed">
+				      <s:if test="#session.user.isAdmin()">
+					      <a href="<s:property value='#application.url'/>buckConf.action">Configuration</a>
+					      <a href="<s:property value='#application.url'/>batchStart.action">Generate & Print</a>
+					      <a href="<s:property value='#application.url'/>cancelledSearch.action">Voided MB/GC</a>
+					      <a href="<s:property value='#application.url'/>mailNotification.action">Inventory Mail Notifications</a>				
+					      <a href="<s:property value='#application.url'/>exportStart.action">Exports</a>
+					      <a href="<s:property value='#application.url'/>vendor.action">Vendors</a>
+					      <a href="<s:property value='#application.url'/>report.action">Reports</a>
+					      <a href="<s:property value='#application.url'/>user.action">Users</a>				
+				      </s:if>
+			      </div>
+		      </nav>
+              </div>
+      </s:if>
+    </div>
+    <div class="fn1-nav1">
       <nav class="fn1-nav1-container">		
-	      <a href="<s:property value='#application.url'/>ebtAdd.action">Issue MB</a>
-	      <a href="<s:property value='#application.url'/>giftAdd.action">Issue GC</a>
-	      <a href="<s:property value='#application.url'/>rxAdd.action">Issue Rx</a>
 	      <a href="<s:property value='#application.url'/>snapStart.action">Online Purchase</a>	      
-	      <a href="<s:property value='#application.url'/>redeemStart.action">Redemptions</a>
-	      <a href="<s:property value='#application.url'/>disputeSearch.action">Disputes</a>
-	      <a href="<s:property value='#application.url'/>buckSearch.action">Search</a>				
-	      <a href="<s:property value='#application.url'/>help.action">User Guide</a>
+	      <a href="<s:property value='#application.url'/>snapSearch.action">Search </a>
+	      <a href="<s:property value='#application.url'/>otherMenu.action">More Options</a>	      	      
+
       </nav>
-		</div>
+    </div>
 	</header>
-  <main>
-	  <div class="fn1-main-container">
+	<main>
+		<div class="fn1-main-container">

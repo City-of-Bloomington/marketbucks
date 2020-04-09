@@ -46,7 +46,6 @@ public class SnapAction extends TopAction{
 		System.err.println(ex);
 	    }			
 	}
-	System.err.println(" action "+action);
 	if(action.equals("Next")){
 	    ret = SUCCESS;
 	    back = snap.doSplitSnapAmount();
@@ -80,13 +79,12 @@ public class SnapAction extends TopAction{
 	}
 	else if(action.startsWith("Cancel")){
 	    ret = SUCCESS;
+	    snap.setUser_id(user.getId());
 	    back = snap.doCancel();
 	    if(!back.equals("")){
 		addActionError(back);
 	    }
 	    else{
-		snap = new Snap();
-		id="";
 		addActionMessage("Cancelled Successfully");
 	    }
 	}
@@ -105,7 +103,15 @@ public class SnapAction extends TopAction{
     }
     public Snap getSnap(){ // starting a new snap
 	if(snap == null){
-	    snap = new Snap(debug);
+	    if(id.equals(""))
+		snap = new Snap(debug);
+	    else{
+		snap = new Snap(debug, id);
+		String back = snap.doSelect();
+		if(!back.equals("")){
+		    addActionError(back);
+		}
+	    }
 	}		
 	return snap;
     }
