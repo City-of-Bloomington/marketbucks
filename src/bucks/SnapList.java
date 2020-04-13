@@ -25,7 +25,7 @@ public class SnapList implements java.io.Serializable{
     static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
     String id="", limit="30" ;
     String card_number="", authorization="", amount="";
-    String date_from="", date_to="", sortBy="b.id DESC ";
+    String date_from="", date_to="", sortBy="b.date DESC ";
     boolean today_date = false, active_only=false, inactive_only=false;
     String status="";
     List<Snap> snaps = null;
@@ -122,7 +122,9 @@ public class SnapList implements java.io.Serializable{
     //
     String find(){
 
-	String qq = "select b.id, date_format(b.date,'%m/%d/%Y %H:%i'),b.card_number,b.authorization,b.snap_amount,b.ebt_amount,b.dbl_amount,b.dbl_max,b.user_id,b.cancelled from snap_purchases b ";
+	String qq = "select b.id, date_format(b.date,'%m/%d/%Y'),"+
+	    "date_format(b.date,'%H:%i'),"+
+	    "b.card_number,b.authorization,b.snap_amount,b.ebt_amount,b.dbl_amount,b.dbl_max,b.user_id,b.cancelled from snap_purchases b ";
 	
 	String qw = "";
 	Connection con = null;
@@ -216,7 +218,9 @@ public class SnapList implements java.io.Serializable{
 				    rs.getString(7),
 				    rs.getString(8),
 				    rs.getString(9),
-				    rs.getString(10)
+				    rs.getString(10),
+				    rs.getString(11)
+				    
 				  );
 		snaps.add(one);
 	    }

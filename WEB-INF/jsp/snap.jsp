@@ -43,7 +43,6 @@
 		  <dt><label>*Authorization #: </label></dt>
 		  <dd><s:textfield name="snap.authorization" maxlength="10" size="10" required="true" value="%{snap.authorization}" /></dd>
 	  </dl>  
-
 	  <dl>
 		  <dt><label>Ebt Amount: </label></dt>
 		  <dd>$<s:property value="snap.ebtAmount" /></dd>
@@ -72,6 +71,10 @@
 		  </dl>
 	  </s:if>
 	  <s:elseif test="!snap.isCancelled()">
+		  <dl>
+			  <dt><label>Date: </label></dt>
+			  <dd><s:textfield name="snap.date" maxlength="10" size="10" required="true" value="%{snap.date}" cssClass="date" /> Time:<s:textfield name="snap.time" maxlength="5" size="5" required="true" value="%{snap.time}" /></dd>
+		  </dl>  
 		  <dl>		
 			  <dd>
 				  <s:submit name="action" type="button" id="update_button" value="Update" /> &nbsp;

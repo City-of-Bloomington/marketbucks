@@ -49,7 +49,7 @@ public class AdLogin extends HttpServlet{
 	out.println("</script>");
 	out.println("</head><body onload=\"document.userid.focus();\">");
 	out.println("<br /><br />");
-	out.println("<center><h2>Welcome to Citation </h2>");
+	out.println("<center><h2>Welcome to Market </h2>");
 	out.println("<form name=\"myForm\" method=\"post\" onsubmit=\"return submitForm();\" >");
 	out.println("<table border=\"0\">");
         out.println("<tr><td>Username</td><td><input name=\"userid\" value=\"\"  size=\"10\" type=\"text\"></td><tr>");

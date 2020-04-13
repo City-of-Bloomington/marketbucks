@@ -23,9 +23,12 @@ public class Snap implements java.io.Serializable{
     boolean debug = false;
     static Logger logger = LogManager.getLogger(Snap.class);
     static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    static SimpleDateFormat dft = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    static SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
     static DecimalFormat dblf = new DecimalFormat("0.00");
     final static double dbl_max_default = 18.0;
-    String id="", date="", user_id="", card_number="", authorization="";
+    String id="", date="", time="", user_id="", card_number="",
+	authorization="";
     double dbl_amount=0, ebt_amount=0, snap_amount=0, dbl_max = 18.0;
     String cancelled="";
     User user = null;
@@ -48,7 +51,8 @@ public class Snap implements java.io.Serializable{
 		String val7,
 		String val8,
 		String val9,
-		String val10
+		String val10,
+		String val11
 		){
 	setValues( val,
 		   val2,
@@ -59,7 +63,8 @@ public class Snap implements java.io.Serializable{
 		   val7,
 		   val8,
 		   val9,
-		   val10
+		   val10,
+		   val11
 		   );
 	debug = deb;
 		
@@ -74,18 +79,20 @@ public class Snap implements java.io.Serializable{
 		   String val7,
 		   String val8,
 		   String val9,
-		   String val10
+		   String val10,
+		   String val11
 		   ){
 	setId(val);
 	setDate(val2);
-	setCardNumber(val3);
-	setAuthorization(val4);
-	setSnapAmount(val5);
-	setEbtAmount(val6);
-	setDblAmount(val7);
-	setDblMax(val8);
-	setUser_id(val9);
-	setCancelled(val10);
+	setTime(val3);
+	setCardNumber(val4);
+	setAuthorization(val5);
+	setSnapAmount(val6);
+	setEbtAmount(val7);
+	setDblAmount(val8);
+	setDblMax(val9);
+	setUser_id(val10);
+	setCancelled(val11);
     }	
     public void setId(String val){
 	if(val != null)
@@ -95,6 +102,10 @@ public class Snap implements java.io.Serializable{
 	if(val != null)
 	    date = val;
     }
+    public void setTime(String val){
+	if(val != null)
+	    time = val;
+    }    
     public void setCardNumber(String val){
 	if(val != null)
 	    card_number = val;
@@ -147,6 +158,9 @@ public class Snap implements java.io.Serializable{
     public String getDate(){
 	return date;
     }
+    public String getTime(){
+	return time;
+    }    
     public String getCardNumber(){
 		
 	return card_number;
@@ -305,8 +319,7 @@ public class Snap implements java.io.Serializable{
 	    return msg;
 	}
 	doSplitSnapAmount();
-	date = Helper.getToday();
-	String qq = "update snap_purchases set card_number=?,authorization=?,snap_amount=?,ebt_amount=?,dbl_amount=?,dbl_max=?,user_id=?,cancelled=? where id=?";
+	String qq = "update snap_purchases set date=?,card_number=?,authorization=?,snap_amount=?,ebt_amount=?,dbl_amount=?,dbl_max=?,user_id=?,cancelled=? where id=?";
 	logger.debug(qq);
 	try{
 	    con = Helper.getConnection();
@@ -315,20 +328,31 @@ public class Snap implements java.io.Serializable{
 		return msg;
 	    }
 	    pstmt = con.prepareStatement(qq);
-	    pstmt.setString(1, card_number);
-	    pstmt.setString(2, authorization);	    
-	    pstmt.setDouble(3, snap_amount);
-	    pstmt.setDouble(4, ebt_amount);
-	    pstmt.setDouble(5, dbl_amount);
-	    pstmt.setDouble(6, dbl_max);
-	    pstmt.setString(7, user_id);
+	    int jj=1;
+	    String date2 = "";
+	    if(date.equals("")){
+		date = Helper.getToday();
+	    }
+	    date2 = dateFormat2.format(dateFormat.parse(date));
+	    if(time.equals(""))
+		time = "00:00";
+	    String dateTime = date2+" "+time;
+	    System.err.println(" date time "+dateTime);
+	    pstmt.setString(jj++, dateTime);
+	    pstmt.setString(jj++, card_number);
+	    pstmt.setString(jj++, authorization);	    
+	    pstmt.setDouble(jj++, snap_amount);
+	    pstmt.setDouble(jj++, ebt_amount);
+	    pstmt.setDouble(jj++, dbl_amount);
+	    pstmt.setDouble(jj++, dbl_max);
+	    pstmt.setString(jj++, user_id);
 	    if(isCancelled()){
-		pstmt.setString(8, "y");
+		pstmt.setString(jj++, "y");
 	    }
 	    else{
-		pstmt.setNull(8, Types.CHAR);
+		pstmt.setNull(jj++, Types.CHAR);
 	    }
-	    pstmt.setString(9,id);
+	    pstmt.setString(jj++,id);
 	    pstmt.executeUpdate();
 	}
 	catch(Exception ex){
@@ -373,7 +397,9 @@ public class Snap implements java.io.Serializable{
     }        
     String doSelect(){
 		
-	String qq = "select b.id, date_format(b.date,'%m/%d/%Y %H:%i'),b.card_number,b.authorization,b.snap_amount,b.ebt_amount,b.dbl_amount,b.dbl_max,b.user_id,b.cancelled from snap_purchases b where b.id=? ";
+	String qq = "select b.id, date_format(b.date,'%m/%d/%Y'),"+
+	    " date_format(b.date,'%H:%i'),"+
+	    "b.card_number,b.authorization,b.snap_amount,b.ebt_amount,b.dbl_amount,b.dbl_max,b.user_id,b.cancelled from snap_purchases b where b.id=? ";
 	Connection con = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -399,7 +425,8 @@ public class Snap implements java.io.Serializable{
 			  rs.getString(7),
 			  rs.getString(8),
 			  rs.getString(9),
-			  rs.getString(10)
+			  rs.getString(10),
+			  rs.getString(11)
 			  );
 	    }
 	}catch(Exception e){

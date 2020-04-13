@@ -29,7 +29,8 @@
 			<td><s:property value="cardNumber" /></td>
 			<td><s:property value="authorization" /></td>
 			<td><s:property value="user" /></td>
-			<td><s:property value="date" /></td>
+			<td><s:property value="date" />&nbsp;<s:property value="time" />
+			</td>
 
 			<td>&nbsp;<s:if test="isCancelled()">Cancelled</s:if></td>
 		</tr>
