@@ -9,27 +9,29 @@
 	-->
 <s:form action="snap" method="post" id="form_id">
 	<h4>New Online Purchase</h4>
-  <s:if test="hasActionErrors()">
-	  <div class="errors">
-		  <s:actionerror/>
-	  </div>
-  </s:if>
-  <s:elseif test="hasActionMessages()">
-	  <div class="welcome">
-		  <s:actionmessage/>
-	  </div>
-  </s:elseif>
-  <p>*indicates a required field</p>
-  <fieldset>
-	  <dl>
-		  <dt><label>*Purchase Amount:</label></dt>
-		  <dd>$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" />(xx.xx format only)</dd>
-	  </dl>
-	  <dl>
-		  <dd>
-			  <s:submit name="action" type="button" value="Next" />
-		  </dd>
-	  </dl>
+	<s:if test="hasActionErrors()">
+		<div class="errors">
+			<s:actionerror/>
+		</div>
+	</s:if>
+	<s:elseif test="hasActionMessages()">
+		<div class="welcome">
+			<s:actionmessage/>
+		</div>
+	</s:elseif>
+	<p>*indicates a required field</p>
+	<fieldset>
+		<dl>
+			<dt><label>*Purchase Amount:</label></dt>
+			<dd>$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" />(xx.xx format only)</dd>
+			<dt><label>Include Double:</label></dt>
+			<dd>
+				<s:checkbox name="snap.includeDouble" value="%{snap.includeDouble}" />Yes (uncheck if not included)
+			</dd>
+			<dd>
+				<s:submit name="action" type="button" id="save_button" value="Next" />
+			</dd>
+		</dl>
   </fieldset>
 </s:form>
 <br />

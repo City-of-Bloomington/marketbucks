@@ -27,7 +27,8 @@ public class SnapList implements java.io.Serializable{
     String card_number="", authorization="", amount="";
     String date_from="", date_to="", sortBy="b.date DESC ";
     boolean today_date = false, active_only=false, inactive_only=false;
-    String status="";
+    boolean included_only = false, not_included_only = false;
+    String status="", doubleRequest="";
     List<Snap> snaps = null;
 	
     public SnapList(){
@@ -62,10 +63,21 @@ public class SnapList implements java.io.Serializable{
 	    status = val;
 	}
     }
+    public void setDoubleRequest(String val){
+	if(val != null && !val.equals("-1")){
+	    if(val.equals("Included")) setIncludedOnly();
+	    else if(val.equals("Not Included")) setNotIncludedOnly();
+	    doubleRequest = val;
+	}
+    }    
     public String getStatus(){
 	if(status.isEmpty()) return "-1";
 	return status;
     }
+    public String getDoubleRequest(){
+	if(doubleRequest.isEmpty()) return "-1";
+	return doubleRequest;
+    }    
     public void setAmount(String val){
 	if(val != null)
 	    amount = val;
@@ -111,7 +123,12 @@ public class SnapList implements java.io.Serializable{
     public void setInactiveOnly(){
 	inactive_only = true;
     }    
-	
+    public void setIncludedOnly(){
+	included_only = true;
+    }
+    public void setNotIncludedOnly(){
+	not_included_only = true;
+    }    
     public List<Snap> getSnaps(){
 	return snaps;
     }
@@ -124,7 +141,7 @@ public class SnapList implements java.io.Serializable{
 
 	String qq = "select b.id, date_format(b.date,'%m/%d/%Y'),"+
 	    "date_format(b.date,'%H:%i'),"+
-	    "b.card_number,b.authorization,b.snap_amount,b.ebt_amount,b.dbl_amount,b.dbl_max,b.user_id,b.cancelled from snap_purchases b ";
+	    "b.card_number,b.authorization,b.snap_amount,b.ebt_amount,b.dbl_amount,b.dbl_max,b.include_double,b.user_id,b.cancelled from snap_purchases b ";
 	
 	String qw = "";
 	Connection con = null;
@@ -141,6 +158,14 @@ public class SnapList implements java.io.Serializable{
 	    }
 	    else if(inactive_only){
 		qw += " b.cancelled is not null ";
+	    }
+	    if(included_only){
+		if(!qw.equals("")) qw += " and ";				
+		qw += " b.include_double is not null ";
+	    }
+	    else if(not_included_only){
+		if(!qw.equals("")) qw += " and ";				
+		qw += " b.include_double is null ";
 	    }
 	    if(!card_number.equals("")){
 		if(!qw.equals("")) qw += " and ";				
@@ -218,8 +243,9 @@ public class SnapList implements java.io.Serializable{
 				    rs.getString(7),
 				    rs.getString(8),
 				    rs.getString(9),
-				    rs.getString(10),
-				    rs.getString(11)
+				    rs.getString(10) != null && !rs.getString(10).isEmpty(),
+				    rs.getString(11),
+				    rs.getString(12)
 				    
 				  );
 		snaps.add(one);

@@ -15,6 +15,7 @@
 		<td align="center"><b>Donor Max</b></td>		
 		<td align="center"><b>Card #</b></td>
 		<td align="center"><b>Authorization</b></td>
+		<td align="center"><b>Include Double</b></td>		
 		<td align="center"><b>User</b></td>
 		<td align="center"><b>Date & Time</b></td>
 		<td align="center"><b>Cancelled?</b></td>
@@ -26,12 +27,13 @@
 			<td align="right">$<s:property value="ebtAmount" /></td>			
 			<td align="right">$<s:property value="dblAmount" /></td>
 			<td align="right">$<s:property value="dblMax" /></td>
+	
 			<td><s:property value="cardNumber" /></td>
 			<td><s:property value="authorization" /></td>
+			<td>&nbsp;<s:if test="canDouble()">Yes</s:if><s:else>No</s:else></td>								
 			<td><s:property value="user" /></td>
 			<td><s:property value="date" />&nbsp;<s:property value="time" />
 			</td>
-
 			<td>&nbsp;<s:if test="isCancelled()">Cancelled</s:if></td>
 		</tr>
 	</s:iterator>

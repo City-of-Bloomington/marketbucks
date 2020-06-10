@@ -34,54 +34,47 @@
 	  <dl>
 		  <dt><label>*Purchase Amount: </label></dt>
 		  <dd>$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" />(xx.xx format only)</dd>
-	  </dl>
-	  <dl>
+		  <dt><label>Include Double:</label></dt>
+		  <dd>
+			  <s:checkbox name="snap.includeDouble" value="%{snap.includeDouble}" />Yes (uncheck if not included)
+		  </dd>		  
 		  <dt><label>*Customer Card #: </label></dt>
 		  <dd><s:textfield name="snap.cardNumber" maxlength="4" size="4" required="true" value="%{snap.cardNumber}" /></dd>
-	  </dl>			  
-	  <dl>
 		  <dt><label>*Authorization #: </label></dt>
 		  <dd><s:textfield name="snap.authorization" maxlength="10" size="10" required="true" value="%{snap.authorization}" /></dd>
-	  </dl>  
-	  <dl>
 		  <dt><label>Ebt Amount: </label></dt>
 		  <dd>$<s:property value="snap.ebtAmount" /></dd>
-	  </dl>
-	  <dl>
+		  
+	  <s:if test="snap.canDouble()">
 		  <dt><label>Dbl Amount: </label></dt>
 		  <dd>$<s:property value="snap.dblAmount" /></dd>
-	  </dl>				  
+	  </s:if>
+	  <s:else>
+		  <dt><label>Dbl Amount: </label></dt>
+		  <dd>No Double</dd>
+	  </s:else>
 	  <s:if test="snap.isCancelled()">
-		  <dl>
-			  <dt><label>Status: </label></dt>
-			  <dd>Cancelled</dd>
-		  </dl>
+		  <dt><label>Status: </label></dt>
+		  <dd>Cancelled</dd>
 	  </s:if>
 	  <s:if test="snap.hasUser()">
-		  <dl>
-			  <dt><label>User: </label></dt>
-			  <dd><s:property value="snap.user" /></dd>
-		  </dl>
+		  <dt><label>User: </label></dt>
+		  <dd><s:property value="snap.user" /></dd>
 	  </s:if>			  
 	  <s:if test="snap.id == ''">
-		  <dl>		
-			  <dd>
-				  <s:submit name="action" type="button" value="Save" />
-			  </dd>
-		  </dl>
+		  <dd>
+			  <s:submit name="action" type="button" value="Save" />
+		  </dd>
 	  </s:if>
 	  <s:elseif test="!snap.isCancelled()">
-		  <dl>
-			  <dt><label>Date: </label></dt>
-			  <dd><s:textfield name="snap.date" maxlength="10" size="10" required="true" value="%{snap.date}" cssClass="date" /> Time:<s:textfield name="snap.time" maxlength="5" size="5" required="true" value="%{snap.time}" /></dd>
-		  </dl>  
-		  <dl>		
-			  <dd>
-				  <s:submit name="action" type="button" id="update_button" value="Update" /> &nbsp;
-				  <s:submit name="action" type="button"  id="cancel_button" value="Cancel" />
-			  </dd>
-		  </dl> 
+		  <dt><label>Date: </label></dt>
+		  <dd><s:textfield name="snap.date" maxlength="10" size="10" required="true" value="%{snap.date}" cssClass="date" /> Time:<s:textfield name="snap.time" maxlength="5" size="5" required="true" value="%{snap.time}" /></dd>
+	  	  <dd>
+			  <s:submit name="action" type="button" id="update_button" value="Update" /> &nbsp;
+			  <s:submit name="action" type="button"  id="cancel_button" value="Cancel" />
+		  </dd>
 	  </s:elseif>
+	  </dl> 
   </fielset>
 </s:form>
 <br />

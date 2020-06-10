@@ -37,9 +37,13 @@
 			<dd><s:textfield name="snapList.amount" value="%{snapList.amount}" size="4" maxlength="4" /> </dd>
 		</dl>
 		<dl>
+			<dt><label>Double Request:</label></dt>
+			<dd><s:radio name="snapList.doubleRequest" value="%{snapList.doubleRequest}" list="#{'-1':'All','Included':'Included','Not Included':'Not Included'}" /> </dd>
+		</dl>
+		<dl>
 			<dt><label>Status:</label></dt>
 			<dd><s:radio name="snapList.status" value="%{snapList.status}" list="#{'-1':'All','Active':'Active','Cancelled':'Cancelled'}" /> </dd>
-		</dl>
+		</dl>		
 		<dl>
 			<dt><label>Date:</label></dt>
 			<dd><label> From</label><s:textfield name="snapList.date_from" value="%{snapList.date_from}" size="10" maxlength="10" cssClass="date" /><label> To </label><s:textfield name="snapList.date_to" value="%{snapList.date_to}" size="10" maxlength="10" cssClass="date" /></dd>
