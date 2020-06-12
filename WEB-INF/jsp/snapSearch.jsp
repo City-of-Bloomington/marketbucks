@@ -7,7 +7,7 @@
  *
  *
 	-->
-<h3>Search Online Purchases</h3>
+<h3>Search Online Purchases (SNAP)</h3>
 <s:if test="hasActionErrors()">
   <div class="errors">
     <s:actionerror/>

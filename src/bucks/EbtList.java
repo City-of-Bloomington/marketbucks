@@ -143,7 +143,7 @@ public class EbtList implements java.io.Serializable{
     //
     String find(){
 
-	String qq = "select e.id, e.amount,e.approve,e.card_last_4,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.dmb_amount,e.cancelled,e.ebt_donor_max,e.ebt_buck_value,e.dispute_resolution ";		
+	String qq = "select e.id, e.amount,e.approve,e.card_last_4,e.user_id,date_format(e.date_time,'%m/%d/%Y %H:%i'),e.dmb_amount,e.cancelled,e.ebt_donor_max,e.ebt_buck_value,e.dispute_resolution,e.include_double ";		
 	String qf = " from ebts e ";
 	String qw = "";
 	Connection con = null;
@@ -270,7 +270,8 @@ public class EbtList implements java.io.Serializable{
 				  rs.getString(8),
 				  rs.getInt(9),
 				  rs.getInt(10),
-				  rs.getString(11)
+				  rs.getString(11),
+				  rs.getString(12) != null && !rs.getString(12).isEmpty()				  
 				  );
 		ebts.add(one);
 	    }

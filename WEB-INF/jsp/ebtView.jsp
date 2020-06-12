@@ -47,6 +47,10 @@
 					<td align="right"><label>Buck Value:</label></td>
 					<td align="left">$<s:property value="ebt.ebt_buck_value" /></td>
 				</tr>
+				<tr>
+					<td align="right"><label>Include Double:</label></td>
+					<td align="left"><s:if test="ebt.includeDouble">Yes</s:if><s:else>No</s:else></td>
+				</tr>				
 				<s:if test="ebt.isCancelled()"><tr><td align="right">Status:</td><td align="left">Cancelled</td></tr></s:if>
 				<s:if test="ebt.isDispute_resolution()"><tr><td align="right">Type:</td><td align="left">Dispute Resolution</td></tr></s:if>				
 			</table></td>

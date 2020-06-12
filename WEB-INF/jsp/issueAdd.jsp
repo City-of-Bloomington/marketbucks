@@ -8,20 +8,20 @@
  *
 	-->
 <s:form action="issueAdd" method="post">    
-  <h4>Issue Market Bucks</h4>
-  <s:hidden name="ebt.id" value="%{ebt.id}" />
-  <s:if test="hasActionErrors()">
+	<h4>Issue Market Bucks</h4>
+	<s:hidden name="ebt.id" value="%{ebt.id}" />
+	<s:if test="hasActionErrors()">
 		<div class="errors">
-      <s:actionerror/>
+			<s:actionerror/>
 		</div>
-  </s:if>
-  <s:elseif test="hasActionMessages()">
+	</s:if>
+	<s:elseif test="hasActionMessages()">
 		<div class="welcome">
-      <s:actionmessage/>
+			<s:actionmessage/>
 		</div>
-  </s:elseif>
-  <p>*indicate a required field </p>
-  <table border="1" width="90%">
+	</s:elseif>
+	<p>*indicate a required field </p>
+	<table border="1" width="90%">
 		<tr><td> 
 			<table width="100%" border="1"><caption>Transaction ID:<s:property value="ebt.id" /></caption>
 				<tr>

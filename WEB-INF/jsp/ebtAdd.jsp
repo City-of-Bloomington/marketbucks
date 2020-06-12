@@ -9,84 +9,65 @@
 	-->
 <s:form action="ebtAdd" method="post" id="form_id" onsubmit="return confirmForCancel()">
   <s:if test="ebt.id == ''">
-		<h4>Issue Market Bucks</h4>
+	  <h4>Issue Ebt Market Bucks</h4>
   </s:if>
   <s:else>
-		<h3>Edit Market Bucks Request</h3>
-		<s:hidden name="ebt.id" value="%{ebt.id}" />
-		<s:hidden name="ebt.ebt_donor_max" value="%{ebt.ebt_donor_max}" />
-		<s:hidden name="ebt.ebt_buck_value" value="%{ebt.ebt_buck_value}" />
-		<s:if test="!ebt.isCancelled()">
-			<ul>
-				<li>If the amount is changed, this may cause the removal of all of the bucks that have been added to this transaction.</li>
-				<li>if you want to "Cancel" this transaction, first you need to collect all the issued MB's from the customer. Mark them as voided. These MB's can not be issued or redeemed any more. Then click on Cancel.</li>
-			</ul>
-		</s:if>
+	  <h3>Edit Ebt Market Bucks Request</h3>
+	  <s:hidden name="ebt.id" value="%{ebt.id}" />
+	  <s:hidden name="ebt.ebt_donor_max" value="%{ebt.ebt_donor_max}" />
+	  <s:hidden name="ebt.ebt_buck_value" value="%{ebt.ebt_buck_value}" />
+	  <s:if test="!ebt.isCancelled()">
+		  <ul>
+			  <li>If the amount is changed, this may cause the removal of all of the bucks that have been added to this transaction.</li>
+			  <li>if you want to "Cancel" this transaction, first you need to collect all the issued MB's from the customer. Mark them as voided. These MB's can not be issued or redeemed any more. Then click on Cancel.</li>
+		  </ul>
+	  </s:if>
   </s:else>
   <s:if test="hasActionErrors()">
-		<div class="errors">
-      <s:actionerror/>
-		</div>
+	  <div class="errors">
+		  <s:actionerror/>
+	  </div>
   </s:if>
   <s:elseif test="hasActionMessages()">
-		<div class="welcome">
-      <s:actionmessage/>
-		</div>
+	  <div class="welcome">
+		  <s:actionmessage/>
+	  </div>
   </s:elseif>
   <p>*indicates a required field</p>
-  <table border="1" width="80%">
-		<tr><td> 
-			<table width="100%">
-				<tr>
-					<td align="right" width="35%"><label>*EBT Amount:</label></td>
-					<td align="left">$<s:textfield name="ebt.amount" maxlength="4" size="4" required="true" value="%{ebt.amount}" id="div3" cssClass="need_focus" />.00 (Must be multiple of 3 ($))</td>
-				</tr>
-				<tr>
-					<td align="right"><label>*Authorization #:</label></td>
-					<td align="left"><s:textfield name="ebt.approve" maxlength="20" size="20" required="true" value="%{ebt.approve}" /></td>
-				</tr>	  
-				<tr>
-					<td align="right"><label>*Customer Card #:</label></td>
-					<td align="left"><s:textfield name="ebt.card_last_4" maxlength="4" size="4" required="true" value="%{ebt.card_last_4}" /></td>
-				</tr>
-				<s:if test="ebt.isCancelled()">
-					<tr>
-						<td align="right"><label>Status:</label></td>
-						<td align="left">Cancelled</td>
-					</tr>
-				</s:if>
-				<s:if test="ebt.isDispute_resolution()">
-					<tr>
-						<td align="right"><label>Type:</label></td>
-						<td align="left">Dispute Resolution</td>
-					</tr>
-				</s:if>				
-			</table></td>
-		</tr>
+	<hr />
+	<dl>
+		<dt align="right" width="35%"><label>*EBT Amount:</label></dt>
+		<dd align="left">$<s:textfield name="ebt.amount" maxlength="4" size="4" required="true" value="%{ebt.amount}" id="div3" cssClass="need_focus" />.00 (Must be multiple of 3 ($))</dd>
+		<dt align="right"><label>*Authorization #:</label></dt>
+		<dd align="left"><s:textfield name="ebt.approve" maxlength="20" size="20" required="true" value="%{ebt.approve}" /></dd>
+		<dt align="right"><label>*Customer Card #:</label></dt>
+		<dd align="left"><s:textfield name="ebt.card_last_4" maxlength="4" size="4" required="true" value="%{ebt.card_last_4}" /></dd>
+		<dt align="right"><label>Include Double? </label></dt>
+		<dd align="left"><s:checkbox name="ebt.includeDouble" value="%{ebt.includeDouble}" />Yes (uncheck if not included)</dd>
+		<s:if test="ebt.isCancelled()">
+			<dt align="right"><label>Status:</label></dt>
+			<dd align="left">Cancelled</dd>
+		</s:if>
+		<s:if test="ebt.isDispute_resolution()">
+			<dt align="right"><label>Type:</label></dt>
+			<dd align="left">Dispute Resolution</dd>
+		</s:if>
+	</dl>
+	<hr />
+	<dl>
 		<s:if test="ebt.id == ''">
-			<tr>		
-				<td valign="top" align="right">
+			<dd valign="top" align="right">
 					<s:submit name="action" type="button" value="Next" id="next_button" />
-				</td>
-			</tr>
+			</dd>
 		</s:if>
 		<s:elseif test="!ebt.isCancelled() && !ebt.isDispute_resolution()">
-			<tr>		
-				<td valign="top">	  
-					<table width="100%">
-						<tr>
-							<td align="center">
-								<s:submit name="action" type="button" id="update_button" value="Update" />
-							</td>
-							<td align="right">
-								<s:submit name="action" type="button"  id="cancel_button" value="Cancel" />
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
+			<dd>
+				<s:submit name="action" type="button" id="update_button" value="Update" />
+				<s:submit name="action" type="button"  id="cancel_button" value="Cancel" />
+			</dd>
 		</s:elseif>
-  </table>
+	</dl>
+	<hr />
 </s:form>
 <br />
 For issued market bucks search click<a href="<s:property value='#application.url'/>ebtSearch.action"> here. </a>

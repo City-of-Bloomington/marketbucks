@@ -49,9 +49,11 @@ public class EbtSearchAction extends TopAction{
 	    else{
 		ebts = ebtList.getEbts();
 		if(ebts == null || ebts.size() == 0){
+		    System.err.println(" no match found ");
 		    ebtsTitle = "No match found ";
 		}
 		else{
+		    System.err.println(" found "+ebts.size());		    
 		    ebtsTitle = "Found "+ebts.size()+" records";
 		}
 	    }

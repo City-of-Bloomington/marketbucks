@@ -60,8 +60,8 @@
     </div>
     <div class="fn1-nav1">
       <nav class="fn1-nav1-container">		
-	      <a href="<s:property value='#application.url'/>snapStart.action">Online Purchase</a>	      
-	      <a href="<s:property value='#application.url'/>snapSearch.action">Search </a>
+	      <a href="<s:property value='#application.url'/>snapStart.action">Online Purchase</a>
+		<a href="<s:property value='#application.url'/>ebtAdd.action">Issue Ebt MB</a></li>	      
 	      <a href="<s:property value='#application.url'/>otherMenu.action">More Options</a>	      	      
 
       </nav>

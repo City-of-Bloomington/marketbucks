@@ -15,8 +15,10 @@
 		<td align="center"><b>Card #</b></td>  
 		<td align="center"><b>User</b></td>
 		<td align="center"><b>Date & Time</b></td>
+		<td align="center"><b>Included Double</b></td>		
 		<td align="center"><b>Buck Value</b></td>
-		<td align="center"><b>Donor Max</b></td>
+
+		<td align="center"><b>Donor Max</b></td>		
 		<td align="center"><b>Cancelled?</b></td>
 		<td align="center"><b>Dispute Resolution?</b></td>
 	</tr>
@@ -29,6 +31,7 @@
 			<td><s:property value="card_last_4" /></td>
 			<td><s:property value="user" /></td>
 			<td><s:property value="date_time" /></td>
+			<td><s:if test="canDouble()">Yes</s:if><s:else>No</s:else></td>			
 			<td><s:property value="ebt_buck_value" /></td>
 			<td><s:property value="ebt_donor_max" /></td>
 			<td>&nbsp;<s:if test="isCancelled()">Cancelled</s:if></td>

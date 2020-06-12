@@ -20,22 +20,25 @@
 		</div>
 	</s:elseif>
 	<p>*indicates a required field</p>
-	<fieldset>
+	<hr />
 		<dl>
-			<dt><label>*Purchase Amount:</label></dt>
+			<dt><label>*Purchase Amount: </label></dt>
 			<dd>$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" />(xx.xx format only)</dd>
-			<dt><label>Include Double:</label></dt>
+			<dt><label>Include Double? </label></dt>
 			<dd>
 				<s:checkbox name="snap.includeDouble" value="%{snap.includeDouble}" />Yes (uncheck if not included)
 			</dd>
+		</dl>
+		<hr />
+		<dl>
 			<dd>
 				<s:submit name="action" type="button" id="save_button" value="Next" />
 			</dd>
 		</dl>
-  </fieldset>
+		<hr />
 </s:form>
 <br />
-For online purchase search click<a href="<s:property value='#application.url'/>snapSearch.action"> here. </a>
+For online purchase search click <a href="<s:property value='#application.url'/>snapSearch.action"> here. </a>
 <br />
 <s:if test="hasSnaps()">
 	<s:set var="snaps" value="snaps" />
