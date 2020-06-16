@@ -34,94 +34,103 @@ public abstract class TopAction extends ActionSupport implements SessionAware, S
     static String vendorsDatabase = null;
     static String vendorsUser = null;
     static String vendorsPassword = null;
-    static int ebt_donor_max = 27, ebt_buck_value=3, rx_max_amount=30;
+    static int ebt_donor_max = 27, ebt_buck_value=3, rx_max_amount=30,
+				wic_max_amount=21, senior_max_amount=24;
     User user = null;
     ServletContext ctx;
     Map<String, Object> sessionMap;
     Map<String, String[]> paramMap = null;
 
     public void setAction(String val){
-	if(val != null)
-	    action = val;
+				if(val != null)
+						action = val;
     }
     public void setAction2(String val){
-	if(val != null && !val.equals(""))
-	    action = val;
+				if(val != null && !val.equals(""))
+						action = val;
     }		
     public String getAction(){
-	return action;
+				return action;
     }
     public void setId(String val){
-	if(val != null)
-	    id = val;
+				if(val != null)
+						id = val;
     }
     public String getId(){
-	return id;
+				return id;
     }
     public User getUser(){
-	return user;
+				return user;
     }		
     String doPrepare(){
-	String back = "";
-	try{
-	    user = (User)sessionMap.get("user");
-	    if(user == null){
-		back = LOGIN;
-	    }
-	    if(url.equals("")){
-		String val = ctx.getInitParameter("debug");
-		if(val != null && val.equals("true")){
-		    debug = true;
-		}								
-		val = ctx.getInitParameter("url");
-		if(val != null)
-		    url = val;
-		val = ctx.getInitParameter("enableVendorsAutoUpdate");
-		if(val != null && val.equals("true"))
-		    enableVendorsAutoUpdate = true;								
-		val = ctx.getInitParameter("vendorsCheckUrl");
-		if(val != null)
-		    vendorsCheckUrl = val;
-		val = ctx.getInitParameter("vendorsDatabase");
-		if(val != null)
-		    vendorsDatabase = val;
-		val = ctx.getInitParameter("vendorsUser");
-		if(val != null)
-		    vendorsUser = val;
-		val = ctx.getInitParameter("vendorsPassword");
-		if(val != null)
-		    vendorsPassword = val;
-		val = ctx.getInitParameter("ebt_donor_max");
-		if(val != null){
-		    ebt_donor_max = Integer.parseInt(val);
-		}
-		val = ctx.getInitParameter("ebt_buck_value");
-		if(val != null){
-		    ebt_buck_value = Integer.parseInt(val);
-		}
-		val = ctx.getInitParameter("rx_max_amount");
-		if(val != null){
-		    rx_max_amount = Integer.parseInt(val);
-		}								
-	    }
-	}catch(Exception ex){
-	    System.out.println(ex);
-	}		
-	return back;
+				String back = "";
+				try{
+						user = (User)sessionMap.get("user");
+						if(user == null){
+								back = LOGIN;
+						}
+						if(url.equals("")){
+								String val = ctx.getInitParameter("debug");
+								if(val != null && val.equals("true")){
+										debug = true;
+								}								
+								val = ctx.getInitParameter("url");
+								if(val != null)
+										url = val;
+								val = ctx.getInitParameter("enableVendorsAutoUpdate");
+								if(val != null && val.equals("true"))
+										enableVendorsAutoUpdate = true;								
+								val = ctx.getInitParameter("vendorsCheckUrl");
+								if(val != null)
+										vendorsCheckUrl = val;
+								val = ctx.getInitParameter("vendorsDatabase");
+								if(val != null)
+										vendorsDatabase = val;
+								val = ctx.getInitParameter("vendorsUser");
+								if(val != null)
+										vendorsUser = val;
+								val = ctx.getInitParameter("vendorsPassword");
+								if(val != null)
+										vendorsPassword = val;
+								val = ctx.getInitParameter("ebt_donor_max");
+								if(val != null){
+										ebt_donor_max = Integer.parseInt(val);
+								}
+								val = ctx.getInitParameter("ebt_buck_value");
+								if(val != null){
+										ebt_buck_value = Integer.parseInt(val);
+								}
+								val = ctx.getInitParameter("rx_max_amount");
+								if(val != null){
+										rx_max_amount = Integer.parseInt(val);
+								}
+								val = ctx.getInitParameter("wic_max_amount");
+								if(val != null){
+										wic_max_amount = Integer.parseInt(val);
+								}
+								val = ctx.getInitParameter("senior_max_amount");
+								if(val != null){
+										senior_max_amount = Integer.parseInt(val);
+								}
+						}
+				}catch(Exception ex){
+						System.out.println(ex);
+				}		
+				return back;
     }		
     @Override  
     public void setSession(Map<String, Object> map) {  
-	sessionMap=map;  
+				sessionMap=map;  
     }
     @Override  	
     public void setServletContext(ServletContext ctx) {  
         this.ctx = ctx;  
     }
     public void setParameters(Map<String, String[]> map) {  
-	paramMap=map;  
+				paramMap=map;  
     }
     Map<String, String[]> getParameters(){
-	return paramMap;
+				return paramMap;
     }		
 }
 

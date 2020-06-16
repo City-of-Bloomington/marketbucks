@@ -25,7 +25,7 @@ public class BuckList implements java.io.Serializable{
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		String id="", ebt_id="", redeem_id="", export_id="", sweep_id="",
 				gift_id="", fund_type="", buck_id="", batch_id="", limit="",
-				which_date="b.expire_date", rx_id="",
+				which_date="b.expire_date", rx_id="", wic_id="",senior_id="",
 				type="";  // issued/unissued
 		boolean ebtOrGiftFlag = false;
 		String date_from="", date_to="", sortBy="b.id desc";
@@ -61,6 +61,14 @@ public class BuckList implements java.io.Serializable{
 		public void setRx_id(String val){
 				if(val != null)
 						rx_id = val;
+		}
+		public void setWic_id(String val){
+				if(val != null)
+						wic_id = val;
+		}
+		public void setSenior_id(String val){
+				if(val != null)
+						senior_id = val;
 		}		
 		public void setGift_id(String val){
 				if(val != null)
@@ -116,13 +124,18 @@ public class BuckList implements java.io.Serializable{
 		public String getId(){
 				return id;
 		}
-	
 		public String getEbt_id(){
 				return ebt_id;
 		}
 		public String getRx_id(){
 				return rx_id;
-		}		
+		}
+		public String getWic_id(){
+				return wic_id;
+		}
+		public String getSenior_id(){
+				return senior_id;
+		}
 		public String getBatch_id(){
 				return batch_id;
 		}		
@@ -195,6 +208,16 @@ public class BuckList implements java.io.Serializable{
 								qf += " join rx_bucks r ";
 								if(!qw.equals("")) qw += " and ";				
 								qw += " r.buck_id = b.id and r.rx_id=? ";
+						}
+						if(!wic_id.equals("")){
+								qf += " join wic_bucks r ";
+								if(!qw.equals("")) qw += " and ";				
+								qw += " r.buck_id = b.id and r.wic_id=? ";
+						}
+						if(!senior_id.equals("")){
+								qf += " join senior_bucks r ";
+								if(!qw.equals("")) qw += " and ";				
+								qw += " r.buck_id = b.id and r.senior_id=? ";
 						}						
 						if(!gift_id.equals("")){
 								qf += " join gift_bucks g ";
@@ -268,7 +291,13 @@ public class BuckList implements java.io.Serializable{
 								}
 								if(!rx_id.equals("")){
 										pstmt.setString(jj++, rx_id);				
-								}								
+								}
+								if(!wic_id.equals("")){
+										pstmt.setString(jj++, wic_id);				
+								}
+								if(!senior_id.equals("")){
+										pstmt.setString(jj++, senior_id);				
+								}
 								if(!gift_id.equals("")){
 										pstmt.setString(jj++, gift_id);				
 								}				

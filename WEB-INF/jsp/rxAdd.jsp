@@ -55,7 +55,7 @@
 				<s:if test="rx.isDispute_resolution()">
 					<tr>
 						<td align="right">Type:</td><
-						td align="left">Dispute Resolution</td>
+						<td align="left">Dispute Resolution</td>
 					</tr>
 				</s:if>						
 			</table></td>
