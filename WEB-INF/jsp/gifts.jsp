@@ -13,8 +13,7 @@
 		<td align="center"><b>Check #/RecTrac</b></td>  
 		<td align="center"><b>User</b></td>
 		<td align="center"><b>Date & Time</b></td>
-		<td align="center"><b>Cancelled?</b></td>
-		<td align="center"><b>Dispute Resolution?</b></td>
+		<td align="center"><b>Notes</b></td>
 	</tr>
 	<s:iterator var="one" value="#gifts">
 		<tr>
@@ -24,8 +23,8 @@
 			<td><s:property value="check_no" /></td>
 			<td><s:property value="user" /></td>
 			<td><s:property value="date_time" /></td>
-			<td><s:if test="isCancelled()">Cancelled</s:if></td>
-			<td>&nbsp;<s:if test="isDispute_resolution()">Yes</s:if></td>						
+			<td><s:if test="isCancelled()">Cancelled</s:if>
+			&nbsp;<s:if test="isDispute_resolution()">In dispute</s:if></td>
 		</tr>
 	</s:iterator>
 </table>

@@ -17,20 +17,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class FmnpWic implements java.io.Serializable{
+public class FmnpSenior implements java.io.Serializable{
 
 		static final long serialVersionUID = 13L;	
    
     boolean debug = false;
-		static Logger logger = LogManager.getLogger(FmnpWic.class);
+		static Logger logger = LogManager.getLogger(FmnpSenior.class);
 		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		String amountStr="", id="",
 				buck_type_id="1", // always MB of $3
 				cancelled="", 
 				dispute_resolution="";
 		String ticket_num = "";
-		int wic_max_amount = 21;
-		int wic_max_count = 2; 
+		int senior_max_amount = 24;
+		int senior_max_count = 2; 
 		int amount = 0, total = 0; 
 		String user_id="", date_time="";
 		String buck_id = ""; // adding one buck at a time
@@ -42,16 +42,16 @@ public class FmnpWic implements java.io.Serializable{
 		List<Buck> bucks = null;
 		User user = null;
 		String[] cancel_buck_id = null; // bucks that need to be cancelled
-		public FmnpWic(){
+		public FmnpSenior(){
 		}	
-		public FmnpWic(boolean val){
+		public FmnpSenior(boolean val){
 				debug = val;
 		}
-		public FmnpWic(boolean val, String val2){
+		public FmnpSenior(boolean val, String val2){
 				debug = val;
 				setId(val2);
 		}	
-		public FmnpWic(boolean deb,
+		public FmnpSenior(boolean deb,
 										String val,
 										String val2,
 										String val3,
@@ -86,7 +86,7 @@ public class FmnpWic implements java.io.Serializable{
 				setId(val);
 				setTicketNum(val2);
 				setAmount(val3);
-				setWic_max_amount(val4);
+				setSenior_max_amount(val4);
 				setUser_id(val5);
 				setDate_time(val6);
 				setCancelled(val7);
@@ -108,8 +108,8 @@ public class FmnpWic implements java.io.Serializable{
 						amountStr = val;
 						try{
 								amount = Integer.parseInt(val);
-								if(amount > wic_max_amount){
-										amount = wic_max_amount;
+								if(amount > senior_max_amount){
+										amount = senior_max_amount;
 								}
 						}catch(Exception ex){
 								System.err.println(ex);
@@ -164,18 +164,18 @@ public class FmnpWic implements java.io.Serializable{
 		}
 		public String getAmount(){
 				if(id.equals("")){
-						return ""+wic_max_amount;
+						return ""+senior_max_amount;
 				}
 				return amountStr;
 		}
-		public void setWic_max_amount(Integer val){
+		public void setSenior_max_amount(Integer val){
 				if(val != null && val > 0)
-						wic_max_amount = val;
+						senior_max_amount = val;
 		}
-		public void setWic_max_amount(String val){
+		public void setSenior_max_amount(String val){
 				if(val != null && !val.equals("")){
 						try{
-								wic_max_amount = Integer.parseInt(val);
+								senior_max_amount = Integer.parseInt(val);
 						}catch(Exception ex){
 
 						}								
@@ -325,7 +325,7 @@ public class FmnpWic implements java.io.Serializable{
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
 				String msg = "";
-				String qq = " select sum(total) from                                               (select count(*) total from ebt_bucks where buck_id=?                           union select count(*) total from wic_bucks where buck_id=?                      union select count(*) total from rx_bucks where buck_id=?                       union select count(*) total from senior_bucks where buck_id=?                   union select count(*) total from gift_bucks where buck_id=? )tt ";
+				String qq = " select sum(total) from                                               (select count(*) total from ebt_bucks where buck_id=?                           union select count(*) total from senior_bucks where buck_id=?                   union select count(*) total from rx_bucks where buck_id=?                       union select count(*) total from senior_bucks where buck_id=?                   union select count(*) total from gift_bucks where buck_id=? )tt ";
 				//
 				logger.debug(qq);
 				con = Helper.getConnection();
@@ -360,7 +360,7 @@ public class FmnpWic implements java.io.Serializable{
 				// expire date on gifts is one year from issue date
 				//
 				buck.setExpire_date("12/31/"+Helper.getNextYear());
-				buck.setFund_type("wic");
+				buck.setFund_type("senior");
 				msg = buck.doUpdate();
 				if(!msg.equals("")){
 						msg =" Could not save data "+msg;
@@ -369,7 +369,7 @@ public class FmnpWic implements java.io.Serializable{
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				String qq = "insert into wic_bucks values(?,?)";
+				String qq = "insert into senior_bucks values(?,?)";
 				logger.debug(qq);
 				con = Helper.getConnection();
 				if(con == null){
@@ -395,7 +395,7 @@ public class FmnpWic implements java.io.Serializable{
 		public List<Buck> getBucks(){
 				if(!id.equals("") && bucks == null){
 						BuckList bl = new BuckList(debug);
-						bl.setWic_id(id);
+						bl.setSenior_id(id);
 						String back = bl.find();
 						if(back.equals("")){
 								bucks = bl.getBucks();
@@ -427,8 +427,8 @@ public class FmnpWic implements java.io.Serializable{
 						return msg;
 				}
 				date_time = Helper.getToday();
-				String qq = "select count(*) from fmnp_wics where ticket_num = ? and cancelled is null";
-				String qq2 = "insert into fmnp_wics values(0,?,?,?,?,now(),null,null)";
+				String qq = "select count(*) from fmnp_seniors where ticket_num = ? and cancelled is null";
+				String qq2 = "insert into fmnp_seniors values(0,?,?,?,?,now(),null,null)";
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -443,8 +443,8 @@ public class FmnpWic implements java.io.Serializable{
 						if(rs.next()){
 								cnt = rs.getInt(1);
 						}
-						if(cnt >= wic_max_count){
-								msg = "Maximum number of tickets exceeded "+wic_max_count+" allowed, no more transactions are allowed for this ticket";
+						if(cnt >= senior_max_count){
+								msg = "Maximum number of tickets exceeded "+senior_max_count+" allowed, no more transactions are allowed for this ticket";
 								return msg;
 						}
 						qq = qq2;
@@ -481,7 +481,7 @@ public class FmnpWic implements java.io.Serializable{
 						return msg;
 				}		
 				date_time = Helper.getToday();
-				String qq = "update fmnp_wics set amount=?,wic_max_amount=?,user_id=?,dispute_resolution=? where id=?";
+				String qq = "update fmnp_seniors set amount=?,senior_max_amount=?,user_id=?,dispute_resolution=? where id=?";
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -515,7 +515,7 @@ public class FmnpWic implements java.io.Serializable{
 								pstmt.setString(c++, ticket_num);
 						}
 						pstmt.setString(c++, amountStr);
-						pstmt.setInt(c++, wic_max_amount);
+						pstmt.setInt(c++, senior_max_amount);
 						if(!user_id.equals(""))
 								pstmt.setString(c++, user_id);
 						else
@@ -536,7 +536,7 @@ public class FmnpWic implements java.io.Serializable{
 		//
 		String doSelect(){
 		
-				String qq = "select r.id, r.ticket_num,r.amount ,r.wic_max_amount,r.user_id,date_format(r.date_time,'%m/%d/%Y %H:%i'),r.cancelled,r.dispute_resolution from fmnp_wics r where r.id=? ";
+				String qq = "select r.id, r.ticket_num,r.amount ,r.senior_max_amount,r.user_id,date_format(r.date_time,'%m/%d/%Y %H:%i'),r.cancelled,r.dispute_resolution from fmnp_seniors r where r.id=? ";
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
@@ -592,7 +592,7 @@ public class FmnpWic implements java.io.Serializable{
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				String qq = "delete from wic_bucks where buck_id=?";
+				String qq = "delete from senior_bucks where buck_id=?";
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -631,9 +631,9 @@ public class FmnpWic implements java.io.Serializable{
 				Connection con = null;
 				PreparedStatement pstmt = null, pstmt2=null, pstmt3=null;
 				ResultSet rs = null;
-				String qq = "update bucks set fund_type=null,expire_date=null where id in (select buck_id from wic_bucks where wic_id=?) ";
-				String qq2 = "delete from wic_bucks where wic_id=? ";				
-				String qq3 = "update fmnp_wics set cancelled='y' where id=?";
+				String qq = "update bucks set fund_type=null,expire_date=null where id in (select buck_id from senior_bucks where senior_id=?) ";
+				String qq2 = "delete from senior_bucks where senior_id=? ";				
+				String qq3 = "update fmnp_seniors set cancelled='y' where id=?";
 				//
 				logger.debug(qq);
 				try{
@@ -675,7 +675,7 @@ public class FmnpWic implements java.io.Serializable{
 		String doCancelSelected(){
 				String msg = "";		
 				if(id.equals("")){
-						msg = "FMNP WIC transaction id not set ";
+						msg = "FMNP SENIOR transaction id not set ";
 						return msg;
 				}
 				Connection con = null;
@@ -687,8 +687,8 @@ public class FmnpWic implements java.io.Serializable{
 				// make sure this GC is not redeemed
 				//
 				String qq = "select count(*) from redeem_bucks r where r.buck_id=? "; 
-				String qq2 = "update bucks b, wic_bucks r set b.expire_date=null, b.fund_type=null where b.id=r.buck_id and b.id=? and r.wic_id=?";
-				String qq3 = "delete from wic_bucks where buck_id=? ";
+				String qq2 = "update bucks b, senior_bucks r set b.expire_date=null, b.fund_type=null where b.id=r.buck_id and b.id=? and r.senior_id=?";
+				String qq3 = "delete from senior_bucks where buck_id=? ";
 				//
 				logger.debug(qq);
 				con = Helper.getConnection();
@@ -739,7 +739,7 @@ public class FmnpWic implements java.io.Serializable{
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				String qq = "select count(*) from wic_bucks g,redeem_bucks r where r.buck_id=g.buck_id and g.wic_id=? ";
+				String qq = "select count(*) from senior_bucks g,redeem_bucks r where r.buck_id=g.buck_id and g.senior_id=? ";
 				//
 				logger.debug(qq);
 				try{

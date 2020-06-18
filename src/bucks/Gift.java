@@ -302,7 +302,7 @@ public class Gift implements java.io.Serializable{
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
 				String msg = "";
-				String qq = " select sum(total) from                                               (select count(*) total from ebt_bucks where buck_id=?                           union select count(*) total from rx_bucks where buck_id=?                       union select count(*) total from gift_bucks where buck_id=? )tt ";
+				String qq = " select sum(total) from                                               (select count(*) total from ebt_bucks where buck_id=?                           union select count(*) total from rx_bucks where buck_id=?                       union select count(*) total from gift_bucks where buck_id=?                     union select count(*) total from wic_bucks where buck_id=?                      union select count(*) total from senior_bucks where buck_id=?                    )tt ";
 				//
 				logger.debug(qq);
 				con = Helper.getConnection();
@@ -315,6 +315,8 @@ public class Gift implements java.io.Serializable{
 						pstmt.setString(1, buck_id);
 						pstmt.setString(2, buck_id);
 						pstmt.setString(3, buck_id);
+						pstmt.setString(4, buck_id);
+						pstmt.setString(5, buck_id);
 						rs = pstmt.executeQuery();
 						if(rs.next()){
 								if(rs.getInt(1) > 0) ret = true;

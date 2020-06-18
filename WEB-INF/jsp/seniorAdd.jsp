@@ -7,15 +7,15 @@
  *
  *
 	-->
-<s:form action="wicAdd" method="post" onsubmit="return confirmForCancel()">
-  <s:if test="wic.id == ''">
-		<h3>Add New FMNP WIC Transaction</h3>
+<s:form action="seniorAdd" method="post" onsubmit="return confirmForCancel()">
+  <s:if test="senior.id == ''">
+		<h3>Add New FMNP SENIOR Transaction</h3>
   </s:if>
   <s:else>
-		<h3>Edit FMNP WIC Transaction</h3>
-		<s:hidden name="wic.id" value="%{wic.id}" />
-		<s:hidden name="wic.wic_max_amount" value="%{wic.wic_max_amount}" />		
-		<s:if test="!wic.isCancelled()">
+		<h3>Edit FMNP SENIOR Transaction</h3>
+		<s:hidden name="senior.id" value="%{senior.id}" />
+		<s:hidden name="senior.senior_max_amount" value="%{senior.senior_max_amount}" />		
+		<s:if test="!senior.isCancelled()">
 			<ul>
 				<li>if you want to "Cancel" this transaction, first you need to collect all the issued MB's from the customer. These MB's will be retruned to the pool. Then click on Cancel.</li>
 				<li>If you want to Cancel certain MB's only. Check the corresponding checkbox(es) and then click on "Cancel Selected MB's".</li>
@@ -33,29 +33,29 @@
 		</div>
   </s:elseif>
   <p>*indicate a required field </p>  
-	<p>Note: FMNP WIC Amount is predetermined amount, no change is needed </p>
+	<p>Note: FMNP Senior Amount is predetermined amount, no change is needed </p>
 	<hr />
 	<dl>
-		<dt><label>FMNP WIC Amount:</label></dt>
-		<dd align="left">$<s:textfield name="wic.amount" maxlength="4" size="4" value="%{wic.amount}" id="div5" cssClass="need_focus" readonly="true" />.00 (Must be multiple of $3)</dd>
-		<s:if test="wic.id == ''">
+		<dt><label>FMNP Senior Amount:</label></dt>
+		<dd align="left">$<s:textfield name="senior.amount" maxlength="4" size="4" value="%{senior.amount}" id="div5" cssClass="need_focus" readonly="true" />.00 (Must be multiple of $3)</dd>
+		<s:if test="senior.id == ''">
 			<dt align="right"><label>Ticket #:</label></dt>
-			<dd align="left"><s:textfield name="wic.ticketNum" maxlength="10" size="10" value="%{wic.ticketNum}" required="true" /> *</dd>
+			<dd align="left"><s:textfield name="senior.ticketNum" maxlength="10" size="10" value="%{senior.ticketNum}" required="true" /> *</dd>
 		</s:if>
 		<s:else>
 			<dt align="right"><label>Ticket #:</label></dt>
-			<dd align="left"><s:property value="%{wic.ticketNum}" /></dd>		  
+			<dd align="left"><s:property value="%{senior.ticketNum}" /></dd>		  
 			<dt align="right"><label>Date & Time:</label></dt>
-			<dd align="left"><s:property value="%{wic.date_time}" /></dd>		  
+			<dd align="left"><s:property value="%{senior.date_time}" /></dd>		  
 			<dt align="right"><label>User:</label></dt>
-			<dd align="left"><s:property value="%{wic.user}" /></dd>
+			<dd align="left"><s:property value="%{senior.user}" /></dd>
 			<dt align="right"><label>Total:</label></dt>
-			<dd align="right">$<s:property value="%{wic.total}" />.00</dd>
-			<s:if test="wic.isCancelled()">
+			<dd align="right">$<s:property value="%{senior.total}" />.00</dd>
+			<s:if test="senior.isCancelled()">
 				<dt align="right"><label>Status:</label></dt>
 				<dd align="left">Cancelled</dd>
 			</s:if>
-			<s:if test="wic.isDispute_resolution()">
+			<s:if test="senior.isDispute_resolution()">
 				<dt align="right">Status:</dt>
 				<dd align="left">Dispute Resolution</dd>
 			</s:if>											
@@ -63,21 +63,22 @@
 	</dl>
 	<hr />
 	<dl>
-		<s:if test="wic.id == ''">
+		<s:if test="senior.id == ''">
 			<dd valign="top" align="right">
 				<s:submit name="action" type="button" id="next_button" value="Next" />
 			</dd>
 		</s:if>
-		<s:elseif test="!wic.isCancelled() && !wic.isDispute_resolution()">
+		<s:elseif test="!senior.isCancelled() && !senior.isDispute_resolution()">
 			<dd align="center">					
-				<s:if test="wic.hasBalance()">
+				<s:if test="senior.hasBalance()">
 					<s:submit name="action" type="button" id="next_button" value="Add Bucks" />
 				</s:if>
 				<s:submit name="action" type="button" id="cancel_button" value="Cancel" />
 			</dd>		  
 		</s:elseif>
 	</dl>
-	<s:if test="wic.hasBucks()">
+	<hr />
+	<s:if test="senior.hasBucks()">
 		<table border="1" width="80%">
 			<caption><s:property value="bucksTitle" /></caption>
 			<tr>
@@ -89,13 +90,13 @@
 			</tr>
 			<tr>
 				<td colspan="4" align="right">Total</td>
-				<td align="right">$<s:property value="wic.bucksTotal" />.00</td>
+				<td align="right">$<s:property value="senior.bucksTotal" />.00</td>
 			</tr>
-			<s:iterator var="one" value="wic.bucks">
+			<s:iterator var="one" value="senior.bucks">
 				<tr>
 					<td>&nbsp;
 						<s:if test="!isVoided()">
-							<input type="checkbox" name="wic.cancel_buck_id" value="<s:property value='id' />" />
+							<input type="checkbox" name="senior.cancel_buck_id" value="<s:property value='id' />" />
 						</s:if>
 					</td>
 					<td><s:property value="id" /></td>
@@ -104,7 +105,7 @@
 					<td align="right">$<s:property value="value" />.00</td>
 						</tr>
 			</s:iterator>
-			<tr><td colspan="5">** check to cancel and void the corresponding Fmnp Wic Bucks</td></tr>
+			<tr><td colspan="5">** check to cancel and void the corresponding Fmnp Senior Bucks</td></tr>
 		</table>
 		<dl>
 			<dd>
@@ -113,14 +114,14 @@
 		</dl>
 	</s:if>	
 </s:form>
-For FMNP WIC/Senior search click <a href="<s:property value='#application.url'/>fmnpSearch.action"> here. </a>
+For FMNP SENIOR/Senior search click <a href="<s:property value='#application.url'/>fmnpSearch.action"> here. </a>
 <br />
-<s:if test="wic.id == ''">
-	<s:if test="hasFmnpWics()">
-		<s:set var="fmnpWics" value="fmnpWics" />
-		<s:set var="fmnpWicsTitle" value="fmnpWicsTitle" />
+<s:if test="senior.id == ''">
+	<s:if test="hasFmnpSeniors()">
+		<s:set var="fmnpSeniors" value="fmnpSeniors" />
+		<s:set var="fmnpSeniorsTitle" value="fmnpSeniorsTitle" />
 		<s:set var="showTotal" value="'false'" />
-		<%@  include file="fmnpWics.jsp" %>	
+		<%@  include file="fmnpSeniors.jsp" %>	
 	</s:if>
 </s:if>
 <%@  include file="footer.jsp" %>	

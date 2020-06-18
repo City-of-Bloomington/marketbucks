@@ -22,56 +22,45 @@
 	</s:elseif>
 	<p>*indicate a required field </p>
 	<table border="1" width="90%">
-		<tr><td> 
-			<table width="100%" border="1"><caption>Transaction ID:<s:property value="ebt.id" /></caption>
-				<tr>
-					<td align="right" width="25%"><label>Authorization #:</label></td>
-					<td align="left" width="25%"><s:property value="ebt.approve" /></td>
-					<td align="right"><label>Request Amount:</label></td>
-					<td align="right">$<s:property value="ebt.amount" />.00</td>
-				</tr>
-				<tr>
-					<td colspan="3" align="right"><label>DMB Amount:</label></td>
-					<td align="right">$<s:property value="ebt.dmb_amount" />.00</td>
-				</tr>		
-				<tr>
-					<td align="right" width="25%"><label>Card #:</label></td>
-					<td align="left"><s:property value="ebt.card_last_4" /></td>
-					<td align="right"><label>Issued EBT:</label></td>
-					<td align="right">$<s:property value="ebt.paid_amount" />.00</td>
-				</tr>
-				<tr>
-					<td align="right"><label>Date & Time:</label></td>
-					<td align="left"><s:property value="ebt.date_time" /></td>		  
-					<td align="right"><label>Issued DMB:</label></td>
-					<td align="right">$<s:property value="ebt.donated_amount" />.00</td>
-				</tr>
-				<tr>
-					<td align="right"><label>User:</label></td>
-					<td align="left"><s:property value="ebt.user" /></td>		  
-					<td align="right"><label>Total:</label></td>
-					<td align="right">$<s:property value="ebt.total" />.00</td>
-				</tr>
-				<s:if test="ebt.isCancelled()">
-					<tr>
-						<td align="right"><label>Status:</label></td>
-						<td align="left" colspan="3">Cancelled</td>
-					</tr>
-				</s:if>
-				<s:if test="ebt.isDispute_resolution()">
-					<tr>
-						<td align="right"><label>Type:</label></td>
-						<td align="left" colspan="3">Dispute resolution ebt</td>
-					</tr>
-				</s:if>				
-				<s:elseif test="ebt.hasBalance()">
-					<tr bgcolor="red">
-						<td align="right" colspan="3"><label>Balance:</label></td>
-						<td align="right">$<s:property value="ebt.balance" />.00</td>
-					</tr>
-				</s:elseif>
-			</table>
-		</td></tr>
+		<tr>
+			<td>
+				<dl>
+					<dt><label>Transaction ID: </label></dt>
+					<dd><s:property value="ebt.id" /></dd>
+					<dt><label>Authorization #: </label></dt>
+					<dd><s:property value="ebt.approve" /></dd>
+					<dt><label>Card #: </label></dt>
+					<dd><s:property value="ebt.card_last_4" /></dd>				
+					<dt><label>Request Amount: </label></dt>
+					<dd>$<s:property value="ebt.amount" />.00</dd>
+					<dt><label>DMB Amount: </label></dt>
+					<dd>$<s:property value="ebt.dmb_amount" />.00</dd>
+					<dt><label>Issued EBT: </label></dt>
+					<dd>$<s:property value="ebt.paid_amount" />.00</dd>
+					<dt><label>Date & Time: </label></dt>
+					<dd><s:property value="ebt.date_time" /></dd>		  
+					<dt><label>Issued DMB: </label></dt>
+					<dd>$<s:property value="ebt.donated_amount" />.00</dd>
+					<dt><label>User:</label></dt>
+					<dd><s:property value="ebt.user" /></dd>		  
+					<dt><label>Total: </label></dt>
+					<dd>$<s:property value="ebt.total" />.00</dd>
+					<s:if test="ebt.isCancelled()">
+						<dt><label>Status: </label></dt>
+						<dd>Cancelled</dd>
+					</s:if>
+					<s:if test="ebt.isDispute_resolution()">
+						<dt><label>Status: </label></dt>
+						<dd>In Dispute</dd>
+					</s:if>				
+					<s:elseif test="ebt.hasBalance()">
+						<dd bgcolor="red">
+							<label>Balance: </label>
+							$<s:property value="ebt.balance" />.00</dd>
+					</s:elseif>
+				</dl>
+			</td>
+		</tr>
 		<s:if test="!ebt.isCancelled() && !ebt.isDispute_resolution()">
 			<s:if test="ebt.needMoreIssue()">
 				<tr>

@@ -134,7 +134,6 @@ public class MarketRx implements java.io.Serializable{
 						user_id = val;
 		}
 		public void setBuck_id(String val){
-				System.err.println(" buck id "+val);
 				if(val != null && !val.equals("")){
 						if(val.matches("[0-9]+")){
 								buck_id = val;
@@ -342,7 +341,7 @@ update bucks set expire_date=null, fund_type=null where id in (141778,141779,141
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
 				String msg = "";
-				String qq = " select sum(total) from                                               (select count(*) total from ebt_bucks where buck_id=?                           union select count(*) total from rx_bucks where buck_id=?                       union select count(*) total from gift_bucks where buck_id=? )tt ";
+				String qq = " select sum(total) from                                               (select count(*) total from ebt_bucks where buck_id=?                           union select count(*) total from rx_bucks where buck_id=?                       union select count(*) total from gift_bucks where buck_id=?                     union select count(*) total from wic_bucks where buck_id=?                      union select count(*) total from senior_bucks where buck_id=?                   )tt ";
 				//
 				logger.debug(qq);
 				con = Helper.getConnection();
@@ -355,6 +354,8 @@ update bucks set expire_date=null, fund_type=null where id in (141778,141779,141
 						pstmt.setString(1, buck_id);
 						pstmt.setString(2, buck_id);
 						pstmt.setString(3, buck_id);
+						pstmt.setString(4, buck_id);
+						pstmt.setString(5, buck_id);						
 						rs = pstmt.executeQuery();
 						if(rs.next()){
 								if(rs.getInt(1) > 0) ret = true;

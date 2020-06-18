@@ -22,7 +22,7 @@ public class FmnpSearchAction extends TopAction{
 		static Logger logger = LogManager.getLogger(FmnpSearchAction.class);
 		//
 		List<FmnpWic> wics = null;
-		// List<FmnpSenior> seniors = null;		
+		List<FmnpSenior> seniors = null;		
 		FmnpSearch fmnp = null;
 		String wicsTitle = "FMNP WIC Transactions";
 		String seniorsTitle = "FMNP Seniors Transactions";
@@ -51,11 +51,18 @@ public class FmnpSearchAction extends TopAction{
 						else{
 								wics = fmnp.getWics();
 								if(wics == null || wics.size() == 0){
-										wicsTitle = "No match found ";
+										wicsTitle = "FMNP WIC, no match found ";
 								}
 								else{
-									 wicsTitle = "Found "+wics.size()+" records";
+									 wicsTitle = "FMNP WIC "+wics.size()+" records";
 								}
+								seniors = fmnp.getSeniors();
+								if(seniors == null || seniors.size() == 0){
+										seniorsTitle = "FMNP Senior, no match found ";
+								}
+								else{
+										seniorsTitle = "FMNP Senior "+seniors.size()+" records";
+								}								
 						}
 				}		
 				return ret;
@@ -70,6 +77,9 @@ public class FmnpSearchAction extends TopAction{
 		public List<FmnpWic> getWics(){
 				return wics;
 		}
+		public List<FmnpSenior> getSeniors(){
+				return seniors;
+		}		
 		public int getWicsTotal(){
 				if(hasWics()){
 						if(wicsTotal == 0){
@@ -85,13 +95,11 @@ public class FmnpSearchAction extends TopAction{
 		public int getSeniorsTotal(){
 				if(hasSeniors()){
 						if(seniorsTotal == 0){
-								/*
 								for(FmnpSenior one:seniors){
 										if(!one.isCancelled()){
 												seniorsTotal += one.getAmountInt();
 										}
 								}
-								*/
 						}
 				}
 				return seniorsTotal;
@@ -100,12 +108,14 @@ public class FmnpSearchAction extends TopAction{
 				return wics != null && wics.size() > 0;
 		}
 		public boolean hasSeniors(){
-				return false;// ToDo
+				return seniors != null && seniors.size() > 0;
 		}		
 		public String getWicsTitle(){
 				return wicsTitle;
 		}
-
+		public String getSeniorsTitle(){
+				return seniorsTitle;
+		}
 		// we need this for auto_complete
 		public String populate(){
 				String ret = SUCCESS;

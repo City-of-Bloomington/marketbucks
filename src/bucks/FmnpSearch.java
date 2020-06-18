@@ -30,7 +30,7 @@ public class FmnpSearch implements java.io.Serializable{
 				dispute_resolution="", amount="", type="", status="";
 		boolean cancelled = false, active = false;
 		List<FmnpWic> wics = null;
-		// List<FmnpSenior> seniors = null; 
+		List<FmnpSenior> seniors = null; 
 		public FmnpSearch(){
 		}	
 		public FmnpSearch(boolean val){
@@ -139,11 +139,9 @@ public class FmnpSearch implements java.io.Serializable{
 		public List<FmnpWic> getWics(){
 				return wics;
 		}
-		/**
 		public List<FmnpSenior> getSeniors(){
 				return seniors;
 		}
-		*/
 		//
 		public String find(){
 				String qq = "select 'wic' as type,w.id, w.ticket_num, w.amount,w.wic_max_amount,w.user_id,date_format(w.date_time,'%m/%d/%Y %H:%i'),w.cancelled,w.dispute_resolution  from fmnp_wics w ";
@@ -222,10 +220,6 @@ public class FmnpSearch implements java.io.Serializable{
 						qq += " where "+qw;
 				if(!qw2.equals(""))
 						qq2 += " where "+qw2;				
-				if(!limit.equals("")){
-						qq += " limit "+limit;
-						qq2 += " limit "+limit;						
-				}
 				boolean both = true;
 				if(type.isEmpty()){
 						qq = qq+" union "+qq2;
@@ -242,6 +236,9 @@ public class FmnpSearch implements java.io.Serializable{
 						if(!sortBy.equals("")){
 								qq += " order by s."+sortBy;
 						}
+				}
+				if(!limit.equals("")){
+						qq += " limit "+limit;
 				}
 				logger.debug(qq);
 				con = Helper.getConnection();
@@ -295,7 +292,8 @@ public class FmnpSearch implements java.io.Serializable{
 										}
 								}
 						}
-						wics = new ArrayList<FmnpWic>();			
+						wics = new ArrayList<>();
+						seniors = new ArrayList<>();
 						rs = pstmt.executeQuery();
 						while(rs.next()){
 								String type = rs.getString(1);
@@ -313,8 +311,17 @@ public class FmnpSearch implements java.io.Serializable{
 										wics.add(one);
 								}
 								else{
-										// add to seniors
-										//
+										FmnpSenior one = new FmnpSenior(debug,
+																						 rs.getString(2),
+																						 rs.getString(3),
+																						 rs.getString(4),
+																						 rs.getString(5),
+																						 rs.getString(6),
+																						 rs.getString(7),
+																						 rs.getString(8),
+																						 rs.getString(9)
+																						 );
+										seniors.add(one);
 								}
 						}
 				}catch(Exception e){

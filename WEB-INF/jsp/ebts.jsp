@@ -19,8 +19,7 @@
 		<td align="center"><b>Buck Value</b></td>
 
 		<td align="center"><b>Donor Max</b></td>		
-		<td align="center"><b>Cancelled?</b></td>
-		<td align="center"><b>Dispute Resolution?</b></td>
+		<td align="center"><b>Notes</b></td>
 	</tr>
 	<s:iterator var="one" value="#ebts">
 		<tr>
@@ -34,12 +33,12 @@
 			<td><s:if test="canDouble()">Yes</s:if><s:else>No</s:else></td>			
 			<td><s:property value="ebt_buck_value" /></td>
 			<td><s:property value="ebt_donor_max" /></td>
-			<td>&nbsp;<s:if test="isCancelled()">Cancelled</s:if></td>
-			<td>&nbsp;<s:if test="isDispute_resolution()">Yes</s:if></td>			
+			<td><s:if test="isCancelled()">Cancelled</s:if></td>
+			&nbsp;<s:if test="isDispute_resolution()">In dispute</s:if></td>			
 		</tr>
 	</s:iterator>
 	<tr>
-		<td>Total Requests</td>
+		<td>Total </td>
 		<td align="right">$<s:property value="ebtTotal" />.00</td>
 		<td align="right">$<s:property value="dmbTotal" />.00</td>
 		<td colspan="8">&nbsp;</td>

@@ -80,7 +80,14 @@
 		 <result>/WEB-INF/jsp/wicAdd.jsp</result>
 		 <result name="error">/WEB-INF/jsp/wicAdd.jsp</result>
 		 <result name="issue">/WEB-INF/jsp/wicAddMore.jsp</result>			
-   </action>			
+   </action>
+   <action name="seniorAdd" 
+           class="bucks.FmnpSeniorAction" 
+           method="execute">
+		 <result>/WEB-INF/jsp/seniorAdd.jsp</result>
+		 <result name="error">/WEB-INF/jsp/seniorAdd.jsp</result>
+		 <result name="issue">/WEB-INF/jsp/seniorAddMore.jsp</result>			
+   </action>				 
    <action name="snap" 
            class="bucks.SnapAction" 
            method="execute">

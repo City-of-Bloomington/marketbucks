@@ -36,21 +36,22 @@
   <p>*indicates a required field</p>
 	<hr />
 	<dl>
-		<dt align="right" width="35%"><label>*EBT Amount:</label></dt>
-		<dd align="left">$<s:textfield name="ebt.amount" maxlength="4" size="4" required="true" value="%{ebt.amount}" id="div3" cssClass="need_focus" />.00 (Must be multiple of 3 ($))</dd>
-		<dt align="right"><label>*Authorization #:</label></dt>
-		<dd align="left"><s:textfield name="ebt.approve" maxlength="20" size="20" required="true" value="%{ebt.approve}" /></dd>
-		<dt align="right"><label>*Customer Card #:</label></dt>
-		<dd align="left"><s:textfield name="ebt.card_last_4" maxlength="4" size="4" required="true" value="%{ebt.card_last_4}" /></dd>
-		<dt align="right"><label>Include Double? </label></dt>
-		<dd align="left"><s:checkbox name="ebt.includeDouble" value="%{ebt.includeDouble}" />Yes (uncheck if not included)</dd>
+		<dd><label>Transaction ID: </label><s:property value="ebt.id" /></dd>
+		<dt><label>*EBT Amount:</label></dt>
+		<dd>$ <s:textfield name="ebt.amount" maxlength="4" size="4" required="true" value="%{ebt.amount}" id="div3" cssClass="need_focus" />.00 (Must be multiple of 3 ($))</dd>
+		<dt><label>*Authorization #:</label></dt>
+		<dd><s:textfield name="ebt.approve" maxlength="20" size="20" required="true" value="%{ebt.approve}" /></dd>
+		<dt><label>*Customer Card #:</label></dt>
+		<dd><s:textfield name="ebt.card_last_4" maxlength="4" size="4" required="true" value="%{ebt.card_last_4}" /></dd>
+		<dt><label>Include Double? </label></dt>
+		<dd><s:checkbox name="ebt.includeDouble" value="%{ebt.includeDouble}" />Yes (uncheck if not included)</dd>
 		<s:if test="ebt.isCancelled()">
-			<dt align="right"><label>Status:</label></dt>
-			<dd align="left">Cancelled</dd>
+			<dt><label>Status: </label></dt>
+			<dd>Cancelled</dd>
 		</s:if>
 		<s:if test="ebt.isDispute_resolution()">
-			<dt align="right"><label>Type:</label></dt>
-			<dd align="left">Dispute Resolution</dd>
+			<dt><label>Status: </label></dt>
+			<dd>In Dispute</dd>
 		</s:if>
 	</dl>
 	<hr />

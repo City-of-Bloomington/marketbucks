@@ -61,11 +61,10 @@
     <div class="fn1-nav1">
       <nav class="fn1-nav1-container">		
 	      <a href="<s:property value='#application.url'/>snapStart.action">Online Purchase</a>
-				<a href="<s:property value='#application.url'/>ebtAdd.action">Ebt MB</a></li>
-				<a href="<s:property value='#application.url'/>wicAdd.action">FMNP WIC</a></li>
-					<a href="<s:property value='#application.url'/>wicAdd.action">FMNP Senior</a></li>				
-	      <a href="<s:property value='#application.url'/>otherMenu.action">More Options</a>	      	      
-
+				<a href="<s:property value='#application.url'/>ebtAdd.action">Ebt MB</a>
+				<a href="<s:property value='#application.url'/>wicAdd.action">FMNP WIC</a>
+				<a href="<s:property value='#application.url'/>seniorAdd.action">FMNP Senior</a>
+				<a href="<s:property value='#application.url'/>otherMenu.action">More Options</a>	      	      
       </nav>
     </div>
 	</header>
