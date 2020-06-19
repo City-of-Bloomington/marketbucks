@@ -308,14 +308,6 @@ public class Resolution implements java.io.Serializable{
 						if(type_id.equals("1")){
 								approve = "dis_res";
 								card_last_4="1234";
-								/*
-								if(approve.equals("")){
-										return "Authorization # is required for MB";
-								}
-								if(card_last_4.equals("")){
-										return "Card last 4 digits is required for MB";
-								}
-								*/
 						}
 						else if(!type_id.equals("")){ // 2, 3
 								if(pay_type.equals("")){
@@ -455,7 +447,7 @@ public class Resolution implements java.io.Serializable{
 		public String doSave(){
 
 				Connection con = null;
-				PreparedStatement pstmt = null;
+				PreparedStatement pstmt = null, pstmt2=null;
 				ResultSet rs = null;
 				String msg = "";
 				if(dispute_id.equals("")){
@@ -484,8 +476,8 @@ public class Resolution implements java.io.Serializable{
 						pstmt.executeUpdate();
 						qq = "select LAST_INSERT_ID() ";
 						logger.debug(qq);
-						pstmt = con.prepareStatement(qq);
-						rs = pstmt.executeQuery();
+						pstmt2 = con.prepareStatement(qq);
+						rs = pstmt2.executeQuery();
 						if(rs.next()){
 								id = rs.getString(1);
 						}			
@@ -495,7 +487,7 @@ public class Resolution implements java.io.Serializable{
 						logger.error(msg);
 				}
 				finally{
-						Helper.databaseDisconnect(con, pstmt, rs);
+						Helper.databaseDisconnect(con, rs, pstmt, pstmt2);
 				}
 				return msg;
 		}

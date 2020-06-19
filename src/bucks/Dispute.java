@@ -225,7 +225,7 @@ public class Dispute implements java.io.Serializable{
 		public String doSave(){
 
 				Connection con = null;
-				PreparedStatement pstmt = null;
+				PreparedStatement pstmt = null, pstmt2 = null;
 				ResultSet rs = null;
 				String msg = "";
 				if(redeem_id.equals("") || buck_id.equals("")){
@@ -259,12 +259,11 @@ public class Dispute implements java.io.Serializable{
 						else
 								pstmt.setNull(6, Types.VARCHAR);				
 						pstmt.executeUpdate();
-						Helper.databaseDisconnect(pstmt, rs);
 						//
 						qq = "select LAST_INSERT_ID() ";
 						logger.debug(qq);
-						pstmt = con.prepareStatement(qq);
-						rs = pstmt.executeQuery();
+						pstmt2 = con.prepareStatement(qq);
+						rs = pstmt2.executeQuery();
 						if(rs.next()){
 								id = rs.getString(1);
 						}			
@@ -274,7 +273,7 @@ public class Dispute implements java.io.Serializable{
 						logger.error(msg);
 				}
 				finally{
-						Helper.databaseDisconnect(con, pstmt, rs);
+						Helper.databaseDisconnect(con, rs, pstmt, pstmt2);
 				}
 				return msg;
 		}

@@ -36,8 +36,11 @@
 	<p>Note: FMNP Senior Amount is predetermined amount, no change is needed </p>
 	<hr />
 	<dl>
+		<s:if test="senior.id != ''">
+			<dd>Transaction ID: <s:property value="%{senior.id}" /></dd>		  
+		</s:if>
 		<dt><label>FMNP Senior Amount:</label></dt>
-		<dd align="left">$<s:textfield name="senior.amount" maxlength="4" size="4" value="%{senior.amount}" id="div5" cssClass="need_focus" readonly="true" />.00 (Must be multiple of $3)</dd>
+		<dd align="left">$<s:textfield name="senior.amount" maxlength="4" size="4" value="%{senior.amount}" id="div5" readonly="true" />.00 (Must be multiple of $3)</dd>
 		<s:if test="senior.id == ''">
 			<dt align="right"><label>Ticket #:</label></dt>
 			<dd align="left"><s:textfield name="senior.ticketNum" maxlength="10" size="10" value="%{senior.ticketNum}" required="true" /> *</dd>

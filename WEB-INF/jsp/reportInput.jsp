@@ -35,6 +35,12 @@
 				  </tr>
 				  <tr>
 					  <td align="left"><s:checkbox name="report.distributeRX" value="%{report.distributeRX}"  />MarketRX Distribution (including dispute resol. trans. if any)</td>
+				  </tr>
+				  <tr>
+					  <td align="left"><s:checkbox name="report.distributeWic" value="%{report.distributeWic}"  />FMNP WIC Distribution (including dispute resol. trans. if any)</td>
+				  </tr>
+				  <tr>
+					  <td align="left"><s:checkbox name="report.distributeSenior" value="%{report.distributeSenior}"  />FMNP Seniors Distribution (including dispute resol. trans. if any)</td>
 				  </tr>					
 				  <tr>
 					  <td align="left"><s:checkbox name="report.redeem" value="%{report.redeem}"  />Redemptions - Vendors
@@ -47,7 +53,13 @@
 						  <s:select name="report.next_year" value="%{report.next_year}" list="years" /></td>
 				  </tr>
 				  <tr>
-					  <td align="left"><s:checkbox name="report.redeemRX" value="%{report.redeemRX}"  />Redemptions - Vouchers</td>
+					  <td align="left"><s:checkbox name="report.redeemRX" value="%{report.redeemRX}"  />Redemptions - RX Vouchers</td>
+				  </tr>
+				  <tr>
+					  <td align="left"><s:checkbox name="report.redeemWic" value="%{report.redeemWic}"  />Redemptions - FMNP WIC</td>
+				  </tr>
+				  <tr>
+					  <td align="left"><s:checkbox name="report.redeemSenior" value="%{report.redeemSenior}"  />Redemptions - FMNP Senior</td>
 				  </tr>					
 				  <tr>
 					  <td align="left"><s:checkbox name="report.participate" value="%{report.participate}"  />Household participations</td>

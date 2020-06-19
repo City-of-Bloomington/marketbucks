@@ -729,6 +729,7 @@ public class FmnpWic implements java.io.Serializable{
 				finally{
 						Helper.databaseDisconnect(con, rs, pstmt, pstmt2, pstmt3);
 				}
+				doSelect();
 				return msg;				
 
 		}

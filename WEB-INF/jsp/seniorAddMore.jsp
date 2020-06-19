@@ -23,47 +23,35 @@
   </s:elseif>
   <p>*indicate a required field </p>
   <table border="1" width="90%">
-		<tr><td> 
-			<table width="100%" border="1"><caption>Transaction ID:<s:property value="%{senior.id}" /></caption>
-				<tr>
-					<td align="right"><label>Amount:</label></td>
-					<td align="right">$<s:property value="%{senior.amount}" />.00</td>
-				</tr>
-				<tr>
-					<td align="right"><label>Ticket #:</label></td>
-					<td align="left"><s:property value="%{senior.ticketNum}" /></td>		  
-				</tr>				
-				<tr>
-					<td align="right"><label>Date & Time:</label></td>
-					<td align="left"><s:property value="%{senior.date_time}" /></td>		  
-				</tr>
-				<tr>
-					<td align="right"><label>User:</label></td>
-					<td align="left"><s:property value="%{senior.user}" /></td>
-				</tr>
-				<tr>
-					<td align="right"><label>Total:</label></td>
-					<td align="right">$<s:property value="%{senior.total}" />.00</td>
-				</tr>
+		<tr>
+			<td>
+				<dl>
+					<dd>
+						<label>Transaction ID:<s:property value="%{senior.id}" /></label>
+					</dd>
+					<dt><label>Amount:</label></dt>
+					<dd>$<s:property value="%{senior.amount}" />.00</dd>
+					<dt><label>Ticket #:</label></dt>
+					<dd><s:property value="%{senior.ticketNum}" /></dd>		  
+					<dt><label>Date & Time:</label></dt>
+					<dd><s:property value="%{senior.date_time}" /></dd>		  
+					<dt><label>User:</label></dt>
+					<dd><s:property value="%{senior.user}" /></dd>
+					<dt><label>Total:</label></dt>
+					<dd>$<s:property value="%{senior.total}" />.00</dd>
 				<s:if test="senior.isCancelled()">
-					<tr>
-						<td align="right"><label>Status:</label></td>
-						<td align="left" colspan="3">Cancelled</td>
-					</tr>
+					<dt><label>Status:</label></dt>
+					<dd align="left" colspan="3">Cancelled</dd>
 				</s:if>
 				<s:if test="senior.isDispute_resolution()">
-					<tr>
-						<td align="right"><label>Type:</label></td>
-						<td align="left" colspan="3">Dispute resolution Rx</td>
-					</tr>
+						<dt><label>Status:</label></dt>
+						<dd>In Dispute</dd>
 				</s:if>				
 				<s:elseif test="senior.hasBalance()">
-					<tr bgcolor="red">
-						<td align="right" colspan="3"><label>Balance:</label></td>
-						<td align="right">$<s:property value="%{senior.balance}" />.00</td>
-					</tr>
+						<dt><label>Balance:</label></dt>
+						<dd>$<s:property value="%{senior.balance}" />.00</dd>
 				</s:elseif>
-			</table>
+				</dl>
 		</td></tr>
 		<s:if test="!senior.isCancelled() && !senior.isDispute_resolution()">
 			<s:if test="senior.hasBalance()">

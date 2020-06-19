@@ -529,7 +529,7 @@ public class Redeem implements java.io.Serializable{
 		public String doSave(){
 
 				Connection con = null;
-				PreparedStatement pstmt = null;
+				PreparedStatement pstmt = null, pstmt2=null;
 				ResultSet rs = null;
 				String msg = "";
 				date_time = Helper.getToday();
@@ -542,7 +542,6 @@ public class Redeem implements java.io.Serializable{
 						return msg;
 				}		
 				String qq = "insert into redeems values(0,now(),?,?,'Open',null)";
-				// System.err.println("Do Save "+qq);
 				logger.debug(qq);
 				try{
 						con = Helper.getConnection();
@@ -554,12 +553,11 @@ public class Redeem implements java.io.Serializable{
 						pstmt.setString(1, vendor_id);
 						pstmt.setString(2, user_id);
 						pstmt.executeUpdate();
-						Helper.databaseDisconnect(pstmt, rs);
 						//
 						qq = "select LAST_INSERT_ID() ";
 						logger.debug(qq);
-						pstmt = con.prepareStatement(qq);
-						rs = pstmt.executeQuery();
+						pstmt2 = con.prepareStatement(qq);
+						rs = pstmt2.executeQuery();
 						if(rs.next()){
 								id = rs.getString(1);
 						}			
@@ -569,7 +567,7 @@ public class Redeem implements java.io.Serializable{
 						logger.error(msg);
 				}
 				finally{
-						Helper.databaseDisconnect(con, pstmt, rs);
+						Helper.databaseDisconnect(con, rs, pstmt, pstmt2);
 				}
 				return msg;
 		}

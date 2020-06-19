@@ -36,7 +36,10 @@
 	<p>Note: FMNP WIC Amount is predetermined amount, no change is needed </p>
 	<hr />
 	<dl>
-		<dt><label>FMNP WIC Amount:</label></dt>
+		<s:if test="wic.id != ''">
+			<dd>Transaction ID: <s:property value="%{wic.id}" /></dd>
+		</s:if>
+		<dt><label>Amount:</label></dt>
 		<dd align="left">$<s:textfield name="wic.amount" maxlength="4" size="4" value="%{wic.amount}" id="div5" cssClass="need_focus" readonly="true" />.00 (Must be multiple of $3)</dd>
 		<s:if test="wic.id == ''">
 			<dt align="right"><label>Ticket #:</label></dt>
@@ -77,6 +80,7 @@
 			</dd>		  
 		</s:elseif>
 	</dl>
+	<hr />
 	<s:if test="wic.hasBucks()">
 		<table border="1" width="80%">
 			<caption><s:property value="bucksTitle" /></caption>
