@@ -286,7 +286,7 @@ public class Resolution implements java.io.Serializable{
 						return "Dispute Info not available";
 				}
 				reason = dispute.getReason();
-				getConf();
+				// getConf();
 				if(reason.equals("Expired")){
 						expire_date = "12/31/"+Helper.getCurrentYear();
 						return changeExpireDate();

@@ -379,8 +379,7 @@ public class Redeem implements java.io.Serializable{
 				//
 
 				msg = buck.doSelect();
-				if(!msg.equals("")){
-						// msg += " Could not retreive Buck info "+msg;
+				if(!msg.isEmpty()){
 						if(!dispute.isInDispute()){
 								dispute.setReason("Not Exist");
 								// dispute.setSuggestions("Add this MB or GC by using Generate & Print. No need for printing");				
@@ -392,6 +391,24 @@ public class Redeem implements java.io.Serializable{
 								msg= "This buck is not in the system yet and is still in the dispute list";
 						}			
 						return msg;
+				}
+				if(msg.isEmpty()){
+						msg = buck.findOtherBuckInfo();
+				}
+				if(!buck.isIssued()){
+						if(!dispute.isInDispute()){
+								dispute.setReason("Not Issued");
+								// dispute.setSuggestions("Need to issue this MB or GC");
+								dispute.setStatus("Waiting");
+								String back = dispute.doSave();			
+								msg = "This buck or GC is not issued yet and cannot be redeemed. This Buck is added to the dispute list ";
+								return msg;
+						}
+						else{
+								msg = "This buck or GC is not issued yet and cannot be redeemed. This Buck is still in the dispute list ";
+								return msg;
+						}
+						
 				}
 				// expire date is written on the buck, it is not the same
 				// as the expire date in the config file, therefore we
@@ -445,6 +462,7 @@ public class Redeem implements java.io.Serializable{
 				
 						}
 				}
+				/*
 				boolean exist = false;
 				if(true){
 						BuckList  bl = new BuckList(debug);
@@ -471,6 +489,7 @@ public class Redeem implements java.io.Serializable{
 								return msg;
 						}
 				}
+				*/
 				if(buck.isRedeemed()){
 						msg = "This buck or GC is already redeemed. ";
 						// we do not do anything for already redeemed bucks						

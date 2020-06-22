@@ -43,10 +43,12 @@ public class BuckAction extends TopAction{
 								addActionError(back);
 						}
 						else{
-								back = buck.findOtherBuckInfo();
-								if(!back.equals("")){
-										addActionError(back);
-								}
+								/**
+									 back = buck.findOtherBuckInfo();
+									 if(!back.equals("")){
+									 addActionError(back);
+									 }
+								*/
 						}
 				}
 				return ret;
@@ -68,7 +70,7 @@ public class BuckAction extends TopAction{
 				}
 				return id;
 		}
-		}
+}
 
 
 

@@ -33,6 +33,8 @@ public class Buck implements java.io.Serializable{
 		User user = null;
 		Ebt ebt = null;
 		Gift gift = null;
+		// we get these from other buck info
+		String ebt_id="", rx_id="", gift_id="", wic_id="", senior_id="", redeem_id="";
 		Redeem redeem = null;
 		public Buck(){
 		}	
@@ -142,7 +144,16 @@ public class Buck implements java.io.Serializable{
 		}
 		public boolean isDmbType(){
 				return fund_type.equals("dmb");
-		}		
+		}
+		public boolean isRxType(){
+				return fund_type.equals("rx");
+		}
+		public boolean isWicType(){
+				return fund_type.equals("wic");
+		}
+		public boolean isSeniorType(){
+				return fund_type.equals("senior");
+		}
 		public String getFund_typeStr(){
 				String str = fund_type.toUpperCase();
 				return str;
@@ -233,6 +244,7 @@ public class Buck implements java.io.Serializable{
 				}
 				return conf;
 		}
+
 		public String getConf_id(){
 
 				String ret = "";
@@ -244,6 +256,7 @@ public class Buck implements java.io.Serializable{
 				}
 				return ret;
 		}
+		/*
 		public String findOtherBuckInfo(){
 				String back = "";
 				if(id.equals("")) return "buck id not set";
@@ -278,23 +291,120 @@ public class Buck implements java.io.Serializable{
 				}
 				return back;
 		}
+		*/
 		public boolean hasEbt(){
-				return ebt != null;
+				return !ebt_id.isEmpty();
 		}
 		public boolean hasGift(){
-				return gift != null;
+				return !gift_id.isEmpty();				
+
 		}
+		public boolean hasRx(){
+				return !rx_id.isEmpty();
+		}
+		public boolean hasWic(){
+				return !wic_id.isEmpty();
+		}
+		public boolean hasSenior(){
+				return !senior_id.isEmpty();
+		}		
 		public boolean hasRedeem(){
-				return redeem != null;
+				return !redeem_id.isEmpty();
 		}
+		public boolean isRedeemed(){
+				return !redeem_id.isEmpty();
+		}		
 		public Ebt getEbt(){
+				if(ebt == null && hasEbt()){
+						Ebt one = new Ebt(debug, ebt_id);
+						String back = one.doSelect();
+						if(back.isEmpty())
+								ebt = one;
+				}
 				return ebt;
 		}
 		public Gift getGift(){
+				if(gift == null && hasGift()){
+						Gift one = new Gift(debug, gift_id);
+						String back = one.doSelect();
+						if(back.isEmpty())
+								gift = one;
+				}				
 				return gift;
 		}
 		public Redeem getRedeem(){
+				if(redeem == null && hasRedeem()){
+						Redeem one = new Redeem(debug, gift_id);
+						String back = one.doSelect();
+						if(back.isEmpty())
+								redeem = one;
+				}			
 				return redeem;
+		}
+		public boolean isIssued(){
+				return hasEbt() || hasGift() || hasRx() || hasWic() || hasSenior();
+		}
+		public String findOtherBuckInfo(){
+				String msg = "";
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;				
+				if(id.equals("")) {
+						msg = "buck id not set";
+						return msg;
+				}
+				String qq1 = "select eb.ebt_id as ID,'Ebt' as Type from ebt_bucks eb,ebts e where eb.ebt_id=e.id and eb.buck_id=? and e.cancelled is null ";
+				String qq2 = "select xb.rx_id as ID,'Rx' as Type from rx_bucks xb,market_rx x where xb.rx_id=x.id and xb.buck_id=? and x.cancelled is null ";
+				String qq3 = "select wb.wic_id as ID,'Wic' as Type from wic_bucks wb,fmnp_wics w where wb.wic_id=w.id and wb.buck_id=? and w.cancelled is null ";
+				String qq4 = "select sb.senior_id as ID,'Senior' as Type from senior_bucks sb,fmnp_seniors s where sb.senior_id=s.id and sb.buck_id=? and s.cancelled is null ";						
+				String qq5 = "select gb.gift_id as ID,'Gift' as Type from gift_bucks gb,gifts g where gb.gift_id=g.id and gb.buck_id=? and g.cancelled is null ";
+				String qq6 = "select rb.redeem_id as ID,'Redeem' as Type from redeem_bucks rb,redeems r where rb.redeem_id=r.id and rb.buck_id=? ";
+				
+				String qq = qq1+" union "+qq2+" union "+qq3+" union "+qq4+" union "+qq5+" union "+qq6;
+				logger.debug(qq);
+				try{
+						con = Helper.getConnection();
+						if(con == null){
+								msg = "Could not connect ";
+								return msg;
+						}
+						pstmt = con.prepareStatement(qq);
+						pstmt.setString(1, id);
+						pstmt.setString(2, id);
+						pstmt.setString(3, id);
+						pstmt.setString(4, id);
+						pstmt.setString(5, id);
+						pstmt.setString(6, id);						
+						rs = pstmt.executeQuery();
+						while(rs.next()){
+								String p_id = rs.getString(1);
+								String type = rs.getString(2);
+								if(type != null && type.equals("Ebt"))
+										ebt_id=p_id;
+								else if(type.equals("Gift"))
+										gift_id = p_id;
+								else if(type.equals("Rx"))
+										rx_id = p_id;
+								else if (type.equals("Wic"))
+										wic_id = p_id;
+								else if(type.equals("Senior"))
+										senior_id = p_id;
+								else if(type.equals("Redeem"))
+										redeem_id = p_id;								
+								else {
+										System.err.println("Unknown type "+type);
+								}
+								System.err.println(p_id+" "+type);
+						}
+				}
+				catch(Exception ex){
+						msg += ex+":"+qq;
+						logger.error(msg);
+				}
+				finally{
+						Helper.databaseDisconnect(con, pstmt, rs);
+				}
+				return msg;
 		}
 		/**
 		 * bucks are saved in the batch class in a group
@@ -532,6 +642,7 @@ public class Buck implements java.io.Serializable{
 				return found;	
 
 		}
+		/*
 		boolean isRedeemed(){
 				String qq = "select count(*) from redeem_bucks where buck_id=? ";
 				Connection con = null;
@@ -562,7 +673,8 @@ public class Buck implements java.io.Serializable{
 				}
 				return found;	
 
-		}	
+		}
+		*/
 }
 
 

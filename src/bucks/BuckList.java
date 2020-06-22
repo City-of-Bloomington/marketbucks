@@ -344,7 +344,9 @@ public class BuckList implements java.io.Serializable{
 		}
 		/**
 		 * we need to check if this buck is int he ebt or gift bucks
+		 * Not used anymore, replace by buck other info function
 		 */
+		/**
 		String findEbtGiftBucks(){
 
 				String qq1 = "select b.id, b.value,b.fund_type,c.type_id,date_format(b.expire_date,'%m/%d/%Y'),if(b.expire_date is not null, datediff(b.expire_date, now()), null),b.voided ";
@@ -423,7 +425,7 @@ public class BuckList implements java.io.Serializable{
 				}
 				return msg;					
 		}
-
+		*/
 }
 
 

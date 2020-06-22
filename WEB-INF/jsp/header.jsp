@@ -64,6 +64,7 @@
 				<a href="<s:property value='#application.url'/>ebtAdd.action">Ebt MB</a>
 				<a href="<s:property value='#application.url'/>wicAdd.action">FMNP WIC</a>
 				<a href="<s:property value='#application.url'/>seniorAdd.action">FMNP Senior</a>
+				<a href="<s:property value='#application.url'/>redeemStart.action">Redemptions</a>				
 				<a href="<s:property value='#application.url'/>otherMenu.action">More Options</a>	      	      
       </nav>
     </div>

@@ -25,9 +25,6 @@
 		<a href="<s:property value='#application.url'/>rxAdd.action">Issue Rx</a>
 	</li>
 	<li>
-		<a href="<s:property value='#application.url'/>redeemStart.action">Redemptions</a>
-	</li>
-	<li>
 		<a href="<s:property value='#application.url'/>disputeSearch.action">Disputes</a>
 	</li>
 	<li>
