@@ -258,19 +258,6 @@ public class Resolution implements java.io.Serializable{
 										conf = buck.getConf();
 								}
 						}
-						// if we do not have buch, we go to batch to find it
-						if(conf == null){
-								BatchList bl = new BatchList(debug);
-								bl.setSeq_id(buck_id);
-								String back = bl.find();
-								if(back.equals("")){
-										List<Batch> list = bl.getBatches();
-										if(list != null && list.size() > 0){
-												Batch batch = list.get(0);
-												conf = batch.getConf();
-										}
-								}
-						}
 				}
 				return conf;
 		}	
@@ -298,6 +285,7 @@ public class Resolution implements java.io.Serializable{
 						if(!new_buck_id.equals("")){
 								return handleTypo();
 						}
+						getConf();
 						if(conf == null){
 								return "Configuration is not set";
 						}
@@ -416,6 +404,7 @@ public class Resolution implements java.io.Serializable{
 						ebt.setUser_id(user_id);
 						ebt.setBuck_id(buck_id);
 						ebt.setDispute_resolution("y");
+						ebt.setIncludeDouble(false);
 						msg = ebt.doSave();
 						msg += ebt.addNewBuckToEbt();
 						getBuck();

@@ -62,7 +62,7 @@ public class Vendor implements java.io.Serializable{
 									String val4,
 									String val5,
 									String val6,
-									String val7){
+									boolean val7){
 				debug = deb;
 				setId(val);
 				setVendorNum(val2);
@@ -142,13 +142,13 @@ public class Vendor implements java.io.Serializable{
 		}
 		*/
 		public boolean isInActive(){
-				return active.equals("");
+				return active.isEmpty();
 		}		
-		public String getActive(){
-				return "y";
+		public boolean getActive(){
+				return !active.isEmpty();
 		}
 		public String getActiveStr(){
-				return "Yes";
+				return active.isEmpty() ? "No":"Yes";
 		}
 		
     //
@@ -182,8 +182,11 @@ public class Vendor implements java.io.Serializable{
 						payType = "";
 				}
     }	
-    public void setActive (String val){
-				active = "y";
+    public void setActive (boolean val){
+				if(val)
+						active = "y";
+				else
+						active = "";
     }
 		/*
     public void setInActive (boolean val){
@@ -252,7 +255,7 @@ public class Vendor implements java.io.Serializable{
 								setFname(rs.getString(4));
 								setBusinessName(rs.getString(5));
 								setPayType(rs.getString(6)); // till we receive the update
-								setActive(rs.getString(7));
+								setActive(rs.getString(7) != null);
 
 						}
 						else{
@@ -320,7 +323,7 @@ public class Vendor implements java.io.Serializable{
 				PreparedStatement pstmt = null;
 				Connection con = null;
 				ResultSet rs = null;		
-				String qq = "update vendors set vendor_num=?,lname=?,fname=?,business_name=?, payType=?,active='y' where id=?";
+				String qq = "update vendors set vendor_num=?,lname=?,fname=?,business_name=?, payType=?,active=? where id=?";
 				logger.debug(qq);
 				con = Helper.getConnection();
 				if(con == null){
@@ -346,13 +349,11 @@ public class Vendor implements java.io.Serializable{
 						else
 								pstmt.setString(5, payType);
 
-						/*
 						if(!active.equals(""))
 								pstmt.setString(6, "y");
 						else
 								pstmt.setNull(6, Types.CHAR);
-						*/
-						pstmt.setString(6, id);
+						pstmt.setString(7, id);
 						
 						pstmt.executeUpdate();
 				}

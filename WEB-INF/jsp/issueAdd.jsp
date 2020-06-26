@@ -50,8 +50,8 @@
 						<dd>Cancelled</dd>
 					</s:if>
 					<s:if test="ebt.isDispute_resolution()">
-						<dt><label>Status: </label></dt>
-						<dd>In Dispute</dd>
+						<dt><label>Notes: </label></dt>
+						<dd><s:property value="ebt.notes" /></dd>
 					</s:if>				
 					<s:elseif test="ebt.hasBalance()">
 						<dd bgcolor="red">

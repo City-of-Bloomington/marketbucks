@@ -217,6 +217,13 @@
 			<result name="error">/WEB-INF/jsp/redeemSearch.jsp</result>
 			<result name="success">/WEB-INF/jsp/redeemSearch.jsp</result>
     </action>
+    <action name="vendorSearch" 
+            class="bucks.VendorSearchAction" 
+            method="execute">
+			<result name="input">/WEB-INF/jsp/vendorSearch.jsp</result>		
+			<result name="error">/WEB-INF/jsp/vendorSearch.jsp</result>
+			<result name="success">/WEB-INF/jsp/vendorSearch.jsp</result>
+    </action>		
     <action name="fmnpSearch" 
             class="bucks.FmnpSearchAction" 
             method="execute">

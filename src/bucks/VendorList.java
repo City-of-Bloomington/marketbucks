@@ -22,7 +22,7 @@ public class VendorList{
 				vendorsUser=null,
 				vendorsPassword=null;
 		List<Vendor> vendors = null;
-		String name = "", active="", vendor_num="";
+		String id="", name = "", active="", vendor_num="", activeStatus="";
     public VendorList(){
     }		
     public VendorList(boolean deb){
@@ -59,13 +59,43 @@ public class VendorList{
 				if(val != null)
 						name = val;
     }
+    public void setId(String val){
+				if(val != null)
+						id = val;
+    }		
     public void setVendorNum(String val){
 				if(val != null)
 						vendor_num = val;
     }		
     public void setActiveOnly(){
 				active = "y";
-    }	
+    }
+		public void setInactiveOnly(){
+				active = "n";
+		}
+		public void setActiveStatus(String val){
+				if(val != null && !val.equals("-1")){
+						if(val.equals("y"))
+								setActiveOnly();
+						else
+								setInactiveOnly();
+						activeStatus = val;
+				}
+		}
+		public String getId(){
+				return id;
+		}
+		public String getName(){
+				return name;
+		}
+		public String getVendorNum(){
+				return vendor_num;
+		}
+		public String getActiveStatus(){
+				if(activeStatus.isEmpty())
+						return "-1";
+				return activeStatus;
+		}
 		public List<Vendor> getVendors(){
 				return vendors;
 		}
@@ -76,16 +106,23 @@ public class VendorList{
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				if(!name.equals("")){
-						qw = " lname like ? or fname like ? or business_name like ? ";
+				
+				if(!id.isEmpty()){
+						qw = " vendor_num = ? ";
 				}
-				if(!vendor_num.equals("")){
-						if(!qw.equals("")) qw += " and ";						
+				else if(!vendor_num.isEmpty()){
 						qw = " vendor_num = ? ";
 				}				
-				if(!active.equals("")){
-						if(!qw.equals("")) qw += " and ";
+				else if(!name.isEmpty()){
+						qw = " lname like ? or fname like ? or business_name like ? ";
+				}
+				if(active.equals("y")){
+						if(!qw.isEmpty()) qw += " and ";
 						qw += " active is not null ";
+				}
+				else if(active.equals("n")){
+						if(!qw.isEmpty()) qw += " and ";
+						qw += " active is null ";
 				}
 				String qo = " order by lname ";
 				if(!qw.equals("")){
@@ -104,13 +141,16 @@ public class VendorList{
 						vendors = new ArrayList<Vendor>();
 						pstmt = con.prepareStatement(qq);
 						int jj=1;
-						if(!name.equals("")){
+						if(!id.isEmpty()){
+								pstmt.setString(jj++, id);
+						}
+						else if(!vendor_num.isEmpty()){
+								pstmt.setString(jj++, vendor_num);
+						}
+						else if(!name.isEmpty()){
 								pstmt.setString(jj++, "%"+name+"%");
 								pstmt.setString(jj++, "%"+name+"%");
 								pstmt.setString(jj++, "%"+name+"%");								
-						}
-						if(!vendor_num.equals("")){
-								pstmt.setString(jj++, vendor_num);
 						}
 						rs = pstmt.executeQuery();	
 						while(rs.next()){
@@ -121,7 +161,7 @@ public class VendorList{
 																				rs.getString(4),
 																				rs.getString(5),
 																				rs.getString(6),
-																				rs.getString(7));
+																				rs.getString(7) != null);
 								vendors.add(one);
 						}
 				}catch(Exception e){

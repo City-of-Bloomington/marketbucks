@@ -276,7 +276,13 @@ public class Ebt implements java.io.Serializable{
     }
     public boolean getIncludeDouble(){
 				return !includeDouble.isEmpty();
-    }    
+    }
+		public String getNotes(){
+				String notes = "";
+				if(isDispute_resolution())
+						notes = "Dispute resolution created record";
+				return notes;
+		}
     public User getUser(){
 				if(!user_id.equals("") && user == null){
 						User one = new User(debug, null, user_id);
@@ -447,7 +453,6 @@ public class Ebt implements java.io.Serializable{
 		
     }
     /**
-     * TODO continue from here
      * each customer can have max of 27 DMB per day
      * if a trans has been processed before we need to find the amount
      * of dmb and if 27 or more, no more dmb will be given and the

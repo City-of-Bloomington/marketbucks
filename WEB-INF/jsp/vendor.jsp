@@ -31,73 +31,51 @@
 			This is needed when scaning vendor card to redeem MB or GC.<br />
 			** indicates a required field <br />
 		</p>
-		<table border="1" width="90%">
+		<table border="1" width="100%">
 			<tr><td> 
-				<table width="100%">
+				<dl>
 					<s:if test="vendor.id != ''">
-						<tr>							
-							<td align="right" width="35%"><label>ID #:</label></td>
-							<td align="left">
-								<s:property value="%{vendor.id}" />
-							</td>
-						</tr>							 
+						<dt><label>MB Vendor ID #:</label></dt>
+						<dd><s:property value="%{vendor.id}" /></dd>
 					</s:if>
-					<tr>
-						<td align="right" width="35%"><label>Vendor Number:</label></td>
-						<td align="left">
-								<s:textfield name="vendor.vendorNum" maxlength="10" size="10" value="%{vendor.vendorNum}" required="true" /> *
-						</td>
-					</tr>
-					<tr>
-						<td align="right" width="35%"><label>Last Name:</label></td>
-						<td align="left"><s:textfield name="vendor.lname" maxlength="50" size="40" required="true" value="%{vendor.lname}" />(Business) ** </td>
-					</tr>
-					<tr>
-						<td align="right" width="35%"><label>First Name:</label></td>
-						<td align="left"><s:textfield name="vendor.fname" maxlength="30" size="30" value="%{vendor.fname}" /></td>
-					</tr>
-					<tr>
-						<td align="right" width="35%"><label>Related Business:</label></td>
-						<td align="left"><s:textfield name="vendor.businessName" maxlength="50" size="30" value="%{vendor.businessName}" /></td>
-					</tr>					
-					<tr>
-						<td align="right"><label>Active:</label></td>
-						<td align="left"><s:radio name="vendor.active" value="%{vendor.active}" list="#{'y':'Active','-1':'Inactive'}"/>				
-						</td>
-					</tr>	  
-					<tr>
-						<td align="right"><label>Allowed Pay Type:</label></td>
-						<td align="left"><s:radio name="vendor.payType" value="%{vendor.payType}" list="#{'-1':'None','GC':'GC only','MB:GC':'MB and GC'}" /></td>
-					</tr>
-				</table></td>
-			</tr>
-			<s:if test="vendor.id == ''">
-				<tr>		
-					<td valign="top" align="right">
+					<dt><label>*Vendor Number:</label></dt>
+					<dd>
+						<s:textfield name="vendor.vendorNum" maxlength="10" size="10" value="%{vendor.vendorNum}" required="true" />
+					</dd>
+					<dt><label>*Last Name:</label></dt>
+					<dd><s:textfield name="vendor.lname" maxlength="50" size="40" required="true" value="%{vendor.lname}" /> </dd>
+					<dt><label>First Name:</label></dt>
+					<dd><s:textfield name="vendor.fname" maxlength="30" size="30" value="%{vendor.fname}" /></dd>
+					<dt><label>Related Business:</label></dt>
+					<dd><s:textfield name="vendor.businessName" maxlength="50" size="30" value="%{vendor.businessName}" />(business name if different from Last Name)</dd>
+					<dt><label>Active? </label></dt>
+					<dd><s:checkbox name="vendor.active" value="%{vendor.active}"/>Yes (uncheck to inactivate)
+					</dd>
+					<dt><label>Allowed Pay Type:</label></dt>
+					<dd align="left"><s:radio name="vendor.payType" value="%{vendor.payType}" list="#{'-1':'None','GC':'GC only','MB:GC':'MB and GC'}" /></dd>
+					<s:if test="vendor.id == ''">
+						<dd>
 						<s:submit name="action" type="button" value="Save" id="save_button" />
-					</td>
-				</tr>
-			</s:if>
-			<s:else>
-				<tr>		
-					<td valign="top">	  
-						<table width="100%">
-							<tr>
-								<td align="center">
-									<s:submit name="action" type="button" id="update_button" value="Update" />
-								</td>
-								<td align="right">
-									<a href="<s:property value='#application.url' />vendor.action"> New Vendor</a></td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</s:else>
+					</dd>
+					</s:if>
+					<s:else>
+						<dd>
+							<s:submit name="action" type="button" id="update_button" value="Update" /> &nbsp;&nbsp;
+
+						</dd>
+					</s:else>
+				</dl>
+			</td>
+			</tr>
 		</table>
-	</s:form>
+	</s:form>		
+	<ul>
+		<li> <a href="<s:property value='#application.url' />vendor.action"> New Vendor</a></li>
+		<li>	For vendors Search click <a href="<s:property value='#application.url' />vendorSearch.action"> here </a></li>
+	</ul>
 </s:if>
 <br />
-<s:if test="vendors != null && vendors.size() > 0">
+<s:if test="hasVendors()">
   <s:set var="vendors" value="vendors" />
   <s:set var="vendorsTitle" value="vendorsTitle" />
   <%@  include file="vendors.jsp" %>	

@@ -96,7 +96,11 @@ public class VendorAction extends TopAction{
 						id = vendor.getId();
 				}
 				return id;
-		}		
+		}
+		public boolean hasVendors(){
+				getVendors();
+				return vendors != null && vendors.size() > 0;
+		}
 		public String populate(){
 				String ret = SUCCESS;
 				return ret;
