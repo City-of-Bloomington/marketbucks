@@ -129,8 +129,6 @@ public class VendorList{
 						qq += " where "+qw;
 				}
 				qq += qo;
-				System.err.println(qq);
-
 				logger.debug(qq);
 				con = Helper.getConnection();
 				if(con == null){
@@ -167,7 +165,6 @@ public class VendorList{
 				}catch(Exception e){
 						msg += e+":"+qq;
 						logger.error(msg);
-						System.err.println(msg);
 				}
 				finally{
 						Helper.databaseDisconnect(con, pstmt, rs);
@@ -198,7 +195,6 @@ public class VendorList{
 																		 vendorsPassword);
 				if(con == null){
 						msg += " could not connect to database";
-						System.err.println(msg);
 						return msg;
 				}		
 				try{

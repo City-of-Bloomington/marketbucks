@@ -76,7 +76,6 @@ public class VendorService extends HttpServlet{
 								// System.err.println(name+" "+value);
 						}
 				}
-				System.err.println(" term "+term);
 				VendorList vl = null;
 				List<Vendor> vendors = null;
 				if(term.length() > 1){
@@ -118,7 +117,6 @@ public class VendorService extends HttpServlet{
 						}
 				}
 				json = "["+json+"]";
-				System.err.println("json "+json);
 				return json;
 		}
 

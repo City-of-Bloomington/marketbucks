@@ -40,7 +40,6 @@ public class FmnpSeniorAction extends TopAction{
 				else if(action.equals("Next")){
 						ret = SUCCESS;
 						senior.setUser_id(user.getId());
-						System.err.println(" senior max "+senior_max_amount);
 						senior.setSenior_max_amount(senior_max_amount);
 						back = senior.doSave();
 						if(!back.equals("")){

@@ -228,7 +228,6 @@ public class Vendor implements java.io.Serializable{
 		 * check if this vendor is allowed to receive BK or GC
 		 */
 		boolean canReceive(String val){ // MB, GC
-				// System.err.println(payType+" "+val);
 				return payType.indexOf(val) > -1;
 		}
 	
@@ -273,7 +272,7 @@ public class Vendor implements java.io.Serializable{
 		}
 		String doSave(){
 				String msg="";
-				PreparedStatement pstmt = null;
+				PreparedStatement pstmt = null, pstmt2=null;
 				Connection con = null;
 				ResultSet rs = null;		
 				String qq = "insert into vendors values(0,?,?,?,?,?,'y')";
@@ -301,8 +300,8 @@ public class Vendor implements java.io.Serializable{
 						//
 						qq = "select LAST_INSERT_ID() ";
 						logger.debug(qq);
-						pstmt = con.prepareStatement(qq);
-						rs = pstmt.executeQuery();
+						pstmt2 = con.prepareStatement(qq);
+						rs = pstmt2.executeQuery();
 						if(rs.next()){
 								id = rs.getString(1);
 						}			
@@ -313,7 +312,7 @@ public class Vendor implements java.io.Serializable{
 						logger.error(ex+":"+qq);
 				}
 				finally{
-						Helper.databaseDisconnect(con, pstmt, rs);
+						Helper.databaseDisconnect(con, rs, pstmt, pstmt2);
 				}
 				return msg;
 

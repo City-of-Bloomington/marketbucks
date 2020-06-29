@@ -40,7 +40,6 @@ public class FmnpWicAction extends TopAction{
 				else if(action.equals("Next")){
 						ret = SUCCESS;
 						wic.setUser_id(user.getId());
-						System.err.println(" wic max "+wic_max_amount);
 						wic.setWic_max_amount(wic_max_amount);
 						back = wic.doSave();
 						if(!back.equals("")){
@@ -179,9 +178,7 @@ public class FmnpWicAction extends TopAction{
 		}
 		public boolean hasFmnpWics(){
 				getFmnpWics();
-				boolean ret = fmnpWics != null && fmnpWics.size() > 0;
-				System.err.println(" ret "+ret);
-				return ret;
+				return fmnpWics != null && fmnpWics.size() > 0;
 		}
 		public void setWic(FmnpWic val){
 				if(val != null)

@@ -42,7 +42,6 @@ public class UserList{
 				}
 				String qo = " order by fullname ";
 				qq += qo;
-				// System.err.println(qq);
 				logger.debug(qq);
 				try{
 						users = new ArrayList<User>();
