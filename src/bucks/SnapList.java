@@ -22,10 +22,11 @@ public class SnapList implements java.io.Serializable{
    
     boolean debug = false;
     static Logger logger = LogManager.getLogger(SnapList.class);
-    static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
+    static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    static SimpleDateFormat dfTime = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     String id="", limit="30" ;
     String card_number="", authorization="", amount="";
-    String date_from="", date_to="", sortBy="b.date DESC ";
+    String date_from="", date_to="", date_to_2="", sortBy="b.date DESC ";
     boolean today_date = false, active_only=false, inactive_only=false;
     boolean included_only = false, not_included_only = false;
     String status="", doubleRequest="";
@@ -53,8 +54,10 @@ public class SnapList implements java.io.Serializable{
 						date_from = val;
     }
     public void setDate_to(String val){
-				if(val != null)
+				if(val != null){
 						date_to = val;
+						date_to_2 = val+" 23:59";
+				}
     }
     public void setStatus(String val){
 				if(val != null && !val.equals("-1")){
@@ -225,7 +228,7 @@ public class SnapList implements java.io.Serializable{
 												pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_from).getTime()));
 										}
 										if(!date_to.equals("")){
-												pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+												pstmt.setDate(jj++, new java.sql.Date(dfTime.parse(date_to_2).getTime()));
 										}
 								}
 						}

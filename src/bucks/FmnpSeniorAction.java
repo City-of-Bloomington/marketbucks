@@ -148,7 +148,8 @@ public class FmnpSeniorAction extends TopAction{
 						ret = populate();
 				}
 				else{
-						getSenior();
+						getSenior();						
+						senior.setSenior_max_amount(senior_max_amount);
 				}
 				return ret;
 		}

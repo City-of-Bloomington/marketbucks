@@ -149,6 +149,7 @@ public class FmnpWicAction extends TopAction{
 				}
 				else{
 						getWic();
+						wic.setWic_max_amount(wic_max_amount);						
 				}
 				return ret;
 		}

@@ -29,7 +29,7 @@ public class FmnpWic implements java.io.Serializable{
 				cancelled="", 
 				dispute_resolution="";
 		String ticket_num = "";
-		int wic_max_amount = 21;
+		int wic_max_amount = 24;
 		int wic_max_count = 2; 
 		int amount = 0, total = 0; 
 		String user_id="", date_time="";

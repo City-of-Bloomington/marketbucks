@@ -22,11 +22,12 @@ public class FmnpSearch implements java.io.Serializable{
    
     boolean debug = false;
 		static Logger logger = LogManager.getLogger(FmnpSearch.class);
-		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
+		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		static SimpleDateFormat dfTime = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		String id="", which_date="date_time", limit= " 30 ";
 
 		String date_from="", date_to="", sortBy="id DESC ";
-		String buck_id="",ticket_num="",
+		String buck_id="",ticket_num="", date_to_2="",
 				dispute_resolution="", amount="", type="", status="";
 		boolean cancelled = false, active = false;
 		List<FmnpWic> wics = null;
@@ -57,8 +58,10 @@ public class FmnpSearch implements java.io.Serializable{
 						date_from = val;
 		}
 		public void setDate_to(String val){
-				if(val != null)
+				if(val != null){
 						date_to = val;
+						date_to_2 = val+" 23:59";
+				}
 		}
 		public void setDispute_resolution(String val){
 				if(val != null && !val.equals("-1"))
@@ -269,7 +272,7 @@ public class FmnpSearch implements java.io.Serializable{
 														pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_from).getTime()));
 												}
 												if(!date_to.equals("")){
-														pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+														pstmt.setTimestamp(jj++, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
 												}
 								}
 								if(both){
@@ -287,7 +290,7 @@ public class FmnpSearch implements java.io.Serializable{
 														pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_from).getTime()));
 												}
 												if(!date_to.equals("")){
-														pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+														pstmt.setTimestamp(jj++, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
 												}
 										}
 								}

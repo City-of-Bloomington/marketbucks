@@ -20,9 +20,10 @@ public class Report{
     static Logger logger = LogManager.getLogger(Report.class);
     static final long serialVersionUID = 70L;
     static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    static SimpleDateFormat dfTime = new SimpleDateFormat("MM/dd/yyyy HH:mm");
     NumberFormat currencyFormatter = 
         NumberFormat.getCurrencyInstance();	
-    String year = "",date_from="",date_to="", type="issueMB";
+    String year = "",date_from="",date_to="", date_to_2="",type="issueMB";
     String title = "", which_date="",by="", day="", prev_year="", next_year="";
     String vendor_id="";
     boolean debug = false;
@@ -87,8 +88,10 @@ public class Report{
 						date_from = val;
     }	
     public void setDate_to(String val){
-				if(val != null)
+				if(val != null && !val.isEmpty()){
 						date_to = val;
+						date_to_2 = val+" 23:59";
+				}
     }
     public void setBy(String val){
 				if(val != null)
@@ -264,6 +267,7 @@ public class Report{
 				if(!day.equals("")){
 						date_from = day;
 						date_to = Helper.getNextDay(day);
+						date_to_2 = Helper.getNextDay(day) + " 00:00";
 				}
 				if(distributeMB){
 						msg += distributeMB();
@@ -434,12 +438,12 @@ public class Report{
 								}
 								
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt4.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt5.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt6.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));										
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt2.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt3.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt4.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt5.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt6.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));										
 										jj++;
 								}
 						}
@@ -685,12 +689,12 @@ public class Report{
 								}
 								
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt4.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt5.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt6.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));										
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt2.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt3.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt4.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt5.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt6.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));										
 										jj++;
 								}
 						}
@@ -937,12 +941,12 @@ public class Report{
 								}
 								
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt4.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt5.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt6.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));										
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt2.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt3.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt4.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt5.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt6.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));										
 										jj++;
 								}
 						}
@@ -1188,12 +1192,12 @@ public class Report{
 								}
 								
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt4.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt5.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt6.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));										
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt2.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt3.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt4.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt5.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt6.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));										
 										jj++;
 								}
 						}
@@ -1435,10 +1439,10 @@ public class Report{
 										jj++;
 								}
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt4.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));										
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt2.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt3.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt4.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));										
 										jj++;
 								}
 						}
@@ -1602,9 +1606,9 @@ public class Report{
 										jj++;
 								}
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));					
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt2.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt3.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));					
 										jj++;
 								}
 						}
@@ -1883,7 +1887,7 @@ public class Report{
 										jj++;
 								}
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
 										jj++;
 								}
 						}
@@ -1979,7 +1983,7 @@ public class Report{
 										jj++;
 								}
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
 										jj++;
 								}
 						}
@@ -2075,7 +2079,7 @@ public class Report{
 										jj++;
 								}
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
 										jj++;
 								}
 						}
@@ -2206,9 +2210,9 @@ public class Report{
 										jj++;
 								}
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt3.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));										
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt2.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt3.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));										
 										jj++;
 								}
 						}
@@ -2396,8 +2400,8 @@ public class Report{
 										jj++;
 								}
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt2.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
 
 										jj++;
 								}
@@ -2757,8 +2761,8 @@ public class Report{
 										jj++;
 								}
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt2.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
 										jj++;
 								}
 						}
@@ -2888,8 +2892,8 @@ public class Report{
 										jj++;
 								}
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt2.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
 										jj++;
 								}
 						}
@@ -3051,8 +3055,8 @@ public class Report{
 										jj++;
 								}
 								if(!date_to.equals("")){
-										pstmt.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
-										pstmt2.setDate(jj, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+										pstmt.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
+										pstmt2.setTimestamp(jj, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
 										jj++;
 								}
 						}

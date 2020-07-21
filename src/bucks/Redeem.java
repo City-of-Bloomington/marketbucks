@@ -32,7 +32,7 @@ public class Redeem implements java.io.Serializable{
 		// MB configure file and expire date expression stated on the buck
 		// we are disabling this check for now
 		//
-		boolean ignore_expire_date = true;
+		boolean ignore_expire_date = false;
 		int count = 0;
 		List<Buck> bucks = null;
 		List<Buck> bk_bucks = null;

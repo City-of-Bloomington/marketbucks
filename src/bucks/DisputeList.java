@@ -23,10 +23,12 @@ public class DisputeList implements java.io.Serializable{
    
     boolean debug = false;
 		static Logger logger = LogManager.getLogger(DisputeList.class);
-		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
+		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		static SimpleDateFormat dfTime = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		String id="", which_date="r.date_time", redeem_id="", status="", reason="";
 
-		String date_from="", date_to="", sortBy="r.id DESC", buck_id="", limit="";
+		String date_from="", date_to="", date_to_2="", sortBy="r.id DESC",
+				buck_id="", limit="";
 		boolean unresolved = false; // all
 		List<Dispute> disputes = null;
 	
@@ -60,8 +62,10 @@ public class DisputeList implements java.io.Serializable{
 						date_from = val;
 		}
 		public void setDate_to(String val){
-				if(val != null)
+				if(val != null){
 						date_to = val;
+						date_to_2 = val+" 23:59";
+				}
 		}
 		public void setSortBy(String val){
 				if(val != null)
@@ -202,7 +206,7 @@ public class DisputeList implements java.io.Serializable{
 												pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_from).getTime()));
 										}
 										if(!date_to.equals("")){
-												pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+												pstmt.setTimestamp(jj++, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
 										}
 								}
 						}

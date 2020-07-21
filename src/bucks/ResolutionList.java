@@ -23,9 +23,13 @@ public class ResolutionList implements java.io.Serializable{
    
     boolean debug = false;
 		static Logger logger = LogManager.getLogger(ResolutionList.class);
-		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
-		String id="", which_date="r.date_time", vendor_id="", status="", dispute_id="";
-		String date_from="", date_to="", sortBy="r.id DESC", redeem_id="";
+		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    static SimpleDateFormat dfTime = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		
+		String id="", which_date="r.date_time", vendor_id="", status="",
+				dispute_id="";
+		String date_from="", date_to="", date_to_2="", sortBy="r.id DESC",
+				redeem_id="";
 		List<Resolution> resolutions = null;
 	
 		public ResolutionList(){
@@ -54,8 +58,10 @@ public class ResolutionList implements java.io.Serializable{
 						date_from = val;
 		}
 		public void setDate_to(String val){
-				if(val != null)
+				if(val != null){
 						date_to = val;
+						date_to_2 = val+" 23:59";
+				}
 		}
 		public void setSortBy(String val){
 				if(val != null)
@@ -162,7 +168,7 @@ public class ResolutionList implements java.io.Serializable{
 												pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_from).getTime()));
 										}
 										if(!date_to.equals("")){
-												pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+												pstmt.setDate(jj++, new java.sql.Date(dfTime.parse(date_to_2).getTime()));
 										}
 								}
 						}

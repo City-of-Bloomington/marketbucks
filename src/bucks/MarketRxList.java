@@ -22,10 +22,11 @@ public class MarketRxList implements java.io.Serializable{
    
     boolean debug = false;
 		static Logger logger = LogManager.getLogger(MarketRxList.class);
-		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
+		static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    static SimpleDateFormat dfTime = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		String id="", which_date="r.date_time", limit= " 30 ";
 
-		String date_from="", date_to="", sortBy="r.id DESC ";
+		String date_from="", date_to="", date_to_2="", sortBy="r.id DESC ";
 		String buck_id="",voucher_num="", cancelled="",
 				dispute_resolution="", amount="";
 		List<MarketRx> marketRxes = null;
@@ -56,8 +57,10 @@ public class MarketRxList implements java.io.Serializable{
 						date_from = val;
 		}
 		public void setDate_to(String val){
-				if(val != null)
+				if(val != null){
 						date_to = val;
+						date_to_2 = val+" 23:59";
+				}
 		}
 		public void setCancelled(String val){
 				if(val != null && !val.equals("-1"))
@@ -215,7 +218,7 @@ public class MarketRxList implements java.io.Serializable{
 												pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_from).getTime()));
 										}
 										if(!date_to.equals("")){
-												pstmt.setDate(jj++, new java.sql.Date(dateFormat.parse(date_to).getTime()));
+												pstmt.setTimestamp(jj++, new java.sql.Timestamp(dfTime.parse(date_to_2).getTime()));
 										}
 								}
 						}
