@@ -222,7 +222,7 @@ public class Vendor implements java.io.Serializable{
 						return false;
 				}
 				final Vendor other = (Vendor) obj;
-				return this.id.equals(other.id);
+				return this.vendor_num.equals(other.vendor_num);
 		}
 		/**
 		 * check if this vendor is allowed to receive BK or GC

@@ -213,7 +213,7 @@ public class Redeem implements java.io.Serializable{
 				String back = "";
 				if(!vendor_num.equals("")){
 						VendorList vl = new VendorList(debug, vendor_num);
-						vl.setActiveOnly();
+						// we will check later if the vendor is inactive 
 						back = vl.find();
 						if(back.equals("")){
 								List<Vendor> ones = vl.getVendors();
@@ -539,6 +539,12 @@ public class Redeem implements java.io.Serializable{
 				return msg;			
 
 		}
+		public boolean isVendorInactive(){
+				if(vendor == null){
+						findVendor();
+				}
+				return vendor != null && vendor.isInActive();
+		}		
 		public boolean isVendorAvailable(){
 				if(vendor == null){
 						findVendor();

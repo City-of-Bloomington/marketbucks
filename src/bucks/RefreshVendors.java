@@ -58,7 +58,11 @@ public class RefreshVendors implements java.io.Serializable{
 										// they are all new vendors, so we do insert
 										// needed only for the first time
 										for(Vendor one:newVendors){
-												msg += one.doSave();
+												try{
+														msg += one.doSave();
+												}catch(Exception ex){
+														msg += ex;
+												}
 										}
 								}
 								else{

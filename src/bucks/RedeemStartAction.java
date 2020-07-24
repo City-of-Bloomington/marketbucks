@@ -51,6 +51,11 @@ public class RedeemStartAction extends TopAction{
 				if(action.equals("Next")){
 						ret = SUCCESS;
 						redeem.setUser_id(user.getId());
+						if(redeem.isVendorInactive()){
+								back = "This vendor is not active and can not redeem bucks";
+								addActionError(back);
+								return ret;
+						}
 						//
 						// we do this as needed espacially if the vendor is not
 						// in the list, but once a day

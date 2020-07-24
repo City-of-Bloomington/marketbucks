@@ -394,7 +394,6 @@ public class Buck implements java.io.Serializable{
 								else {
 										System.err.println("Unknown type "+type);
 								}
-								System.err.println(p_id+" "+type);
 						}
 				}
 				catch(Exception ex){
