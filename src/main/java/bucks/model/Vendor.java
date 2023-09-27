@@ -190,17 +190,7 @@ public class Vendor implements java.io.Serializable{
 	else
 	    active = "";
     }
-    /*
-      public void setInActive (boolean val){
-      if(val)
-      active = "";
-      }
-      public void setInActive (){
-      // active = "";
-      }			
-    */
-
-	
+    
     public String toString(){
 	return getFullName();
     }
@@ -350,7 +340,7 @@ public class Vendor implements java.io.Serializable{
 	    else
 		pstmt.setString(5, payType);
 
-	    if(!active.equals(""))
+	    if(!active.isEmpty())
 		pstmt.setString(6, "y");
 	    else
 		pstmt.setNull(6, Types.CHAR);

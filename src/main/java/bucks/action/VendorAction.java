@@ -50,6 +50,18 @@ public class VendorAction extends TopAction{
 		addActionMessage("Saved Successfully");
 	    }
 	}
+	else if(action.equals("setInactive")){
+	    vendor = new Vendor(debug, id);
+	    back = vendor.doSelect();
+	    vendor.setActive(false);
+	    back = vendor.doUpdate();
+	    if(!back.equals("")){
+		addActionError(back);
+	    }
+	    else{
+		addActionMessage("Updated Successfully");
+	    }
+	}	
 	else if(action.equals("Update")){
 	    back = vendor.doUpdate();
 	    if(!back.equals("")){
