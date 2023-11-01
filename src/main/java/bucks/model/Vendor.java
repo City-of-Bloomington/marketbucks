@@ -279,7 +279,8 @@ public class Vendor implements java.io.Serializable{
 	    pstmt = con.prepareStatement(qq);
 	    pstmt.setString(1, vendor_num);
 	    pstmt.setString(2, lname);
-	    business_name = lname;
+	    if(business_name.isEmpty())
+		business_name = lname;
 	    if(!fname.equals("")){
 		pstmt.setString(3, fname);
 	    }

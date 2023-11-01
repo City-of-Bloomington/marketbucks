@@ -35,7 +35,8 @@
      <listener-class>
        bucks.utils.InventoryScheduler
      </listener-class>
-   </listener>	
+   </listener>
+
    <filter>
      <filter-name>CAS Authentication Filter</filter-name>
      <filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
