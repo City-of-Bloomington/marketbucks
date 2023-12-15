@@ -29,8 +29,8 @@ import bucks.utils.*;
  * 
  */
 // uncomment this line if you want to use ADFS
-//
-@WebServlet(urlPatterns = {"/AdfsLogin","/adfslogin"}, loadOnStartup = 1)
+// comment if you want to use CAS
+@WebServlet(urlPatterns = {"/Login","/login"}, loadOnStartup = 1)
 public class LoginServlet extends TopServlet {
 
     static Logger logger = LogManager.getLogger(LoginServlet.class);
@@ -46,7 +46,7 @@ public class LoginServlet extends TopServlet {
 		//
 		oidcClient.setConfig(config);
 		URI redirectUrl = oidcClient.getRequestURI();
-		System.err.println("login auth url "+redirectUrl.toString());
+		// System.err.println("login auth url "+redirectUrl.toString());
 		State state = oidcClient.getState();
 		Nonce nonce = oidcClient.getNonce();
 		session.setAttribute("state",state.toString());

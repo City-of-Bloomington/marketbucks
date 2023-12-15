@@ -6,7 +6,7 @@
 <struts>
   <constant name="struts.devMode" value="true" />
   <constant name="struts.ui.theme" value="simple" />
-  <constant name="struts.action.excludePattern" value="/Login*,/VendorService*,/RedeemInvoice*,/ExportXml*,/GenerateChecks*,/AuditSheet*,/CallbackServlet*,/LoginServlet*" />
+  <constant name="struts.action.excludePattern" value="/Login*,/VendorService*,/RedeemInvoice*,/ExportXml*,/GenerateChecks*,/AuditSheet*,/callback*,/LoginServlet*" />
 
   <package name="default" extends="struts-default">
 

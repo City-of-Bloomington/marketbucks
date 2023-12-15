@@ -15,9 +15,8 @@ import org.apache.logging.log4j.Logger;
 import bucks.list.*;
 import bucks.model.*;
 
-public class Logout extends HttpServlet{
+public class Logout extends TopServlet{
 
-    String url3 = "", cas_url="";
     static final long serialVersionUID = 13L;	
     /**
      * Logs the user out from the system and destroys the session info.
@@ -39,23 +38,15 @@ public class Logout extends HttpServlet{
 	    name =  values.nextElement().trim();
 	    value = req.getParameter(name).trim();
 	}
-	if(url3.equals("")){
-	    String str = getServletContext().getInitParameter("url3");
-	    if(str != null)
-		url3 = str;
-	    str = getServletContext().getInitParameter("cas_url");
-	    if(str != null)
-		cas_url = str;
-	}
 	try {
-	    HttpSession session = req.getSession(false);
+	    HttpSession session = req.getSession();
 	    if(session != null){
 		session.invalidate();
 	    }
 	} catch (Exception ex){
 	    out.println(ex.toString());
 	}
-	res.sendRedirect(cas_url+"?url="+url3);
+	res.sendRedirect(url);
 	return;
 
     }

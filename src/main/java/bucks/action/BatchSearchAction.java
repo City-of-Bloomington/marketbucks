@@ -12,6 +12,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.dispatcher.HttpParameters;  
+import org.apache.struts2.dispatcher.Parameter;  
 import org.apache.struts2.ServletActionContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -63,12 +65,14 @@ public class BatchSearchAction extends TopAction{
 		    HttpServletResponse res = ServletActionContext.getResponse();
 		    String all = "";
 		    for(String key:paramMap.keySet()){
-			String[] vals = paramMap.get(key);
-			if(key.equals("action")) continue;
-			if(vals != null && !vals[0].equals("")){
-			    // we remove the batchList. from keys
-			    all +="&"+key.substring(key.indexOf(".")+1)+"="+vals[0];
-			    // System.err.println(" key "+key+" "+vals[0]);
+			if(key.equals("action")) continue;			
+			Parameter param = paramMap.get(key);
+			if(param.isMultiple()){
+			    String[] vals = param.getMultipleValues();
+			    if(vals != null && !vals[0].equals("")){
+				all +="&"+key.substring(key.indexOf(".")+1)+"="+vals[0];
+				// System.err.println(" key "+key+" "+vals[0]);
+			    }			    
 			}
 		    }
 		    System.err.println(all);
