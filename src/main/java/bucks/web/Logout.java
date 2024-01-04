@@ -46,7 +46,7 @@ public class Logout extends TopServlet{
 	} catch (Exception ex){
 	    out.println(ex.toString());
 	}
-	res.sendRedirect(url);
+	res.sendRedirect(endpoint_logout_uri);
 	return;
 
     }

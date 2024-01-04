@@ -29,7 +29,7 @@ import bucks.utils.*;
  * 
  */
 // uncomment this line if you want to use ADFS
-// comment if you want to use CAS
+// comment out if you want to use CAS
 @WebServlet(urlPatterns = {"/Login","/login"}, loadOnStartup = 1)
 public class LoginServlet extends TopServlet {
 

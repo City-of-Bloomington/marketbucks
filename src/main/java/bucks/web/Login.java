@@ -19,7 +19,7 @@ import bucks.list.*;
 import bucks.model.*;
 
 // change the following to /Login,/login if you want to use CAS
-@WebServlet(urlPatterns = {"/CasLogin"}, loadOnStartup = 1)
+@WebServlet(urlPatterns = {"/CasLogin","/caslogin"}, loadOnStartup = 1)
 public class Login extends TopServlet{
     static int count = 0;
     //
