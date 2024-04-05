@@ -279,8 +279,8 @@ public class GenerateChecks extends HttpServlet{
 			
 	    document.add(table);
 	    //
-	    // float[] widths2 = {60f, 25f, 10f, 5f };
-	    float[] widths2 = {60f, 25f, 8f, 7f }; 						
+	    // float[] widths2 = {60f, 25f, 8f, 7f };
+	    float[] widths2 = {65f, 35f }; // 60, 40		    
 	    table = new PdfPTable(widths2);
 	    table.setWidthPercentage(100);
 	    table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
@@ -289,6 +289,22 @@ public class GenerateChecks extends HttpServlet{
 	    table.setSpacingAfter(0f);
 	    table.setSpacingBefore(0f);
 	    //
+	    // empty cell
+	    phrase = new Phrase();
+	    ch = new Chunk(" ", fnt);
+	    phrase.add(ch);
+	    cell = new PdfPCell(phrase);
+	    cell.setBorder(Rectangle.NO_BORDER);
+	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
+	    // cell.setColspan(2);
+	    cell.setFixedHeight(30f); //81
+	    table.addCell(cell);
+	    ///
+	    // now we add barcode
+	    // move the followin after barcode
+	    //
+	    /**
 	    phrase = new Phrase();
 	    ch = new Chunk("Customers shall redeem this certificate at Farmers' Market\nby December 1st of the year issued.", fnt);
 	    phrase.add(ch);
@@ -301,6 +317,7 @@ public class GenerateChecks extends HttpServlet{
 	    cell.setFixedHeight(81f);
 	    table.addCell(cell);
 	    //
+	    */
 	    Barcode barcode = BarcodeFactory.createCode39(""+seq, false);
 	    // barcode text has problem, so we turned off
 	    // and decided to add it ourselves.
@@ -336,8 +353,8 @@ public class GenerateChecks extends HttpServlet{
 	    byte[] imageBytes = baos.toByteArray();
 	    //
 	    Image barCodeImage = Image.getInstance(imageBytes);
-						
-	    barCodeImage.setRotationDegrees(90f);
+	    // to make it vertical rotate 90 deg
+	    // barCodeImage.setRotationDegrees(90f);
 	    // barCodeImage.scalePercent(35f);
 	    barCodeImage.scalePercent(35f, 50f);
 	    // float widthf = barCodeImage.getWidth();
@@ -351,6 +368,20 @@ public class GenerateChecks extends HttpServlet{
 	    cell.setLeading(0f,0f);
 	    // cell.setFixedHeight(81f);
 	    table.addCell(cell);
+	    //
+	    //
+	    phrase = new Phrase();
+	    ch = new Chunk("Customers shall redeem this certificate at Farmers' Market\nby December 1st of the year issued.", fnt10);
+	    phrase.add(ch);
+	    cell = new PdfPCell(phrase);
+	    cell.setBorder(Rectangle.NO_BORDER);
+	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
+
+	    // cell.setColspan(2);
+	    // cell.setFixedHeight(31f); // 81
+	    table.addCell(cell);
+	    //
 	    //
 	    // the barcode text that we added underneath the barcode
 	    //
@@ -369,11 +400,13 @@ public class GenerateChecks extends HttpServlet{
 	    imageBytes = baos.toByteArray();
 	    Image barCodeTextImage = Image.getInstance(imageBytes);
 						
-	    barCodeTextImage.setRotationDegrees(90f);
+	    // barCodeTextImage.setRotationDegrees(90f);
 	    cell = new PdfPCell(barCodeTextImage);
 	    cell.setBorder(Rectangle.NO_BORDER);
-	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-	    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	    // cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    // cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	    cell.setHorizontalAlignment(Element.ALIGN_CENTER); // RIGHT
+	    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);	    
 	    cell.setPadding(0);
 	    cell.setLeading(0f,0f);
 	    table.addCell(cell);
@@ -385,7 +418,7 @@ public class GenerateChecks extends HttpServlet{
 	    cell.setBorder(Rectangle.NO_BORDER);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cell.setVerticalAlignment(Element.ALIGN_TOP);
-	    cell.setFixedHeight(34f);
+	    // cell.setFixedHeight(34f);
 	    table.addCell(cell);
 
 	    phrase = new Phrase();
@@ -395,7 +428,7 @@ public class GenerateChecks extends HttpServlet{
 	    cell.setBorder(Rectangle.NO_BORDER);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cell.setVerticalAlignment(Element.ALIGN_TOP);
-	    cell.setColspan(3);
+	    // cell.setColspan(2); // 3
 	    table.addCell(cell);
 	    document.add(table);
 	    //
@@ -412,8 +445,8 @@ public class GenerateChecks extends HttpServlet{
 	    cell = new PdfPCell(phrase);
 	    cell.setBorder(Rectangle.NO_BORDER);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-			
-	    cell.setFixedHeight(40f); // 40
+	    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);			
+	    cell.setFixedHeight(50f); // 40
 	    table.addCell(cell);
 	    phrase = new Phrase();
 	    ch = new Chunk("VENDERS SHALL REDEEM THIS CERTIFICATE THROUGH BLOOMINGTON'S\nPARKS & REC DEPT. BY DECEMBER 15TH OF THE YEAR ISSUED\n\n\n",fnts);
@@ -421,6 +454,7 @@ public class GenerateChecks extends HttpServlet{
 	    cell = new PdfPCell(phrase);
 	    cell.setBorder(Rectangle.NO_BORDER);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);		    
 	    table.addCell(cell);
 	    document.add(table);
 	}catch(Exception ex){
@@ -491,7 +525,7 @@ public class GenerateChecks extends HttpServlet{
 	    table.addCell(cell);			
 	    document.add(table);
 	    //
-	    float[] widths2 = {60f, 25f, 10f, 5f}; 
+	    float[] widths2 = {65f, 35f}; 
 	    table = new PdfPTable(widths2);
 	    table.setWidthPercentage(100);
 	    table.setSpacingBefore(0f);
@@ -499,19 +533,18 @@ public class GenerateChecks extends HttpServlet{
 	    table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
 	    table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
 	    //
+	    // empty cell
 	    phrase = new Phrase();
-	    ch = new Chunk("Customers shall redeem this certificate at Market\nwithin one year of date issued. ", fnt);
+	    ch = new Chunk(" ", fnt);
 	    phrase.add(ch);
 	    cell = new PdfPCell(phrase);
 	    cell.setBorder(Rectangle.NO_BORDER);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
-	    cell.setColspan(2);
-
-	    cell.setFixedHeight(81f);
+	    cell.setFixedHeight(30f); //81
 	    table.addCell(cell);
-
-	    Barcode barcode = BarcodeFactory.createCode39(""+seq,true);
+	    ///
+	    Barcode barcode = BarcodeFactory.createCode39(""+seq,false);
 	    barcode.setDrawingText(false);
 	    BufferedImage bi = BarcodeImageHandler.getImage(barcode);
 	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -520,21 +553,32 @@ public class GenerateChecks extends HttpServlet{
 	    byte[] imageBytes = baos.toByteArray();
 	    //
 	    Image barCodeImage = Image.getInstance(imageBytes);						
-						
-	    barCodeImage.setRotationDegrees(90);
+	    // rotate to be vertical
+	    // barCodeImage.setRotationDegrees(90);
 	    // barCodeImage.scalePercent(35f);
-	    barCodeImage.scalePercent(35f, 50f);
+	    barCodeImage.scalePercent(35f);
 	    cell = new PdfPCell(barCodeImage);
 	    //
 	    cell.setBorder(Rectangle.NO_BORDER);
-	    cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+	    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 	    cell.setPadding(0);
 	    cell.setLeading(0f,0f);
 	    table.addCell(cell);
 	    //
-	    // adding text underneath the barcode
+	    
+	    phrase = new Phrase();
+	    ch = new Chunk("Customers shall redeem this certificate at Market\nwithin one year of date issued. ", fnt10);
+	    phrase.add(ch);
+	    cell = new PdfPCell(phrase);
+	    cell.setBorder(Rectangle.NO_BORDER);
+	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
+	    // cell.setColspan(2);
+	    // cell.setFixedHeight(81f);
+	    table.addCell(cell);
 	    //
+	    // the barcode text
 	    int textWidth=53, textHeight=50;
 	    BufferedImage bi2 = new BufferedImage(textWidth, textHeight, BufferedImage.TYPE_BYTE_BINARY);
 	    Graphics2D g = bi2.createGraphics();
@@ -550,14 +594,16 @@ public class GenerateChecks extends HttpServlet{
 	    imageBytes = baos.toByteArray();
 	    Image barCodeTextImage = Image.getInstance(imageBytes);
 						
-	    barCodeTextImage.setRotationDegrees(90f);
+	    // barCodeTextImage.setRotationDegrees(90f);
 	    cell = new PdfPCell(barCodeTextImage);
 	    cell.setBorder(Rectangle.NO_BORDER);
-	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-	    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	    cell.setHorizontalAlignment(Element.ALIGN_CENTER); 
+	    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);	    
+	    
 	    cell.setPadding(0);
 	    cell.setLeading(0f,0f);
-	    table.addCell(cell);						
+	    table.addCell(cell);
+	    //
 	    //
 	    phrase = new Phrase();
 	    ch = new Chunk("\nThis certificate is not refundable and cannot be replaced if lost or stolen.\n\n\n",fnts);
@@ -566,7 +612,7 @@ public class GenerateChecks extends HttpServlet{
 	    cell.setBorder(Rectangle.NO_BORDER);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cell.setVerticalAlignment(Element.ALIGN_TOP);
-	    cell.setFixedHeight(30f);
+	    // cell.setFixedHeight(34f);
 	    table.addCell(cell);
 
 	    phrase = new Phrase();
@@ -576,7 +622,7 @@ public class GenerateChecks extends HttpServlet{
 	    cell.setBorder(Rectangle.NO_BORDER);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cell.setVerticalAlignment(Element.ALIGN_TOP);
-	    cell.setColspan(3);
+	    // cell.setColspan(3);
 	    table.addCell(cell);
 	    document.add(table);
 	    //
@@ -593,8 +639,8 @@ public class GenerateChecks extends HttpServlet{
 	    cell = new PdfPCell(phrase);
 	    cell.setBorder(Rectangle.NO_BORDER);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-	    // cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
-	    cell.setFixedHeight(44f);
+	    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	    cell.setFixedHeight(40f);
 	    table.addCell(cell);
 	    phrase = new Phrase();
 	    ch = new Chunk("VENDERS SHALL REDEEM THIS CERTIFICATE THROUGH BLOOMINGTON'S\nPARKS & REC DEPT. BY DECEMBER 15TH OF THE YEAR RECEIVED\n\n\n",fnts);
@@ -602,6 +648,8 @@ public class GenerateChecks extends HttpServlet{
 	    cell = new PdfPCell(phrase);
 	    cell.setBorder(Rectangle.NO_BORDER);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	    // cell.setFixedHeight(50f); 
 	    table.addCell(cell);
 			
 	    document.add(table);
