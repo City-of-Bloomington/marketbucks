@@ -504,6 +504,7 @@ public class Buck implements java.io.Serializable{
 	ResultSet rs = null;
 	String msg = "";
 	String qq = "update bucks set fund_type=?,expire_date=? where id=?";
+	expire_date = "12/31/"+Helper.getCurrentYear();
 	logger.debug(qq);
 	try{
 	    con = Helper.getConnection();
