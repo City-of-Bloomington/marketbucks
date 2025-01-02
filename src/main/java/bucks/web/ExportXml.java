@@ -135,14 +135,14 @@ public class ExportXml extends TopServlet{
 	if(mb_total > 0){
 	    str += "   <item description=\"Market Bucks\" quantity=\"1\" unitOfMeasure=\"EA\" pricePerUnit=\""+mb_total+"\" applyFreight=\"false\" applyTaxes=\"false\" applyDiscounts=\"false\" type1099=\"\" box1099=\"\" purchaseOrderNumber=\"\">\n";
 	    str += "    <glDistributions>\n";
-	    str += "		<glDistribution glAccount=\"2011818650347240\" projectCode1=\"\" projectCode2=\"\" projectCode3=\"\" amount=\""+mb_total+"\" />\n";
+	    str += "		<glDistribution glAccount=\"22111818650347240\" projectCode1=\"\" projectCode2=\"\" projectCode3=\"\" amount=\""+mb_total+"\" />\n";	    
 	    str += "</glDistributions>\n";
 	    str += "  </item>\n";
 	}
 	if(gc_total > 0){
 	    str += "   <item description=\"Gift Cerificates\" quantity=\"1\" unitOfMeasure=\"EA\" pricePerUnit=\""+gc_total+"\" applyFreight=\"false\" applyTaxes=\"false\" applyDiscounts=\"false\" type1099=\"\" box1099=\"\" purchaseOrderNumber=\"\">\n";
 	    str += "    <glDistributions>\n";
-	    str += "		<glDistribution glAccount=\"2011818650347230\" projectCode1=\"\" projectCode2=\"\" projectCode3=\"\" amount=\""+gc_total+"\" />\n";
+	    str += "		<glDistribution glAccount=\"22111818650347230\" projectCode1=\"\" projectCode2=\"\" projectCode3=\"\" amount=\""+gc_total+"\" />\n";
 	    str += "</glDistributions>\n";
 	    str += "  </item>\n";
 	}		
