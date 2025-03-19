@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+           http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.kutztown.csc521</groupId>
   <artifactId>marketbucks</artifactId>
@@ -23,27 +23,24 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>commons-fileupload      </groupId>
-      <artifactId>commons-fileupload  </artifactId>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
       <version>1.5</version>
-      <!--
-          <version>1.4</version>
-      -->
     </dependency>
     <dependency>
-      <groupId>commons-io              </groupId>
-      <artifactId>commons-io          </artifactId>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
       <version>2.15.1</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.commons      </groupId>
-      <artifactId>commons-lang3       </artifactId>
-      <version>3.14.0    </version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.14.0</version>
     </dependency>
     <dependency>
-      <groupId>commons-logging         </groupId>
-      <artifactId>commons-logging     </artifactId>
-      <version>1.3.0    </version>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.3.0</version>
     </dependency>
     <dependency>
       <groupId>org.freemarker</groupId>
@@ -55,27 +52,27 @@
       <artifactId>javax.servlet.jsp-api</artifactId>
       <version>2.3.3</version>
       <scope>provided</scope>
-    </dependency>    
+    </dependency>
     <dependency>
-      <groupId>commons-pool            </groupId>
-      <artifactId>commons-pool        </artifactId>
-      <version>1.5.7    </version>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <version>1.5.7</version>
     </dependency>
      <dependency>
        <groupId>org.apache.logging.log4j</groupId>
-       <artifactId>log4j-api           </artifactId>
-       <version>2.22.0    </version>
+       <artifactId>log4j-api</artifactId>
+       <version>2.22.0</version>
      </dependency>
      <dependency>
        <groupId>org.apache.logging.log4j</groupId>
-       <artifactId>log4j-core          </artifactId>
-       <version>2.22.0    </version>
+       <artifactId>log4j-core</artifactId>
+       <version>2.22.0</version>
      </dependency>
      <dependency>
        <groupId>org.slf4j</groupId>
        <artifactId>slf4j-api</artifactId>
        <version>2.0.9</version>
-     </dependency>     
+     </dependency>
      <dependency>
        <groupId>org.json</groupId>
        <artifactId>json</artifactId>
@@ -95,7 +92,7 @@
        <groupId>com.mysql</groupId>
        <artifactId>mysql-connector-j</artifactId>
        <version>9.1.0</version>
-     </dependency>         
+     </dependency>
      <dependency>
        <groupId>org.quartz-scheduler</groupId>
        <artifactId>quartz</artifactId>
@@ -116,7 +113,7 @@
        <artifactId>barbecue</artifactId>
        <version>1.5-beta1</version>
      </dependency>
-     <dependency>			
+     <dependency>
        <groupId>org.jasig.cas.client</groupId>
        <artifactId>cas-client-core</artifactId>
        <version>3.6.4</version>
@@ -183,32 +180,22 @@
     <finalName>marketbucks</finalName>
     <plugins>
       <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-war-plugin</artifactId>
-	<version>3.3.1</version>
-	<configuration>
-	  <warSourceDirectory>src/main/webapp</warSourceDirectory>
-	</configuration>	
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <warSourceDirectory>src/main/webapp</warSourceDirectory>
+        </configuration>
       </plugin>
       <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-	<version>3.10.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>      
+        <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.10.1</version>
+          <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+          </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
-
-
-
-
-
-
-
-
-
- 
