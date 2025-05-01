@@ -21,21 +21,21 @@
   </s:elseif>
   <p>*indicate a required field</p>
   <table border="1" width="80%">
-		<tr>
-			<td> 
-				<table width="100%">
-					<tr>
-						<td align="right" width="35%"><label>*Vendor:</label></td>
-						<td align="left">$<s:select name="redeem.vendor_id" required="true" value="%{redeem.vendor_id}" list="vendors" listKey="id" listValue="fullName" headerKey="-1" headerValue="Pick Vendor" /></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="right">
-				<s:submit name="action" type="button" value="Save" />
-			</td>
-		</tr>
+      <tr>
+	  <td> 
+	      <table width="100%">
+		  <tr>
+		      <td align="right" width="35%"><label>*Vendor:</label></td>
+		      <td align="left">$<s:select name="redeem.vendor_id" required="true" value="%{redeem.vendor_id}" list="vendors" listKey="id" listValue="fullName" headerKey="-1" headerValue="Pick Vendor" /></td>
+		  </tr>
+	      </table>
+	  </td>
+      </tr>
+      <tr>
+	  <td valign="top" align="right">
+	      <s:submit name="action" type="button" value="Save" />
+	  </td>
+      </tr>
   </table>
 </s:form>
 

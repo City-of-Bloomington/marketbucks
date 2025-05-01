@@ -18,31 +18,25 @@
   </div>
 </s:elseif>
 <s:form action="buckSearch" method="post">
-  <table border="1" width="80%">
-		<tr>
-			<td>
-				<table width="100%">
-					<tr><td align="right"><label>MB or GC ID:</label></td>
-						<td align="left"><s:textfield name="buckList.id" value="%{buckList.id}" size="8" /></td>
-					</tr>
-					<tr><td align="right"><label>Status:</label></td>
-						<td align="left"><s:radio name="buckList.type" value="%{buckList.type}" list="#{'-1':'All','issued':'Issued','unissued':'Unissued'}" /></td>
-					</tr>					
-					<tr><td align="right"><label>Batch ID:</label></td>
-						<td align="left"><s:textfield name="buckList.batch_id" value="%{buckList.batch_id}" size="8" /></td>
-					</tr>
-					<tr>
-						<td align="right"><label>Printed Batch Date:</label></td>
-						<td align="left"><label> From</label><s:textfield name="buckList.date_from" value="%{buckList.date_from}" size="10" maxlength="10" cssClass="date" /><label> To </label><s:textfield name="buckList.date_to" value="%{buckList.date_to}" size="10" maxlength="10" cssClass="date" /></td>
-					</tr>  
-				</table>
-			</td>
-		</tr>  
-		<tr>
-			<td align="right">
-				<s:submit name="action" type="button" value="Search" />
-			</td>
-		</tr>
+    <table width="90%" border="0">
+	<tr><td align="right"><label for="list_id">MB or GC ID:</label></td>
+	    <td align="left"><s:textfield name="buckList.id" value="%{buckList.id}" size="8" id="list_id" /></td>
+	</tr>
+	<tr><td align="right"><label for="stats">Status:</label></td>
+	    <td align="left"><s:radio name="buckList.type" value="%{buckList.type}" list="#{'-1':'All','issued':'Issued','unissued':'Unissued'}" id="status" /></td>
+	</tr>					
+	<tr><td align="right"><label for="batch_id">Batch ID:</label></td>
+	    <td align="left"><s:textfield name="buckList.batch_id" value="%{buckList.batch_id}" size="8" id="batch_id" /></td>
+	</tr>
+	<tr>
+	    <td align="right"><b>Printed Batch Date:</b></td>
+	    <td align="left"><label for="from"> From</label><s:textfield name="buckList.date_from" value="%{buckList.date_from}" size="10" maxlength="10" cssClass="date" id="from" /><label for="to"> To </label><s:textfield name="buckList.date_to" value="%{buckList.date_to}" size="10" maxlength="10" cssClass="date" id="to" /></td>
+	</tr>  
+      <tr>
+	  <td align="center" colspan="2">
+	      <s:submit name="action" type="button" value="Search" />
+	  </td>
+      </tr>
   </table>
 </s:form>
 <s:if test="action != '' && bucks != null">
@@ -51,16 +45,16 @@
   <%@  include file="bucksView.jsp" %>	  
 </s:if>
 <s:else>
-	<b>Other search options </b>
-	<ul>
-		<li><a href="<s:property value='#application.url'/>snapSearch.action"> Online Purchase Search </a></li>
-		<li><a href="<s:property value='#application.url'/>ebtSearch.action"> Ebt Search </a></li>
-		<li><a href="<s:property value='#application.url'/>fmnpSearch.action"> FMNP WIC/Senior Search </a></li>		
-		<li><a href="<s:property value='#application.url'/>giftSearch.action">Gift certificate search. </a></li>
-		<li><a href="<s:property value='#application.url'/>rxSearch.action">Market Rx search. </a></li>		
-		<li><a href="<s:property value='#application.url'/>redeemSearch.action"> Redemption Search </a></li>
-		<li><a href="<s:property value='#application.url'/>batchSearch.action"> MB batch search </a> </li>
-	</ul>
+    <b>Other search options </b>
+    <ul>
+	<li><a href="<s:property value='#application.url'/>snapSearch.action"> Online Purchase Search </a></li>
+	<li><a href="<s:property value='#application.url'/>ebtSearch.action"> Ebt Search </a></li>
+	<li><a href="<s:property value='#application.url'/>fmnpSearch.action"> FMNP WIC/Senior Search </a></li>		
+	<li><a href="<s:property value='#application.url'/>giftSearch.action">Gift certificate search. </a></li>
+	<li><a href="<s:property value='#application.url'/>rxSearch.action">Market Rx search. </a></li>		
+	<li><a href="<s:property value='#application.url'/>redeemSearch.action"> Redemption Search </a></li>
+	<li><a href="<s:property value='#application.url'/>batchSearch.action"> MB batch search </a> </li>
+    </ul>
 </s:else>
 <%@  include file="footer.jsp" %>
 

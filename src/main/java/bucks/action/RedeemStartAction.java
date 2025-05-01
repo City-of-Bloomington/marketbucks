@@ -122,13 +122,19 @@ public class RedeemStartAction extends TopAction{
 	return redeems;
     }
     public List<Vendor> getVendors(){
-	VendorList vl = new VendorList(debug);
-	vl.setActiveOnly();
-	String back = vl.find();
-	if(back.equals("")){
-	    vendors = vl.getVendors();
+	if(vendors == null){
+	    VendorList vl = new VendorList(debug);
+	    vl.setActiveOnly();
+	    String back = vl.find();
+	    if(back.equals("")){
+		vendors = vl.getVendors();
+	    }
 	}
 	return vendors;
+    }
+    public boolean hasVendors(){
+	getVendors();
+	return vendors != null && vendors.size() > 0;
     }
     public void setRedeem(Redeem val){
 	if(val != null)

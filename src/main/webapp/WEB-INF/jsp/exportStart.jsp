@@ -10,38 +10,38 @@
 <s:form action="exportStart" id="form_id" method="post">
   <h3>Redemptions Export</h3>
   <s:if test="hasActionErrors()">
-		<div class="errors">
+      <div class="errors">
       <s:actionerror/>
-		</div>
+      </div>
   </s:if>
   <s:elseif test="hasActionMessages()">
-		<div class="welcome">
+      <div class="welcome">
       <s:actionmessage/>
-		</div>
+      </div>
   </s:elseif>
   <table border="1" width="80%">
-		<s:if test="redeems != null && redeems.size() > 0 ">
-			<tr><td align="center">
-				<s:set var="redeems" value="redeems" />
-				<s:set var="redeemsTitle" value="redeemsTitle" />
-				<%@  include file="redeems.jsp" %>	
-			</td></tr>
-			<tr>
-				<s:if test="hasDisputes()">
-					<td valign="top" align="left">
-						One or more of the redemptions have dispute(s), please resolve the disputes first before you do the export
-					</td>
-				</s:if>
-				<s:else>
-					<td valign="top" align="right">
-						<s:submit name="action" type="button" value="Start Export" />
-					</td>
-				</s:else>
-			</tr>
-		</s:if>
-		<s:else>
-			No redemptions available to export.
-		</s:else>
+      <s:if test="redeems != null && redeems.size() > 0 ">
+	  <tr><td align="center">
+	      <s:set var="redeems" value="redeems" />
+	      <s:set var="redeemsTitle" value="redeemsTitle" />
+	      <%@  include file="redeems.jsp" %>	
+	  </td></tr>
+	  <tr>
+	      <s:if test="hasDisputes()">
+		  <td valign="top" align="left">
+		      One or more of the redemptions have dispute(s), please resolve the disputes first before you do the export
+		  </td>
+	      </s:if>
+	      <s:else>
+		  <td valign="top" align="right">
+		      <s:submit name="action" type="button" value="Start Export" />
+		  </td>
+	      </s:else>
+	  </tr>
+      </s:if>
+      <s:else>
+	  No redemptions available to export.
+      </s:else>
   </table>
 </s:form>
 

@@ -34,7 +34,11 @@
     <action name="otherMenu">
       <interceptor-ref name="defaultStack"></interceptor-ref>
       <result>/WEB-INF/jsp/otherMenu.jsp</result>
-    </action>	 
+    </action>
+   <action name="settings">
+      <interceptor-ref name="defaultStack"></interceptor-ref>
+      <result>/WEB-INF/jsp/settings.jsp</result>
+    </action>    
     <action name="training">
       <interceptor-ref name="defaultStack"></interceptor-ref>
       <result>/WEB-INF/jsp/training.jsp</result>

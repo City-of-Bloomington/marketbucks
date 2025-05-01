@@ -8,34 +8,38 @@
  *
 	-->
 <s:form action="snap" method="post" id="form_id">
-	<h4>New Online Purchase</h4>
-	<s:if test="hasActionErrors()">
-		<div class="errors">
-			<s:actionerror/>
-		</div>
-	</s:if>
-	<s:elseif test="hasActionMessages()">
-		<div class="welcome">
-			<s:actionmessage/>
-		</div>
-	</s:elseif>
-	<p>*indicates a required field</p>
-	<hr />
-		<dl>
-			<dt><label>*Purchase Amount: </label></dt>
-			<dd>$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" />(xx.xx format only)</dd>
-			<dt><label>Include Double? </label></dt>
-			<dd>
-				<s:checkbox name="snap.includeDouble" value="%{snap.includeDouble}" />Yes (uncheck if not included)
-			</dd>
-		</dl>
-		<hr />
-		<dl>
-			<dd>
-				<s:submit name="action" type="button" id="save_button" value="Next" />
-			</dd>
-		</dl>
-		<hr />
+    <h4>New Online Purchase (SNAP)</h4>
+    <s:if test="hasActionErrors()">
+	<div class="errors">
+	    <s:actionerror/>
+	</div>
+    </s:if>
+    <s:elseif test="hasActionMessages()">
+	<div class="welcome">
+	    <s:actionmessage/>
+	</div>
+    </s:elseif>
+    <p>*indicates a required field</p>
+    <hr />
+    <fieldset>
+	<table border="0" width="80%">
+	    <tr>
+		<td align="right"><label>*Purchase Amount: </label></td>
+		<td align="left">$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" />(xx.xx format only)</td>
+	    </tr>
+	    <tr>
+		<td align="right"><label>Include Double? </label></td> 
+		<td align="left">
+		    <s:checkbox name="snap.includeDouble" value="%{snap.includeDouble}" />Yes (uncheck if not included)
+		</td>
+	    </tr>
+	    <tr>
+		<td>
+		    <s:submit name="action" type="button" id="save_button" value="Next" />
+		</td>
+	    </tr>
+	</table>
+    </fieldset>
 </s:form>
 <br />
 For online purchase search click <a href="<s:property value='#application.url'/>snapSearch.action"> here. </a>

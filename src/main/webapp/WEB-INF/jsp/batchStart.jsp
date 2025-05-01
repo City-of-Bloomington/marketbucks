@@ -21,24 +21,24 @@
 <p>To start a new batch of MB or GC, click on the 'Generate New Batch' that corresponds to the related configuration in the table below:</p>
 <table border="1" width="80%">
   <tr><td> 
-		<s:if test="buckConfs != null && buckConfs.size() > 0">
-			<s:set var="buckConfs" value="buckConfs" />
-			<%@  include file="buckConfs.jsp" %>	
-		</s:if>	
+      <s:if test="buckConfs != null && buckConfs.size() > 0">
+	  <s:set var="buckConfs" value="buckConfs" />
+	  <%@  include file="buckConfs.jsp" %>	
+      </s:if>	
   </td></tr>
   <s:if test="hasRecentDate()">
-		<tr><td align="right">The audit sheet for the most recent prints of <s:property value="recentBatchDate" /> 
-			<button onclick="document.location='<s:property value='#application.url'/>AuditSheet.do?date_from=<s:property value='recentBatchDate' />';return false;">Printable Audit Sheet</button>
-		</td></tr>
+      <tr><td align="right"><label for="printable" The audit sheet for the most recent prints of <s:property value="recentBatchDate" /></label> 
+	  <button id="printable" onclick="document.location='<s:property value='#application.url'/>AuditSheet.do?date_from=<s:property value='recentBatchDate' />';return false;">Printable Audit Sheet</button>
+      </td></tr>
   </s:if>
 </table>
 <br />
-For MB batch search click<a href="<s:property value='#application.url'/>batchSearch.action"> here. </a> <br />
-For any (Issued/not issued) MB/GC search click<a href="<s:property value='#application.url'/>buckSearch.action"> here. </a> <br />
+<a href="<s:property value='#application.url'/>batchSearch.action"> For MB batch Search </a> <br />
+<a href="<s:property value='#application.url'/>buckSearch.action"> For any (Issued/not issued) MB/GC search  </a> <br />
 <s:if test="batches != null && batches.size() > 0 ">
-  <s:set var="batches" value="batches" />
-  <s:set var="batchesTitle" value="batchesTitle" />  
-  <%@  include file="batches.jsp" %>	
+    <s:set var="batches" value="batches" />
+    <s:set var="batchesTitle" value="batchesTitle" />  
+    <%@  include file="batches.jsp" %>	
 </s:if>
 <%@  include file="footer.jsp" %>	
 

@@ -31,43 +31,59 @@
 	    This is needed when scaning vendor card to redeem MB or GC.<br />
 	    ** indicates a required field <br />
 	</p>
-	<table border="1" width="100%">
+	<table border="1" width="90%">
 	    <tr><td> 
-		<dl>
+		<table border="0" width="100%">
 		    <s:if test="vendor.id != ''">
-			<dt><label>Vendor ID:</label></dt>
-			<dd><s:property value="%{vendor.id}" />
-			    <a href="<s:property value='#application.url' />vendor.action?id=<s:property value='vendor.id' />&action=setInactive"> Set as inactive </a></dd>
+			<tr>
+			    <td align="right"><label>Vendor ID:</label></td>
+			    <td align="left"><s:property value="%{vendor.id}" />
+				<a href="<s:property value='#application.url' />vendor.action?id=<s:property value='vendor.id' />&action=setInactive"> Set as inactive </a></td>
+			</tr>
 		    </s:if>
-		    <dt><label>*Vendor Number:</label></dt>
-		    <dd>
-			<s:textfield name="vendor.vendorNum" maxlength="10" size="10" value="%{vendor.vendorNum}" required="true" />
-		    </dd>
-		    <dt><label>*Last Name:</label></dt>
-		    <dd><s:textfield name="vendor.lname" maxlength="50" size="40" required="true" value="%{vendor.lname}" /> </dd>
-		    <dt><label>First Name:</label></dt>
-		    <dd><s:textfield name="vendor.fname" maxlength="30" size="30" value="%{vendor.fname}" /></dd>
-		    <dt><label>Related Business:</label></dt>
-		    <dd><s:textfield name="vendor.businessName" maxlength="50" size="30" value="%{vendor.businessName}" />(business name if different from Last Name)</dd>
-		    <dt><label>Active? </label></dt>
-		    <dd><s:checkbox name="vendor.active" value="%{vendor.active}"/>Yes (uncheck to inactivate)
-		    </dd>
-		    <dt><label>Allowed Pay Type:</label></dt>
-		    <dd align="left"><s:radio name="vendor.payType" value="%{vendor.payType}" list="#{'-1':'None','GC':'GC only','MB:GC':'MB and GC'}" /></dd>
-		    <s:if test="vendor.id == ''">
-			<dd>
-			    <s:submit name="action" type="button" value="Save" id="save_button" />
-			</dd>
-		    </s:if>
-		    <s:else>
-			<dd>
-			    <s:submit name="action" type="button" id="update_button" value="Update" /> &nbsp;&nbsp;
-			    
-			</dd>
-		    </s:else>
-		</dl>
-	    </td>
-	    </tr>
+		    <tr>
+			<td align="right"><label>*Vendor Number:</label></td>
+			<td align="left">
+			    <s:textfield name="vendor.vendorNum" maxlength="10" size="10" value="%{vendor.vendorNum}" required="true" />
+			</td>
+		    </tr>
+		    <tr>
+			<td align="right"><label>*Last Name:</label></td>
+			<td align="left"><s:textfield name="vendor.lname" maxlength="50" size="40" required="true" value="%{vendor.lname}" /> </td>
+		    </tr>
+		    <tr>
+			<td align="right"><label>First Name:</label></td>
+			<td align="left"><s:textfield name="vendor.fname" maxlength="30" size="30" value="%{vendor.fname}" /></td>
+		    </tr>
+		    <tr>
+			<td align="right"><label>Related Business:</label></td>
+			<td align="left"><s:textfield name="vendor.businessName" maxlength="50" size="30" value="%{vendor.businessName}" />(business name if different from Last Name)</td>
+		    </tr>
+		    <tr>
+			<td align="right"><label>Active? </label></td>
+			<td align="left"><s:checkbox name="vendor.active" value="%{vendor.active}"/>Yes (uncheck to inactivate)
+			</td>
+		    </tr>
+		    <tr>
+			<td align="right"><label>Allowed Pay Type:</label></td>
+			<td align="left" align="left"><s:radio name="vendor.payType" value="%{vendor.payType}" list="#{'-1':'None','GC':'GC only','MB:GC':'MB and GC'}" /></td>
+		    </tr>
+		    <tr>		    
+			<s:if test="vendor.id == ''">
+
+			    <td align="left">
+				<s:submit name="action" type="button" value="Save" id="save_button" />
+			    </td>
+			</s:if>
+			<s:else>
+			    <td align="left">
+				<s:submit name="action" type="button" id="update_button" value="Update" /> &nbsp;&nbsp;
+				
+			    </td>
+			</s:else>
+		    </tr>
+		</table>
+	    </td></tr>
 	</table>
     </s:form>		
     <ul>

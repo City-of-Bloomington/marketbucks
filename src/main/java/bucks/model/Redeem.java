@@ -115,7 +115,14 @@ public class Redeem implements java.io.Serializable{
     public void setVendorNum(String val){
 	if(val != null)
 	    vendor_num = val;
-    }		
+    }
+    public void setVendorNum2(String val){
+	if(val != null && !val.equals("-1")){
+	    if(vendor_num.isEmpty()){
+		vendor_num = val;
+	    }
+	}
+    }    
 	
     public void setDate_time(String val){
 	if(val != null)

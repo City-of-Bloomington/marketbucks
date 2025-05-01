@@ -25,10 +25,18 @@
   <table border="1" width="80%">
       <tr><td> 
 	  <table width="100%">
-	      <tr><td align="center" colspan="2">Start typing vendor name and then pick from the list</td></tr>
+	      <tr><td align="center" colspan="2">Select a vendor from the list</td></tr>
 	      <tr>
-		  <td align="right" width="35%"><label>Vendor name:</label></td>
-		  <td align="left"><s:textfield name="vendorName" value="" id="vendorName" /></td>
+		  <td align="right" width="35%"><label>Vendor:</label></td>
+		  <td align="left">
+		      <s:if test="hasVendors()">
+			  <s:select name="redeem.vendorNum2" list="vendors" listKey="vendorNum" listValue="fullName" headerKey="-1" headerValue="Pick Vendor">
+			  </s:select>
+		      </s:if>
+		      <s:else>
+			  &nbsp;
+		      </s:else>
+		  </td>
 	      </tr>	      
 	      <tr>
 		  <td align="right"><label>*Vendor number:</label></td>
