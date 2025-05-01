@@ -23,25 +23,25 @@ import bucks.model.*;
 public class Login extends TopServlet{
     static int count = 0;
     //
-    static final long serialVersionUID = 60L;	
+    static final long serialVersionUID = 60L;
     static Logger logger = LogManager.getLogger(Login.class);
     /**
      * Generates the login form for all users.
      *
-     * @param req the request 
+     * @param req the request
      * @param res the response
      */
-    public void doGet(HttpServletRequest req, 
-		      HttpServletResponse res) 
+    public void doGet(HttpServletRequest req,
+		      HttpServletResponse res)
 	throws ServletException, IOException {
 	String message="", id="";
 	boolean found = false;
-	
+
 	res.setContentType("text/html");
 	PrintWriter out = res.getWriter();
 	HttpSession session = null;
 	String userid = null;
-	AttributePrincipal principal = null;				
+	AttributePrincipal principal = null;
 	if (req.getUserPrincipal() != null) {
 	    principal = (AttributePrincipal) req.getUserPrincipal();
 	    userid = principal.getName();
@@ -51,7 +51,7 @@ public class Login extends TopServlet{
 	}
 	System.err.println(" usrid "+userid);
 	if(userid != null){
-	    session = req.getSession(true);			
+	    session = req.getSession(true);
 	    User user = getUser(userid);
 	    if(user != null && user.userExists() && session != null){
 		session.setAttribute("user",user);
@@ -83,18 +83,18 @@ public class Login extends TopServlet{
 	    }
 	    message += " You can not access this system, check with IT or try again later";
 	}
-	// if we got here, the user is not authorized 
+	// if we got here, the user is not authorized
 	out.println("<head><title></title><body>");
 	out.println("<p><font color=red>");
 	out.println(message);
 	out.println("</p>");
 	out.println("</body>");
 	out.println("</html>");
-	out.flush();	
+	out.flush();
     }
     //
-    void setCookie(HttpServletRequest req, 
-		   HttpServletResponse res){ 
+    void setCookie(HttpServletRequest req,
+		   HttpServletResponse res){
 	Cookie cookie = null;
 	boolean found = false;
 	Cookie[] cookies = req.getCookies();
@@ -119,7 +119,7 @@ public class Login extends TopServlet{
      *
      * @param req
      * @param res
-     */		
+     */
     User getUser(String username){
 
 	User user = null;
@@ -137,57 +137,3 @@ public class Login extends TopServlet{
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
