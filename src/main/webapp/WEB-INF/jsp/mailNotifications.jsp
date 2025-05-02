@@ -20,55 +20,45 @@
 	</div>
   </s:elseif>
   <ul>
-		<li>You can add/remove users to the email notified list about current inventory levels </li>
-		<li>The email will be scheduled to run every Wednesday at 7AM.</li>
-		<li>Next scheduled inventory notification date & time: </b><s:property value="next_fire_time" /></li>
+      <li>You can add/remove users to the email notified list about current inventory levels </li>
+      <li>The email will be scheduled to run every Wednesday at 7AM.</li>
+      <li>Next scheduled inventory notification date & time: </b><s:property value="next_fire_time" /></li>
   </ul>
-  <table border="1" width="90%">
-		<tr>
-			<td> 
-				<table width="100%" border="1">
-					<caption>Current email list</caption>
-					<tr>
-						<td><label>*check to remove</label></td>
-						<td>User Name</td>
-					</tr>
-					<s:iterator var="one" value="mailUsers" status="status">
-						<tr>
-							<td><s:property value="(#status.index)+1" /> - <input type="checkbox" name="mailUserList.del_user_id" value="<s:property value='id' />" /></td>
-							<td align="left"><s:property value="fullName" /></td>
-						</tr>
-					</s:iterator>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td align="center">
-				<s:submit name="action" type="button" value="Remove Selected Users" />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<table width="100%" border="1">
-					<caption>Users that can be added to email list</caption>
-					<tr>
-						<td><label>*check to add</label></td>
-						<td>User Name</td>
-					</tr>
-					<s:iterator var="one" value="nonMailUsers" status="status">		  
-						<tr>
-							<td><s:property value="(#status.index)+1" /> - <input type="checkbox" name="mailUserList.add_user_id" value="<s:property value='id' />" /></td>
-							<td align="left"><s:property value="fullName" /></td>
-						</tr>
-					</s:iterator>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td align="center">
-				<s:submit name="action" type="button" value="Add Selected Users" />
-			</td>
-		</tr>
+  <table border="0" width="90%">
+      <caption>Current email list</caption>
+      <tr>
+	  <td><label>*check to remove</label></td>
+	  <td>User Name</td>
+      </tr>
+      <s:iterator var="one" value="mailUsers" status="status">
+	  <tr>
+	      <td><s:property value="(#status.index)+1" /> - <input type="checkbox" name="mailUserList.del_user_id" value="<s:property value='id' />" /></td>
+	      <td align="left"><s:property value="fullName" /></td>
+	  </tr>
+      </s:iterator>
+      <tr>
+	  <td align="center" colspan="2">
+	      <s:submit name="action" type="button" value="Remove Selected Users" />
+	  </td>
+      </tr>
+  </table>
+  <table width="90%" border="0">
+      <caption>Users that can be added to email list</caption>
+      <tr>
+	  <td><label>*check to add</label></td>
+	  <td>User Name</td>
+      </tr>
+      <s:iterator var="one" value="nonMailUsers" status="status">		  
+	  <tr>
+	      <td><s:property value="(#status.index)+1" /> - <input type="checkbox" name="mailUserList.add_user_id" value="<s:property value='id' />" /></td>
+	      <td align="left"><s:property value="fullName" /></td>
+	  </tr>
+      </s:iterator>
+      <tr>
+	  <td align="center" colspan="2">
+	      <s:submit name="action" type="button" value="Add Selected Users" />
+	  </td>
+      </tr>
   </table>
 </s:form>
 

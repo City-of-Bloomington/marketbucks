@@ -8,7 +8,7 @@
  *
 	-->
 <s:iterator value="report.all" status="allStatus">
-  <table border="1" width="60%">
+    <table border="1" width="90%">
       <s:iterator status="rowStatus">
 	  <s:if test="#rowStatus.index == 0">
 	      <caption><s:property value="second" /></caption>

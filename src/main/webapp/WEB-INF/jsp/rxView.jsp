@@ -20,34 +20,34 @@
 	  <s:actionmessage/>
       </div>
   </s:elseif>
-  <table border="1" width="90%">
-      <tr><td> 
-	  <table width="100%">
-	      <tr>
-		  <td align="right" width="30%"><label>Voucher #:</label></td>
-		  <td align="left"><s:property value="rx.voucherNum" /></td>
-	      </tr>
-	      <tr>
-		  <td align="right" width="30%"><label>Amount:</label></td>
-		  <td align="left">$<s:property value="rx.amount" /></td>
-	      </tr>
-	      <tr>
-		  <td align="right" width="30%"><label>Issued Amount:</label></td>
-		  <td align="left">$<s:property value="rx.bucksTotal" /></td>
-	      </tr>				
-	      <tr>
-		  <td align="right"><label>Date & Time:</label></td>
-		  <td align="left">$<s:property value="rx.date_time" /></td>
-	      </tr>								
-	      <tr>
-		  <td align="right"><label>Issued by:</label></td>
-		  <td align="left">$<s:property value="rx.user" /></td>
-	      </tr>
-	      
-	      <s:if test="rx.isCancelled()"><tr><td align="right">Status:</td><td align="left">Cancelled</td></tr></s:if>
-	      <s:if test="rx.isDispute_resolution()"><tr><td align="right">Type:</td><td align="left">Dispute Resolution</td></tr></s:if>				
-	  </table></td>
+  <table border="0" width="90%"><caption>MB Rx</caption>
+      <tr>
+	  <td align="right" width="30%"><b>Voucher #:</b></td>
+	  <td align="left"><s:property value="rx.voucherNum" /></td>
       </tr>
+      <tr>
+	  <td align="right" width="30%"><b>Amount:</b></td>
+	  <td align="left">$<s:property value="rx.amount" /></td>
+      </tr>
+      <tr>
+	  <td align="right" width="30%"><b>Issued Amount:</b></td>
+	  <td align="left">$<s:property value="rx.bucksTotal" /></td>
+      </tr>				
+      <tr>
+	  <td align="right"><b>Date & Time:</b></td>
+	  <td align="left">$<s:property value="rx.date_time" /></td>
+      </tr>								
+      <tr>
+	  <td align="right"><b>Issued by:</b></td>
+	  <td align="left">$<s:property value="rx.user" /></td>
+      </tr>
+      
+      <s:if test="rx.isCancelled()">
+	  <tr><td align="right">Status:</td><td align="left">Cancelled</td></tr>
+      </s:if>
+      <s:if test="rx.isDispute_resolution()">
+	  <tr><td align="right">Type:</td><td align="left">Dispute Resolution</td></tr>
+      </s:if>				
   </table>
 </s:form>
 <s:if test="rx.hasBucks()">

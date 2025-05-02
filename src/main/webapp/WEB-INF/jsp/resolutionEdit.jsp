@@ -46,115 +46,73 @@
       </s:else>
       </ul>
   </s:elseif>
-  <table border="1" width="80%">
+  <table border="0" width="90%">
       <tr>
-	  <td> 
-	      <table width="100%">
-		  <tr>
-		      <td align="right" width="35%"><label>Dispute ID:</label></td>
-		      <td align="left">
-			  <a href="<s:property value='#application.url' />disputeEdit.action?id=<s:property value='resolution.dispute_id' />"> <s:property value="resolution.dispute_id" /></a></td>					
-		  </tr>
-		  <tr>
-		      <td align="right"><label>Disputed MB/GC ID:</label></td>
-		      <td align="left"><s:property value="resolution.dispute.buck_id" /></td>
-		  </tr>
-		  <tr>
-		      <td align="right" valign="top" width="35%"><label>Reason:</label></td>
-		      <td align="left"><s:property value="resolution.dispute.reason" /></td>
-		  </tr>
-		  <s:if test="resolution.id != ''">
-		      <tr>
-			  <td align="right" valign="top"><label>Status:</label></td>
-			  <td align="left"><s:property value="resolution.status" /></td>
-		      </tr>					
-		  </s:if>		  		  
-	      </table>
-	  </td>
-	</tr>
-	<s:if test="resolution.dispute.reason == 'Expired'">
-	    <tr>
-		<td>
-		    <table width="100%">
-			<tr>
-			    <td align="right" valign="top"><label>New Expire Date:</label></td>
-			    <td align="left"><s:textfield name="resolution.expire_date" value="%{resolution.expire_date}" size="10" cssClass="date" /></td>
-			</tr>
-		    </table>
-		</td>
-	    </tr>
-	</s:if>
-	<s:elseif test="%{resolution.dispute.reason == 'Not Exist'}">
-	    <tr>	  
-		<td>	  
-		    <table width="100%">
-			<tr>
-			    <td colspan="2">If the dispute is caused by a typo, enter the new MB/GC id number below, ignore the other fields and then click on 'Submit'.</td>
-			</tr>
-			<tr>
-			    <td align="right" width="35%"><label>New MB/GC ID:</label></td>
-			    <td align="left"><s:textfield name="resolution.new_buck_id" value="%{resolution.new_buck_id}" size="8" maxlength="10" /></td>
-			</tr>
-		    </table>
-		</td>
-	    </tr>
-	  <tr>	  
-	      <td>	  
-		  <table width="100%">	  
-		      <tr>
-			  <td colspan="2">1 - If you think this MB/GC is valid and we need to add it to the system, then pick the value (3, 5 or 20) and expire date from the list below, then go to point 2 (for MB) or 3 (for GC) below to be able to issue it</td>
-		      </tr>
-		      <tr>
-			  <td align="right" valign="top" width="35%"><label>Value:</label></td>
-			  <td align="left"><s:select name="resolution.conf_id" value="%{resolution.conf_id}" list="confs" listKey="id" listValue="info" headerKey="-1" headerValue="" /></td>
-		      </tr>
-		  </table>
-	      </td>
+	  <td align="right" width="35%"><b>Dispute ID:</b></td>
+	  <td align="left">
+	      <a href="<s:property value='#application.url' />disputeEdit.action?id=<s:property value='resolution.dispute_id'/>"> <s:property value="resolution.dispute_id" /></a></td>					
+      </tr>
+      <tr>
+	  <td align="right"><b>Disputed MB/GC ID:</b></td>
+	  <td align="left"><s:property value="resolution.dispute.buck_id" /></td>
+      </tr>
+      <tr>
+	  <td align="right" valign="top" width="35%"><b>Reason:</b></td>
+	  <td align="left"><s:property value="resolution.dispute.reason" /></td>
+      </tr>
+      <s:if test="resolution.id != ''">
+	  <tr>
+	      <td align="right" valign="top"><b>Status:</b></td>
+	      <td align="left"><s:property value="resolution.status" /></td>
+	  </tr>					
+      </s:if>		  		  
+      <s:if test="resolution.dispute.reason == 'Expired'">
+	  <tr>
+	      <td align="right" valign="top"><label for="exp_date">New Expire Date:</label></td>
+	      <td align="left"><s:textfield name="resolution.expire_date" value="%{resolution.expire_date}" size="10" cssClass="date" id="exp_date" /></td>
 	  </tr>
-	  <tr>	  
-	      <td>	  
-		  <table width="100%">
-		      <tr>
-			  <td colspan="2">2 - If this is a MB, the authorization # and customer card # will be set to default values </td>
-		      </tr>
-		  </table>
-	      </td>
+      </s:if>
+      <s:elseif test="%{resolution.dispute.reason == 'Not Exist'}">
+	  <tr>
+	      <td colspan="2">If the dispute is caused by a typo, enter the new MB/GC id number below, ignore the other fields and then click on 'Submit'.</td>
 	  </tr>
-	  <tr>	  
-	      <td>	  
-		  <table width="100%">					
-		      <tr>
-			  <td colspan="2">3 - If this is a GC, the payment type will default to 'Dispute Resolution'</td>
-		      </tr>			
-		      <tr>
-			  <td align="right" valign="top" width="35%"><label>Payment Type:</label></td>
-			  <td align="left">Dispute Resolution</td>
-		      </tr>
-		  </table>
-	      </td>
-	  </tr>		  	  
-	</s:elseif>
+	  <tr>
+	      <td align="right" width="35%"><label for="buck_id">New MB/GC ID:</label></td>
+	      <td align="left"><s:textfield name="resolution.new_buck_id" value="%{resolution.new_buck_id}" size="8" maxlength="10" id="buck_id" /></td>
+	  </tr>
+	  <tr>
+	      <td colspan="2">1 - If you think this MB/GC is valid and we need to add it to the system, then pick the value (3, 5 or 20) and expire date from the list below, then go to point 2 (for MB) or 3 (for GC) below to be able to issue it</td>
+	  </tr>
+	  <tr>
+	      <td align="right" valign="top" width="35%"><label for="conf_id">Value:</label></td>
+	      <td align="left"><s:select name="resolution.conf_id" value="%{resolution.conf_id}" list="confs" listKey="id" listValue="info" headerKey="-1" headerValue="" id="conf_id" /></td>
+	  </tr>
+	  <tr>
+	      <td colspan="2">2 - If this is a MB, the authorization # and customer card # will be set to default values </td>
+	  </tr>
+  	  <tr>
+	      <td colspan="2">3 - If this is a GC, the payment type will default to 'Dispute Resolution'</td>
+	  </tr>			
+	  <tr>
+	      <td align="right" valign="top" width="35%"><b>Payment Type:</b></td>
+	      <td align="left">Dispute Resolution</td>
+	  </tr>
+      </s:elseif>
 	<s:elseif test="%{resolution.dispute.reason == 'Not Issued'}">
-	    <tr>	  
-		<td>	  
-		    <table width="100%">	  	  		
-			<s:if test="%{resolution.buck.buck_type_id == 1}">
-			    <tr>
-				<td colspan="2">For MB, the authorization # and customer card # will be set to default values</td>
-			    </tr>
-			</s:if>
-			<s:else>
-			    <tr>
-				<td colspan="2">For GC, the payment type will be set to 'Dispute Resolution' and check number will be ignored.</td>
-			    </tr>			
-			</s:else>
-		    </table>
-		</td>
-	    </tr>		  
+	    <s:if test="%{resolution.buck.buck_type_id == 1}">
+		<tr>
+		    <td colspan="2">For MB, the authorization # and customer card # will be set to default values</td>
+		</tr>
+	    </s:if>
+	    <s:else>
+		<tr>
+		    <td colspan="2">For GC, the payment type will be set to 'Dispute Resolution' and check number will be ignored.</td>
+		</tr>			
+	    </s:else>
 	</s:elseif>
 	<s:if test="resolution.status != 'Success'">
 	    <tr>
-		<td align="center">
+		<td align="center" colspan="2">
 		    <s:submit name="action" type="button" value="Submit" />
 		</td>
 	    </tr>

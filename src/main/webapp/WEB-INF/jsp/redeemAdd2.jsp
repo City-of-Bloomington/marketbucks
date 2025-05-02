@@ -20,19 +20,13 @@
 	</div>
   </s:elseif>
   <p>*indicate a required field</p>
-  <table border="1" width="80%">
+  <table border="0" width="90%">
       <tr>
-	  <td> 
-	      <table width="100%">
-		  <tr>
-		      <td align="right" width="35%"><label>*Vendor:</label></td>
-		      <td align="left">$<s:select name="redeem.vendor_id" required="true" value="%{redeem.vendor_id}" list="vendors" listKey="id" listValue="fullName" headerKey="-1" headerValue="Pick Vendor" /></td>
-		  </tr>
-	      </table>
-	  </td>
+	  <td align="right" width="35%"><label for="vend_id">* Vendor:</label></td>
+	  <td align="left">$<s:select name="redeem.vendor_id" required="true" value="%{redeem.vendor_id}" list="vendors" listKey="id" listValue="fullName" headerKey="-1" headerValue="Pick Vendor" id="vend_id" /></td>
       </tr>
       <tr>
-	  <td valign="top" align="right">
+	  <td valign="top" align="center" colspan="2">
 	      <s:submit name="action" type="button" value="Save" />
 	  </td>
       </tr>

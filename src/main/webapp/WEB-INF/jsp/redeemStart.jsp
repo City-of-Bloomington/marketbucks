@@ -22,40 +22,35 @@
 	</div>
   </s:elseif>
   <p>*indicate a required field</p>
-  <table border="1" width="80%">
-      <tr><td> 
-	  <table width="100%">
-	      <tr><td align="center" colspan="2">Select a vendor from the list</td></tr>
-	      <tr>
-		  <td align="right" width="35%"><label>Vendor:</label></td>
-		  <td align="left">
-		      <s:if test="hasVendors()">
-			  <s:select name="redeem.vendorNum2" list="vendors" listKey="vendorNum" listValue="fullName" headerKey="-1" headerValue="Pick Vendor">
-			  </s:select>
-		      </s:if>
-		      <s:else>
-			  &nbsp;
-		      </s:else>
-		  </td>
-	      </tr>	      
-	      <tr>
-		  <td align="right"><label>*Vendor number:</label></td>
-		  <td>
-		      <s:textfield name="redeem.vendorNum" id="vendor_id" value="%{redeem.vendorNum}" />
-		  </td>
-	      </tr>
-
-	  </table></td>
+  <table border="0" width="90%"><caption>Redemption</caption>
+      <tr><td align="center" colspan="2">Select a vendor from the list</td></tr>
+      <tr>
+	  <td align="right" width="35%"><label for="ven_id">Vendor:</label></td>
+	  <td align="left">
+	      <s:if test="hasVendors()">
+		  <s:select name="redeem.vendorNum2" list="vendors" listKey="vendorNum" listValue="fullName" headerKey="-1" headerValue="Pick Vendor" id="ven_id">
+		  </s:select>
+	      </s:if>
+	      <s:else>
+		  &nbsp;
+	      </s:else>
+	  </td>
+      </tr>	      
+      <tr>
+	  <td align="right"><label for="vendor_id">* Vendor number:</label></td>
+	  <td align="left">
+	      <s:textfield name="redeem.vendorNum" id="vendor_id" value="%{redeem.vendorNum}" />
+	  </td>
       </tr>
       <tr>
-	  <td valign="top" align="right">
+	  <td valign="top" align="center" colspan="2">
 	      <s:submit name="action" type="button" value="Next" />
 	  </td>
       </tr>
   </table>
 </s:form>
 <br />
-For redemption advance search click<a href="<s:property value='#application.url'/>redeemSearch.action"> here. </a>
+<a href="<s:property value='#application.url'/>redeemSearch.action">Advance Search </a>
 <br />
 <s:if test="redeems != null && redeems.size() > 0">
   <s:set var="redeems" value="redeems" />

@@ -31,64 +31,61 @@
 	    This is needed when scaning vendor card to redeem MB or GC.<br />
 	    ** indicates a required field <br />
 	</p>
-	<table border="1" width="90%">
-	    <tr><td> 
-		<table border="0" width="100%">
-		    <s:if test="vendor.id != ''">
-			<tr>
-			    <td align="right"><label>Vendor ID:</label></td>
-			    <td align="left"><s:property value="%{vendor.id}" />
-				<a href="<s:property value='#application.url' />vendor.action?id=<s:property value='vendor.id' />&action=setInactive"> Set as inactive </a></td>
-			</tr>
-		    </s:if>
-		    <tr>
-			<td align="right"><label>*Vendor Number:</label></td>
-			<td align="left">
-			    <s:textfield name="vendor.vendorNum" maxlength="10" size="10" value="%{vendor.vendorNum}" required="true" />
-			</td>
-		    </tr>
-		    <tr>
-			<td align="right"><label>*Last Name:</label></td>
-			<td align="left"><s:textfield name="vendor.lname" maxlength="50" size="40" required="true" value="%{vendor.lname}" /> </td>
-		    </tr>
-		    <tr>
-			<td align="right"><label>First Name:</label></td>
-			<td align="left"><s:textfield name="vendor.fname" maxlength="30" size="30" value="%{vendor.fname}" /></td>
-		    </tr>
-		    <tr>
-			<td align="right"><label>Related Business:</label></td>
-			<td align="left"><s:textfield name="vendor.businessName" maxlength="50" size="30" value="%{vendor.businessName}" />(business name if different from Last Name)</td>
-		    </tr>
-		    <tr>
-			<td align="right"><label>Active? </label></td>
-			<td align="left"><s:checkbox name="vendor.active" value="%{vendor.active}"/>Yes (uncheck to inactivate)
-			</td>
-		    </tr>
-		    <tr>
-			<td align="right"><label>Allowed Pay Type:</label></td>
-			<td align="left" align="left"><s:radio name="vendor.payType" value="%{vendor.payType}" list="#{'-1':'None','GC':'GC only','MB:GC':'MB and GC'}" /></td>
-		    </tr>
-		    <tr>		    
-			<s:if test="vendor.id == ''">
-
-			    <td align="left">
-				<s:submit name="action" type="button" value="Save" id="save_button" />
-			    </td>
-			</s:if>
-			<s:else>
-			    <td align="left">
-				<s:submit name="action" type="button" id="update_button" value="Update" /> &nbsp;&nbsp;
-				
-			    </td>
-			</s:else>
-		    </tr>
-		</table>
-	    </td></tr>
+	<table border="0" width="90%">
+	    <s:if test="vendor.id != ''">
+		<tr>
+		    <td align="right"><b>Vendor ID:</b></td>
+		    <td align="left"><s:property value="%{vendor.id}" />
+			<a href="<s:property value='#application.url' />vendor.action?id=<s:property value='vendor.id' />&action=setInactive"> Set as inactive </a></td>
+		</tr>
+	    </s:if>
+	    <tr>
+		<td align="right"><label for="num">* Vendor Number:</label></td>
+		<td align="left">
+		    <s:textfield name="vendor.vendorNum" maxlength="10" size="10" value="%{vendor.vendorNum}" required="true" id="num" />
+		</td>
+	    </tr>
+	    <tr>
+		<td align="right"><label for="lname">* Last Name:</label></td>
+		<td align="left"><s:textfield name="vendor.lname" maxlength="50" size="40" required="true" value="%{vendor.lname}" id="lname" /> </td>
+	    </tr>
+	    <tr>
+		<td align="right"><label for="fname">First Name:</label></td>
+		<td align="left"><s:textfield name="vendor.fname" maxlength="30" size="30" value="%{vendor.fname}" id="fname" /></td>
+	    </tr>
+	    <tr>
+		<td align="right"><label for="bus">Related Business:</label></td>
+		<td align="left"><s:textfield name="vendor.businessName" maxlength="50" size="30" value="%{vendor.businessName}" id="bus" />(business name if different from Last Name)</td>
+	    </tr>
+	    <tr>
+		<td align="right"><label for="act">Active? </label></td>
+		<td align="left"><s:checkbox name="vendor.active" value="%{vendor.active}" id="act" />Yes (uncheck to inactivate)
+		</td>
+	    </tr>
+	    <tr>
+		<td align="right"><label for="ptype">Allowed Pay Type:</label></td>
+		<td align="left" align="left"><s:radio name="vendor.payType" value="%{vendor.payType}" list="#{'-1':'None','GC':'GC only','MB:GC':'MB and GC'}" i="ptype" /></td>
+	    </tr>
+	    <tr>		    
+		<s:if test="vendor.id == ''">
+		    
+		    <td align="center" colspan="2">
+			<s:submit name="action" type="button" value="Save" id="save_button" />
+		    </td>
+		</s:if>
+		<s:else>
+		    <td align="center" colspan="2">
+			<s:submit name="action" type="button" id="update_button" value="Update" /> &nbsp;&nbsp;
+			
+		    </td>
+		</s:else>
+	    </tr>
 	</table>
     </s:form>		
     <ul>
 	<li> <a href="<s:property value='#application.url' />vendor.action"> New Vendor</a></li>
-	<li>	For vendors Search click <a href="<s:property value='#application.url' />vendorSearch.action"> here </a></li>
+	<li>
+	    <a href="<s:property value='#application.url' />vendorSearch.action">Vendors Search </a></li>
     </ul>
 </s:if>
 <br />

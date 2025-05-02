@@ -19,58 +19,56 @@
   </div>
 </s:elseif>
 <s:form action="snapSearch" method="post">
-    <fieldset> 	
-	<table border="0" width="80%">
-	    <tr>
-		<td align="right"><label>Purchase ID:</label></td>
-		<td align="left"><s:textfield name="snapList.id" value="%{snapList.id}" size="8" /></td>
-	    </tr>
-	    <tr>
- 		<td align="right"><label>Card #:</label></td>
-		<td align="left"><s:textfield name="snapList.cardNumber" value="%{snapList.cardNumber}" size="4" maxlength="4" /> </td>
-	    </tr>		  
-	    <tr>
-		<td align="right"><label>Authorization #:</label></td>
-		<td align="left"><s:textfield name="snapList.authorization" value="%{snapList.authorization}" size="10" /> </td>
-	    </tr>
-	    <tr>
-		<td align="right"><label>Purchase Amount ($):</label></td>
-		<td align="left"><s:textfield name="snapList.amount" value="%{snapList.amount}" size="4" maxlength="4" /> </td>
-	    </tr>
-	    <tr>
-		<td align="right"><label>Double Request:</label></td>
-		<td align="left"><s:radio name="snapList.doubleRequest" value="%{snapList.doubleRequest}" list="#{'-1':'All','Included':'Included','Not Included':'Not Included'}" /> </td>
-	    </tr>
-	    <tr>
-		<td align="right"><label>Status:</label></td>
-		<td align="left"><s:radio name="snapList.status" value="%{snapList.status}" list="#{'-1':'All','Active':'Active','Cancelled':'Cancelled'}" /> </td>
-	    </tr>		
-	    <tr>
-		<td align="right"><label>Date:</label></td>
-		<td align="left"><label> From</label><s:textfield name="snapList.date_from" value="%{snapList.date_from}" size="10" maxlength="10" cssClass="date" /><label> To </label><s:textfield name="snapList.date_to" value="%{snapList.date_to}" size="10" maxlength="10" cssClass="date" /></td>
-	    </tr>  
-	    <tr>
-		<td align="right"><label>Sort by:</label></td> 
-		<td align="left">
-		    <s:select name="snapList.sortBy"
+    <table border="0" width="90%"><caption>Search Options</caption>
+	<tr>
+	    <td align="right"><label for="pid">Purchase ID:</label></td>
+	    <td align="left"><s:textfield name="snapList.id" value="%{snapList.id}" size="8" id="pid" /></td>
+	</tr>
+	<tr>
+ 	    <td align="right"><label for="cardn">Card #:</label></td>
+	    <td align="left"><s:textfield name="snapList.cardNumber" value="%{snapList.cardNumber}" size="4" maxlength="4" id="cardn" /> </td>
+	</tr>		  
+	<tr>
+	    <td align="right"><label for="auth">Authorization #:</label></td>
+	    <td align="left"><s:textfield name="snapList.authorization" value="%{snapList.authorization}" size="10" id="auth" /> </td>
+	</tr>
+	<tr>
+	    <td align="right"><label for="amnt">Purchase Amount ($):</label></td>
+	    <td align="left"><s:textfield name="snapList.amount" value="%{snapList.amount}" size="4" maxlength="4" id="amnt" /> </td>
+	</tr>
+	<tr>
+	    <td align="right"><label for="dbl">Double Request:</label></td>
+	    <td align="left"><s:radio name="snapList.doubleRequest" value="%{snapList.doubleRequest}" list="#{'-1':'All','Included':'Included','Not Included':'Not Included'}" id="dbl" /> </td>
+	</tr>
+	<tr>
+	    <td align="right"><label for="status">Status:</label></td>
+	    <td align="left"><s:radio name="snapList.status" value="%{snapList.status}" list="#{'-1':'All','Active':'Active','Cancelled':'Cancelled'}" id="status" /> </td>
+	</tr>		
+	<tr>
+	    <td align="right"><b>Date:</b></td>
+	    <td align="left"><label for="from"> From</label><s:textfield name="snapList.date_from" value="%{snapList.date_from}" size="10" maxlength="10" cssClass="date" id="from" /><label for="to"> To </label><s:textfield name="snapList.date_to" value="%{snapList.date_to}" size="10" maxlength="10" id="to" cssClass="date" /></td>
+	</tr>  
+	<tr>
+	    <td align="right"><label for="sortby">Sort by:</label></td> 
+	    <td align="left">
+		<s:select name="snapList.sortBy" id="sortby"
 			      value="%{snapList.sortBy}"
-			      list="#{'-1':'ID','b.date':'Date & Time'}" headerKey="-1" headerValue="ID" /></td>
-	    </tr>
-	    <tr>
-		<td align="left">
-		    <s:submit name="action" type="button" value="Search" />
+			  list="#{'-1':'ID','b.date':'Date & Time'}" headerKey="-1" headerValue="ID" /></td>
+	</tr>
+	<tr>
+	    <td align="center" colspan="2">
+		<s:submit name="action" type="button" value="Search" />
 		</td>
-	    </tr>
-	</table>
-    </fieldset>
+	</tr>
+    </table>
 </s:form>
 <s:if test="action != '' && hasSnaps()">
-	<s:set var="snaps" value="snaps" />
-	<s:set var="snapsTitle" value="snapsTitle" />
-	<s:set var="snapTotal" value="snapTotal" />
-	<s:set var="ebtTotal" value="ebtTotal" />
-	<s:set var="dblTotal" value="dblTotal" />	
-	<%@  include file="snaps.jsp" %>	  
+    <s:set var="snaps" value="snaps" />
+    <s:set var="snapsTitle" value="snapsTitle" />
+    <s:set var="snapTotal" value="snapTotal" />
+    <s:set var="ebtTotal" value="ebtTotal" />
+    <s:set var="dblTotal" value="dblTotal" />	
+    <%@  include file="snaps.jsp" %>	  
 </s:if>
 <%@  include file="footer.jsp" %>
 

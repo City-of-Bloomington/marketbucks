@@ -35,57 +35,57 @@
   <p>*indicate a required field </p>  
   <p>Note: FMNP Senior Amount is predetermined amount, no change is needed </p>
   <hr />
-  <fieldset>
-      <table border="0" width="80%">
-	  <s:if test="senior.id != ''">
-	      <tr>
-		  <td align="right">Transaction ID:</td>
-		  <td align="left"> <s:property value="%{senior.id}" /></td>
-	      </tr>
-	  </s:if>
+  <table border="0" width="90%">
+      <caption>FMNP Senior</caption>
+      <s:if test="senior.id != ''">
 	  <tr>
-	      <td align="right"><label>FMNP Senior Amount:</label></td>
-	      <td align="left">$<s:textfield name="senior.amount" maxlength="4" size="4" value="%{senior.amount}" id="div5" readonly="true" />.00 (Must be multiple of $3)</td>
+	      <td align="right"><b>Transaction ID:</b></td>
+	      <td align="left"> <s:property value="%{senior.id}" /></td>
 	  </tr>
-	  <s:if test="senior.id == ''">
-	      <tr>
-		  <td align="right"><label>Ticket #:</label></td>
-		  <td align="left"><s:textfield name="senior.ticketNum" maxlength="10" size="10" value="%{senior.ticketNum}" required="true" /> *</td>
-	      </tr>
-	  </s:if>
-	  <s:else>
-	      <tr>
-		  <td align="right"><label>Ticket #:</label></td>
-		  <td align="left"><s:property value="%{senior.ticketNum}" /></td>
-	      </tr>
-	      <tr>
-		  <td align="right"><label>Date & Time:</label></td>
-		  <td align="left"><s:property value="%{senior.date_time}" /></td>
-	      </tr>
+      </s:if>
+      <tr>
+	  <td align="right"><label for="div5">FMNP Senior Amount:</label></td>
+	  <td align="left">$<s:textfield name="senior.amount" maxlength="4" size="4" value="%{senior.amount}" id="div5" readonly="true" />.00 (Must be multiple of $3)</td>
+      </tr>
+      <s:if test="senior.id == ''">
+	  <tr>
+	      <td align="right"><label for="tnum">Ticket #:</label></td>
+	      <td align="left"><s:textfield name="senior.ticketNum" maxlength="10" size="10" value="%{senior.ticketNum}" required="true" id="tnum" /> *</td>
+	  </tr>
+      </s:if>
+      <s:else>
+	  <tr>
+	      <td align="right"><b>Ticket #:</b></td>
+	      <td align="left"><s:property value="%{senior.ticketNum}" /></td>
+	  </tr>
+	  <tr>
+	      <td align="right"><b>Date & Time:</b></td>
+	      <td align="left"><s:property value="%{senior.date_time}" /></td>
+	  </tr>
 	  <tr>	      
-	      <td align="right"><label>User:</label></td>
+	      <td align="right"><b>User:</b></td>
 	      <td align="left"><s:property value="%{senior.user}" /></td>
 	  </tr>
 	  <tr>
-	      <td align="right"><label>Total:</label></td>
+	      <td align="right"><b>Total:</b></td>
 	      <td align="left">$<s:property value="%{senior.total}" />.00</td>
 	  </tr>
 	  <s:if test="senior.isCancelled()">
 	      <tr>
-		  <td align="right"><label>Status:</label></td>
+		  <td align="right"><b>Status:</b></td>
 		  <td align="left">Cancelled</td>
 	      </tr>
 	  </s:if>
 	  <s:if test="senior.isDispute_resolution()">
 	      <tr>
-		  <td align="right">Status:</td>
+		  <td align="right"><b>Status:</b></td>
 		  <td align="left">Dispute Resolution</td>
 	      </tr>
 	  </s:if>
       </s:else>
       <s:if test="senior.id == ''">
 	  <tr>
-	      <td valign="top" align="right">
+	      <td valign="top" align="center" colspan="2">
 		  <s:submit name="action" type="button" id="next_button" value="Next" />
 	      </td>
 	  </tr>
@@ -97,16 +97,15 @@
 		      <s:submit name="action" type="button" id="next_button" value="Add Bucks" />
 		  </td>
 	      </s:if>
-	      <td>
+	      <td align="center">
 		  <s:submit name="action" type="button" id="cancel_button" value="Cancel" />
 	      </td>
 	  </tr>
       </s:elseif>
-      </table>
-  </fieldset>
+  </table>
   <hr />
   <s:if test="senior.hasBucks()">
-      <table border="1" width="80%">
+      <table border="1" width="90%">
 	  <caption><s:property value="bucksTitle" /></caption>
 	  <tr>
 	      <td align="center"><b>**</b></td>
@@ -144,12 +143,12 @@
 For FMNP SENIOR/Senior search click <a href="<s:property value='#application.url'/>fmnpSearch.action"> here. </a>
 <br />
 <s:if test="senior.id == ''">
-	<s:if test="hasFmnpSeniors()">
-		<s:set var="fmnpSeniors" value="fmnpSeniors" />
-		<s:set var="fmnpSeniorsTitle" value="fmnpSeniorsTitle" />
-		<s:set var="showTotal" value="'false'" />
-		<%@  include file="fmnpSeniors.jsp" %>	
-	</s:if>
+    <s:if test="hasFmnpSeniors()">
+	<s:set var="fmnpSeniors" value="fmnpSeniors" />
+	<s:set var="fmnpSeniorsTitle" value="fmnpSeniorsTitle" />
+	<s:set var="showTotal" value="'false'" />
+	<%@  include file="fmnpSeniors.jsp" %>	
+    </s:if>
 </s:if>
 <%@  include file="footer.jsp" %>	
 

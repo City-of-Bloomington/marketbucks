@@ -37,8 +37,8 @@
 	  <td align="left"><s:property value="ebt.id" /></td>
       </tr>
       <tr>
-	  <td align="right"><label for="ebt_amount">* EBT Amount:</label></td>
-	  <td align="left">$ <s:textfield name="ebt.amount" maxlength="4" size="4" required="true" value="%{ebt.amount}" id="div3" onchange="checkDivBy3(this)" cssClass="need_focus" id="ebt_amount" />.00 (Must be multiple of 3 ($))</td>
+	  <td align="right"><label for="div3">* EBT Amount:</label></td>
+	  <td align="left">$ <s:textfield name="ebt.amount" maxlength="4" size="4" required="true" value="%{ebt.amount}" id="div3" onchange="checkDivBy3(this)" cssClass="need_focus" />.00 (Must be multiple of 3 ($))</td>
       </tr>
       <tr>
 	  <td align="right"><label for="auth_num">* Authorization #:</label></td>
@@ -72,8 +72,10 @@
 	      </td>
 	  </s:if>
 	  <s:elseif test="!ebt.isCancelled() && !ebt.isDispute_resolution()">
-	      <td>
+	      <td align="right">
 		  <s:submit name="action" type="button" id="update_button" value="Update" />
+	      </td>
+	      <td align="left">
 		  <s:submit name="action" type="button"  id="cancel_button" value="Cancel" />
 	      </td>
 	  </s:elseif>

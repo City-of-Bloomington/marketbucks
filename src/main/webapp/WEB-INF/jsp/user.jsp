@@ -25,55 +25,45 @@
 	    <s:actionmessage/>
 	</div>
     </s:elseif>
-    <table border="1" width="90%">
-	<tr><td> 
-	    <table width="100%">
-		<s:if test="person.id != ''">
-		    <tr>							
-			<td align="right"><label>User ID:</label></td>
-			<td align="left">
-			    <s:property value="%{person.id}" />
-			</td>
-		    </tr>							 
-		</s:if>
-		<tr>
-		    <td align="right" width="25%"><label>Username:</label></td>
-		    <td align="left">
-			<s:textfield name="person.username" maxlength="30" size="30" value="%{person.username}" required="true" /> * (for login)
-		    </td>
-		</tr>
-		<tr>
-		    <td align="right"><label>Full Name:</label></td>
-		    <td align="left"><s:textfield name="person.fullName" maxlength="30" size="50" required="true" value="%{person.fullName}" /> ** </td>
-		</tr>
-		<tr>
-		    <td align="right"><label>Role:</label></td>
-		    <td align="left"><s:radio name="person.role" value="%{person.role}" list="#{'-1':'View only','Edit':'Edit Only','Edit:Delete':'Edit and Delete','Admin:Edit:Delete':'All (admin)'}" /></td>
-		</tr>
-		<tr>
-		    <td align="right"><label>Inactive:</label></td>
-		    <td align="left"><s:checkbox name="person.inactive" value="%{person.inactive}"/> Yes (check this to inactivate)				
-		    </td>
-		</tr>	  
-	    </table></td>
+    <table border="0" width="90%"><caption>User </caption>
+	<s:if test="person.id != ''">
+	    <tr>							
+		<td align="right"><label>User ID:</label></td>
+		<td align="left">
+		    <s:property value="%{person.id}" />
+		</td>
+	    </tr>							 
+	</s:if>
+	<tr>
+	    <td align="right" width="25%"><label for="username">Username:</label></td>
+	    <td align="left">
+		<s:textfield name="person.username" maxlength="30" size="30" value="%{person.username}" required="true" id="username" /> * (for login)
+	    </td>
 	</tr>
+	<tr>
+	    <td align="right"><label for="fname">Full Name:</label></td>
+	    <td align="left"><s:textfield name="person.fullName" maxlength="30" size="50" required="true" value="%{person.fullName}" id="fname" /> ** </td>
+	</tr>
+	<tr>
+	    <td align="right"><label for="role">Role:</label></td>
+	    <td align="left"><s:radio name="person.role" value="%{person.role}" list="#{'-1':'View only','Edit':'Edit Only','Edit:Delete':'Edit and Delete','Admin:Edit:Delete':'All (admin)'}" id="role" /></td>
+	</tr>
+	<tr>
+	    <td align="right"><label for="inactive">Inactive:</label></td>
+	    <td align="left"><s:checkbox name="person.inactive" value="%{person.inactive}" id="inactive" /> Yes (check this to inactivate)				
+	    </td>
+	</tr>	  
 	<s:if test="person.id == ''">
 	    <tr>		
-		<td valign="top" align="right">
+		<td valign="top" align="center" colspan="2">
 		    <s:submit name="action" type="button" value="Save" id="save_button" />
 		</td>
 	    </tr>
 	</s:if>
 	<s:else>
 	    <tr>		
-		<td valign="top">	  
-		    <table width="100%">
-			<tr>
-			    <td align="center">
-				<s:submit name="action" type="button" id="update_button" value="Update" />
-			    </td>
-			</tr>
-		    </table>
+		<td align="center" colspan="2">
+		    <s:submit name="action" type="button" id="update_button" value="Update" />
 		</td>
 	    </tr>
 	</s:else>

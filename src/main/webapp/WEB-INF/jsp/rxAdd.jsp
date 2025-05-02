@@ -34,97 +34,87 @@
       </div>
   </s:elseif>
   <p>*indicate a required field </p>  
-  <table border="1" width="90%">
-      <tr><td> 
-	  <table width="100%">
-	      <tr><td colspan="2">Note: Rx Amount is predetermined amount, no change is needed </td></tr>
-	      <tr>
-		  <td align="right" width="35%"><label>Rx Amount:</label></td>
-		  <td align="left">$<s:textfield name="rx.amount" maxlength="4" size="4" required="true" value="%{rx.amount}" id="div5" cssClass="need_focus" />.00 (Must be multiple of $3)</td>
-	      </tr>
-	      <tr>
-		  <td align="right"><label>Voucher #:</label></td>
-		  <td align="left"><s:textfield name="rx.voucherNum" maxlength="10" size="10" value="%{rx.voucherNum}" required="true" /> *</td>
-	      </tr>
-	      <s:if test="rx.isCancelled()">
-		  <tr>
-		      <td align="right"><label>Status:</label></td>
-		      <td align="left">Cancelled</td>
-		  </tr>
-	      </s:if>
-	      <s:if test="rx.isDispute_resolution()">
-		  <tr>
-		      <td align="right">Type:</td><
-		      <td align="left">Dispute Resolution</td>
-		  </tr>
-	      </s:if>						
-	  </table></td>
+  <table border="0" width="90%">
+      <caption>Rx Bucks</caption>
+      <tr><td colspan="2">Note: Rx Amount is predetermined amount, no change is needed </td></tr>
+      <tr>
+	  <td align="right" width="35%"><label for="div5">Rx Amount:</label></td>
+	  <td align="left">$<s:textfield name="rx.amount" maxlength="4" size="4" required="true" value="%{rx.amount}" id="div5" cssClass="need_focus" />.00 (Must be multiple of $3)</td>
       </tr>
       <tr>
+	  <td align="right"><label for="vouch">Voucher #:</label></td>
+	  <td align="left"><s:textfield name="rx.voucherNum" maxlength="10" size="10" value="%{rx.voucherNum}" required="true" id="vouch" /> *</td>
+      </tr>
+      <s:if test="rx.isCancelled()">
+	  <tr>
+	      <td align="right"><b>Status:</b></td>
+	      <td align="left">Cancelled</td>
+	  </tr>
+      </s:if>
+      <s:if test="rx.isDispute_resolution()">
+	  <tr>
+	      <td align="right"><b>Type:</b></td>
+	      <td align="left">Dispute Resolution</td>
+	  </tr>
+      </s:if>						
+      <tr>
 	  <s:if test="rx.id == ''">
-	      <td valign="top" align="right">
+	      <td valign="top" align="center" colspan="2">
 		  <s:submit name="action" type="button" id="next_button" value="Next" />
 	      </td>
 	  </s:if>
 	  <s:elseif test="!rx.isCancelled() && !rx.isDispute_resolution()">
-	      <td>		
-		  <table width="100%">
-		      <tr>
-			  <td align="center">
-			      <s:submit name="action" type="button" id="update_button" value="Update" />
-			  </td>
-			  <s:if test="rx.hasBalance()">
-			      <td align="center">
-				  <s:submit name="action" type="button" id="next_button" value="Add Bucks" />
-			      </td>
-			  </s:if>
-			  <td align="right">
-			      <s:submit name="action" type="button" id="cancel_button" value="Cancel" />
-			  </td>
-		      </tr>
-		  </table>
-				</td>		  
+	      <td align="center">
+		  <s:submit name="action" type="button" id="update_button" value="Update" />
+	      </td>
+	      <s:if test="rx.hasBalance()">
+		  <td align="center">
+		      <s:submit name="action" type="button" id="next_button" value="Add Bucks" />
+		  </td>
+	      </s:if>
+	      <td align="right">
+		  <s:submit name="action" type="button" id="cancel_button" value="Cancel" />
+	      </td>
 	  </s:elseif>
       </tr>
-      <s:if test="rx.hasBucks()">
-	  <tr><td align="center">	  
-	      <table border="1" width="80%">
-		  <caption><s:property value="bucksTitle" /></caption>
-		  <tr>
-		      <td align="center"><b>**</b></td>
-		      <td align="center"><b>ID</b></td>
-		      <td align="center"><b>Expire Date</b></td>
-		      <td align="center"><b>Voided?</b></td>	
-		      <td align="center"><b>Face Value</b></td>
-		  </tr>
-		  <tr>
-		      <td colspan="4" align="right">Total</td>
-		      <td align="right">$<s:property value="rx.bucksTotal" />.00</td>
-		  </tr>
-		  <s:iterator var="one" value="rx.bucks">
-		      <tr>
-			  <td>&nbsp;
-			      <s:if test="!isVoided()">
-				  <input type="checkbox" name="rx.cancel_buck_id" value="<s:property value='id' />" />
-			      </s:if>
-			  </td>
-			  <td><s:property value="id" /></td>
-			  <td><s:property value="expire_date" /></td>
-			  <td><s:if test="isVoided()">Voided</s:if></td>	
-			  <td align="right">$<s:property value="value" />.00</td>
-		      </tr>
-		  </s:iterator>
-		  <tr><td colspan="5">** check to cancel and void the corresponding Rx Buck</td></tr>
-	      </table>
-	      
-	  </td></tr>
+  </table>
+  <s:if test="rx.hasBucks()">
+      <table border="0" width="90%">
+	  <caption><s:property value="bucksTitle" /></caption>
 	  <tr>
-	      <td align="right">
+	      <td align="center"><b>**</b></td>
+	      <td align="center"><b>ID</b></td>
+	      <td align="center"><b>Expire Date</b></td>
+	      <td align="center"><b>Voided?</b></td>	
+	      <td align="center"><b>Face Value</b></td>
+	  </tr>
+	  <tr>
+	      <td colspan="4" align="right">Total</td>
+	      <td align="right">$<s:property value="rx.bucksTotal" />.00</td>
+	  </tr>
+	  <s:iterator var="one" value="rx.bucks">
+	      <tr>
+		  <td>&nbsp;
+		      <s:if test="!isVoided()">
+			  <input type="checkbox" name="rx.cancel_buck_id" value="<s:property value='id' />" />
+		      </s:if>
+		  </td>
+		  <td><s:property value="id" /></td>
+		  <td><s:property value="expire_date" /></td>
+		  <td><s:if test="isVoided()">Voided</s:if></td>	
+		  <td align="right">$<s:property value="value" />.00</td>
+	      </tr>
+	  </s:iterator>
+	  <tr>
+	      <td colspan="5">** check to cancel and void the corresponding Rx Buck</td>
+	  </tr>
+	  <tr>
+	      <td align="center" colspan="5">
 		  <s:submit name="action" type="button" id="cancel_button_2" value="Cancel Selected" />
 	      </td>
-	  </tr>
-      </s:if>	
-  </table>
+	  </tr>	  
+      </table>
+  </s:if>
 </s:form>
 For Rx advance search click<a href="<s:property value='#application.url'/>rxSearch.action"> here. </a>
 <br />

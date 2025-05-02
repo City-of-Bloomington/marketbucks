@@ -20,41 +20,41 @@
 </s:elseif>
 <s:form action="fmnpSearch" method="post">
     <hr />
-    <fieldset>
-	<table width="90%" border="0">
+    <table width="90%" border="0">
+	<caption>Search options</caption>
 	    <tr>
-		<td align="right"><label>Transaction ID:</label></td>
-		<td align="left"><s:textfield name="fmnp.id" value="%{fmnp.id}" size="8" /></td>
+		<td align="right"><label for="trans_id">Transaction ID:</label></td>
+		<td align="left"><s:textfield name="fmnp.id" id="trans_id" value="%{fmnp.id}" size="8" /></td>
 	    </tr>
 	    <tr>
- 		<td align="right"><label>Ticket #:</label></td>
-		<td align="left"><s:textfield name="fmnp.ticketNum" value="%{fmnp.ticketNum}" size="10" maxlength="10" /> </td>
+ 		<td align="right"><label for="tikect_id">Ticket #:</label></td>
+		<td align="left"><s:textfield name="fmnp.ticketNum" value="%{fmnp.ticketNum}" size="10" maxlength="10" id="ticket_id" /> </td>
 	    </tr>
 	    <tr>
-		<td align="right"><label>Amount ($):</label></td>
-		<td align="left"><s:textfield name="fmnp.amount" value="%{fmnp.amount}" size="4" maxlength="4" /> </td>
+		<td align="right"><label for="amount">Amount ($):</label></td>
+		<td align="left"><s:textfield name="fmnp.amount" value="%{fmnp.amount}" size="4" maxlength="4" id="amount" /> </td>
 	    </tr>
 	    <tr>
-		<td align="right"><label>FMNP Type:</label></td>
-		<td align="left"><s:radio name="fmnp.type" value="%{fmnp.type}" list="#{'-1':'All','wic':'WIC','senior':'Senior'}" /> </td>
+		<td align="right"><label for="type">FMNP Type:</label></td>
+		<td align="left"><s:radio name="fmnp.type" value="%{fmnp.type}" list="#{'-1':'All','wic':'WIC','senior':'Senior'}" id="type" /> </td>
 	    </tr>
 	    <tr>
-		<td align="right"><label>Status:</label></td>
-		<td align="left"><s:radio name="fmnp.status" value="%{fmnp.status}" list="#{'-1':'All','Active':'Active','Cancelled':'Cancelled'}" /> </td>
+		<td align="right"><label for="status">Status:</label></td>
+		<td align="left"><s:radio name="fmnp.status" value="%{fmnp.status}" list="#{'-1':'All','Active':'Active','Cancelled':'Cancelled'}" id="status" /> </td>
 	    </tr>
 	    <tr>
-		<td align="right"><label>Date:</label></td>
-		<td align="left"><label> From</label><s:textfield name="fmnp.date_from" value="%{fmnp.date_from}" size="10" maxlength="10" cssClass="date" /><label> To </label><s:textfield name="fmnp.date_to" value="%{fmnp.date_to}" size="10" maxlength="10" cssClass="date" /></td>
+		<td align="right"><b>Date:</b></td>
+		<td align="left"><label for="from"> From</label><s:textfield name="fmnp.date_from" value="%{fmnp.date_from}" id="from" size="10" maxlength="10" cssClass="date" /><label for="to"> To </label><s:textfield name="fmnp.date_to" value="%{fmnp.date_to}" size="10" maxlength="10" cssClass="date" id="to" /></td>
 	    </tr>
 	    <tr>
-		<td align="right"><label>Sort by:</label></td> 
+		<td align="right"><label for="sortby">Sort by:</label></td> 
 		<td align="left">
-		    <s:select name="fmnp.sortBy"
+		    <s:select name="fmnp.sortBy" id="sortby"
 			      value="%{fmnp.sortBy}"
 			      list="#{'-1':'ID','date':'Date & Time'}" headerKey="-1" headerValue="ID" /></td>
 	    </tr>
 	    <tr>
-		<td colspan="2">
+		<td colspan="2" align="center">
 		    <s:submit name="action" type="button" value="Search" />
 		</td>
 	    </tr>
