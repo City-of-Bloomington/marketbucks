@@ -21,75 +21,74 @@
 	</div>
     </s:elseif>
     <p>*indicate a required field </p>
-    <table border="0" width="90%">
+    <table width="90%"><caption>Issue Market Bucks</caption>
 	<tr>
-	    <td align="right"><b>Transaction ID: </b></td>
+	    <th><b>Transaction ID: </b></th>
 	    <td align="left"><s:property value="ebt.id" /></td>
 	</tr>
 	<tr>
-	    <td align="right"><b>Authorization #: </b></td>
+	    <th><b>Authorization #: </b></th>
 	    <td align="left"><s:property value="ebt.approve" /></td>
 	</tr>
-	<tr>		    
-	    <td align="right"><b>Card #: </b></td>
+	<tr> <th><b>Card #: </b></th>
 	    <td align="left"><s:property value="ebt.card_last_4" /></td>		    </tr>
 	<tr>				
-	    <td align="right"><b>Request Amount: </b></td>
+	    <th><b>Request Amount: </b></th>
 	    <td align="left">$<s:property value="ebt.amount" />.00</td>
 	</tr>
 	<tr>		    
-	    <td align="right"><b>DMB Amount: </b></td>
+	    <th><b>DMB Amount: </b></th>
 	    <td align="left">$<s:property value="ebt.dmb_amount" />.00</td>
 	</tr>
 	<tr>
-	    <td align="right"><b>Issued EBT: </b></td>
+	    <th><b>Issued EBT: </b></th>
 	    <td align="left">$<s:property value="ebt.paid_amount" />.00</td>
 	</tr>
 	<tr>
-	    <td align="right"><b>Date & Time: </b></td>
+	    <th><b>Date & Time: </b></th>
 	    <td align="left"><s:property value="ebt.date_time" /></td>
 	</tr>
 	<tr>			
-	    <td align="right"><b>Issued DMB: </b></td>
+	    <th><b>Issued DMB: </b></th>
 	    <td align="left">$<s:property value="ebt.donated_amount" />.00</td>
 	</tr>
 	<tr>
-	    <td align="right"><b>User:</b></td>
+	    <th><b>User:</b></th>
 	    <td align="left"><s:property value="ebt.user" /></td>
 	</tr>
 	<tr>
-	    <td align="right"><b>Total: </b></td>
+	    <th><b>Total: </b></th>
 	    <td align="left">$<s:property value="ebt.total" />.00</td>
 	</tr>
 	<s:if test="ebt.isCancelled()">
 	    <tr>
-		<td align="right"><b>Status: </b></td>
+		<th><b>Status: </b></th>
 		<td align="left">Cancelled</td>
 	    </tr>
 	</s:if>
 	<s:if test="ebt.isDispute_resolution()">
 	    <tr>
-		<td align="right"><b>Notes: </b></td>
+		<th><b>Notes: </b></th>
 		<td align="left"><s:property value="ebt.notes" /></td>
 	    </tr>
 	</s:if>				
 	<s:elseif test="ebt.hasBalance()">
 	    <tr>
-		<td align="right" bgcolor="red">
-		    <b>Balance: </b></td>
+		<th bgcolor="red">
+		    <b>Balance: </b></th>
 		<td align="left" $<s:property value="ebt.balance" />.00</td>
 	    </tr>
 	</s:elseif>
 	<s:if test="!ebt.isCancelled() && !ebt.isDispute_resolution()">
 	    <s:if test="ebt.needMoreIssue()">
 		<tr>
-		    <td align="right"><label for="bar_code_id">* Scan/Enter new Market Buck:</label></td>
+		    <th><label for="bar_code_id">* Scan/Enter new Market Buck:</label></th>
 		    <td align="left"><s:textfield name="ebt.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
 		</tr>
 		<tr>
-		    <td valign="top" align="center" colspan="2">
+		    <th colspan="2">
 			<s:submit name="action" type="button" value="Add" />
-		    </td>
+		    </th>
 		</tr>	  
 	    </s:if>
 	    <s:else>

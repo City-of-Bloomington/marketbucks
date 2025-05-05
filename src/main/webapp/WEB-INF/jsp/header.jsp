@@ -14,6 +14,7 @@
 	<s:head />
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
 	<link rel="SHORTCUT ICON" href="<s:property value='#application.url'/>images/favicon.ico" />
+	<link rel="stylesheet" href="<s:property value='#application.url'/>css/marketb.css" type="text/css" media="all" />	
 	<link rel="stylesheet" href="<s:property value='#application.url'/>css/top_menu.css" type="text/css" media="all" />
 	<title>Market Bucks</title>
 	<script type="text/javascript">

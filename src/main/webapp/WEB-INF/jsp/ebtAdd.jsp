@@ -31,50 +31,50 @@
   </s:elseif>
   <p>*indicates a required field</p>
   <hr />
-  <table width="90%" border="0"><caption>Issue/Edit Ebt</caption>
+  <table width="90%"><caption>Issue/Edit Ebt</caption>
       <tr>
-	  <td align="right"><b>Transaction ID:</b></td>
+	  <th><b>Transaction ID:</b></th>
 	  <td align="left"><s:property value="ebt.id" /></td>
       </tr>
       <tr>
-	  <td align="right"><label for="div3">* EBT Amount:</label></td>
+	  <th><label for="div3">* EBT Amount:</label></th>
 	  <td align="left">$ <s:textfield name="ebt.amount" maxlength="4" size="4" required="true" value="%{ebt.amount}" id="div3" onchange="checkDivBy3(this)" cssClass="need_focus" />.00 (Must be multiple of 3 ($))</td>
       </tr>
       <tr>
-	  <td align="right"><label for="auth_num">* Authorization #:</label></td>
+	  <th><label for="auth_num">* Authorization #:</label></th>
 	  
 	  <td align="left"><s:textfield name="ebt.approve" maxlength="20" size="20" required="true" value="%{ebt.approve}" id="auth_num" /></td>
       </tr>
       <tr>
-	  <td align="right"><label for="cust_num">* Customer Card #:</label></td>
+	  <th><label for="cust_num">* Customer Card #:</label></th>
 	  <td align="left"><s:textfield name="ebt.card_last_4" maxlength="4" size="4" required="true" value="%{ebt.card_last_4}" id="cust_num" /></td>
       </tr>
       <tr>
-	  <td align="right"><label for="inc_dbl">Include Double? </label></td>
+	  <th><label for="inc_dbl">Include Double? </label></th>
 	  <td align="left"><s:checkbox name="ebt.includeDouble" value="%{ebt.includeDouble}" id="inc_dbl" />Yes (uncheck if not included)</td>
       </tr>
       <s:if test="ebt.isCancelled()">
 	  <tr>
-	      <td align="right"><b>Status: </b></td>
+	      <th><b>Status: </b></th>
 	      <td align="left">Cancelled</td>
 	  </tr>
       </s:if>
       <s:elseif test="ebt.isDispute_resolution()">
 	  <tr>
-	      <td align="right"><b>Status: </b></td>
+	      <th><b>Status: </b></th>
 	      <td align="left">In Dispute</td>
 	  </tr>
       </s:elseif>
       <tr>
 	  <s:if test="ebt.id == ''">
-	      <td valign="top" align="center" colspan="2">
+	      <th valign="top" align="center" colspan="2">
 		  <s:submit name="action" type="button" value="Next" id="next_button" />
-	      </td>
+	      </th>
 	  </s:if>
 	  <s:elseif test="!ebt.isCancelled() && !ebt.isDispute_resolution()">
-	      <td align="right">
+	      <th align="right">
 		  <s:submit name="action" type="button" id="update_button" value="Update" />
-	      </td>
+	      </th>
 	      <td align="left">
 		  <s:submit name="action" type="button"  id="cancel_button" value="Cancel" />
 	      </td>

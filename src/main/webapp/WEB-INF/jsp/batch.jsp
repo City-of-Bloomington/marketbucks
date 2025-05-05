@@ -49,7 +49,7 @@
       </s:if>
   </s:if>
   
-  <table width="80%" border="0">
+  <table width="90%" border="0">
       <caption> Batch Details</caption>
       <s:if test="batch.id != ''">
 	  <tr>
