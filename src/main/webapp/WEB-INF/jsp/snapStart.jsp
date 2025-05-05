@@ -24,19 +24,19 @@
     <table border="0" width="90%">
 	<caption>Online Purchase</caption>
 	<tr>
-	    <td align="right"><label for="amnt">* Purchase Amount: </label></td>
+	    <th><label for="amnt">* Purchase Amount: </label></th>
 	    <td align="left">$<s:textfield name="snap.snapAmount" maxlength="8" size="8" required="true" value="%{snap.snapAmount}" cssClass="need_focus" id="amnt" />(xx.xx format only)</td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="dbl">Include Double? </label></td> 
+	    <th><label for="dbl">Include Double? </label></th> 
 	    <td align="left">
 		<s:checkbox name="snap.includeDouble" id="dbl" value="%{snap.includeDouble}" />Yes (uncheck if not included)
 	    </td>
 	</tr>
 	<tr>
-	    <td colspan="2" align="center">
+	    <th>
 		<s:submit name="action" type="button" id="save_button" value="Next" />
-	    </td>
+	    </th>
 	</tr>
     </table>
 </s:form>

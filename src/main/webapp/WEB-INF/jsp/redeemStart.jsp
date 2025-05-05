@@ -25,7 +25,7 @@
   <table border="0" width="90%"><caption>Redemption</caption>
       <tr><td align="center" colspan="2">Select a vendor from the list</td></tr>
       <tr>
-	  <td align="right" width="35%"><label for="ven_id">Vendor:</label></td>
+	  <th><label for="ven_id">Vendor:</label></th>
 	  <td align="left">
 	      <s:if test="hasVendors()">
 		  <s:select name="redeem.vendorNum2" list="vendors" listKey="vendorNum" listValue="fullName" headerKey="-1" headerValue="Pick Vendor" id="ven_id">
@@ -37,15 +37,16 @@
 	  </td>
       </tr>	      
       <tr>
-	  <td align="right"><label for="vendor_id">* Vendor number:</label></td>
+	  <th><label for="vendor_id">* Vendor number:</label></th>
 	  <td align="left">
 	      <s:textfield name="redeem.vendorNum" id="vendor_id" value="%{redeem.vendorNum}" />
 	  </td>
       </tr>
       <tr>
-	  <td valign="top" align="center" colspan="2">
+	  <th>
 	      <s:submit name="action" type="button" value="Next" />
-	  </td>
+	  </th>
+	  <td>&nbsp;</td>
       </tr>
   </table>
 </s:form>

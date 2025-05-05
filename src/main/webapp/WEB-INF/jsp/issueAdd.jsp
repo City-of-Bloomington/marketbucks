@@ -86,9 +86,10 @@
 		    <td align="left"><s:textfield name="ebt.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
 		</tr>
 		<tr>
-		    <th colspan="2">
+		    <th>
 			<s:submit name="action" type="button" value="Add" />
 		    </th>
+		    <td>&nbsp;</td>
 		</tr>	  
 	    </s:if>
 	    <s:else>

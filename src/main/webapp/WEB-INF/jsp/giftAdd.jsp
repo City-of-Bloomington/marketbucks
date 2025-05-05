@@ -33,41 +33,41 @@
       </div>
   </s:elseif>
   <p>*indicate a required field </p>  
-  <table border="0" width="90%"><caption> Gift Transaction</caption>
+  <table width="90%"><caption> Gift Transaction</caption>
       <tr>
-	  <td align="right" width="35%"><label for="div5">* Requested Amount:</label></td>
+	  <th width="35%"><label for="div5">* Requested Amount:</label></th>
 	  <td align="left">$<s:textfield name="gift.amount" maxlength="4" size="4" required="true" value="%{gift.amount}" id="div5" cssClass="need_focus" onchange="checkDivBy5(this)" />.00 (Must be divisible by $5)</td>
       </tr>
       <tr>
-	  <td align="right"><label for="type">* Payment Type:</label></td>
+	  <th><label for="type">* Payment Type:</label></th>
 	  <td align="left"><s:radio name="gift.pay_type" required="true" value="%{gift.pay_type}" list="{'Cash','Check','Money Order','Credit Card','Honorary'}" id="type" /></td>
       </tr>	  
       <tr>
-	  <td align="right"><label for="check_no">Check #/RecTrac:</label></td>
+	  <th><label for="check_no">Check #/RecTrac:</label></th>
 	  <td align="left"><s:textfield name="gift.check_no" maxlength="20" size="20" value="%{gift.check_no}" id="check_no" /></td>
       </tr>
       <s:if test="gift.isCancelled()">
 	  <tr>
-	      <td align="right"><b>Status:</b></td>
+	      <th><b>Status:</b></th>
 	      <td align="left">Cancelled</td>
 	  </tr>
       </s:if>
       <s:if test="ebt.isDispute_resolution()">
 	  <tr>
-	      <td align="right">Type:</td>
+	      <th>Type:</th>
 	      <td align="left">Dispute Resolution</td>
 	  </tr>
       </s:if>						
       <tr>
 	  <s:if test="gift.id == ''">
-	      <td valign="top" align="center" colspan="2">
+	      <th valign="top">
 		  <s:submit name="action" type="button" id="next_button" value="Next" />
-	      </td>
+	      </th><td>&nbsp;</td>
 	  </s:if>
 	  <s:elseif test="!gift.isCancelled() && !gift.isDispute_resolution()">
-	      <td align="right">
+	      <th>
 		  <s:submit name="action" type="button" id="update_button" value="Update" />
-	      </td>
+	      </th>
 	      <td align="left">
 		  <s:submit name="action" type="button" id="cancel_button" value="Cancel" />
 	      </td>

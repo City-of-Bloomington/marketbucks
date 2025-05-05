@@ -22,31 +22,31 @@
   </s:elseif>
   <table border="0" width="90%"><caption>MB Rx</caption>
       <tr>
-	  <td align="right" width="30%"><b>Voucher #:</b></td>
+	  <th width="30%"><b>Voucher #:</b></th>
 	  <td align="left"><s:property value="rx.voucherNum" /></td>
       </tr>
       <tr>
-	  <td align="right" width="30%"><b>Amount:</b></td>
+	  <th><b>Amount:</b></th>
 	  <td align="left">$<s:property value="rx.amount" /></td>
       </tr>
       <tr>
-	  <td align="right" width="30%"><b>Issued Amount:</b></td>
+	  <th><b>Issued Amount:</b></th>
 	  <td align="left">$<s:property value="rx.bucksTotal" /></td>
       </tr>				
       <tr>
-	  <td align="right"><b>Date & Time:</b></td>
+	  <th align="right"><b>Date & Time:</b></th>
 	  <td align="left">$<s:property value="rx.date_time" /></td>
       </tr>								
       <tr>
-	  <td align="right"><b>Issued by:</b></td>
+	  <th align="right"><b>Issued by:</b></th>
 	  <td align="left">$<s:property value="rx.user" /></td>
       </tr>
       
       <s:if test="rx.isCancelled()">
-	  <tr><td align="right">Status:</td><td align="left">Cancelled</td></tr>
+	  <tr><th align="right">Status:</th><td align="left">Cancelled</td></tr>
       </s:if>
       <s:if test="rx.isDispute_resolution()">
-	  <tr><td align="right">Type:</td><td align="left">Dispute Resolution</td></tr>
+	  <tr><th align="right">Type:</th><td align="left">Dispute Resolution</td></tr>
       </s:if>				
   </table>
 </s:form>

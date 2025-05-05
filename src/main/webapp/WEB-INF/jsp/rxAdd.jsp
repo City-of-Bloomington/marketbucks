@@ -38,42 +38,40 @@
       <caption>Rx Bucks</caption>
       <tr><td colspan="2">Note: Rx Amount is predetermined amount, no change is needed </td></tr>
       <tr>
-	  <td align="right" width="35%"><label for="div5">Rx Amount:</label></td>
+	  <th width="35%"><label for="div5">Rx Amount:</label></th>
 	  <td align="left">$<s:textfield name="rx.amount" maxlength="4" size="4" required="true" value="%{rx.amount}" id="div5" cssClass="need_focus" />.00 (Must be multiple of $3)</td>
       </tr>
       <tr>
-	  <td align="right"><label for="vouch">Voucher #:</label></td>
+	  <th><label for="vouch">Voucher #:</label></th>
 	  <td align="left"><s:textfield name="rx.voucherNum" maxlength="10" size="10" value="%{rx.voucherNum}" required="true" id="vouch" /> *</td>
       </tr>
       <s:if test="rx.isCancelled()">
 	  <tr>
-	      <td align="right"><b>Status:</b></td>
+	      <th><b>Status:</b></th>
 	      <td align="left">Cancelled</td>
 	  </tr>
       </s:if>
       <s:if test="rx.isDispute_resolution()">
 	  <tr>
-	      <td align="right"><b>Type:</b></td>
+	      <th><b>Type:</b></th>
 	      <td align="left">Dispute Resolution</td>
 	  </tr>
       </s:if>						
       <tr>
 	  <s:if test="rx.id == ''">
-	      <td valign="top" align="center" colspan="2">
+	      <th>
 		  <s:submit name="action" type="button" id="next_button" value="Next" />
-	      </td>
+	      </th><td>&nbsp;</td>
 	  </s:if>
 	  <s:elseif test="!rx.isCancelled() && !rx.isDispute_resolution()">
-	      <td align="center">
+	      <th>
 		  <s:submit name="action" type="button" id="update_button" value="Update" />
-	      </td>
+	      </th>
+	      <td>	      
 	      <s:if test="rx.hasBalance()">
-		  <td align="center">
 		      <s:submit name="action" type="button" id="next_button" value="Add Bucks" />
-		  </td>
 	      </s:if>
-	      <td align="right">
-		  <s:submit name="action" type="button" id="cancel_button" value="Cancel" />
+	       <s:submit name="action" type="button" id="cancel_button" value="Cancel" />
 	      </td>
 	  </s:elseif>
       </tr>
@@ -90,7 +88,7 @@
 	  </tr>
 	  <tr>
 	      <td colspan="4" align="right">Total</td>
-	      <td align="right">$<s:property value="rx.bucksTotal" />.00</td>
+	      <th>$<s:property value="rx.bucksTotal" />.00</td>
 	  </tr>
 	  <s:iterator var="one" value="rx.bucks">
 	      <tr>

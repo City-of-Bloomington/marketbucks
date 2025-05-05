@@ -25,46 +25,46 @@
   <table border="0" width="90%">
       <caption>GC Payment ID:<s:property value="gift.id" /></caption>
       <tr>
-	  <td align="right"><b>Payment Type:</b></td>
+	  <th><b>Payment Type:</b></th>
 	  <td align="left"><s:property value="gift.pay_type" /></td>
       </tr>
       <tr>
-	  <td align="right"><b>Check #:</b></td>
+	  <th><b>Check #:</b></th>
 	  <td align="left"><s:property value="gift.check_no" /></td>
       </tr>
       <tr>
-	  <td align="right"><b>User:</b></td>
+	  <th><b>User:</b></th>
 	  <td align="left"><s:property value="gift.user" /></td>
       </tr>
       <tr>
-	  <td align="right"><b>Requested:</b></td>
+	  <th><b>Requested:</b></th>
 	  <td align="left">$<s:property value="gift.amount" />.00</td>
       </tr>
       <tr>
-	  <td align="right"><b>Date & Time:</b></td>
+	  <th><b>Date & Time:</b></th>
 	  <td align="left"><s:property value="gift.date_time" /></td>
       </tr>
       <tr>
-	  <td align="right"><b>Total:</b></td>
+	  <th><b>Total:</b></th>
 	  <td align="left">$<s:property value="gift.bucksTotal" />.00</td>
       </tr>
       <s:if test="gift.isCancelled()">
 	  <tr>
-	      <td align="right"><b>Status:</b></td>
+	      <th><b>Status:</b></th>
 	      <td align="left">Cancelled</td>
 	  </tr>
       </s:if>				
       <s:if test="gift.hasBalance()">
 	  <tr bgcolor="red">
-	      <td align="right"><b>Balance:</b></td>
+	      <th><b>Balance:</b></th>
 	      <td align="left">$<s:property value="gift.balance" />.00</td>
 	  </tr>
       </s:if>
       <s:if test="!gift.isCancelled()">
 	  <s:if test="gift.needMoreIssue()">
 	      <tr>
-		  <td align="right"><label for="bar_code_id">* Scan/Enter new gift certificate:</label>
-		  </td>
+		  <th><label for="bar_code_id">* Scan/Enter new gift certificate:</label>
+		  </th>
 		  <td align="left">
 		      <s:textfield name="gift.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
 	      </tr>
@@ -76,9 +76,9 @@
 	  </s:else>
 	  <s:if test="gift.needMoreIssue()">
 	      <tr>
-		  <td valign="top" align="center" colspan="2">
+		  <th>
 		      <s:submit name="action" type="button" value="Add" />
-		  </td>
+		  </th><td>&nbsp;</td>
 	      </tr>
 	  </s:if>
 	  <tr>

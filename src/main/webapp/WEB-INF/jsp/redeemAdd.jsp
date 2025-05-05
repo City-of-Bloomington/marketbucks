@@ -24,38 +24,39 @@
   <table border="0" width="90%">
       <caption>Redemption ID:<s:property value="redeem.id" /></caption>
       <tr>
-	  <td align="right"><b>Vendor:</b></td>
+	  <th><b>Vendor:</b></th>
 	  <td align="left"><s:property value="redeem.vendor" /></td>
       </tr>
       <tr>
-	  <td align="right"><b>User:</b></td>
+	  <th><b>User:</b></th>
 	  <td align="left"><s:property value="redeem.user" /></td>		  
       </tr>
       <tr>
-	  <td align="right"><b>Date & time:</b></td>
+	  <th><b>Date & time:</b></th>
 	  <td align="left"><s:property value="redeem.date_time" /></td>
       </tr>
       <tr>
-	  <td align="right"><b>Total:</b></td>
+	  <th><b>Total:</b></th>
 	  <td align="left">$<s:property value="redeem.total" />.00</td>
       </tr>
       <tr>
-	  <td align="right" valign="top"><b>Invoice notes:</b></td>
+	  <th valign="top"><b>Invoice notes:</b></th>
 	  <td align="left"><s:property value="redeem.notes" /></td>
       </tr>
       <tr>
-	  <td align="right"><b>Count:</b></td>
+	  <th><b>Count:</b></th>
 	  <td align="left"><s:property value="redeem.count" /></td>
       </tr>		
       <s:if test="redeem.status == 'Open'">
 	  <tr>
-	      <td align="center" colspan="2"><label for="bar_code_id">* Scan/Enter new MB/GC:</label>
-		  <s:textfield name="redeem.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
+	      <th><label for="bar_code_id">* Scan/Enter new MB/GC:</label></th>
+	      		<td>  <s:textfield name="redeem.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
 	  </tr>
 	  <tr>
-	      <td valign="top" align="center" colspan="2">
+	      <th>
 		  <s:submit name="action" type="button" value="Add" />
-	      </td>
+	      </th>
+	      <td>&nbsp;</td>
 	  </tr>
 	  <tr>
 	      <td align="center" colspan="2">

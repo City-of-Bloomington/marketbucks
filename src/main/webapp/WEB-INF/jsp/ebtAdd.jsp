@@ -67,9 +67,10 @@
       </s:elseif>
       <tr>
 	  <s:if test="ebt.id == ''">
-	      <th valign="top" align="center" colspan="2">
+	      <th>
 		  <s:submit name="action" type="button" value="Next" id="next_button" />
 	      </th>
+	      <td>&nbsp;</td>
 	  </s:if>
 	  <s:elseif test="!ebt.isCancelled() && !ebt.isDispute_resolution()">
 	      <th align="right">

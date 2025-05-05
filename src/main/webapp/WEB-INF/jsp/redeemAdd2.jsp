@@ -8,7 +8,7 @@
  *
 	-->
 <s:form action="redeemStart" method="post">    
-  <h3>Add New Ebt</h3>
+  <h3>Add New Redemption</h3>
   <s:if test="hasActionErrors()">
 	<div class="errors">
       <s:actionerror/>
@@ -21,6 +21,7 @@
   </s:elseif>
   <p>*indicate a required field</p>
   <table border="0" width="90%">
+  	 <caption>Pick Vendor</caption>
       <tr>
 	  <td align="right" width="35%"><label for="vend_id">* Vendor:</label></td>
 	  <td align="left">$<s:select name="redeem.vendor_id" required="true" value="%{redeem.vendor_id}" list="vendors" listKey="id" listValue="fullName" headerKey="-1" headerValue="Pick Vendor" id="vend_id" /></td>

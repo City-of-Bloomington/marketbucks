@@ -25,64 +25,64 @@
   <table border="0" width="90%">
       <caption> Issue FMNP</caption>
       <tr>
-	  <td align="right">
-	      <b>Transaction ID: </b></td>
+	  <th>
+	      <b>Transaction ID: </b></th>
 	  <td align="left"> <s:property value="%{senior.id}" />
 	  </td>
       </tr>
       <tr>
-	  <td align="right"><b>Amount:</b></td>
+	  <th><b>Amount:</b></th>
 	  <td align="left">$<s:property value="%{senior.amount}" />.00</td>
       </tr>
       <tr>		  
-	  <td align="right"><b>Ticket #:</b></td>
+	  <th><b>Ticket #:</b></th>
 	  <td align="left"><s:property value="%{senior.ticketNum}" /></td>
       </tr>
       <tr>		  
-	  <td align="right"><b>Date & Time:</b></td>
+	  <th><b>Date & Time:</b></th>
 	  <td align="left"><s:property value="%{senior.date_time}" /></td>
       </tr>
       <tr>		      
-	  <td align="right"><b>User:</b></td>
+	  <th><b>User:</b></th>
 	  <td align="left"><s:property value="%{senior.user}" /></td>
       </tr>
       <tr>
-	  <td align="right"><b>Total:</b></td>
+	  <th><b>Total:</b></th>
 	  <td align="left">$<s:property value="%{senior.total}" />.00</td>
       </tr>
       <s:if test="senior.isCancelled()">
 	  <tr>
-	      <td align="right"><b>Status:</b></td>
+	      <th><b>Status:</b></th>
 	      <td align="left" align="left" colspan="3">Cancelled</td>
 	  </tr>
       </s:if>
       <s:if test="senior.isDispute_resolution()">
 	  <tr>
-	      <td align="right"><b>Status:</b></td>
+	      <th><b>Status:</b></th>
 	      <td align="left">In Dispute</td>
 	  </tr>
       </s:if>				
       <s:elseif test="senior.hasBalance()">
 	  <tr>
-	      <td align="right"><b>Balance:</b></td>
+	      <th><b>Balance:</b></th>
 	      <td align="left">$<s:property value="%{senior.balance}" />.00</td>
 	  </tr>
       </s:elseif>
       <s:if test="!senior.isCancelled() && !senior.isDispute_resolution()">
 	  <s:if test="senior.hasBalance()">
 	      <tr>
-		  <td align="right"><label for="bar_code_id">* Scan/Enter new Market Buck:</label></td>
+		  <th><label for="bar_code_id">* Scan/Enter new Market Buck:</label></th>
 		  <td align="left">
 		      <s:textfield name="senior.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
 	      </tr>
 	      <tr>
-		  <td valign="top" align="center" colspan="2">
+		  <th>
 		      <s:submit name="action" type="button" value="Add" />
-		  </td>
+		  </th>
 	      </tr>	  
 	  </s:if>
 	  <s:else>
-	      <tr><td align="center" colspan="2">All Market Bucks are issued for this customer</td></tr>
+	      <tr><td  colspan="2">All Market Bucks are issued for this customer</td></tr>
 	  </s:else>
 	  <tr>
 	      <td valign="top" align="center" colspan="2">If you need to Edit/Cancel this transaction click on <a href="<s:property value='#application.url' />seniorAdd.action?id=<s:property value='senior.id' />">Edit/Cancel Transaction <s:property value="id" /></a>.

@@ -21,36 +21,36 @@
 	</div>
   </s:elseif>
   <p>*indicates a required field</p>
-  <table border="0" width="90%">
+  <table width="90%">
       <caption>Redemption ID:<s:property value="redeem.id" /></caption>
       <tr>
-	  <td align="right"><b>Vendor:</b></td>
+	  <th><b>Vendor:</b></th>
 	  <td align="left"><s:property value="redeem.vendor" /></td>
       </tr>
       <tr>
-	  <td align="right"><b>User:</b></td>
+	  <th><b>User:</b></th>
 	  <td align="left"><s:property value="redeem.user" /></td>		  
       </tr>
       <tr>
-	  <td align="right"><b>Date & Time:</b></td>
+	  <th><b>Date & Time:</b></th>
 	  <td align="left"><s:property value="redeem.date_time" /></td>
       </tr>
       <tr>
-	  <td align="right"><b>Total:</b></td>
+	  <th><b>Total:</b></th>
 	  <td align="left">$<s:property value="redeem.total" />.00</td>
       </tr>
       <tr>
-	  <td align="right"><b>Count:</b></td>
+	  <th><b>Count:</b></th>
 	  <td align="left"><s:property value="redeem.count" /></td>
       </tr>
       <tr>
-	  <td align="right" valign="top"><label for="notes">Invoice notes:</lablek> </td>
+	  <th><label for="notes">Invoice notes:</lablek> </th>
 	  <td align="left"><s:textarea name="redeem.notes" value="%{redeem.notes}" rows="5" cols="80" id="notes" /></td>
       </tr>		
       <tr>
-	  <td valign="top" align="right">
+	  <th valign="top" align="right">
 	      <s:submit name="action" type="button" value="Update" />
-	  </td>
+	  </th>
 	  <s:if test="redeem.canCancel()">
 	      <td valign="top" align="left">
 		  <s:submit name="action" type="button" value="Cancel" />
@@ -62,9 +62,10 @@
       </tr>
       <tr>
 	  <s:if test="redeem.status == 'Open'">
-	      <td valign="top" align="center" colspan="2">
+	      <th>
 		  <s:submit name="action" type="button" value="Scan more MB/GC" />
-	      </td>
+	      </th>
+	      <td>&nbsp;</td>
 	  </s:if>
 	  <s:else>
 	      <td align="center" colspan="2">
