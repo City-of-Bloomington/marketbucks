@@ -22,27 +22,28 @@
     <table border="0" width="90%">
 	<caption>Search Options</caption>
 	<tr>
-	    <td align="right"><label for="vid">MB Vendor ID #:</label></td>
+	    <th><label for="vid">MB Vendor ID #:</label></th>
 	    <td align="left">
 		<s:textfield name="vendLst.id" maxlength="10" size="10" value="%{vendLst.id}" id="vid" />
 	    </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="vnum">Vendor Number:</label></td>
+	    <th><label for="vnum">Vendor Number:</label></th>
 	    <td align="left">
 		<s:textfield name="vendLst.vendorNum" maxlength="10" size="10" value="%{vendLst.vendorNum}" id="vnum" />
 	    </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="name">Name:</label></td>
+	    <th><label for="name">Name:</label></th>
 	    <td align="left"><s:textfield name="vendLst.name" maxlength="50" size="40" value="%{vendLst.name}" id="name" /> </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="status">Active Status:</label></td> 
+	    <th><label for="status">Active Status:</label></th> 
 	    <td align="left" align="left"><s:radio name="vendLst.activeStatus" value="%{vendLst.activeStatus}" list="#{'-1':'All','y':'Active','n':'Inactive'}"  id="status" /></td>
 	</tr>
 	<tr>
-	    <td align="center" colspan="2">
+	    <td>&nbsp;</td>
+	    <td>
 		<s:submit name="action" type="button" value="Submint" id="save_button" />
 	    </td>
 	</tr>

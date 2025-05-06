@@ -34,9 +34,10 @@
 	    </td>
 	</tr>
 	<tr>
-	    <th>
+	    <td>&nbsp;</td>
+	    <td>
 		<s:submit name="action" type="button" id="save_button" value="Next" />
-	    </th>
+	    </td>
 	</tr>
     </table>
 </s:form>

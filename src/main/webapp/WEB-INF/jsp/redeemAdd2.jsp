@@ -27,6 +27,7 @@
 	  <td align="left">$<s:select name="redeem.vendor_id" required="true" value="%{redeem.vendor_id}" list="vendors" listKey="id" listValue="fullName" headerKey="-1" headerValue="Pick Vendor" id="vend_id" /></td>
       </tr>
       <tr>
+	  <td>&nbsp;</td>
 	  <td valign="top" align="center" colspan="2">
 	      <s:submit name="action" type="button" value="Save" />
 	  </td>

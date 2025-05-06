@@ -43,10 +43,10 @@
 	  </td>
       </tr>
       <tr>
+	  <td>&nbsp;</td>
 	  <th>
 	      <s:submit name="action" type="button" value="Next" />
 	  </th>
-	  <td>&nbsp;</td>
       </tr>
   </table>
 </s:form>

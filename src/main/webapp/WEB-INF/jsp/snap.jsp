@@ -79,9 +79,10 @@
       </s:if>
       <s:if test="snap.id == ''">
 	  <tr>
-	      <th>
+	      <td>&nbsp;</td>
+	      <td>
 		  <s:submit name="action" type="button" value="Save" />
-	      </th>
+	      </td>
 	  </tr>
       </s:if>
       <s:elseif test="!snap.isCancelled()">

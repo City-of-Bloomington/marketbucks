@@ -19,46 +19,48 @@
   </div>
 </s:elseif>
 <s:form action="snapSearch" method="post">
-    <table border="0" width="90%"><caption>Search Options</caption>
+    <table width="90%">
+	<caption>Search Options</caption>
 	<tr>
-	    <td align="right"><label for="pid">Purchase ID:</label></td>
+	    <th><label for="pid">Purchase ID:</label></th>
 	    <td align="left"><s:textfield name="snapList.id" value="%{snapList.id}" size="8" id="pid" /></td>
 	</tr>
 	<tr>
- 	    <td align="right"><label for="cardn">Card #:</label></td>
+ 	    <th><label for="cardn">Card #:</label></th>
 	    <td align="left"><s:textfield name="snapList.cardNumber" value="%{snapList.cardNumber}" size="4" maxlength="4" id="cardn" /> </td>
 	</tr>		  
 	<tr>
-	    <td align="right"><label for="auth">Authorization #:</label></td>
+	    <th><label for="auth">Authorization #:</label></th>
 	    <td align="left"><s:textfield name="snapList.authorization" value="%{snapList.authorization}" size="10" id="auth" /> </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="amnt">Purchase Amount ($):</label></td>
+	    <th><label for="amnt">Purchase Amount ($):</label></th>
 	    <td align="left"><s:textfield name="snapList.amount" value="%{snapList.amount}" size="4" maxlength="4" id="amnt" /> </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="dbl">Double Request:</label></td>
+	    <th><label for="dbl">Double Request:</label></th>
 	    <td align="left"><s:radio name="snapList.doubleRequest" value="%{snapList.doubleRequest}" list="#{'-1':'All','Included':'Included','Not Included':'Not Included'}" id="dbl" /> </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="status">Status:</label></td>
+	    <th><label for="status">Status:</label></th>
 	    <td align="left"><s:radio name="snapList.status" value="%{snapList.status}" list="#{'-1':'All','Active':'Active','Cancelled':'Cancelled'}" id="status" /> </td>
 	</tr>		
 	<tr>
-	    <td align="right"><b>Date:</b></td>
+	    <th><b>Date:</b></th>
 	    <td align="left"><label for="from"> From</label><s:textfield name="snapList.date_from" value="%{snapList.date_from}" size="10" maxlength="10" cssClass="date" id="from" /><label for="to"> To </label><s:textfield name="snapList.date_to" value="%{snapList.date_to}" size="10" maxlength="10" id="to" cssClass="date" /></td>
 	</tr>  
 	<tr>
-	    <td align="right"><label for="sortby">Sort by:</label></td> 
+	    <th><label for="sortby">Sort by:</label></th> 
 	    <td align="left">
 		<s:select name="snapList.sortBy" id="sortby"
 			      value="%{snapList.sortBy}"
 			  list="#{'-1':'ID','b.date':'Date & Time'}" headerKey="-1" headerValue="ID" /></td>
 	</tr>
 	<tr>
-	    <td align="center" colspan="2">
+	    <td>&nbsp;</td>
+	    <td>
 		<s:submit name="action" type="button" value="Search" />
-		</td>
+	    </td>
 	</tr>
     </table>
 </s:form>

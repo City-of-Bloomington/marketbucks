@@ -25,57 +25,60 @@
   <table border="0" width="90%">
       <caption>Issue FMNP WIC </caption>
       <tr>
-	  <td align="right">Transaction ID: </td><td align="left"> <s:property value="%{wic.id}" /></td>
+	  <th>Transaction ID: </td><td align="left"> <s:property value="%{wic.id}" /></td>
       </tr>
       <tr>
-	  <td align="right"><b>Amount:</b></td>
+	  <th><b>Amount:</b></td>
 	  <td align="left">$<s:property value="%{wic.amount}" />.00</td>
       </tr>
       <tr>
-	  <td align="right"><b>Ticket #:</b></td>
+	  <th><b>Ticket #:</b></td>
 	  <td align="left"><s:property value="%{wic.ticketNum}" /></td>		  
       </tr>
       <tr>
-	  <td align="right"><b>Date & Time:</b></td>
+	  <th><b>Date & Time:</b></td>
 	  <td align="left"><s:property value="%{wic.date_time}" /></td>		  
       </tr>
       <tr>
-	  <td align="right"><b>User:</b></td>
+	  <th><b>User:</b></td>
 	  <td align="left"><s:property value="%{wic.user}" /></td>
 	  
       </tr>
       <tr>
-	  <td align="right"><b>Total:</b></td>
+	  <th><b>Total:</b></td>
 	  <td align="left">$<s:property value="%{wic.total}" />.00</td>
       </tr>
       
       <s:if test="wic.isCancelled()">
 	  <tr>			  
-	      <td align="right"><b>Status:</b></td>
+	      <th><b>Status:</b></td>
 	      <td align="left">Cancelled</td>
 	  </tr>
       </s:if>
       <s:if test="wic.isDispute_resolution()">
 	  <tr>
-	      <td align="right"><b>Status:</b></td>
+	      <th><b>Status:</b></td>
 	      <td align="left">Dispute resolution</td>
 	  </tr>
       </s:if>				
       <s:elseif test="wic.hasBalance()">
 	  <tr>
-	      <td align="right" bgcolor="red">
-		  <b>Balance:</b></td> 
-	      <td align="left">$ <s:property value="%{wic.balance}" />.00</td>
+	      <th bgcolor="red">
+		  <b>Balance:</b></th> 
+	      <td>$ <s:property value="%{wic.balance}" />.00</td>
 	  </tr>
       </s:elseif>
       <s:if test="!wic.isCancelled() && !wic.isDispute_resolution()">
 	  <s:if test="wic.hasBalance()">
 	      <tr>
-		  <td align="right"><label for="bar_code_id"> * Scan/Enter new Market Buck:</label>
-		  <s:textfield name="wic.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
+		  <th><label for="bar_code_id"> * Scan/Enter new Market Buck:</label></th>
+		  <td>
+		      <s:textfield name="wic.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" />
+		  </td>
 	      </tr>
 	      <tr>
-		  <td valign="top" align="right">
+		  <td>&nbsp;</td>		  
+		  <td>
 		      <s:submit name="action" type="button" value="Add" />
 		  </td>
 	      </tr>	  

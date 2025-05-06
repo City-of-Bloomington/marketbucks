@@ -15,46 +15,48 @@
     <s:actionmessage/>
 </s:elseif>
 <s:form action="ebtSearch" method="post">
-    <table border="1" width="80%"><caption>Search Options</caption>
-	<tr><td align="right"><label for="ebt_id">Ebt ID:</label></td>
+    <table width="80%">
+	<caption>Search Options</caption>
+	<tr><th><label for="ebt_id">Ebt ID:</label></th>
 	    <td align="left"><s:textfield name="ebtList.id" value="%{ebtList.id}" size="8" id="ebt_id" /></td>
 	</tr>
-	<tr><td align="right"><label for="mb_id">MB ID:</label></td>
+	<tr><th><label for="mb_id">MB ID:</label></th>
 	    <td align="left"><s:textfield name="ebtList.buck_id" value="%{ebtList.buck_id}" size="8" id="mb_id" /></td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="card_num">Card #:</label></td>
+	    <th><label for="card_num">Card #:</label></th>
 	    <td align="left"><s:textfield name="ebtList.card_last_4" value="%{ebtList.card_last_4}" size="4" maxlength="4" id="card_num" /> </td>
 	</tr>		  
 	<tr>
-	    <td align="right"><label for="auth_num">Authorization #:</label></td>
+	    <th><label for="auth_num">Authorization #:</label></th>
 	    <td align="left"><s:textfield name="ebtList.approve" value="%{ebtList.approve}" size="10" id="auth_num" /> </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="ebt_amnt">EBT Amount ($):</label></td>
+	    <th><label for="ebt_amnt">EBT Amount ($):</label></th>
 	    <td align="left"><s:textfield name="ebtList.amount" value="%{ebtList.amount}" size="4" maxlength="4" id="ebt_amnt" /> </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="status">Status:</label></td>
+	    <th><label for="status">Status:</label></th>
 	    <td align="left"><s:radio name="ebtList.cancelled" value="%{ebtList.cancelled}" list="#{'-1':'All','n':'Active','y':'Cancelled'}" id="status" /> </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="dispute">Dispute Resolution?</label></td>
+	    <th><label for="dispute">Dispute Resolution?</label></th>
 	    <td align="left"><s:radio name="ebtList.dispute_resolution" value="%{ebtList.dispute_resolution}" list="#{'-1':'All','n':'No','y':'Yes'}" id="dispute" /> </td>
 	</tr>					
 	<tr>
-	    <td align="right"><b>Date:</b></td>
+	    <th><b>Date:</b></th>
 	    <td align="left"><label for="from"> From</label><s:textfield name="ebtList.date_from" value="%{ebtList.date_from}" size="10" maxlength="10" cssClass="date" id="from" /><label for="to"> To </label><s:textfield name="ebtList.date_to" value="%{ebtList.date_to}" size="10" maxlength="10" cssClass="date" id="to" /></td>
 	</tr>  
 	<tr>
-	    <td align="right"><label for="sort_by">Sort by:</label></td>
+	    <th><label for="sort_by">Sort by:</label></th>
 	    <td align="left">
 		<s:select name="ebtList.sortBy"
 			  value="%{ebtList.sortBy}"
 			  list="#{'-1':'ID','e.date_time':'Date & Time'}" headerKey="-1" headerValue="ID" id="sort_by" /></td>
 	</tr>  
 	<tr>
-	  <td align="center" colspan="2">
+	    <td>&nbsp;</td>	    
+	  <td>
 	      <s:submit name="action" type="button" value="Search" />
 	  </td>
       </tr>

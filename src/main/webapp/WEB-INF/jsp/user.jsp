@@ -25,48 +25,48 @@
 	    <s:actionmessage/>
 	</div>
     </s:elseif>
-    <table border="0" width="90%"><caption>User </caption>
+    <table width="90%">
+	<caption>User </caption>
 	<s:if test="person.id != ''">
-	    <tr>							
-		<td align="right"><label>User ID:</label></td>
+	    <tr>
+		<th><label>User ID:</label></th>
 		<td align="left">
 		    <s:property value="%{person.id}" />
 		</td>
 	    </tr>							 
 	</s:if>
 	<tr>
-	    <td align="right" width="25%"><label for="username">Username:</label></td>
+	    <th width="25%"><label for="username">Username:</label></th>
 	    <td align="left">
 		<s:textfield name="person.username" maxlength="30" size="30" value="%{person.username}" required="true" id="username" /> * (for login)
 	    </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="fname">Full Name:</label></td>
+	    <th><label for="fname">Full Name:</label></th>
 	    <td align="left"><s:textfield name="person.fullName" maxlength="30" size="50" required="true" value="%{person.fullName}" id="fname" /> ** </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="role">Role:</label></td>
+	    <th><label for="role">Role:</label></th>
 	    <td align="left"><s:radio name="person.role" value="%{person.role}" list="#{'-1':'View only','Edit':'Edit Only','Edit:Delete':'Edit and Delete','Admin:Edit:Delete':'All (admin)'}" id="role" /></td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="inactive">Inactive:</label></td>
+	    <th><label for="inactive">Inactive:</label></th>
 	    <td align="left"><s:checkbox name="person.inactive" value="%{person.inactive}" id="inactive" /> Yes (check this to inactivate)				
 	    </td>
-	</tr>	  
-	<s:if test="person.id == ''">
-	    <tr>		
-		<td valign="top" align="center" colspan="2">
+	</tr>
+	<tr>
+	    <td>&nbsp;</td>
+	    <s:if test="person.id == ''">
+		<td>
 		    <s:submit name="action" type="button" value="Save" id="save_button" />
 		</td>
-	    </tr>
-	</s:if>
-	<s:else>
-	    <tr>		
-		<td align="center" colspan="2">
+	    </s:if>
+	    <s:else>
+		<td>
 		    <s:submit name="action" type="button" id="update_button" value="Update" />
 		</td>
-	    </tr>
-	</s:else>
+	    </s:else>
+	</tr>
     </table>
 </s:form>
 <br />

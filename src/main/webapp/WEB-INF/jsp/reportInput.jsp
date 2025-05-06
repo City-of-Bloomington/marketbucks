@@ -20,15 +20,16 @@
 	</div>
   </s:if>
   <p>Select one or more of report types.</p>
-  <table border="0" width="90%"><caption>Report Options</caption>
+  <table width="90%">
+      <caption>Report Options</caption>
       <tr>
 	  <td><b>Report type:</b></td>
       </tr>
       <tr>
-	  <td align="left"><s:checkbox name="report.distributeMB" value="%{report.distributeMB}"  />Ebt MB Distribution (including dispute resol. trans. if any)</td>
+	  <td><s:checkbox name="report.distributeMB" value="%{report.distributeMB}"  />Ebt MB Distribution (including dispute resol. trans. if any)</td>
       </tr>
       <tr>
-	  <td align="left"><s:checkbox name="report.distributeGC" value="%{report.distributeGC}"  />GC Distribution (including dispute resol. trans. if any)</td>
+	  <td><s:checkbox name="report.distributeGC" value="%{report.distributeGC}"  />GC Distribution (including dispute resol. trans. if any)</td>
       </tr>
       <tr>
 	  <td align="left"><s:checkbox name="report.distributeRX" value="%{report.distributeRX}"  />MarketRX Distribution (including dispute resol. trans. if any)</td>
@@ -77,24 +78,27 @@
 	  <td align="left"><s:checkbox name="report.issuedNotRedeemed" value="%{report.issuedNotRedeemed}"  />MB & BC issued but not redeemed </td>
       </tr>
   </table>
-  <table width="90%" border="0"><caption>Date Options</caption>
-      <td align="right"><label for="day">Day</label></td>
-      <td align="left"><s:textfield name="report.day" value="%{report.day}" size="10" cssClass="date" id="day" />, </td>
+  <table width="90%">
+      <caption>Date Options</caption>
+      <tr>
+	  <th><label for="day">Day</label></th>
+	  <td align="left"><s:textfield name="report.day" value="%{report.day}" size="10" cssClass="date" id="day" />, </td>
       </tr>		
       <tr>  
-	  <td align="right"><label for="year">Year</label></td>
+	  <th><label for="year">Year</label></th>
 	  <td align="left"><s:select name="report.year" list="years" value="%{report.year}" id="year" /> or</td>
       </tr>
       <tr>
-	  <td align="right"><label for="from">Date, from:</label></td>
+	  <th><label for="from">Date, from:</label></th>
 	  <td align="left"><s:textfield name="report.date_from" maxlength="10" size="10" value="%{report.date_from}" cssClass="date" id="from" /><label for="to"> To </label><s:textfield name="report.date_to" maxlength="10" size="10" value="%{report.date_to}" cssClass="date" id="to" /></td>
       </tr>
       <tr>
-	  <td align="right"><label for="output">Output format:</label></td>
+	  <th><label for="output">Output format:</label></th>
 	  <td align="left"><s:checkbox name="format" value="format"  id="output" />CSV format file</td>
       </tr>
       <tr>
-	  <td colspan="2" align="center">
+	  <td>&nbsp;</td>
+	  <td>
 	      <s:submit name="action" type="button" value="Submit" />
 	  </td>
       </tr>

@@ -64,9 +64,10 @@
 		  <td>  <s:textfield name="rx.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
 	      </tr>
 	      <tr>
-		  <th valign="top" align="right">
+		  <td>&nbsp;</td>
+		  <td>
 		      <s:submit name="action" type="button" value="Add" />
-		  </th>
+		  </td>
 	      </tr>	  
 	  </s:if>
 	  <s:else>

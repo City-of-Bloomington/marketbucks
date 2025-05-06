@@ -48,27 +48,27 @@
   </s:elseif>
   <table border="0" width="90%">
       <tr>
-	  <td align="right" width="35%"><b>Dispute ID:</b></td>
+	  <th width="35%"><b>Dispute ID:</b></td>
 	  <td align="left">
 	      <a href="<s:property value='#application.url' />disputeEdit.action?id=<s:property value='resolution.dispute_id'/>"> <s:property value="resolution.dispute_id" /></a></td>					
       </tr>
       <tr>
-	  <td align="right"><b>Disputed MB/GC ID:</b></td>
+	  <th><b>Disputed MB/GC ID:</b></th>
 	  <td align="left"><s:property value="resolution.dispute.buck_id" /></td>
       </tr>
       <tr>
-	  <td align="right" valign="top" width="35%"><b>Reason:</b></td>
+	  <th valign="top" width="35%"><b>Reason:</b></th>
 	  <td align="left"><s:property value="resolution.dispute.reason" /></td>
       </tr>
       <s:if test="resolution.id != ''">
 	  <tr>
-	      <td align="right" valign="top"><b>Status:</b></td>
+	      <th valign="top"><b>Status:</b></th>
 	      <td align="left"><s:property value="resolution.status" /></td>
 	  </tr>					
       </s:if>		  		  
       <s:if test="resolution.dispute.reason == 'Expired'">
 	  <tr>
-	      <td align="right" valign="top"><label for="exp_date">New Expire Date:</label></td>
+	      <th valign="top"><label for="exp_date">New Expire Date:</label></th>
 	      <td align="left"><s:textfield name="resolution.expire_date" value="%{resolution.expire_date}" size="10" cssClass="date" id="exp_date" /></td>
 	  </tr>
       </s:if>
@@ -77,14 +77,14 @@
 	      <td colspan="2">If the dispute is caused by a typo, enter the new MB/GC id number below, ignore the other fields and then click on 'Submit'.</td>
 	  </tr>
 	  <tr>
-	      <td align="right" width="35%"><label for="buck_id">New MB/GC ID:</label></td>
+	      <th width="35%"><label for="buck_id">New MB/GC ID:</label></th>
 	      <td align="left"><s:textfield name="resolution.new_buck_id" value="%{resolution.new_buck_id}" size="8" maxlength="10" id="buck_id" /></td>
 	  </tr>
 	  <tr>
 	      <td colspan="2">1 - If you think this MB/GC is valid and we need to add it to the system, then pick the value (3, 5 or 20) and expire date from the list below, then go to point 2 (for MB) or 3 (for GC) below to be able to issue it</td>
 	  </tr>
 	  <tr>
-	      <td align="right" valign="top" width="35%"><label for="conf_id">Value:</label></td>
+	      <th valign="top" width="35%"><label for="conf_id">Value:</label></th>
 	      <td align="left"><s:select name="resolution.conf_id" value="%{resolution.conf_id}" list="confs" listKey="id" listValue="info" headerKey="-1" headerValue="" id="conf_id" /></td>
 	  </tr>
 	  <tr>
@@ -94,7 +94,7 @@
 	      <td colspan="2">3 - If this is a GC, the payment type will default to 'Dispute Resolution'</td>
 	  </tr>			
 	  <tr>
-	      <td align="right" valign="top" width="35%"><b>Payment Type:</b></td>
+	      <th valign="top" width="35%"><b>Payment Type:</b></th>
 	      <td align="left">Dispute Resolution</td>
 	  </tr>
       </s:elseif>
@@ -112,7 +112,9 @@
 	</s:elseif>
 	<s:if test="resolution.status != 'Success'">
 	    <tr>
-		<td align="center" colspan="2">
+		<td>&nbsp;</td>		
+
+		<td>
 		    <s:submit name="action" type="button" value="Submit" />
 		</td>
 	    </tr>

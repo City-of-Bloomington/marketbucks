@@ -20,20 +20,21 @@
 </s:elseif>
 
 <table border="1">
+    <caption>MB/GC Details</caption>
     <tr>
-	<td>Id:</td><td><s:property value="%{buck.id}" /></td>
+	<th>Id:</th><td><s:property value="%{buck.id}" /></td>
     </tr>
     <tr>
-	<td>Value:</td><td align="right">$<s:property value="%{buck.value}" />.00</td>
+	<th>Value:</th><td align="right">$<s:property value="%{buck.value}" />.00</td>
     </tr>
     <tr>
-	<td>Expire Date:</td><td><s:property value="%{buck.expire_date}" /></td>				
+	<th>Expire Date:</th><td><s:property value="%{buck.expire_date}" /></td>				
     </tr>
     <tr>
-	<td>Fund Type:</td><td><s:property value="%{buck.fund_typeStr}" /></td>
+	<th>Fund Type:</th><td><s:property value="%{buck.fund_typeStr}" /></td>
     </tr>
     <tr>
-	<td>Is Voided? </td><td><s:if test="buck.isVoided()">Yes</s:if><s:else>No</s:else></td>	
+	<th>Is Voided? </th><td><s:if test="buck.isVoided()">Yes</s:if><s:else>No</s:else></td>	
     </tr>
 </table>
 <s:if test="buck.hasEbt()">

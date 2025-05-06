@@ -9,48 +9,49 @@
 	-->
 <h3>Search Redemptions</h3>
 <s:form action="redeemSearch" method="post">
-    <table border="0" width="90%">
+    <table width="90%">
 	<caption>Search Options</caption>
-	<tr><td align="right"><label for="rem_id">Redemption ID:</label></td>
+	<tr><th><label for="rem_id">Redemption ID:</label></th>
 	    <td align="left"><s:textfield name="redeemList.id" value="%{redeemList.id}" size="8" id="rem_id" /></td>
 	</tr>
-	<tr><td align="right"><label for="buck_id">MB/GC ID:</label></td>
+	<tr><th><label for="buck_id">MB/GC ID:</label></th>
 	    <td align="left"><s:textfield name="redeemList.buck_id" value="%{redeemList.buck_id}" size="8" id="buck_id" /></td>
 	</tr>
 	
 	<tr>
-	    <td align="right"><label for="vendor_id">Vendor ID:</label></td>
+	    <th><label for="vendor_id">Vendor ID:</label></th>
 	    <td align="left"><s:textfield name="redeemList.vendor_id" value="%{redeemList.vendor_id}" size="8" id="vendor_id" /></td>
 	</tr>  
 	<tr>
-	    <td align="right"><label for="vendorName">Vendor Name:</label></td>
+	    <th><label for="vendorName">Vendor Name:</label></th>
 	    <td align="left"><s:textfield name="vendorName" value="" size="30" maxlength="30" id="vendorName" /> </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="status">Status:</label></td>
+	    <th><label for="status">Status:</label></th>
 	    <td align="left"><s:radio name="redeemList.status" value="%{redeemList.status}" list="#{'-1':'All','Open':'Open','Completed':'Finalized'}" headerKey="-1" headerValue="All" id="status" /> </td>
 	</tr>		  
 	<tr>
-	    <td align="right"><label for="type">Payment Type:</label></td>
+	    <th><label for="type">Payment Type:</label></th>
 	    <td align="left"><s:radio name="redeemList.payType" value="%{redeemList.payType}" list="#{'-1':'All','MB:GC':'MB & GC','GC':'GC Only'}" headerKey="-1" headerValue="All" id="type" /> </td>
 	</tr>
 	<tr>
-	    <td align="right"><label for="exp">Redemption Export:</label></td>
+	    <th><label for="exp">Redemption Export:</label></th>
 	    <td align="left"><s:radio name="redeemList.export" value="%{redeemList.export}" list="#{'-1':'All','exported':'Exported Only','notExported':'Not Exported Yet'}" headerKey="-1" headerValue="All" id="exp" /> </td>
 	</tr>		 
 	<tr>
-	    <td align="right"><b>Date:</b></td>
+	    <th><b>Date:</b></th>
 	    <td align="left"><label for="from"> From</label><s:textfield name="redeemList.date_from" value="%{redeemList.date_from}" size="10" maxlength="10" cssClass="date" id="from" /><label for="to"> To </label><s:textfield name="redeemList.date_to" value="%{redeemList.date_to}" size="10" maxlength="10" cssClass="date" id="to" /></td>
 	</tr>  
 	<tr>
-	    <td align="right"><label for="sortBy">Sort by:</label></td>
+	    <th><label for="sortBy">Sort by:</label></th>
 	    <td align="left">
 		<s:select name="redeemList.sortBy"
 			  value="%{redeemList.sortBy}"
 			  list="#{'-1':'ID','v.lname':'Vendor Name','r.date_time':'Date'}" headerKey="" headerValue="ID" id="sortBy" /></td>
 	  </tr>  
 	  <tr>
-	      <td align="center" colspan="2">
+	      <td>&nbsp;</td>
+	      <td>
 		  <s:submit name="action" type="button" value="Search" />
 	      </td>
 	  </tr>

@@ -18,24 +18,26 @@
   </div>
 </s:elseif>
 <s:form action="buckSearch" method="post">
-    <table width="90%" border="0">
-	<tr><td align="right"><label for="list_id">MB or GC ID:</label></td>
+    <table width="90%">
+	<caption>Search Options</caption>
+	<tr><th><label for="list_id">MB or GC ID:</label></th>
 	    <td align="left"><s:textfield name="buckList.id" value="%{buckList.id}" size="8" id="list_id" /></td>
 	</tr>
-	<tr><td align="right"><label for="stats">Status:</label></td>
+	<tr><th><label for="stats">Status:</label></th>
 	    <td align="left"><s:radio name="buckList.type" value="%{buckList.type}" list="#{'-1':'All','issued':'Issued','unissued':'Unissued'}" id="status" /></td>
 	</tr>					
-	<tr><td align="right"><label for="batch_id">Batch ID:</label></td>
+	<tr><th><label for="batch_id">Batch ID:</label></th>
 	    <td align="left"><s:textfield name="buckList.batch_id" value="%{buckList.batch_id}" size="8" id="batch_id" /></td>
 	</tr>
 	<tr>
-	    <td align="right"><b>Printed Batch Date:</b></td>
+	    <th><b>Printed Batch Date:</b></th>
 	    <td align="left"><label for="from"> From</label><s:textfield name="buckList.date_from" value="%{buckList.date_from}" size="10" maxlength="10" cssClass="date" id="from" /><label for="to"> To </label><s:textfield name="buckList.date_to" value="%{buckList.date_to}" size="10" maxlength="10" cssClass="date" id="to" /></td>
 	</tr>  
-      <tr>
-	  <td align="center" colspan="2">
-	      <s:submit name="action" type="button" value="Search" />
-	  </td>
+	<tr>
+	    <td>&nbsp;</td>
+	    <td>
+		<s:submit name="action" type="button" value="Search" />
+	    </td>
       </tr>
   </table>
 </s:form>

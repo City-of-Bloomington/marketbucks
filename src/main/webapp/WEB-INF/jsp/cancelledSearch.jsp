@@ -18,25 +18,27 @@
   </div>
 </s:elseif>
 <s:form action="cancelledSearch" method="post">
-    <table width="90%" border="0"><caption>Find voided MB</caption>
-	<tr><td align="right"><label for="mb_id">MB/GC ID:</label></td>
+    <table width="90%">
+	<caption>Find voided MB</caption>
+	<tr><th><label for="mb_id">MB/GC ID:</label></th>
 	    <td align="left"><s:textfield name="bucksList.id" value="%{bucksList.id}" size="8" id="mb_id" /></td>
 	</tr>
 	<tr>
-	    <td align="right"><b>Date:</b></td>
+	    <th><b>Date:</b></th>
 	    <td align="left"><label for="date_from"> From</label><s:textfield name="bucksList.date_from" value="%{bucksList.date_from}" size="10" maxlength="10" cssClass="date" id="date_from" /><label for="date_to"> To </label><s:textfield name="bucksList.date_to" value="%{bucksList.date_to}" size="10" maxlength="10" cssClass="date" id="date_to" /></td>
 	</tr>  
 	<tr>
-	    <td align="right"><label for="sort_by">Sort by:</label></td>
+	    <th><label for="sort_by">Sort by:</label></th>
 	    <td align="left">
 		<s:select name="bucksList.sortBy" id="sort_by"
 			  value="%{bucksList.sortBy}"
 			  list="#{'-1':'ID','b.date_time':'Date & Time'}" headerKey="-1" headerValue="ID" /></td>
 	</tr>  
 	<tr>
-	    <td align="center" colspan="2">
+	    <td>&nbsp;</td>	    
+	    <td>
 		<s:submit name="action" type="button" value="Submit" />
-	  </td>
+	    </td>
 	</tr>
     </table>
 </s:form>

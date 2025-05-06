@@ -34,7 +34,7 @@
   <table width="90%"><caption>Issue/Edit Ebt</caption>
       <tr>
 	  <th><b>Transaction ID:</b></th>
-	  <td align="left"><s:property value="ebt.id" /></td>
+	  <td><s:property value="ebt.id" /></td>
       </tr>
       <tr>
 	  <th><label for="div3">* EBT Amount:</label></th>
@@ -67,10 +67,10 @@
       </s:elseif>
       <tr>
 	  <s:if test="ebt.id == ''">
-	      <th>
+	      <td>&nbsp;</td>	      
+	      <td>
 		  <s:submit name="action" type="button" value="Next" id="next_button" />
-	      </th>
-	      <td>&nbsp;</td>
+	      </td>
 	  </s:if>
 	  <s:elseif test="!ebt.isCancelled() && !ebt.isDispute_resolution()">
 	      <th align="right">

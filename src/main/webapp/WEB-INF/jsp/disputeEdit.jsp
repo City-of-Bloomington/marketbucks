@@ -31,31 +31,31 @@
 		<li>Otherwise click on 'Resolution' to resolve this case.</li>
 	    </ul>
 	</s:if>
-	<table width="90%" border="0"><caption>Dispute Update</caption>
+	<table width="90%"><caption>Dispute Update</caption>
 	    <tr>
-		<td align="right"><label for="redeem_id">View Redemption:</label></td>
+		<th><label for="redeem_id">View Redemption:</label></th>
 		<td><a href="<s:property value='#application.url' />redeemEdit.action?id=<s:property value='dispute.redeem_id' id="redeem_id" />"> <s:property value="dispute.redeem_id" /></a></td>		  
 	    </tr>
 	    <tr>
-		<td align="right"><b>Buck ID:</b></td>
+		<th><b>Buck ID:</b></th>
 		<td align="left"><s:property value="dispute.buck_id" /></td>
 	    </tr>
 	    <s:if test="dispute.canEdit()">
 		<tr><td colspan="2"><label for="notes"> Invoice Notes:</label> (the text entered here will show on vendor&#39;s invoice)</td></tr>
 		<tr>
-		    <td align="right" valign="top"><label></label></td>
+		    <th valign="top"><label></label></th>
 		    <td align="left"><s:textarea name="dispute.notes" value="%{dispute.notes}" rows="5" cols="70" id="notes" /></td>
 		</tr>
 	    </s:if>
 	    <s:elseif test="dispute.hasNotes()">
 		<tr><td colspan="2"><b> Invoice Notes: </b>(the text entered here will show on vendor&#39;s invoice)</td></tr>					
 		<tr>
-		    <td align="right" valign="top">&nbsp;</td>
+		    <th valign="top">&nbsp;</th>
 		    <td align="left"><s:property value="%{dispute.notes}" /></td>
 		</tr>
 	    </s:elseif>
 	    <tr>
-		<td align="right" width="35%"><label for="status">Status:</label></td>
+		<th width="35%"><label for="status">Status:</label></th>
 		<td align="left">
 		    <s:if test="dispute.status == 'Resolved'">
 			Resolved
@@ -66,15 +66,15 @@
 		</td>
 	    </tr>
 	    <tr>
-		<td align="right" valign="top"><b>Reason:</b></td>
+		<th valign="top"><b>Reason:</b></th>
 		<td align="left"><s:property value="dispute.reason" /></td>
 	    </tr>
 	    <tr>
-		<td align="right" valign="top"><b>User:</b></td>
+		<th valign="top"><b>User:</b></th>
 		<td align="left"><s:property value="dispute.user" /></td>
 	    </tr>
 	    <tr>
-		<td align="right" valign="top"><b>Date & Time:</b></td>
+		<th valign="top"><b>Date & Time:</b></th>
 		<td align="left"><s:property value="dispute.date_time" /></td>
 	    </tr>		
 	    <s:if test="dispute.status == 'Waiting'">

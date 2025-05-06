@@ -53,74 +53,79 @@
       <caption> Batch Details</caption>
       <s:if test="batch.id != ''">
 	  <tr>
-	      <td align="right"><label for="bactch_id">ID:</label></td>
-	      <td align="left"><s:property value="id" id="batch_id" /></td>
+	      <th><b>ID:</b></th>
+	      <td align="left"><s:property value="id" /></td>
 	  </tr>
       </s:if>
       <tr>
-	  <td align="right" width="30%"><label for="batch_pages">* Number of pages:</label></td>
-	  <td align="left"><s:textfield name="batch.pages" maxlength="4" size="4" required="true" value="%{batch.pages}" id="batch_pages" cssClass="need_focus" /> (Each page has 3 MB's or GC's)</td>
+	  <th width="30%"><label for="batch_pages">* Number of pages:</label></th>
+	  <td><s:textfield name="batch.pages" maxlength="4" size="4" required="true" value="%{batch.pages}" id="batch_pages" cssClass="need_focus" /> (Each page has 3 MB's or GC's)</td>
       </tr>
       <tr>
-	  <td align="right" width="30%"><label for="start_seq">*Start seq:</label></td>
+	  <th width="30%"><label for="start_seq">*Start seq:</label></th>
 	  <td align="left"><s:textfield name="batch.start_seq" maxlength="10" size="10" required="true" id="start_seq" value="%{batch.start_seq}" /></td>
       </tr>
       <tr>
-	  <td align="right"><label for="type">Type:</label></td>		
-	  <td align="left"><s:property value="%{batch.type}" id="type" /></td>
+	  <th><b>Type:</b></th>		
+	  <td align="left"><s:property value="%{batch.type}" /></td>
       </tr>
       <tr>
-	  <td align="right"><label for="face_val">Face value:</label></td>		
-	  <td align="left">$<s:property value="%{batch.value}" id="face_val" />.00</td>
+	  <th><b>Face value:</b></th>		
+	  <td align="left">$<s:property value="%{batch.value}" />.00</td>
       </tr>		
       <tr>
-	  <td align="right"><label for="status">Status:</label></td>
-	  <td align="left"><s:property value="%{batch.status}" id="status" /></td>
+	  <th><b>Status:</b></th>
+	  <td align="left"><s:property value="%{batch.status}" /></td>
       </tr>
       <s:if test="batch.id != ''">				
 	  <tr>
-	      <td align="right"><label for="batch_date">Date:</label></td>
-	      <td align="left"><s:property value="%{batch.date}" id="batch_date" /></td>
+	      <th><b>Date:</b></th>
+	      <td align="left"><s:property value="%{batch.date}" /></td>
 	  </tr>
 	  <tr>
-	      <td align="right"><label for="user">User:</label></td>
-	      <td align="left"><s:property value="%{batch.user}" id="user" /></td>
+	      <th><lb>User:</b></th>
+	      <td align="left"><s:property value="%{batch.user}" /></td>
 	  </tr>		  
       </s:if>
       <s:if test="batch.id != '' && batch.status == 'Waiting'">
 	  <tr>
-	      <td colspan="2" align="left">
+	      <td>&nbsp;</td>
+	      <td>
 		  Please enter the last printed buck number if different than what is showing.
 	      </td>
 	  </tr>
 	  <tr>
-	      <td align="right"><label for="last_seq_id">* Last MB/GC number:</label></td>
+	      <th><label for="last_seq_id">* Last MB/GC number:</label></th>
 	      <td align="left"><s:textfield name="batch.last_seq_printed" maxlength="20" size="20" required="true" id="last_seq_id" value="%{batch.end_seq}" /></td>
 	  </tr>
       </s:if>
-      <tr>
-	  <s:if test="batch.status == 'Waiting'">
+      <s:if test="batch.status == 'Waiting'">
+	  <tr>	      
 	      <s:if test="batch.id == ''">
 		  <s:if test="batch.conf_id != ''">
-		      <td valign="top" align="right">
+		      <td>&nbsp;</td>
+		      <td>
 			  <s:submit name="action" type="button" value="Next" />
 		      </td>
 		  </s:if>
 	      </s:if>
 	      <s:else>
-		  <td valign="top" align="center">
+		  <th valign="top"><label for="confirm">You need to Confirm before you can print </label><s:submit name="action" type="button" value="Confirm" id="confirm" />
+		  </th>		  
+		  <td valign="top">
 		      <button onclick="document.location='<s:property value='#application.url' />GenerateChecks.do?id=<s:property value='batch.id' />';return false;">Printable Certificates</button>
 		  </td>						
-		  <td valign="top" align="right"><label for="confirm" Note: Do not Confirm before you print <s:submit name="action" type="button" value="Confirm" id="confirm" />
-		  </td>
 	      </s:else>
-	  </s:if>
-	  <s:if test="batch.conf_id != '' && batch.status == 'Printed' ">
-	      <td align="right">
+	  </tr>	      
+      </s:if>
+      <s:if test="batch.conf_id != '' && batch.status == 'Printed' ">
+	  <tr>
+	      <td>&nbsp;</td>
+	      <td>
 		  <button id="add_batch" onclick="document.location='<s:property value='#application.url' />batchEdit.action?conf_id=<s:property value='batch.conf_id' />';return false;"><label for="add_batch">Add New Batch</label></button>
-	      </td>		
-	  </s:if>
-      </tr>      
+	      </td>
+	  </tr>      	      
+      </s:if>
   </table>
   <s:if test="batch.id != '' && batch.seq_list != null">
       <table width="100%">

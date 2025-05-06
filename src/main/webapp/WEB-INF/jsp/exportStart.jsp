@@ -19,7 +19,8 @@
       <s:actionmessage/>
       </div>
   </s:elseif>
-  <table border="0" width="90%">
+  <table width="90%">
+      <caption>Export</caption>
       <s:if test="redeems != null && redeems.size() > 0 ">
 	  <tr><td align="center">
 	      <s:set var="redeems" value="redeems" />

@@ -60,9 +60,11 @@
       </s:if>						
       <tr>
 	  <s:if test="gift.id == ''">
-	      <th valign="top">
+	      <td>&nbsp;</td>	   	      
+
+	      <td valign="top">
 		  <s:submit name="action" type="button" id="next_button" value="Next" />
-	      </th><td>&nbsp;</td>
+	      </td>
 	  </s:if>
 	  <s:elseif test="!gift.isCancelled() && !gift.isDispute_resolution()">
 	      <th>

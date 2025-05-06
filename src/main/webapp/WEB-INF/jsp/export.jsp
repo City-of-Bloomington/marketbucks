@@ -32,71 +32,56 @@
 	  <li> You are done. </li>
       </ul>
   </s:if>
-  <table border="1" width="80%">
+  <table width="80%">
+      <caption>Export</caption>
       <tr>
-	  <td align="center">
-	      <table width="100%">
-		  <tr>
-		      <td align="right" width="30%">ID:</td>
-		      <td align="left"><s:property value="export.id" /></td>
-		  </tr>
-		  <tr>
-		      <td align="right">Date & Time:</td>
-		      <td align="left"><s:property value="export.date_time" /></td>
-		  </tr>
-		  <tr>
-		      <td align="right">User:</td>
-		      <td align="left"><s:property value="export.user" /></td>
-		  </tr>
-		  <tr>
-		      <td align="right">Total Value:</td>
-		      <td align="left">$<s:property value="export.total" />.00</td>
-		  </tr>		  
-		  <tr>
-		      <td align="right">New World Batch Number:</td>
-		      <td align="left">
-			  <s:if test="export.isOpen()">
-			      <s:textfield name="export.nw_batch_name" value="%{export.nw_batch_name}" size="20" maxlength="20" />
-			  </s:if>
-			  <s:else>
-			      <s:property value="export.nw_batch_name" />
-			  </s:else>
-		      </td>
-		  </tr>
-		  <tr>
-		      <td align="right">Status:</td>
-		      <td align="left"><s:property value="export.status" /></td>
-		  </tr>
-	      </table>
+	  <th width="30%">ID:</th>
+	  <td align="left"><s:property value="export.id" /></td>
+      </tr>
+      <tr>
+	  <th>Date & Time:</th>
+	  <td align="left"><s:property value="export.date_time" /></td>
+      </tr>
+      <tr>
+	  <th>User:</th>
+	  <td align="left"><s:property value="export.user" /></td>
+      </tr>
+      <tr>
+	  <th>Total Value:</th>
+	  <td align="left">$<s:property value="export.total" />.00</td>
+      </tr>		  
+      <tr>
+	  <th>New World Batch Number:</th>
+	  <td align="left">
+	      <s:if test="export.isOpen()">
+		  <s:textfield name="export.nw_batch_name" value="%{export.nw_batch_name}" size="20" maxlength="20" />
+	      </s:if>
+	      <s:else>
+		  <s:property value="export.nw_batch_name" />
+	      </s:else>
 	  </td>
       </tr>
       <tr>
-	  <td>
-	      <table width="100%">
-		  <tr>
-		      <s:if test="export.isOpen()">
-			  <td align="center">
-			      <button onclick="document.location='<s:property value='#application.url' />ExportXml.do?id=<s:property value='export.id' />';return false;">Generate Export File</button>						
-			  </td>
-			  <td align="right">
-			      <s:submit name="action" type="button" value="Update" />
-			  </td>
-		      </s:if>
-		  </tr>
-	      </table>
-	  </td>
+	  <th>Status:</th>
+	  <td align="left"><s:property value="export.status" /></td>
       </tr>
-	<s:if test="export.redeems != null && export.redeems.size() > 0">
-	  <tr>
-	      <td align="center">
-		  <s:set var="redeems" value="export.redeems" />
-		  <s:set var="redeemsTitle" value="redeemsTitle" />
-		  <%@  include file="redeems.jsp" %>
+      <tr>
+	  <s:if test="export.isOpen()">
+	      <th>
+		  <button onclick="document.location='<s:property value='#application.url' />ExportXml.do?id=<s:property value='export.id' />';return false;">Generate Export File</button>						
+	      </th>
+	      <td>
+		  <s:submit name="action" type="button" value="Update" />
 	      </td>
-	  </tr>
-	</s:if>	  
+	  </s:if>
+      </tr>
   </table>
-</s:form>
+</s:form>      
+<s:if test="export.redeems != null && export.redeems.size() > 0">
+    <s:set var="redeems" value="export.redeems" />
+    <s:set var="redeemsTitle" value="redeemsTitle" />
+    <%@  include file="redeems.jsp" %>
+</s:if>	  
 
 <s:if test="exports != null && exports.size() > 0">
   <s:set var="exports" value="exports" />

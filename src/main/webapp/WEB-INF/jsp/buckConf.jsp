@@ -33,12 +33,12 @@
   <table width="90%" border="0"><caption> Configuration</caption>
       <s:if test="buckConf.id != ''">
 	  <tr>
-	      <td align="right"><label for="id">ID:</label></td>
-	      <td align="left"><s:property value="id" id="id" /></td>
+	      <th><label for="id">ID:</label></th>
+	      <td align="left"><s:property value="id" /></td>
 	  </tr>
       </s:if>
       <tr>
-	  <td align="right" width="30%"><label for="name">* Name:</label></td>
+	  <th width="30%"><label for="name">* Name:</label></th>
 	  <td align="left" colspan="3">$<s:textfield name="buckConf.name" maxlength="50" size="40" value="%{buckConf.name}" required="true" cssClass="need_focus" id="name" /></td>
       </tr>		
       <tr>
@@ -47,27 +47,27 @@
 	  </td>
       </tr>
       <tr>
-	  <td align="right" width="30%" valign="top"><label for="type">* Type:</label></td>
-	  <td align="left"><s:select name="buckConf.type_id" id="type" value="%{buckConf.type_id}" required="true" list="buck_types" listKey="id" listValue="name" headerKey="-1" headerValue="Pick Type" size="4" onchange="setGl_account()" id="type_id" /></td>
-	  <td align="right" width="30%" valign="top"><label for="gl_account">* GL Account:</label></td>
-	  <td align="left"><s:select name="buckConf.gl_account" value="%{buckConf.gl_account}" list="gl_accounts" listKey="name" listValue="name" required="true" headerKey="-1" headerValue="Pick GL account" size="4" id="gl_account_id" id="gl_account" /></td>
+	  <th width="30%" valign="top"><label for="type_id">* Type:</label></th>
+	  <td align="left"><s:select name="buckConf.type_id" value="%{buckConf.type_id}" required="true" list="buck_types" listKey="id" listValue="name" headerKey="-1" headerValue="Pick Type" size="4" onchange="setGl_account()" id="type_id" /></td>
+	  <td width="30%" valign="top"><label for="gl_account">* GL Account:</label></td>
+	  <td align="left"><s:select name="buckConf.gl_account" value="%{buckConf.gl_account}" list="gl_accounts" listKey="name" listValue="name" required="true" headerKey="-1" headerValue="Pick GL account" size="4" id="gl_account" /></td>
       </tr>		
       <tr>
-	  <td align="right" width="30%"><label for="face_val">*Face Value:</label></td>
-	  <td align="left" colspan="3">$<s:textfield name="buckConf.value" maxlength="2" size="2" value="%{buckConf.value}" required="true" id="face_value_id" id="face_val" />.00</td>
+	  <th width="30%"><label for="face_value_id">*Face Value:</label></th>
+	  <td align="left" colspan="3">$<s:textfield name="buckConf.value" maxlength="2" size="2" value="%{buckConf.value}" required="true" id="face_value_id" />.00</td>
       </tr>
       <tr>
-	  <td align="right" width="30%"><label for="max_don">* Max Donation:</label></td>
-	  <td align="left" colspan="3">$<s:textfield name="buckConf.donor_max_value" maxlength="2" size="2" value="%{buckConf.donor_max_value}" required="true" id="max_don_id" id="max_don" />.00 (Per customer)</td>
+	  <th width="30%"><label for="max_don_id">* Max Donation:</label></th>
+	  <td align="left" colspan="3">$<s:textfield name="buckConf.donor_max_value" maxlength="2" size="2" value="%{buckConf.donor_max_value}" required="true" id="max_don_id" />.00 (Per customer)</td>
       </tr>
       <s:if test="buckConf.id != ''">
 	  <tr>
-	      <td align="right"><label for="last_update">Last Update:</label></td>
-	      <td align="left"><s:property value="buckConf.date" id="last_update" /></td>
+	      <th><b>Last Update:</b></th>
+	      <td align="left"><s:property value="buckConf.date" /></td>
 	  </tr>
 	  <tr>
-	      <td align="right"><label for="update_by">Updated By:</label></td>
-	      <td align="left"><s:property value="buckConf.user" id="update_by" /></td>
+	      <th><b>Updated By:</b></th>
+	      <td align="left"><s:property value="buckConf.user" /></td>
 	  </tr>		  
       </s:if>
       <s:if test="buckConf.id == ''">
@@ -79,11 +79,11 @@
       </s:if>
       <s:else>
 	  <tr>
-	      <td valign="top" align="center">
+	      <th valign="top">
 		  <s:submit name="action" type="button" value="Update" />
-	      </td>
+	      </th>
 	      <s:if test="buckConf.isCurrent()">
-		  <td valign="top" align="right">
+		  <td valign="top">
 		      <button onclick="document.location='<s:property value='#application.url' />batchEdit.action?conf_id=<s:property value='buckConf.id' />';return false;">Generate New Batch</button></td>
 	      </s:if>
 	  </tr>

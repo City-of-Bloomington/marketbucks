@@ -39,69 +39,78 @@
       <caption> FMNP WIC</caption>
       <s:if test="wic.id != ''">
 	  <tr>
-	      <td align="right">
+	      <th>
 		  <b>Transaction ID:</b>
-	      </td>
+	      </th>
 	      <td align="left">
 		  <s:property value="%{wic.id}" />
 	      </td>
 	  </tr>
       </s:if>
       <tr>
-	  <td align="right"><label for="div5">Amount:</label></td>
+	  <th><label for="div5">Amount:</label></th>
 	  <td align="left">$<s:textfield name="wic.amount" maxlength="4" size="4" value="%{wic.amount}" id="div3" cssClass="need_focus" readonly="true" onchange="checkDivBy3(this)" />.00 (Must be multiple of $3)</td>
       </tr>
       <s:if test="wic.id == ''">
 	  <tr>
-	      <td align="right"><label for="tnum">Ticket #:</label></td>
+	      <th><label for="tnum">Ticket #:</label></th>
 	      <td align="left"><s:textfield name="wic.ticketNum" maxlength="10" size="10" value="%{wic.ticketNum}" required="true" id="tnum" /> *</td>
 	  </tr>
       </s:if>
       <s:else>
 	  <tr>
-	      <td align="right"><b>Ticket #:</b></td>
+	      <th><b>Ticket #:</b></th>
 	      <td align="left"><s:property value="%{wic.ticketNum}" /></td>
 	  </tr>
 	  <tr>
-	      <td align="right"><b>Date & Time:</b></td>
+	      <th><b>Date & Time:</b></th>
 	      <td align="left"><s:property value="%{wic.date_time}" /></td>
 	  </tr>
 	  <tr>
-	      <td align="right"><b>User:</b></td>
+	      <th><b>User:</b></th>
 	      <td align="left"><s:property value="%{wic.user}" /></td>
 	  </tr>
 	  <tr>
-	      <td align="right"><b>Total:</b></td>
+	      <th><b>Total:</b></th>
 	      <td align="left">$<s:property value="%{wic.total}" />.00</td>
 	  </tr>
 	  <s:if test="wic.isCancelled()">
 	      <tr>		      
-		  <td align="right"><b>Status:</b></td>
+		  <th><b>Status:</b></th>
 		  <td align="left">Cancelled</td>
 	      </tr>
 	  </s:if>
 	  <s:if test="wic.isDispute_resolution()">
 	      <tr>
-		  <td align="right"><b>Status:</b></td>
+		  <th><b>Status:</b></th>
 		  <td align="left">Dispute Resolution</td>
 	      </tr>
 	  </s:if>
       </s:else>
       <tr>
 	  <s:if test="wic.id == ''">
-	      <td valign="top" align="center" colspan="2">
+	      <td>&nbsp;</td>	      
+	      <td>
 		  <s:submit name="action" type="button" id="next_button" value="Next" />
 	      </td>
+
 	  </s:if>
 	  <s:elseif test="!wic.isCancelled() && !wic.isDispute_resolution()">
 	      <s:if test="wic.hasBalance()">
-		  <td align="center">					
+		  <th>					
 		      <s:submit name="action" type="button" id="next_button" value="Add Bucks" />
-		  </td>
+		  </th>
+		  <td>				
+		      <s:submit name="action" type="button" id="cancel_button" value="Cancel" />
+		  </td>		  
 	      </s:if>
-	      <td align="center">				
-		  <s:submit name="action" type="button" id="cancel_button" value="Cancel" />
-	      </td>
+	      <s:else>
+		  <td>&nbsp;</td>		  		  
+		  <td>				
+		      <s:submit name="action" type="button" id="cancel_button" value="Cancel" />
+		  </td>
+
+	      </s:else>
 	  </s:elseif>
       </tr>
   </table>
@@ -118,7 +127,7 @@
 	  </tr>
 	  <tr>
 	      <td colspan="4" align="right">Total</td>
-	      <td align="right">$<s:property value="wic.bucksTotal" />.00</td>
+	      <th>$<s:property value="wic.bucksTotal" />.00</td>
 	  </tr>
 	  <s:iterator var="one" value="wic.bucks">
 	      <tr>
@@ -130,7 +139,7 @@
 		  <td><s:property value="id" /></td>
 		  <td><s:property value="expire_date" /></td>
 		  <td><s:if test="isVoided()">Voided</s:if></td>	
-		  <td align="right">$<s:property value="value" />.00</td>
+		  <td>$<s:property value="value" />.00</td>
 	      </tr>
 	  </s:iterator>
 	  <tr><td colspan="5">** check to cancel and void the corresponding Fmnp Wic Bucks</td></tr>

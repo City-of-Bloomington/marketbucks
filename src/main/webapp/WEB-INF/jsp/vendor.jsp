@@ -34,47 +34,47 @@
 	<table border="0" width="90%">
 	    <s:if test="vendor.id != ''">
 		<tr>
-		    <td align="right"><b>Vendor ID:</b></td>
+		    <th><b>Vendor ID:</b></th>
 		    <td align="left"><s:property value="%{vendor.id}" />
 			<a href="<s:property value='#application.url' />vendor.action?id=<s:property value='vendor.id' />&action=setInactive"> Set as inactive </a></td>
 		</tr>
 	    </s:if>
 	    <tr>
-		<td align="right"><label for="num">* Vendor Number:</label></td>
+		<th><label for="num">* Vendor Number:</label></th>
 		<td align="left">
 		    <s:textfield name="vendor.vendorNum" maxlength="10" size="10" value="%{vendor.vendorNum}" required="true" id="num" />
 		</td>
 	    </tr>
 	    <tr>
-		<td align="right"><label for="lname">* Last Name:</label></td>
+		<th><label for="lname">* Last Name:</label></th>
 		<td align="left"><s:textfield name="vendor.lname" maxlength="50" size="40" required="true" value="%{vendor.lname}" id="lname" /> </td>
 	    </tr>
 	    <tr>
-		<td align="right"><label for="fname">First Name:</label></td>
+		<th><label for="fname">First Name:</label></th>
 		<td align="left"><s:textfield name="vendor.fname" maxlength="30" size="30" value="%{vendor.fname}" id="fname" /></td>
 	    </tr>
 	    <tr>
-		<td align="right"><label for="bus">Related Business:</label></td>
+		<th><label for="bus">Related Business:</label></th>
 		<td align="left"><s:textfield name="vendor.businessName" maxlength="50" size="30" value="%{vendor.businessName}" id="bus" />(business name if different from Last Name)</td>
 	    </tr>
 	    <tr>
-		<td align="right"><label for="act">Active? </label></td>
+		<th><label for="act">Active? </label></th>
 		<td align="left"><s:checkbox name="vendor.active" value="%{vendor.active}" id="act" />Yes (uncheck to inactivate)
 		</td>
 	    </tr>
 	    <tr>
-		<td align="right"><label for="ptype">Allowed Pay Type:</label></td>
+		<th><label for="ptype">Allowed Pay Type:</label></th>
 		<td align="left" align="left"><s:radio name="vendor.payType" value="%{vendor.payType}" list="#{'-1':'None','GC':'GC only','MB:GC':'MB and GC'}" i="ptype" /></td>
 	    </tr>
-	    <tr>		    
+	    <tr>
+		<td>&nbsp;</td>
 		<s:if test="vendor.id == ''">
-		    
-		    <td align="center" colspan="2">
+		    <td>
 			<s:submit name="action" type="button" value="Save" id="save_button" />
 		    </td>
 		</s:if>
 		<s:else>
-		    <td align="center" colspan="2">
+		    <td>
 			<s:submit name="action" type="button" id="update_button" value="Update" /> &nbsp;&nbsp;
 			
 		    </td>

@@ -14,36 +14,38 @@
   <s:elseif test="hasActionMessages()">
       <s:actionmessage/>
   </s:elseif>
-  <table width="90%" border="0"><caption>Search Options</caption>
+  <table width="90%"><caption>Search Options</caption>
       <tr>
-	  <td align="right" width="20%"><label for="status">Status:</label></td>
+	  <th width="20%"><label for="status">Status:</label></th>
 	  <td align="left"><s:radio name="disputeList.status" value="%{disputeList.status}" list="#{'-1':'All','Waiting':'Waiting','Rejected':'Rejected','Resolved':'Resolved'}" id="status" /></td>
       </tr>
       <tr>
-	  <td align="right"><label for="reason">Reason:</label></td>
+	  <th><label for="reason">Reason:</label></th>
 	  <td align="left"><s:radio name="disputeList.reason" value="%{disputeList.reason}" list="#{'-1':'All','Expired':'Expired','Not Exist':'Do not Exist','Not Issued':'Not Issued','Redeemed':'Already Redeemed'}" id="reason" /></td>
       </tr>		
       <tr>
-	  <td align="right"><label for="redeem_id">Redemption ID:</label></td>
+	  <th><label for="redeem_id">Redemption ID:</label></th>
 	  <td align="left"><s:textfield name="disputeList.redeem_id" maxlength="10" size="10" value="%{disputeList.redeem_id}" id="redeem_id" /></td>
       </tr>	  
       <tr>
-	  <td align="right" valign="top"><label for="date_from">Date from:</label></td>
+	  <th valign="top"><label for="date_from">Date from:</label></th>
 	  <td align="left"><s:textfield name="disputeList.date_from" maxlength="10" size="10" value="%{disputeList.date_from}" cssClass="date"  id="date_from" /><label for="date_to"> to</label>
 	      <s:textfield name="disputeList.date_to" maxlength="10" size="10" value="%{disputeList.date_to}" cssClass="date" id="date_to" /></td>
       </tr>
       <tr>
-	  <td valign="top" align="center" colspan="2">
+	  <td>&nbsp;</td>	  
+	  <td valign="top">
 	      <s:submit name="action" type="button" value="Find" />
 	  </td>
+
       </tr>
   </table>
 </s:form>
 
 <s:if test="disputes != null && disputes.size() > 0">
     <s:set var="disputes" value="disputes" />
-  <s:set var="disputesTitle" value="disputesTitle" />
-  <%@  include file="disputes.jsp" %>	
+    <s:set var="disputesTitle" value="disputesTitle" />
+    <%@  include file="disputes.jsp" %>	
 </s:if>
 <s:elseif test="action !='' ">
   <p><s:property value="disputesTitle" /></p>

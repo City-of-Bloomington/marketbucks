@@ -59,9 +59,10 @@
       </s:if>						
       <tr>
 	  <s:if test="rx.id == ''">
-	      <th>
+	      <td>&nbsp;</td>	      
+	      <td>
 		  <s:submit name="action" type="button" id="next_button" value="Next" />
-	      </th><td>&nbsp;</td>
+	      </td>
 	  </s:if>
 	  <s:elseif test="!rx.isCancelled() && !rx.isDispute_resolution()">
 	      <th>
@@ -69,7 +70,7 @@
 	      </th>
 	      <td>	      
 	      <s:if test="rx.hasBalance()">
-		      <s:submit name="action" type="button" id="next_button" value="Add Bucks" />
+		  <s:submit name="action" type="button" id="next_button" value="Add Bucks" />
 	      </s:if>
 	       <s:submit name="action" type="button" id="cancel_button" value="Cancel" />
 	      </td>

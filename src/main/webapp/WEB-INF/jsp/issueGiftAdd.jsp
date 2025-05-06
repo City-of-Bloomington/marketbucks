@@ -76,14 +76,15 @@
 	  </s:else>
 	  <s:if test="gift.needMoreIssue()">
 	      <tr>
-		  <th>
+		  <td>&nbsp;</td>			  
+		  <td>
 		      <s:submit name="action" type="button" value="Add" />
-		  </th><td>&nbsp;</td>
+		  </td>
 	      </tr>
 	  </s:if>
 	  <tr>
-	      <td valign="top" align="center" colspan="2">If you need to edit this transaction click on <a href="<s:property value='#application.url' />giftAdd.action?id=<s:property value='gift.id' />">Edit Transaction <s:property value="id" /></a>.
-	      </td>
+	      <th valign="top">If you need to edit this transaction click on <a href="<s:property value='#application.url' />giftAdd.action?id=<s:property value='gift.id' />">Edit Transaction <s:property value="id" /></a>.
+	      </th>
 	  </tr>		  
       </s:if>
   </table>      

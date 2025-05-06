@@ -85,23 +85,26 @@
       </s:else>
       <s:if test="senior.id == ''">
 	  <tr>
-	      <th>
+	      <td>&nbsp;</td>
+	      <td>
 		  <s:submit name="action" type="button" id="next_button" value="Next" />
-	      </th>
+	      </td>
 	  </tr>
       </s:if>
       <s:elseif test="!senior.isCancelled() && !senior.isDispute_resolution()">
-	      <s:if test="senior.hasBalance()">
-	        <tr>	    	      
-		  <th align="center">
+	  <s:if test="senior.hasBalance()">
+	      <tr>
+	    	  <td>&nbsp;</td>
+		  <td>
 		      <s:submit name="action" type="button" id="next_button" value="Add Bucks" />
-		  </th>
-		  </tr>
-	      </s:if>
-           <tr>
-	      <th>
+		  </td>
+	      </tr>
+	  </s:if>
+          <tr>
+	      <td>&nbsp;</td>
+	      <td>
 		  <s:submit name="action" type="button" id="cancel_button" value="Cancel" />
-	      </th>
+	      </td>
 	  </tr>
       </s:elseif>
   </table>

@@ -27,9 +27,12 @@
       </s:if>	
   </td></tr>
   <s:if test="hasRecentDate()">
-      <tr><td align="right"><label for="printable" The audit sheet for the most recent prints of <s:property value="recentBatchDate" /></label> 
-	  <button id="printable" onclick="document.location='<s:property value='#application.url'/>AuditSheet.do?date_from=<s:property value='recentBatchDate' />';return false;">Printable Audit Sheet</button>
-      </td></tr>
+      <tr>
+	  <th><label for="printable"> The audit sheet for the most recent prints of <s:property value="recentBatchDate" /></label>
+	  </th>
+	  <td>
+	  <button id="printable" onclick="document.location='<s:property value='#application.url'/>AuditSheet.do?date_from=<s:property value='recentBatchDate' />';return false;">Printable Audit Sheet</button></th><td>&nbsp;</td>
+      </tr>
   </s:if>
 </table>
 <br />

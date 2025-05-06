@@ -62,10 +62,11 @@
       </tr>
       <tr>
 	  <s:if test="redeem.status == 'Open'">
-	      <th>
+	      <td>&nbsp;</td>	      
+	      <td>
 		  <s:submit name="action" type="button" value="Scan more MB/GC" />
-	      </th>
-	      <td>&nbsp;</td>
+	      </td>
+
 	  </s:if>
 	  <s:else>
 	      <td align="center" colspan="2">
