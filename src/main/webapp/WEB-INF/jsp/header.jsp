@@ -34,12 +34,11 @@
 			<li><a href="<s:property value='#application.url'/>seniorAdd.action">FMNP Senior</a></li>
 			<li><a href="<s:property value='#application.url'/>redeemStart.action">Redemptions</a></li>				
 			<li><a href="<s:property value='#application.url'/>otherMenu.action">More Options</a></li>
-			<li><s:property value='#session.user.fullName' /></li>
-			<li><a href="<s:property value='#application.url'/>logout">log Out</a></li>
 			<s:if test="#session.user.isAdmin()">
 			    <li><a href="<s:property value='#application.url'/>settings">Settings</a></li>
 			</s:if>
-   			
+			<li><a href="<s:property value='#application.url'/>logout">log Out</a></li>
+			<li><s:property value='#session.user.fullName' /></li>
 		    </ul>
 		</div>
 	    </s:if>
