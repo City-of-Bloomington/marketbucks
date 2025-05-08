@@ -43,7 +43,7 @@
 	</tr>
 	<tr>
 	    <th><b>Date:</b></th>
-	    <td align="left"><label for="from"> From</label><s:textfield name="fmnp.date_from" value="%{fmnp.date_from}" id="from" size="10" maxlength="10" cssClass="date" /><label for="to"> To </label><s:textfield name="fmnp.date_to" value="%{fmnp.date_to}" size="10" maxlength="10" cssClass="date" id="to" /></td>
+	    <td align="left"><label for="from"> From</label><s:textfield name="fmnp.date_from" value="%{fmnp.date_from}" id="from" size="10" maxlength="10" cssClass="date" /><label for="to"> To </label><s:textfield name="fmnp.date_to" value="%{fmnp.date_to}" size="10" maxlength="10" cssClass="date" id="to" />(mm/dd/yyyy)</td>
 	</tr>
 	<tr>
 	    <th><label for="sortby">Sort by:</label></th> 

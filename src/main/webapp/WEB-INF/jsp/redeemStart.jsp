@@ -23,7 +23,9 @@
   </s:elseif>
   <p>*indicate a required field</p>
   <table border="0" width="90%"><caption>Redemption</caption>
-      <tr><td align="center" colspan="2">Select a vendor from the list</td></tr>
+      <tr><th>Select a vendor from the list or enter vendor number </th>
+	  <td>&nbsp;</td>
+      </tr>
       <tr>
 	  <th><label for="ven_id">Vendor:</label></th>
 	  <td align="left">
@@ -37,7 +39,7 @@
 	  </td>
       </tr>	      
       <tr>
-	  <th><label for="vendor_id">* Vendor number:</label></th>
+	  <th><label for="vendor_id"> Vendor number:</label></th>
 	  <td align="left">
 	      <s:textfield name="redeem.vendorNum" id="vendor_id" value="%{redeem.vendorNum}" />
 	  </td>

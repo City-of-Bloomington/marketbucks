@@ -45,7 +45,7 @@
 	</tr>					
 	<tr>
 	    <th><b>Date:</b></th>
-	    <td align="left"><label for="from"> From</label><s:textfield name="ebtList.date_from" value="%{ebtList.date_from}" size="10" maxlength="10" cssClass="date" id="from" /><label for="to"> To </label><s:textfield name="ebtList.date_to" value="%{ebtList.date_to}" size="10" maxlength="10" cssClass="date" id="to" /></td>
+	    <td align="left"><label for="from"> From</label><s:textfield name="ebtList.date_from" value="%{ebtList.date_from}" size="10" maxlength="10" cssClass="date" id="from" /><label for="to"> To </label><s:textfield name="ebtList.date_to" value="%{ebtList.date_to}" size="10" maxlength="10" cssClass="date" id="to" /> (mm/dd/yyyy)</td>
 	</tr>  
 	<tr>
 	    <th><label for="sort_by">Sort by:</label></th>

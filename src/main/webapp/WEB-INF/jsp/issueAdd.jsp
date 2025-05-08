@@ -76,7 +76,7 @@
 	    <tr>
 		<th bgcolor="red">
 		    <b>Balance: </b></th>
-		<td align="left" $<s:property value="ebt.balance" />.00</td>
+		<td> $<s:property value="ebt.balance" />.00</td>
 	    </tr>
 	</s:elseif>
 	<s:if test="!ebt.isCancelled() && !ebt.isDispute_resolution()">
@@ -93,11 +93,16 @@
 		</tr>	  
 	    </s:if>
 	    <s:else>
-		<tr><td align="center" colspan="2">All Market Bucks are issued for this customer</td></tr>
+		<tr>
+		    <th>All Market Bucks are issued for this customer</th>
+		    <td>&nbsp;</td>
+		</tr>
 	    </s:else>
 	    <tr>
-		<td valign="top" align="center" colspan="2">If you need to Edit/Cancel this transaction click on <a href="<s:property value='#application.url' />ebtAdd.action?id=<s:property value='ebt.id' />">Edit/Cancel Transaction <s:property value="id" /></a>.
-		</td>
+		<th>
+		    <a href="<s:property value='#application.url' />ebtAdd.action?id=<s:property value='ebt.id' />">Edit/Cancel this Transaction </a>
+		</th>
+		<td>&nbsp;</td>
 	    </tr>		  
 	</s:if>
     </table>	

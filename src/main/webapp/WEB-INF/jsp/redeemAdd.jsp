@@ -59,16 +59,17 @@
 	      </td>
 	  </tr>
 	  <tr>
-	      <td align="center" colspan="2">
-		  <a href="<s:property value='#application.url' />redeemEdit.action?id=<s:property value='%{redeem.id}' />">To cancel this transaction click on </a>
-	      </td>
+	      <th>
+		  <a href="<s:property value='#application.url' />redeemEdit.action?id=<s:property value='%{redeem.id}' />">Cancel this transaction </a>
+	      </th>
 	  </tr>
       </s:if>
       <s:else>
 	  <tr>
-	      <td align="center" colspan="2">
+	      <th>
 		  <button onclick="document.location='<s:property value='#application.url' />RedeemInvoice.do?id=<s:property value='redeem.id' />';return false;">Generate Invoice</button>		
-	      </td>
+	      </th>
+	      <td>&nbsp;</td>
 	  </tr>
       </s:else>
   </table>

@@ -115,7 +115,9 @@
       </table>
   </s:if>
 </s:form>
-For Rx advance search click<a href="<s:property value='#application.url'/>rxSearch.action"> here. </a>
+
+<a href="<s:property value='#application.url'/>rxSearch.action">
+Rx advance search</a>
 <br />
 <br />
 <s:if test="rx.id == ''">

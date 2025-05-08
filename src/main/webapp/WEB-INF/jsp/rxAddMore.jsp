@@ -61,7 +61,7 @@
 	  <s:if test="rx.hasBalance()">
 	      <tr>
 		  <th><label for="bar_code_id">*Scan/Enter new Market Buck:</label></th>
-		  <td>  <s:textfield name="rx.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
+		  <td><s:textfield name="rx.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
 	      </tr>
 	      <tr>
 		  <td>&nbsp;</td>
@@ -71,10 +71,13 @@
 	      </tr>	  
 	  </s:if>
 	  <s:else>
-	      <tr><td colspan="2">All Market Bucks are issued for this customer</td></tr>
+	      <tr>
+		  <td>&nbsp;</td>
+		  <td> All Market Bucks are issued for this customer</td>
+	      </tr>
 	  </s:else>
 	  <tr>
-	      <td valign="top" align="center" colspan="2">If you need to Edit/Cancel this transaction click on <a href="<s:property value='#application.url' />rxAdd.action?id=<s:property value='rx.id' />">Edit/Cancel Transaction <s:property value="id" /></a>.
+	      <th><a href="<s:property value='#application.url' />rxAdd.action?id=<s:property value='rx.id' />">Edit/Cancel This Transaction </a>
 	      </td>
 	  </tr>		  
       </s:if>

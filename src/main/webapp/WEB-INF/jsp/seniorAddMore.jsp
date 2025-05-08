@@ -76,16 +76,18 @@
 		      <s:textfield name="senior.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
 	      </tr>
 	      <tr>
-		  <th>
+		  <td>&nbsp;</td>
+		  <td>
 		      <s:submit name="action" type="button" value="Add" />
-		  </th>
+		  </td>
 	      </tr>	  
 	  </s:if>
 	  <s:else>
 	      <tr><td  colspan="2">All Market Bucks are issued for this customer</td></tr>
 	  </s:else>
 	  <tr>
-	      <td valign="top" align="center" colspan="2">If you need to Edit/Cancel this transaction click on <a href="<s:property value='#application.url' />seniorAdd.action?id=<s:property value='senior.id' />">Edit/Cancel Transaction <s:property value="id" /></a>.
+	      <td>&nbsp;</td>
+	      <td><a href="<s:property value='#application.url' />seniorAdd.action?id=<s:property value='senior.id' />">Edit/Cancel Transaction <s:property value="id" /></a>.
 	      </td>
 	  </tr>		  
       </s:if>

@@ -49,7 +49,7 @@
       </tr>							
       <tr>
 	  <th><b>Date:</b></th>
-	  <td align="left"><label for="from"> From</label><s:textfield name="giftList.date_from" value="%{giftList.date_from}" size="10" maxlength="10" cssClass="date" id="from" /><label for="to"> To </label><s:textfield name="giftList.date_to" value="%{giftList.date_to}" size="10" maxlength="10" cssClass="date" id="to" /></td>
+	  <td align="left"><label for="from"> From</label><s:textfield name="giftList.date_from" value="%{giftList.date_from}" size="10" maxlength="10" cssClass="date" id="from" /><label for="to"> To </label><s:textfield name="giftList.date_to" value="%{giftList.date_to}" size="10" maxlength="10" cssClass="date" id="to" />(mm/dd/yyyy)</td>
       </tr>  
       <tr>
 	  <th><label for="sortby">Sort by:</label></th>

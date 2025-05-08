@@ -108,10 +108,12 @@
 		  <s:submit name="action" type="button" id="cancel_button_2" value="Void Selected GC's" />
 	      </td>
 	  </tr>	  
-      </table>
+     </table>
   </s:if>	
 </s:form>
-For gift certificates advance search click<a href="<s:property value='#application.url'/>giftSearch.action"> here. </a>
+
+
+<a href="<s:property value='#application.url'/>giftSearch.action"> Gift certificates advance search</a>
 
 <s:if test="hasGifts()">
   <s:set var="gifts" value="gifts" />

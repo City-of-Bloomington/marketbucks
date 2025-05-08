@@ -65,7 +65,7 @@
 	  <tr>
 	      <th bgcolor="red">
 		  <b>Balance:</b></th> 
-	      <td>$ <s:property value="%{wic.balance}" />.00</td>
+	      <td>$<s:property value="%{wic.balance}" />.00</td>
 	  </tr>
       </s:elseif>
       <s:if test="!wic.isCancelled() && !wic.isDispute_resolution()">
@@ -84,12 +84,15 @@
 	      </tr>	  
 	  </s:if>
 	  <s:else>
-	      <tr><td align="center" colspan="2">All Market Bucks are issued for this customer</td></tr>
+	      <tr>
+		  <td>&nbsp;</td>		  		  
+		  <td>All Market Bucks are issued for this customer</td>
+	      </tr>
 	  </s:else>
 	  <tr>
-	      <td valign="top" align="center" colspan="2">
-		  <a href="<s:property value='#application.url' />wicAdd.action?id=<s:property value='wic.id' />">If you need to Edit/Cancel this transaction
-		     <s:property value="id" /></a>.
+	      <th>&nbsp;</th>
+	      <td>
+		  <a href="<s:property value='#application.url' />wicAdd.action?id=<s:property value='wic.id' />">To Edit/Cancel this transaction</a>.
 	      </td>
 	  </tr>		  
       </s:if>

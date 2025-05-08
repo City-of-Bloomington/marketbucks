@@ -48,28 +48,19 @@
 	  <td align="left"><s:textarea name="redeem.notes" value="%{redeem.notes}" rows="5" cols="80" id="notes" /></td>
       </tr>		
       <tr>
-	  <th valign="top" align="right">
-	      <s:submit name="action" type="button" value="Update" />
-	  </th>
-	  <s:if test="redeem.canCancel()">
-	      <td valign="top" align="left">
-		  <s:submit name="action" type="button" value="Cancel" />
-	      </td>
-	  </s:if>
-	  <s:else>
-	      <td>&nbsp;</td>
-	  </s:else>
-      </tr>
-      <tr>
 	  <s:if test="redeem.status == 'Open'">
 	      <td>&nbsp;</td>	      
 	      <td>
 		  <s:submit name="action" type="button" value="Scan more MB/GC" />
 	      </td>
-
 	  </s:if>
 	  <s:else>
-	      <td align="center" colspan="2">
+	      <th>&nbsp;</th>
+	      <td>
+		  <s:submit name="action" type="button" value="Update" />
+		  <s:if test="redeem.canCancel()">
+		      <s:submit name="action" type="button" value="Cancel" />
+		  </s:if>
 		  <button onclick="document.location='<s:property value='#application.url' />RedeemInvoice.do?id=<s:property value='redeem.id' />';return false;">Generate Invoice</button>
 	      </td>
 	  </s:else>

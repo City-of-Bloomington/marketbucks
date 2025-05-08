@@ -21,8 +21,8 @@
 	  <s:actionmessage/>
       </div>
   </s:elseif>
-  <p>*indicate a required field</p>
-  <table border="0" width="90%">
+  <p>*indicates required field</p>
+  <table width="90%">
       <caption>GC Payment ID:<s:property value="gift.id" /></caption>
       <tr>
 	  <th><b>Payment Type:</b></th>
@@ -71,7 +71,8 @@
 	  </s:if>
 	  <s:else>
 	      <tr>
-		  <td align="center" colspan="2">All GC are issued for this customer.</td>
+		  <th>All GC are issued for this customer</th>
+		  <td>&nbsp;</td>
 	      </tr>
 	  </s:else>
 	  <s:if test="gift.needMoreIssue()">
@@ -83,8 +84,10 @@
 	      </tr>
 	  </s:if>
 	  <tr>
-	      <th valign="top">If you need to edit this transaction click on <a href="<s:property value='#application.url' />giftAdd.action?id=<s:property value='gift.id' />">Edit Transaction <s:property value="id" /></a>.
-	      </th>
+	      <th>&nbsp;</th>
+	      <td>
+		 <a href="<s:property value='#application.url' />giftAdd.action?id=<s:property value='gift.id' />">Edit This Transaction </a>.
+	      </td>
 	  </tr>		  
       </s:if>
   </table>      

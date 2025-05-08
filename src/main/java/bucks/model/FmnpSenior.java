@@ -296,22 +296,28 @@ public class FmnpSenior implements java.io.Serializable{
 	}
 	getBucksTotal(); 
 	if(total < amount){
-	    if(!isAlreadyIssued() && !bucks.contains(buck)){
-		int excess = (total + buck.getValue_int()) - amount;
-		if(excess <= 0){
-		    msg = addNewBuck(buck);
-		    if(!msg.equals("")){
-			bucks.remove(0);
-			msg = "Error: The buck is already in the system";
-		    }
-		    else{
-			bucks.add(0, buck); // make it first
-			total += buck.getValue_int();
-		    }
+	    if(isAlreadyIssued()){
+		msg = "Already in the system";
+		return msg;
+	    }
+	    if(bucks.contains(buck)){
+		msg = "Already added ";
+		return msg;
+	    }
+	    int excess = (total + buck.getValue_int()) - amount;
+	    if(excess <= 0){
+		msg = addNewBuck(buck);
+		if(!msg.equals("")){
+		    bucks.remove(0);
+		    msg = "Error: The buck is already in the system";
 		}
 		else{
-		    msg = " Rx value exceeds requested amount by $"+excess;
+		    bucks.add(0, buck); // make it first
+		    total += buck.getValue_int();
 		}
+	    }
+	    else{
+		msg = " Rx value exceeds requested amount by $"+excess;
 	    }
 	    return msg;
 	}

@@ -296,22 +296,29 @@ public class FmnpWic implements java.io.Serializable{
 	}
 	getBucksTotal(); 
 	if(total < amount){
-	    if(!isAlreadyIssued() && !bucks.contains(buck)){
-		int excess = (total + buck.getValue_int()) - amount;
-		if(excess <= 0){
-		    msg = addNewBuck(buck);
-		    if(!msg.equals("")){
-			bucks.remove(0);
-			msg = "Error: The buck is already in the system";
-		    }
-		    else{
-			bucks.add(0, buck); // make it first
-			total += buck.getValue_int();
-		    }
+	    if(isAlreadyIssued()){
+		msg = "Error: The buck is already used/added";
+		return msg;
+	    }
+	    if(bucks.contains(buck)){
+		msg = "Error: The buck is already added ";
+		return msg;
+	    }
+	    int excess = (total + buck.getValue_int()) - amount;
+	    if(excess <= 0){
+		msg = addNewBuck(buck);
+		System.err.println(" add new buck msg "+msg);
+		if(!msg.equals("")){
+		    bucks.remove(0);
+		    
 		}
 		else{
-		    msg = " Rx value exceeds requested amount by $"+excess;
+		    bucks.add(0, buck); // make it first
+		    total += buck.getValue_int();
 		}
+	    }
+	    else{
+		msg = " Rx value exceeds requested amount by $"+excess;
 	    }
 	    return msg;
 	}
