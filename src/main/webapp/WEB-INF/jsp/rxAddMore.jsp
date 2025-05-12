@@ -61,7 +61,7 @@
 	  <s:if test="rx.hasBalance()">
 	      <tr>
 		  <th><label for="bar_code_id">*Scan/Enter new Market Buck:</label></th>
-		  <td><s:textfield name="rx.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
+		  <td><s:textfield name="rx.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id"  autofocus="true" /></td>
 	      </tr>
 	      <tr>
 		  <td>&nbsp;</td>

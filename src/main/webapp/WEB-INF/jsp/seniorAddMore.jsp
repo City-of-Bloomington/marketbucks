@@ -73,7 +73,7 @@
 	      <tr>
 		  <th><label for="bar_code_id">* Scan/Enter new Market Buck:</label></th>
 		  <td align="left">
-		      <s:textfield name="senior.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" /></td>
+		      <s:textfield name="senior.buck_id" value="" size="20" maxlength="20" required="true" id="bar_code_id" autofocus="true" /></td>
 	      </tr>
 	      <tr>
 		  <td>&nbsp;</td>
