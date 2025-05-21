@@ -80,7 +80,7 @@ public class Dispute implements java.io.Serializable{
 	setId(val);
 	setRedeem_id(val2);
 	setBuck_id(val3);
-	setStatus(val4);
+	setDisputeStatus(val4);
 	setReason(val5);
 	setUser_id(val6);		
 	setDate_time(val7);
@@ -101,10 +101,14 @@ public class Dispute implements java.io.Serializable{
 	if(val != null)
 	    redeem_id = val;
     }
+    public void setDisputeStatus(String val){
+	if(val != null)
+	    status = val;
+    }
     public void setStatus(String val){
 	if(val != null)
 	    status = val;
-    }	
+    }    
     public void setDate_time(String val){
 	if(val != null)
 	    date_time = val;
@@ -143,9 +147,12 @@ public class Dispute implements java.io.Serializable{
 		
 	return user_id;
     }
+    public String getDisputeStatus(){
+	return status;
+    }
     public String getStatus(){
 	return status;
-    }	
+    }    
     public String getReason(){
 	return reason;
     }
@@ -224,6 +231,12 @@ public class Dispute implements java.io.Serializable{
     public String toString(){
 	return id+" "+redeem_id+" "+buck_id;
     }
+    public boolean isResolved(){
+	return status.equals("Resolved");
+    }
+    public boolean isWaiting(){
+	return status.equals("Waiting");
+    }    
     public String doSave(){
 
 	Connection con = null;

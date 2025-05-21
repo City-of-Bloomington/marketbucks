@@ -19,9 +19,9 @@
 	    </div>
 	</s:if>
 	<s:elseif test="hasActionMessages()">
-		<div class="welcome">
-		    <s:actionmessage/>
-		</div>
+	    <div class="welcome">
+		<s:actionmessage/>
+	    </div>
 	</s:elseif>
 	<s:hidden name="dispute.id" value="%{dispute.id}" />
 	<s:if test="dispute.status == 'Waiting'">
@@ -33,8 +33,8 @@
 	</s:if>
 	<table width="90%"><caption>Dispute Update</caption>
 	    <tr>
-		<th><label for="redeem_id">View Redemption:</label></th>
-		<td><a href="<s:property value='#application.url' />redeemEdit.action?id=<s:property value='dispute.redeem_id' id="redeem_id" />"> <s:property value="dispute.redeem_id" /></a></td>		  
+		<th><b>View Redemption:</b></th>
+		<td><a href="<s:property value='#application.url' />redeemEdit.action?id=<s:property value='dispute.redeem_id'/>"> <s:property value="dispute.redeem_id" /></a></td>		  
 	    </tr>
 	    <tr>
 		<th><b>Buck ID:</b></th>
@@ -55,16 +55,24 @@
 		</tr>
 	    </s:elseif>
 	    <tr>
-		<th width="35%"><label for="status">Status:</label></th>
+		<th width="35%"><b>Status:</b></th>
 		<td align="left">
-		    <s:if test="dispute.status == 'Resolved'">
+		    <s:if test="dispute.isResolved()">
 			Resolved
 		    </s:if>
 		    <s:else>
-			<s:radio name="dispute.status" value="%{dispute.status}" list="{'Waiting','Rejected'}" id="status" />
+			<s:if test="dispute.isWaiting()">
+			    <input type="radio" name="dispute.status" value="Waiting" checked="true" id="waiting" /><label for="waiting">Waiting</label>
+			    <input type="radio" name="dispute.status" value="Rejected" id="rejected" /><label for="rejected">Rejected</label>
+			</s:if>
+			<s:else>
+			    <input type="radio" name="dispute.status" value="Waiting" id="waiting" /><label for="waiting">Waiting</label>
+			    <input type="radio" name="dispute.status" value="Rejected" id="rejected" checked="true" /><label for="rejected">Rejected</label>
+			</s:else>
 		    </s:else>
 		</td>
 	    </tr>
+                    	    
 	    <tr>
 		<th valign="top"><b>Reason:</b></th>
 		<td align="left"><s:property value="dispute.reason" /></td>
@@ -77,7 +85,7 @@
 		<th valign="top"><b>Date & Time:</b></th>
 		<td align="left"><s:property value="dispute.date_time" /></td>
 	    </tr>		
-	    <s:if test="dispute.status == 'Waiting'">
+	    <s:if test="dispute.isWaiting()">
 		<tr>
 		    <td align="left">
 			<s:submit name="action" type="button" value="Update" />
@@ -87,18 +95,19 @@
 		    </td>
 		</tr>
 	    </s:if>
-	    <tr>
-	    <s:if test="dispute.hasResolution()">
-		<td>
-		    <button onclick="document.location='<s:property value='#application.url' />resolutionView.action?id=<s:property value='dispute.resolution.id' />';return false;">View Resolution</button>
-		</td>
-	    </s:if>
 	    <s:else>
-		<td>
-		    <button onclick="document.location='<s:property value='#application.url' />resolutionEdit.action?dispute_id=<s:property value='dispute.id' />';return false;">Start Resolution</button>
-		</td>
+		<tr>
+		    <td>&nbsp;</td>
+		    <td>
+			<s:if test="dispute.hasResolution()">
+			    <button onclick="document.location='<s:property value='#application.url' />resolutionView.action?id=<s:property value='dispute.resolution.id' />';return false;">View Resolution</button>
+			</s:if>
+			<s:else>
+			<button onclick="document.location='<s:property value='#application.url' />resolutionEdit.action?dispute_id=<s:property value='dispute.id' />';return false;">Start Resolution</button>
+			</s:else>
+		    </td>
+		</tr>
 	    </s:else>
-	    </tr>
 	</table>
 </s:form>
 
