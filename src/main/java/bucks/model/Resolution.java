@@ -274,8 +274,8 @@ public class Resolution implements java.io.Serializable{
 	if(dispute == null){
 	    return "Dispute Info not available";
 	}
+	buck = dispute.getBuck();
 	reason = dispute.getReason();
-	// getConf();
 	if(reason.equals("Expired")){
 	    expire_date = "12/31/"+Helper.getCurrentYear();
 	    return changeExpireDate();
@@ -316,11 +316,12 @@ public class Resolution implements java.io.Serializable{
     private String changeExpireDate(){
 		
 	String msg = "";
+	getDispute();
 	if(buck == null){
 	    return "No buck ";
 	}
 	buck.setExpire_date(expire_date);
-	msg = conf.doUpdate();
+	msg = buck.doUpdate();
 	if(msg.equals("")){
 	    msg = updateDisputeAndRedemption();
 	    if(!msg.equals("")){
@@ -345,20 +346,48 @@ public class Resolution implements java.io.Serializable{
 	if(dispute == null){
 	    return "No dispute found ";
 	}
-	Redeem redeem = dispute.getRedeem();
-	if(redeem != null){ 
-	    redeem.setBuck_id(buck_id);
-	    msg = redeem.redeemBuck();
-	    if(msg.equals("")){
-		dispute.setStatus("Resolved");
-		dispute.setUser_id(user_id);
-		msg = dispute.doUpdate();
+	String red_id = dispute.getRedeem_id();
+	if(!red_id.isEmpty()){ 
+	    dispute.setStatus("Resolved");
+	    dispute.setUser_id(user_id);
+	    msg = dispute.doUpdate();
+	    if(msg.isEmpty()){
+		msg = redeemBuck(buck_id, red_id);
 	    }
 	}
 	else{
-	    msg = "No redemption found ";
+	    msg = "No redemption record found ";
 	}
 	return msg;
+    }
+    private String redeemBuck(String b_id, String red_id){
+	String msg = "";
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	String qq = "insert into redeem_bucks values(?,?)";
+		
+	logger.debug(qq);
+	try{
+	    con = Helper.getConnection();
+	    if(con == null){
+		msg = "Could not connect ";
+		return msg;
+	    }
+	    pstmt = con.prepareStatement(qq);
+	    pstmt.setString(1, red_id);
+	    pstmt.setString(2, b_id);
+	    pstmt.executeUpdate();
+	}
+	catch(Exception ex){
+	    msg += ex+":"+qq;
+	    logger.error(msg);
+	    msg = "Error: This buck is probably already redeemed ";
+	}
+	finally{
+	    Helper.databaseDisconnect(con, pstmt, rs);
+	}
+	return msg;			
     }
     private String handleNotExist(){
 	String msg = "";
