@@ -100,23 +100,28 @@
 	  </tr>
       </s:if>
       <s:if test="batch.status == 'Waiting'">
-	  <tr>	      
 	      <s:if test="batch.id == ''">
 		  <s:if test="batch.conf_id != ''">
-		      <td>&nbsp;</td>
-		      <td>
-			  <s:submit name="action" type="button" value="Next" />
-		      </td>
+		      <tr>	      
+			  <td>&nbsp;</td>
+			  <td>
+			      <s:submit name="action" type="button" value="Next" />
+			  </td>
+		      </tr>
 		  </s:if>
 	      </s:if>
 	      <s:else>
-		  <th valign="top"><label for="confirm">You need to Confirm before you can print </label><s:submit name="action" type="button" value="Confirm" id="confirm" />
-		  </th>		  
-		  <td valign="top">
-		      <button onclick="document.location='<s:property value='#application.url' />GenerateChecks.do?id=<s:property value='batch.id' />';return false;">Printable Certificates</button>
-		  </td>						
+		  <tr><td colspan="2">Note:Print the Certificate first and OK then Confirm </td>
+		  </tr>
+		  <tr>
+		      <th valign="top">
+		      	  <button onclick="document.location='<s:property value='#application.url' />GenerateChecks.do?id=<s:property value='batch.id' />';return false;">Printable Certificates</button>
+		      </th>		      
+		      <td valign="top"><label for="confirm"></label><s:submit name="action" type="button" value="Confirm" id="confirm" />
+		      </td>		  
+
+		  </tr>
 	      </s:else>
-	  </tr>	      
       </s:if>
       <s:if test="batch.conf_id != '' && batch.status == 'Printed' ">
 	  <tr>
