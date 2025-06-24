@@ -23,6 +23,7 @@ public class VendorList{
 	vendorsUser=null,
 	vendorsPassword=null;
     List<Vendor> vendors = null;
+    List<String> vendorNumbers = null;
     String id="", name = "", active="", vendor_num="", activeStatus="";
     public VendorList(){
     }		
@@ -100,6 +101,9 @@ public class VendorList{
     public List<Vendor> getVendors(){
 	return vendors;
     }
+    public List<String> getNwVendorNumbers(){
+	return vendorNumbers;
+    }
     public String find(){
 	String msg = "";
 	String qq = " select id,vendor_num,lname,fname,business_name,payType,active from vendors ";
@@ -138,6 +142,7 @@ public class VendorList{
 	}
 	try{
 	    vendors = new ArrayList<Vendor>();
+	    vendorNumbers = new ArrayList<>();
 	    pstmt = con.prepareStatement(qq);
 	    int jj=1;
 	    if(!id.isEmpty()){
@@ -153,8 +158,9 @@ public class VendorList{
 	    }
 	    rs = pstmt.executeQuery();	
 	    while(rs.next()){
+		String vendNum = rs.getString(1);
 		Vendor one = new Vendor(debug,
-					rs.getString(1),
+					vendNum,
 					rs.getString(2),
 					rs.getString(3),
 					rs.getString(4),
@@ -162,6 +168,9 @@ public class VendorList{
 					rs.getString(6),
 					rs.getString(7) != null);
 		vendors.add(one);
+		if(!vendorNumbers.contains(vendNum)){
+		    vendorNumbers.add(vendNum);
+		}
 	    }
 	}catch(Exception e){
 	    msg += e+":"+qq;

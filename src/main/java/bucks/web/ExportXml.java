@@ -33,7 +33,7 @@ public class ExportXml extends TopServlet{
     public void doGet(HttpServletRequest req, 
 		      HttpServletResponse res) 
 	throws ServletException, IOException {
-	String message="";
+	String msg="";
 		
 	HttpSession session = null;
 	Enumeration<String> values = req.getParameterNames();		
@@ -51,16 +51,52 @@ public class ExportXml extends TopServlet{
 	}
 
 	Export export = new Export(debug, id);
-	message = export.doSelect();
-	if(message.equals("")){
-	    generateXml(res, export);
+	msg = export.doSelect();
+	if(msg.equals("")){
+	    List<Vendor> vendors = new ArrayList<>();
+	    List<Redeem> redeems = export.getRedeems();
+	    for(Redeem one:redeems){
+		Vendor vndr = one.getVendor();
+		if(!vendors.contains(vndr)){
+		    vendors.add(vndr);
+		}
+	    }
+	    if(vendors.size() > 0){
+		List<String> nwVendorNumbers = null;
+		VendorList vl = new VendorList(debug,
+					       vendorsCheckUrl,
+					       vendorsDatabase,
+					       vendorsUser,
+					       vendorsPassword);
+		String back = vl.findNewVendors();
+		if(back.equals("")){
+		    nwVendorNumbers = vl.getNwVendorNumbers();
+		    if(nwVendorNumbers != null && nwVendorNumbers.size() > 0){
+			for(Vendor one:vendors){
+			    String vn = one.getVendorNum();
+			    if(!nwVendorNumbers.contains(vn)){
+				msg += "Vendor: "+one.getInfo()+" \n";
+			    }
+			}
+		    }
+		    if(!msg.isEmpty()){
+			msg = "The following vendors were not found in New World, please they need to be added or their vendor number be fixed \n"+msg;
+		    }
+		}
+		else{
+		    msg += back;
+		}		
+	    }
+	    if(msg.isEmpty()){
+		generateXml(res, export);
+	    }
 	}
-	else{
+	if(!msg.isEmpty()){
 	    res.setContentType("text/html");
 	    PrintWriter out = res.getWriter();
 	    out.println("<head><title></title><body>");
-	    out.println("<p><font color=red>");
-	    out.println(message);
+	    out.println("<p><font color=\"red\">");
+	    out.println(msg);
 	    out.println("</p>");
 	    out.println("</body>");
 	    out.println("</html>");

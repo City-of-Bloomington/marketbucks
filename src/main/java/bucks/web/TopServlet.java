@@ -27,7 +27,10 @@ public class TopServlet extends HttpServlet {
     static Logger logger = LogManager.getLogger(TopServlet.class);
     static ServletContext context = null;
     static String endpoint_logout_uri = "";
-
+    static String vendorsCheckUrl=null,
+	vendorsDatabase=null,
+	vendorsUser=null,
+	vendorsPassword=null;
     public void init(ServletConfig conf) {
         try {
             context = conf.getServletContext();
@@ -47,7 +50,14 @@ public class TopServlet extends HttpServlet {
 
             str = context.getInitParameter("endpoint_logout_uri");
             if (str != null) { endpoint_logout_uri = str; }
-
+	    str = context.getInitParameter("vendorsCheckUrl");
+            if (str != null) { vendorsCheckUrl = str; }
+	    str = context.getInitParameter("vendorsDatabase");
+            if (str != null) { vendorsDatabase = str; }	    
+	    str = context.getInitParameter("vendorsUser");
+            if (str != null) { vendorsUser = str; }
+	    str = context.getInitParameter("vendorsPassword");
+            if (str != null) { vendorsPassword = str; }	    
             String username        = context.getInitParameter("adfs_username");
             String auth_end_point  = context.getInitParameter("auth_end_point");
             String token_end_point = context.getInitParameter("token_end_point");

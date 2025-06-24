@@ -194,6 +194,17 @@ public class Vendor implements java.io.Serializable{
     public String toString(){
 	return getFullName();
     }
+    public String getInfo(){
+	String str = getFullName();
+	if(!business_name.isEmpty()){
+	    if(!str.isEmpty()){
+		str +=", ";
+	    }
+	    str += business_name;
+	}
+	
+	return str+" vendor number: "+vendor_num;
+    }    
     @Override
     public int hashCode() {
 	int hash = 3, id_int = 0; 
