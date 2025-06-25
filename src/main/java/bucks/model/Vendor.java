@@ -203,7 +203,7 @@ public class Vendor implements java.io.Serializable{
 	    str += business_name;
 	}
 	
-	return str+" vendor number: "+vendor_num;
+	return str+", #: "+vendor_num;
     }    
     @Override
     public int hashCode() {

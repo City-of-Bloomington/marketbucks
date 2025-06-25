@@ -75,12 +75,12 @@ public class ExportXml extends TopServlet{
 			for(Vendor one:vendors){
 			    String vn = one.getVendorNum();
 			    if(!nwVendorNumbers.contains(vn)){
-				msg += "Vendor: "+one.getInfo()+" \n";
+				msg += "<li>"+one.getInfo()+"</li>";
 			    }
 			}
 		    }
 		    if(!msg.isEmpty()){
-			msg = "The following vendors were not found in New World, please they need to be added or their vendor number be fixed \n"+msg;
+			msg = "The following vendors were not found in New World<br /> They need to be added or their vendor number be fixed <br />"+msg;
 		    }
 		}
 		else{
